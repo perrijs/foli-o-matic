@@ -1,0 +1,16 @@
+# DEPENDENCIES
+/node_modules
+
+# NEXT
+/.next/
+/out/
+
+# PROD
+/build
+
+# TYPESCRIPT
+*.tsbuildinfo
+next-env.d.ts
+
+# MISC
+.DS_Store

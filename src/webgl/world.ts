@@ -1,9 +1,12 @@
-import { BoxGeometry, Mesh, MeshBasicMaterial } from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import PubSub from "pubsub-js";
 
 import { Renderer } from "./globals/Renderer";
 import { Scene } from "./globals/Scene";
 import { Camera } from "./globals/Camera";
+import { AmbientLight } from "./globals/AmbientLight";
+
+import { CoilController } from "./controllers/CoilController";
 
 import { GL_EXAMPLE_TOPIC } from "./config/topics";
 
@@ -11,6 +14,11 @@ export class World {
   renderer = Renderer.getInstance();
   scene = Scene.getInstance();
   camera = Camera.getInstance();
+  ambientLight = AmbientLight.getInstance();
+
+  coilController = CoilController.getInstance();
+
+  controls?: OrbitControls;
 
   canvasParent: HTMLDivElement;
 
@@ -22,12 +30,9 @@ export class World {
   }
 
   init() {
+    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.camera.position.set(0, 0, 5);
-
-    const geometry = new BoxGeometry(1, 1, 1);
-    const material = new MeshBasicMaterial({ color: 0x000000 });
-    const cube = new Mesh(geometry, material);
-    this.scene.add(cube);
+    this.controls.update();
 
     this.renderer.setAnimationLoop(() => this.render());
     this.canvasParent.appendChild(this.renderer.domElement);
@@ -44,6 +49,8 @@ export class World {
   }
 
   render() {
+    this.controls?.update();
+
     this.renderer.render(this.scene, this.camera);
   }
 }

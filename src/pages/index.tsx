@@ -1,5 +1,11 @@
+import WebGL from "@/webgl/index";
+
 const Index = () => {
-  return <></>;
+  return (
+    <>
+      <WebGL />
+    </>
+  );
 };
 
 export default Index;

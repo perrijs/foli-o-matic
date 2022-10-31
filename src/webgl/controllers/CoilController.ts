@@ -1,17 +1,19 @@
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-
 import { Group } from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import PubSub from "pubsub-js";
 
 import { Scene } from "@/webgl/globals/Scene";
 import { Coil } from "@/webgl/entities/Coil";
 
 import { COILS } from "@/webgl/config/coils";
+import { GL_ROTATE_COIL } from "@/webgl/config/topics";
 
 export class CoilController {
   static instance: CoilController;
   scene = Scene.getInstance();
 
   model?: Group;
+  coils?: Coil[] = [];
 
   constructor() {
     this.load();
@@ -30,11 +32,24 @@ export class CoilController {
   }
 
   init() {
-    COILS.forEach((coil) => {
-      if (!this.model) return;
+    COILS.forEach((coilData) => {
+      if (!this.model || !this.coils) return;
 
-      new Coil(coil, this.model.clone());
+      const coil = new Coil(coilData, this.model.clone());
+      this.coils.push(coil);
     });
+
+    this.handleSubscriptions();
+  }
+
+  handleSubscriptions() {
+    PubSub.subscribe(GL_ROTATE_COIL, this.handleRotate.bind(this));
+  }
+
+  handleRotate(_topic: string, data: number) {
+    if (!this.coils) return;
+
+    this.coils[data].rotate();
   }
 
   static getInstance() {

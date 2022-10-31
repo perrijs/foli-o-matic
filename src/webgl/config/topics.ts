@@ -1,1 +1,1 @@
-export const GL_EXAMPLE_TOPIC = "glExampleTopic";
+export const GL_ROTATE_COIL = "glRotateCoil";

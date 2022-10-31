@@ -1,4 +1,5 @@
 import { Group } from "three";
+import gsap from "gsap";
 
 import { Scene } from "@/webgl/globals/Scene";
 
@@ -22,5 +23,17 @@ export class Coil {
 
     this.model.position.set(position.x, position.y, position.z);
     this.scene.add(this.model);
+  }
+
+  rotate() {
+    gsap.fromTo(
+      this.model.rotation,
+      {
+        z: 0,
+      },
+      {
+        z: Math.PI * 2,
+      }
+    );
   }
 }

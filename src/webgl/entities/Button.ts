@@ -18,7 +18,7 @@ export class Button {
   init() {
     const position = this.buttonData.position;
 
-    const geometry = new BoxGeometry(1, 1, 1);
+    const geometry = new BoxGeometry(0.3, 0.3, 0.3);
     const material = new MeshBasicMaterial({ color: 0xffffff });
     const placeholderMesh = new Mesh(geometry, material);
 

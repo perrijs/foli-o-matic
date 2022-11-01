@@ -44,7 +44,7 @@ export class Item {
     gsap.fromTo(
       this.model.position,
       {
-        y: 2.125,
+        y: this.model.position.y,
       },
       {
         delay: 0.75,

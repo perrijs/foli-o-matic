@@ -25,18 +25,20 @@ export class Cabinet {
     this.createBackPanel();
     this.createTopPanel();
     this.createBottomPanel();
-    this.createSidePanel(-3, 0, 1.5);
-    this.createSidePanel(3, 0, 1.5);
+    this.createSidePanel(-2.5, 0, 1.5);
+    this.createSidePanel(2.5, 0, 1.5);
     this.createInsidePanel();
     this.createFacePanel();
     this.createWindow();
-    this.createTray();
+
+    this.createTray(-0.5, 1.75, 1);
+    this.createTray(-0.5, -0.25, 1);
 
     this.scene.add(this.cabinet);
   }
 
   createBackPanel() {
-    const backPanelGeometry = new BoxGeometry(6.5, 7.5, 0.5);
+    const backPanelGeometry = new BoxGeometry(5.5, 7.5, 0.5);
     const backPanelMaterial = new MeshBasicMaterial({ color: 0xffc0cb });
     const backPanel = new Mesh(backPanelGeometry, backPanelMaterial);
 
@@ -55,7 +57,7 @@ export class Cabinet {
   }
 
   createTopPanel() {
-    const topPanelGeometry = new BoxGeometry(6.5, 3, 0.5);
+    const topPanelGeometry = new BoxGeometry(5.5, 3, 0.5);
     const topPanelMaterial = new MeshBasicMaterial({ color: 0xffc0cb });
     const topPanel = new Mesh(topPanelGeometry, topPanelMaterial);
 
@@ -66,7 +68,7 @@ export class Cabinet {
   }
 
   createBottomPanel() {
-    const bottomPanelGeometry = new BoxGeometry(6.5, 3, 0.5);
+    const bottomPanelGeometry = new BoxGeometry(5.5, 3, 0.5);
     const bottomPanelMaterial = new MeshBasicMaterial({ color: 0xffc0cb });
     const bottomPanel = new Mesh(bottomPanelGeometry, bottomPanelMaterial);
 
@@ -88,7 +90,7 @@ export class Cabinet {
   }
 
   createFacePanel() {
-    const facePanelGeometry = new BoxGeometry(2, 7.5, 0.5);
+    const facePanelGeometry = new BoxGeometry(1.5, 7.5, 0.5);
     const facePanelMaterial = new MeshBasicMaterial({ color: 0xffc0cb });
     const facePanel = new Mesh(facePanelGeometry, facePanelMaterial);
 
@@ -97,12 +99,12 @@ export class Cabinet {
     this.cabinet.add(facePanel);
   }
 
-  createTray() {
+  createTray(x: number, y: number, z: number) {
     const trayGeometry = new BoxGeometry(4, 2, 0.125);
     const trayMaterial = new MeshBasicMaterial({ color: 0x000000 });
     const tray = new Mesh(trayGeometry, trayMaterial);
 
-    tray.position.set(-1, 1.75, 1);
+    tray.position.set(x, y, z);
     tray.rotation.x = Math.PI / 2;
 
     this.cabinet.add(tray);
@@ -130,7 +132,7 @@ export class Cabinet {
       });
       const window = new Mesh(windowGeometry, windowMaterial);
 
-      window.position.set(-1, 0, 2.75);
+      window.position.set(-0.5, 0, 2.75);
 
       this.cabinet.add(window);
     });

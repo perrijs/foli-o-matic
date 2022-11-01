@@ -6,7 +6,7 @@ import { Scene } from "@/webgl/globals/Scene";
 import { Coil } from "@/webgl/entities/Coil";
 
 import { COILS } from "@/webgl/config/coils";
-import { GL_ROTATE_COIL } from "@/webgl/config/topics";
+import { GL_SELECT_ITEM } from "@/webgl/config/topics";
 
 export class CoilController {
   static instance: CoilController;
@@ -50,7 +50,7 @@ export class CoilController {
   }
 
   handleSubscriptions() {
-    PubSub.subscribe(GL_ROTATE_COIL, this.handleRotate.bind(this));
+    PubSub.subscribe(GL_SELECT_ITEM, this.handleRotate.bind(this));
   }
 
   handleRotate(_topic: string, data: string) {

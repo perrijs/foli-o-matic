@@ -4,7 +4,7 @@ import { Scene } from "@/webgl/globals/Scene";
 import { Button } from "@/webgl/entities/Button";
 
 import { BUTTONS } from "@/webgl/config/buttons";
-import { GL_ROTATE_COIL } from "@/webgl/config/topics";
+import { GL_SELECT_ITEM } from "@/webgl/config/topics";
 
 export class ButtonController {
   static instance: ButtonController;
@@ -37,7 +37,7 @@ export class ButtonController {
 
     this.buttons.forEach((button) => {
       if (button.buttonData.id === id) {
-        PubSub.publish(GL_ROTATE_COIL, id);
+        PubSub.publish(GL_SELECT_ITEM, id);
       }
     });
   }

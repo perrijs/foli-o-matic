@@ -13,3 +13,8 @@ export interface ButtonData {
   id: string;
   position: Position;
 }
+
+export interface ItemData {
+  id: string;
+  position: Position;
+}

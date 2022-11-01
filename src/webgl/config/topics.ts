@@ -1,1 +1,1 @@
-export const GL_ROTATE_COIL = "glRotateCoil";
+export const GL_SELECT_ITEM = "glRotateCoil";

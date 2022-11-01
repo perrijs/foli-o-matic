@@ -1,4 +1,4 @@
-import { Group } from "three";
+import { Group, Mesh, MeshPhysicalMaterial } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import PubSub from "pubsub-js";
 
@@ -30,6 +30,19 @@ export class CoilController {
     const loader = new GLTFLoader();
 
     loader.load("/models/placeholder_coil.glb", (gltf) => {
+      const mesh = gltf.scene.children[0] as Mesh;
+
+      mesh.material = new MeshPhysicalMaterial({
+        color: 0x414649,
+        emissive: 0x000000,
+        metalness: 1,
+        roughness: 0,
+        clearcoat: 1,
+        clearcoatRoughness: 0,
+        transmission: 0,
+        ior: 2.3,
+      });
+
       gltf.scene.scale.setScalar(0.1);
 
       this.model = gltf.scene;

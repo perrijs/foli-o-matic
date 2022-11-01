@@ -19,6 +19,13 @@ export class CoilController {
     this.load();
   }
 
+  static getInstance() {
+    if (!CoilController.instance)
+      CoilController.instance = new CoilController();
+
+    return CoilController.instance;
+  }
+
   load() {
     const loader = new GLTFLoader();
 
@@ -50,12 +57,5 @@ export class CoilController {
     if (!this.coils) return;
 
     this.coils[data].rotate();
-  }
-
-  static getInstance() {
-    if (!CoilController.instance)
-      CoilController.instance = new CoilController();
-
-    return CoilController.instance;
   }
 }

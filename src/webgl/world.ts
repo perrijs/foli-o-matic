@@ -6,6 +6,7 @@ import { Camera } from "./globals/Camera";
 import { AmbientLight } from "./globals/AmbientLight";
 
 import { CoilController } from "./controllers/CoilController";
+import { ButtonController } from "./controllers/ButtonController";
 
 export class World {
   renderer = Renderer.getInstance();
@@ -14,6 +15,7 @@ export class World {
   ambientLight = AmbientLight.getInstance();
 
   coilController = CoilController.getInstance();
+  buttonController = ButtonController.getInstance();
 
   controls?: OrbitControls;
 

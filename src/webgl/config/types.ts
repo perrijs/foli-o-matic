@@ -7,3 +7,7 @@ export interface Position {
 export interface CoilData {
   position: Position;
 }
+
+export interface ButtonData {
+  position: Position;
+}

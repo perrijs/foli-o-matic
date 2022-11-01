@@ -6,6 +6,7 @@ import { Scene } from "./globals/Scene";
 import { Camera } from "./globals/Camera";
 import { AmbientLight } from "./globals/AmbientLight";
 
+import { Cabinet } from "./entities/Cabinet";
 import { CoilController } from "./controllers/CoilController";
 import { ButtonController } from "./controllers/ButtonController";
 import { ItemController } from "./controllers/ItemController";
@@ -39,11 +40,13 @@ export class World {
 
   init() {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-    this.camera.position.set(0, 0, 5);
+    this.camera.position.set(0, 5, 10);
     this.controls.update();
 
     this.renderer.setAnimationLoop(() => this.render());
     this.canvasParent.appendChild(this.renderer.domElement);
+
+    new Cabinet();
   }
 
   addEventListeners() {
@@ -75,6 +78,14 @@ export class World {
       this.raycaster.setFromCamera(this.pointer, this.camera);
 
       this.intersections = this.raycaster.intersectObjects(this.scene.children);
+
+      if (this.intersections.length > 0) {
+        document.body.style.cursor = this.intersections[0].object.name.includes(
+          "item"
+        )
+          ? "pointer"
+          : "default";
+      }
     }
     if (this.controls) this.controls.update();
 

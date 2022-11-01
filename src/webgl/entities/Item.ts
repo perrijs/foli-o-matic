@@ -29,11 +29,11 @@ export class Item {
     gsap.fromTo(
       this.model.position,
       {
-        z: 0.8,
+        z: 1.8,
       },
       {
         duration: 1,
-        z: 1.3,
+        z: 2.3,
       }
     );
 
@@ -44,13 +44,13 @@ export class Item {
     gsap.fromTo(
       this.model.position,
       {
-        y: 0.125,
+        y: 2.125,
       },
       {
         delay: 0.75,
-        duration: 0.25,
+        duration: 0.5,
         ease: "power4.in",
-        y: -1,
+        y: -2,
       }
     );
   }

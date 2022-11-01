@@ -53,9 +53,11 @@ export class CoilController {
     PubSub.subscribe(GL_ROTATE_COIL, this.handleRotate.bind(this));
   }
 
-  handleRotate(_topic: string, data: number) {
+  handleRotate(_topic: string, data: string) {
     if (!this.coils) return;
 
-    this.coils[data].rotate();
+    this.coils.forEach((coil) => {
+      if (coil.coilData.id === data) coil.rotate();
+    });
   }
 }

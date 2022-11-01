@@ -1,6 +1,6 @@
 export const COILS = [
   {
-    id: 0,
+    id: "coil_1",
     position: {
       x: -1,
       y: 0,
@@ -8,7 +8,7 @@ export const COILS = [
     },
   },
   {
-    id: 1,
+    id: "coil_2",
     position: {
       x: 0,
       y: 0,
@@ -16,7 +16,7 @@ export const COILS = [
     },
   },
   {
-    id: 2,
+    id: "coil_3",
     position: {
       x: 1,
       y: 0,

@@ -5,9 +5,11 @@ export interface Position {
 }
 
 export interface CoilData {
+  id: string;
   position: Position;
 }
 
 export interface ButtonData {
+  id: string;
   position: Position;
 }

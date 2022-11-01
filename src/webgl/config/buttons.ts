@@ -1,6 +1,6 @@
 export const BUTTONS = [
   {
-    id: 0,
+    id: "coil_1",
     position: {
       x: -4,
       y: 2.5,
@@ -8,7 +8,7 @@ export const BUTTONS = [
     },
   },
   {
-    id: 1,
+    id: "coil_2",
     position: {
       x: -2,
       y: 2.5,
@@ -16,7 +16,7 @@ export const BUTTONS = [
     },
   },
   {
-    id: 2,
+    id: "coil_3",
     position: {
       x: 0,
       y: 2.5,

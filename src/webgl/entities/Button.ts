@@ -9,8 +9,8 @@ export class Button {
 
   buttonData: ButtonData;
 
-  constructor(coilData: ButtonData) {
-    this.buttonData = coilData;
+  constructor(buttonData: ButtonData) {
+    this.buttonData = buttonData;
 
     this.init();
   }
@@ -22,6 +22,7 @@ export class Button {
     const material = new MeshBasicMaterial({ color: 0xffff00 });
     const placeholderMesh = new Mesh(geometry, material);
 
+    placeholderMesh.name = this.buttonData.id;
     placeholderMesh.position.set(position.x, position.y, position.z);
     this.scene.add(placeholderMesh);
   }

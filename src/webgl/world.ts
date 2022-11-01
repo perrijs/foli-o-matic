@@ -1,4 +1,4 @@
-import { Ray, Raycaster, Vector2 } from "three";
+import { Raycaster, Vector2, Object3D, Intersection } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 import { Renderer } from "./globals/Renderer";
@@ -21,6 +21,7 @@ export class World {
   controls?: OrbitControls;
   raycaster?: Raycaster;
   pointer?: Vector2;
+  intersections?: Intersection<Object3D<Event>>[];
 
   canvasParent: HTMLDivElement;
 
@@ -31,6 +32,7 @@ export class World {
     this.canvasParent = canvasParent;
 
     this.init();
+    this.addEventListeners();
   }
 
   init() {
@@ -40,10 +42,13 @@ export class World {
 
     this.renderer.setAnimationLoop(() => this.render());
     this.canvasParent.appendChild(this.renderer.domElement);
+  }
 
+  addEventListeners() {
     document.addEventListener("mousemove", (event) =>
       this.handleMouseMove(event)
     );
+    document.addEventListener("click", () => this.handleClick());
   }
 
   handleMouseMove(event: MouseEvent) {
@@ -53,11 +58,21 @@ export class World {
     this.pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
   }
 
+  handleClick() {
+    if (!this.intersections) return;
+
+    if (this.intersections.length > 0) {
+      const topNode = this.intersections[0].object;
+
+      this.buttonController.handleClick(topNode.name);
+    }
+  }
+
   render() {
     if (this.raycaster && this.pointer) {
       this.raycaster.setFromCamera(this.pointer, this.camera);
 
-      const intersects = this.raycaster.intersectObjects(this.scene.children);
+      this.intersections = this.raycaster.intersectObjects(this.scene.children);
     }
     if (this.controls) this.controls.update();
 

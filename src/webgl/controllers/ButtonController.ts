@@ -31,4 +31,14 @@ export class ButtonController {
       this.buttons.push(button);
     });
   }
+
+  handleClick(id: string) {
+    if (!this.buttons) return;
+
+    this.buttons.forEach((button) => {
+      if (button.buttonData.id === id) {
+        PubSub.publish(GL_ROTATE_COIL, id);
+      }
+    });
+  }
 }

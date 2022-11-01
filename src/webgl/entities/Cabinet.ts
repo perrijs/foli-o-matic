@@ -1,4 +1,12 @@
-import { Group, BoxGeometry, Mesh, MeshBasicMaterial } from "three";
+import {
+  Group,
+  BoxGeometry,
+  Mesh,
+  MeshBasicMaterial,
+  MeshPhysicalMaterial,
+  EquirectangularReflectionMapping,
+} from "three";
+import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
 
 import { Scene } from "@/webgl/globals/Scene";
 
@@ -21,7 +29,7 @@ export class Cabinet {
     this.createSidePanel(3, 0, 1.5);
     this.createInsidePanel();
     this.createFacePanel();
-
+    this.createWindow();
     this.createTray();
 
     this.scene.add(this.cabinet);
@@ -98,5 +106,33 @@ export class Cabinet {
     tray.rotation.x = Math.PI / 2;
 
     this.cabinet.add(tray);
+  }
+
+  createWindow() {
+    new RGBELoader().load("/textures/hdr/placeholder_hdr.hdr", (texture) => {
+      texture.mapping = EquirectangularReflectionMapping;
+
+      this.scene.environment = texture;
+
+      const windowGeometry = new BoxGeometry(4, 6, 0.1);
+      const windowMaterial = new MeshPhysicalMaterial({
+        color: 0x666d70,
+        emissive: 0x000000,
+        transparent: true,
+        opacity: 0.2,
+        roughness: 0,
+        metalness: 0,
+        transmission: 0,
+        reflectivity: 1,
+        clearcoat: 1,
+        clearcoatRoughness: 0,
+        ior: 2.3,
+      });
+      const window = new Mesh(windowGeometry, windowMaterial);
+
+      window.position.set(-1, 0, 2.75);
+
+      this.cabinet.add(window);
+    });
   }
 }

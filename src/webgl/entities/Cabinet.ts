@@ -9,6 +9,7 @@ import {
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
 
 import { Scene } from "@/webgl/globals/Scene";
+import { Screen } from "@/webgl/entities/Screen";
 
 export class Cabinet {
   scene = Scene.getInstance();
@@ -33,6 +34,8 @@ export class Cabinet {
 
     this.createTray(-0.5, 1.75, 1);
     this.createTray(-0.5, -0.25, 1);
+
+    new Screen();
 
     this.scene.add(this.cabinet);
   }

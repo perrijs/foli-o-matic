@@ -1,3 +1,5 @@
+import { Texture } from "three";
+
 export interface Position {
   x: number;
   y: number;
@@ -17,4 +19,9 @@ export interface ButtonData {
 export interface ItemData {
   id: string;
   position: Position;
+}
+
+export interface Textures {
+  id: string;
+  texture: Texture;
 }

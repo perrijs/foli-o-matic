@@ -53,5 +53,22 @@ export class Item {
         y: -2,
       }
     );
+
+    gsap.fromTo(
+      this.model.rotation,
+      {
+        x: this.model.rotation.x,
+        y: this.model.rotation.y,
+        z: this.model.rotation.z,
+      },
+      {
+        delay: 0.75,
+        duration: 0.5,
+        ease: "power4.in",
+        x: 0.5,
+        y: 0.5,
+        z: 0.5,
+      }
+    );
   }
 }

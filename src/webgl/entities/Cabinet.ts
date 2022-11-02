@@ -10,6 +10,7 @@ import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
 
 import { Scene } from "@/webgl/globals/Scene";
 import { Screen } from "@/webgl/entities/Screen";
+import { Flap } from "@/webgl/entities/Flap";
 
 export class Cabinet {
   scene = Scene.getInstance();
@@ -36,6 +37,7 @@ export class Cabinet {
     this.createTray(-0.5, -0.25, 1);
 
     new Screen();
+    new Flap();
 
     this.scene.add(this.cabinet);
   }
@@ -119,7 +121,7 @@ export class Cabinet {
 
       this.scene.environment = texture;
 
-      const windowGeometry = new BoxGeometry(4, 6, 0.1);
+      const windowGeometry = new BoxGeometry(4, 5.25, 0.1);
       const windowMaterial = new MeshPhysicalMaterial({
         color: 0x666d70,
         emissive: 0x000000,
@@ -135,7 +137,7 @@ export class Cabinet {
       });
       const window = new Mesh(windowGeometry, windowMaterial);
 
-      window.position.set(-0.5, 0, 2.75);
+      window.position.set(-0.5, 1, 2.75);
 
       this.cabinet.add(window);
     });

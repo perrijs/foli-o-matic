@@ -1,4 +1,10 @@
-import { Mesh, BoxGeometry, MeshBasicMaterial } from "three";
+import {
+  TextureLoader,
+  Texture,
+  Mesh,
+  BoxGeometry,
+  MeshMatcapMaterial,
+} from "three";
 import PubSub from "pubsub-js";
 import gsap from "gsap";
 
@@ -10,14 +16,25 @@ export class Flap {
   scene = Scene.getInstance();
 
   mesh?: Mesh;
+  matcap?: Texture;
 
   constructor() {
-    this.init();
+    this.load();
+  }
+
+  load() {
+    const loader = new TextureLoader();
+
+    loader.load("textures/matcaps/matcap_ivory.png", (texture) => {
+      this.matcap = texture;
+
+      this.init();
+    });
   }
 
   init() {
     const flapGeometry = new BoxGeometry(3, 0.75, 0.1);
-    const flapMaterial = new MeshBasicMaterial({ color: 0x000000 });
+    const flapMaterial = new MeshMatcapMaterial({ matcap: this.matcap });
     const flap = new Mesh(flapGeometry, flapMaterial);
 
     flap.position.set(-0.75, -2, 2.75);

@@ -1,4 +1,11 @@
-import { Group, Mesh, MeshPhysicalMaterial } from "three";
+import {
+  TextureLoader,
+  Texture,
+  Group,
+  Mesh,
+  MeshPhysicalMaterial,
+  MeshMatcapMaterial,
+} from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import PubSub from "pubsub-js";
 
@@ -13,6 +20,7 @@ export class CoilController {
   scene = Scene.getInstance();
 
   model?: Group;
+  matcap?: Texture;
   coils?: Coil[] = [];
 
   constructor() {
@@ -26,21 +34,21 @@ export class CoilController {
     return CoilController.instance;
   }
 
-  load() {
-    const loader = new GLTFLoader();
+  async load() {
+    const textureLoader = new TextureLoader();
+    const gltfLoader = new GLTFLoader();
 
-    loader.load("/models/placeholder_coil.glb", (gltf) => {
+    await textureLoader.load("textures/matcaps/matcap_grey.png", (texture) => {
+      this.matcap = texture;
+
+      this.init();
+    });
+
+    gltfLoader.load("/models/placeholder_coil.glb", (gltf) => {
       const mesh = gltf.scene.children[0] as Mesh;
 
-      mesh.material = new MeshPhysicalMaterial({
-        color: 0x414649,
-        emissive: 0x000000,
-        metalness: 1,
-        roughness: 0,
-        clearcoat: 1,
-        clearcoatRoughness: 0,
-        transmission: 0,
-        ior: 2.3,
+      mesh.material = new MeshMatcapMaterial({
+        matcap: this.matcap,
       });
 
       gltf.scene.scale.setScalar(0.1);

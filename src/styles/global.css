@@ -2,9 +2,14 @@ html,
 body {
   width: 100vw;
   height: 100vh;
-
   margin: 0;
   padding: 0;
+
+  background: radial-gradient(
+    circle,
+    rgba(253, 254, 236, 1) 33%,
+    rgba(246, 165, 162, 1) 125%
+  );
 }
 
 button {

@@ -40,7 +40,7 @@ export class Screen {
     const screenMaterial = new MeshBasicMaterial({ color: 0x000000 });
     const screen = new Mesh(screenGeometry, screenMaterial);
 
-    screen.position.set(1.8, 2.23, 3.001);
+    screen.position.set(1.633, 2.23, 3.001);
 
     this.mesh = screen;
     this.scene.add(this.mesh);

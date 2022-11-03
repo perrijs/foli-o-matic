@@ -31,7 +31,7 @@ export class Cabinet {
   load() {
     const loader = new TextureLoader();
 
-    loader.load("textures/matcaps/placeholder_matcap.png", (texture) => {
+    loader.load("textures/matcaps/matcap_red.png", (texture) => {
       this.matcap = texture;
 
       this.init();
@@ -43,14 +43,15 @@ export class Cabinet {
     this.createTopPanel();
     this.createBottomPanel();
     this.createBottomFiller();
-    this.createSidePanel(-2.5, 0, 1.5);
-    this.createSidePanel(2.5, 0, 1.5);
+    this.createSidePanel(-2.25, 0, 1.5);
+    this.createSidePanel(2.25, 0, 1.5);
     this.createInsidePanel();
     this.createFacePanel();
     this.createWindow();
 
     this.createTray(-0.5, 1.75, 1);
-    this.createTray(-0.5, -0.25, 1);
+    this.createTray(-0.5, 0.25, 1);
+    this.createTray(-0.5, -1.25, 1);
 
     new Screen();
     new Flap();
@@ -59,7 +60,7 @@ export class Cabinet {
   }
 
   createBackPanel() {
-    const backPanelGeometry = new BoxGeometry(5.5, 7.5, 0.5);
+    const backPanelGeometry = new BoxGeometry(5, 7.5, 0.5);
     const backPanelMaterial = new MeshMatcapMaterial({ matcap: this.matcap });
     const backPanel = new Mesh(backPanelGeometry, backPanelMaterial);
 
@@ -78,7 +79,7 @@ export class Cabinet {
   }
 
   createTopPanel() {
-    const topPanelGeometry = new BoxGeometry(5.5, 3, 0.5);
+    const topPanelGeometry = new BoxGeometry(5, 3, 0.5);
     const topPanelMaterial = new MeshMatcapMaterial({ matcap: this.matcap });
     const topPanel = new Mesh(topPanelGeometry, topPanelMaterial);
 
@@ -89,7 +90,7 @@ export class Cabinet {
   }
 
   createBottomPanel() {
-    const bottomPanelGeometry = new BoxGeometry(5.5, 3, 0.5);
+    const bottomPanelGeometry = new BoxGeometry(5, 3, 0.5);
     const bottomPanelMaterial = new MeshMatcapMaterial({ matcap: this.matcap });
     const bottomPanel = new Mesh(bottomPanelGeometry, bottomPanelMaterial);
 
@@ -125,13 +126,13 @@ export class Cabinet {
     const facePanelMaterial = new MeshMatcapMaterial({ matcap: this.matcap });
     const facePanel = new Mesh(facePanelGeometry, facePanelMaterial);
 
-    facePanel.position.set(2, 0, 2.75);
+    facePanel.position.set(1.5, 0, 2.75);
 
     this.cabinet.add(facePanel);
   }
 
   createTray(x: number, y: number, z: number) {
-    const trayGeometry = new BoxGeometry(4, 2, 0.125);
+    const trayGeometry = new BoxGeometry(3.5, 2, 0.1);
     const trayMaterial = new MeshBasicMaterial({ color: 0x000000 });
     const tray = new Mesh(trayGeometry, trayMaterial);
 
@@ -147,7 +148,7 @@ export class Cabinet {
 
       this.scene.environment = texture;
 
-      const windowGeometry = new BoxGeometry(4, 5.25, 0.1);
+      const windowGeometry = new BoxGeometry(3.5, 5.25, 0.1);
       const windowMaterial = new MeshPhysicalMaterial({
         color: 0x666d70,
         emissive: 0x000000,

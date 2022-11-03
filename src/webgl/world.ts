@@ -33,12 +33,14 @@ export class World {
   pointer?: Vector2;
   intersections?: Intersection<Object3D<Event>>[];
 
+  canSelect?: boolean;
   canvasParent: HTMLDivElement;
 
   constructor(canvasParent: HTMLDivElement) {
     this.raycaster = new Raycaster();
     this.pointer = new Vector2();
 
+    this.canSelect = false;
     this.canvasParent = canvasParent;
 
     this.init();
@@ -75,7 +77,7 @@ export class World {
   }
 
   handleClick() {
-    if (!this.intersections) return;
+    if (!this.intersections || !this.canSelect) return;
 
     if (this.intersections.length > 0) {
       const topNode = this.intersections[0].object;
@@ -123,6 +125,9 @@ export class World {
       z: 5,
       y: 1.5,
       x: 1.5,
+      onComplete: () => {
+        this.canSelect = true;
+      },
     });
   }
 
@@ -142,7 +147,7 @@ export class World {
 
       this.intersections = this.raycaster.intersectObjects(this.scene.children);
 
-      if (this.intersections.length > 0) {
+      if (this.intersections.length > 0 && this.canSelect) {
         document.body.style.cursor = this.intersections[0].object.name.includes(
           "item"
         )

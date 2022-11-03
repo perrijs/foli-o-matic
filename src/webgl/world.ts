@@ -1,5 +1,11 @@
 import { Raycaster, Vector2, Object3D, Intersection } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 import { Renderer } from "./globals/Renderer";
 import { Scene } from "./globals/Scene";
@@ -20,6 +26,7 @@ export class World {
   coilController = CoilController.getInstance();
   buttonController = ButtonController.getInstance();
   itemController = ItemController.getInstance();
+  cabinet?: Cabinet;
 
   controls?: OrbitControls;
   raycaster?: Raycaster;
@@ -39,14 +46,15 @@ export class World {
   }
 
   init() {
-    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-    this.camera.position.set(0, 5, 10);
-    this.controls.update();
+    // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    // this.controls.update();
+    this.camera.position.set(50, 50, 50);
+    this.camera.lookAt(0, 0, 0);
 
     this.renderer.setAnimationLoop(() => this.render());
     this.canvasParent.appendChild(this.renderer.domElement);
 
-    new Cabinet();
+    this.cabinet = new Cabinet();
   }
 
   addEventListeners() {
@@ -54,6 +62,8 @@ export class World {
       this.handleMouseMove(event)
     );
     document.addEventListener("click", () => this.handleClick());
+
+    this.handleScroll();
   }
 
   handleMouseMove(event: MouseEvent) {
@@ -73,6 +83,31 @@ export class World {
     }
   }
 
+  handleScroll() {
+    const cameraLerp = gsap.to(this.camera.position, {
+      z: 10,
+      y: 0,
+      x: 0,
+      ease: "none",
+      scrollTrigger: {
+        trigger: this.renderer.domElement,
+        start: "top top",
+        end: "4100",
+        pin: true,
+        scrub: 1,
+      },
+      onUpdate: () => {
+        if (!this.cabinet) return;
+
+        this.camera.lookAt(this.cabinet.cabinet.position);
+      },
+      onComplete: () => {
+        cameraLerp.kill();
+        document.body.style.height = "100vh";
+      },
+    });
+  }
+
   render() {
     if (this.raycaster && this.pointer) {
       this.raycaster.setFromCamera(this.pointer, this.camera);
@@ -87,7 +122,7 @@ export class World {
           : "default";
       }
     }
-    if (this.controls) this.controls.update();
+    // if (this.controls) this.controls.update();
 
     this.renderer.render(this.scene, this.camera);
   }

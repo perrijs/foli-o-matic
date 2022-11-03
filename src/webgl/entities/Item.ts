@@ -32,7 +32,7 @@ export class Item {
         z: 1.8,
       },
       {
-        duration: 1,
+        duration: 3,
         z: 2.3,
       }
     );
@@ -47,7 +47,7 @@ export class Item {
         y: this.model.position.y,
       },
       {
-        delay: 0.75,
+        delay: 2.75,
         duration: 0.5,
         ease: "power4.in",
         y: -2,
@@ -62,7 +62,7 @@ export class Item {
         z: this.model.rotation.z,
       },
       {
-        delay: 0.75,
+        delay: 2.75,
         duration: 0.5,
         ease: "power4.in",
         x: 0.5,

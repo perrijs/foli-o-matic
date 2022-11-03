@@ -32,7 +32,7 @@ export class Coil {
         z: 0,
       },
       {
-        duration: 1,
+        duration: 3,
         z: Math.PI * 2,
       }
     );

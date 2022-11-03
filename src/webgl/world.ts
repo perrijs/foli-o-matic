@@ -56,6 +56,8 @@ export class World {
 
     this.floor = new Floor();
     this.cabinet = new Cabinet();
+
+    this.scroll();
   }
 
   addEventListeners() {
@@ -63,8 +65,6 @@ export class World {
       this.handleMouseMove(event)
     );
     document.addEventListener("click", () => this.handleClick());
-
-    this.handleScroll();
   }
 
   handleMouseMove(event: MouseEvent) {
@@ -81,23 +81,25 @@ export class World {
       const topNode = this.intersections[0].object;
 
       this.buttonController.handleClick(topNode.name);
+
+      this.zoomOut();
     }
   }
 
-  handleScroll() {
+  scroll() {
     gsap.registerPlugin(ScrollTrigger);
 
     const cameraLerp = gsap.to(this.camera.position, {
+      delay: 1,
       z: 10,
       y: 0,
       x: 0,
-      ease: "none",
       scrollTrigger: {
         trigger: this.renderer.domElement,
         start: "top top",
         end: ScrollTrigger.maxScroll(document.body),
         pin: true,
-        scrub: 0.5,
+        scrub: 0.25,
       },
       onUpdate: () => {
         if (!this.cabinet) return;
@@ -106,8 +108,31 @@ export class World {
       },
       onComplete: () => {
         cameraLerp.kill();
+
         document.body.style.height = "100vh";
+
+        this.zoomIn();
       },
+    });
+  }
+
+  zoomIn() {
+    gsap.to(this.camera.position, {
+      duration: 3,
+      ease: "power4.inOut",
+      z: 5,
+      y: 1.5,
+      x: 1.5,
+    });
+  }
+
+  zoomOut() {
+    gsap.to(this.camera.position, {
+      duration: 1.5,
+      ease: "power4.inOut",
+      z: 10,
+      y: 0,
+      x: 0,
     });
   }
 

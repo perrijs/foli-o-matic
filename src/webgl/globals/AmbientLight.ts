@@ -7,7 +7,7 @@ export class AmbientLight extends ThreeAmbientLight {
   scene = Scene.getInstance();
 
   constructor() {
-    super(0x404040, 1);
+    super(0xffffff, 0.3);
 
     this.scene.add(this);
   }

@@ -56,90 +56,96 @@ export class Cabinet {
     new Screen();
     new Flap();
 
+    this.cabinet.castShadow = true;
     this.scene.add(this.cabinet);
   }
 
   createBackPanel() {
-    const backPanelGeometry = new BoxGeometry(5, 7.5, 0.5);
-    const backPanelMaterial = new MeshMatcapMaterial({ matcap: this.matcap });
-    const backPanel = new Mesh(backPanelGeometry, backPanelMaterial);
+    const geometry = new BoxGeometry(5, 7.5, 0.5);
+    const material = new MeshMatcapMaterial({ matcap: this.matcap });
+    const mesh = new Mesh(geometry, material);
 
-    this.cabinet.add(backPanel);
+    mesh.castShadow = true;
+
+    this.cabinet.add(mesh);
   }
 
   createSidePanel(x: number, y: number, z: number) {
-    const sidePanelGeometry = new BoxGeometry(3, 7.5, 0.5);
-    const sidePanelMaterial = new MeshMatcapMaterial({ matcap: this.matcap });
-    const sidePanel = new Mesh(sidePanelGeometry, sidePanelMaterial);
+    const geometry = new BoxGeometry(3, 7.5, 0.5);
+    const material = new MeshMatcapMaterial({ matcap: this.matcap });
+    const mesh = new Mesh(geometry, material);
 
-    sidePanel.position.set(x, y, z);
-    sidePanel.rotation.y = Math.PI / 2;
+    mesh.position.set(x, y, z);
+    mesh.rotation.y = Math.PI / 2;
+    mesh.castShadow = true;
 
-    this.cabinet.add(sidePanel);
+    this.cabinet.add(mesh);
   }
 
   createTopPanel() {
-    const topPanelGeometry = new BoxGeometry(5, 3, 0.5);
-    const topPanelMaterial = new MeshMatcapMaterial({ matcap: this.matcap });
-    const topPanel = new Mesh(topPanelGeometry, topPanelMaterial);
+    const geometry = new BoxGeometry(5, 3, 0.5);
+    const material = new MeshMatcapMaterial({ matcap: this.matcap });
+    const mesh = new Mesh(geometry, material);
 
-    topPanel.position.set(0, 3.5, 1.5);
-    topPanel.rotation.x = Math.PI / 2;
+    mesh.position.set(0, 3.5, 1.5);
+    mesh.rotation.x = Math.PI / 2;
+    mesh.castShadow = true;
 
-    this.cabinet.add(topPanel);
+    this.cabinet.add(mesh);
   }
 
   createBottomPanel() {
-    const bottomPanelGeometry = new BoxGeometry(5, 3, 0.5);
-    const bottomPanelMaterial = new MeshMatcapMaterial({ matcap: this.matcap });
-    const bottomPanel = new Mesh(bottomPanelGeometry, bottomPanelMaterial);
+    const geometry = new BoxGeometry(5, 3, 0.5);
+    const material = new MeshMatcapMaterial({ matcap: this.matcap });
+    const mesh = new Mesh(geometry, material);
 
-    bottomPanel.position.set(0, -3.5, 1.5);
-    bottomPanel.rotation.x = Math.PI / 2;
+    mesh.position.set(0, -3.5, 1.5);
+    mesh.rotation.x = Math.PI / 2;
+    mesh.castShadow = true;
 
-    this.cabinet.add(bottomPanel);
+    this.cabinet.add(mesh);
   }
 
   createBottomFiller() {
-    const bottomPanelGeometry = new BoxGeometry(3, 1, 3);
-    const bottomPanelMaterial = new MeshMatcapMaterial({ matcap: this.matcap });
-    const bottomPanel = new Mesh(bottomPanelGeometry, bottomPanelMaterial);
+    const geometry = new BoxGeometry(3, 1, 3);
+    const material = new MeshMatcapMaterial({ matcap: this.matcap });
+    const mesh = new Mesh(geometry, material);
 
-    bottomPanel.position.set(-0.75, -2.8, 1.5);
+    mesh.position.set(-0.75, -2.8, 1.5);
 
-    this.cabinet.add(bottomPanel);
+    this.cabinet.add(mesh);
   }
 
   createInsidePanel() {
-    const insidePanelGeometry = new BoxGeometry(3, 7.5, 0.5);
-    const insidePanelMaterial = new MeshMatcapMaterial({ matcap: this.matcap });
-    const insidePanel = new Mesh(insidePanelGeometry, insidePanelMaterial);
+    const geometry = new BoxGeometry(3, 7.5, 0.5);
+    const material = new MeshMatcapMaterial({ matcap: this.matcap });
+    const mesh = new Mesh(geometry, material);
 
-    insidePanel.position.set(1, 0, 1.5);
-    insidePanel.rotation.y = Math.PI / 2;
+    mesh.position.set(1, 0, 1.5);
+    mesh.rotation.y = Math.PI / 2;
 
-    this.cabinet.add(insidePanel);
+    this.cabinet.add(mesh);
   }
 
   createFacePanel() {
-    const facePanelGeometry = new BoxGeometry(1.5, 7.5, 0.5);
-    const facePanelMaterial = new MeshMatcapMaterial({ matcap: this.matcap });
-    const facePanel = new Mesh(facePanelGeometry, facePanelMaterial);
+    const geometry = new BoxGeometry(1.5, 7.5, 0.5);
+    const material = new MeshMatcapMaterial({ matcap: this.matcap });
+    const mesh = new Mesh(geometry, material);
 
-    facePanel.position.set(1.5, 0, 2.75);
+    mesh.position.set(1.5, 0, 2.75);
 
-    this.cabinet.add(facePanel);
+    this.cabinet.add(mesh);
   }
 
   createTray(x: number, y: number, z: number) {
-    const trayGeometry = new BoxGeometry(3.5, 2, 0.1);
-    const trayMaterial = new MeshBasicMaterial({ color: 0x000000 });
-    const tray = new Mesh(trayGeometry, trayMaterial);
+    const geometry = new BoxGeometry(3.5, 2, 0.1);
+    const material = new MeshBasicMaterial({ color: 0x000000 });
+    const mesh = new Mesh(geometry, material);
 
-    tray.position.set(x, y, z);
-    tray.rotation.x = Math.PI / 2;
+    mesh.position.set(x, y, z);
+    mesh.rotation.x = Math.PI / 2;
 
-    this.cabinet.add(tray);
+    this.cabinet.add(mesh);
   }
 
   createWindow() {
@@ -148,8 +154,8 @@ export class Cabinet {
 
       this.scene.environment = texture;
 
-      const windowGeometry = new BoxGeometry(3.5, 5.25, 0.1);
-      const windowMaterial = new MeshPhysicalMaterial({
+      const geometry = new BoxGeometry(3.5, 5.25, 0.1);
+      const material = new MeshPhysicalMaterial({
         color: 0x666d70,
         emissive: 0x000000,
         transparent: true,
@@ -162,11 +168,11 @@ export class Cabinet {
         clearcoatRoughness: 0,
         ior: 2.3,
       });
-      const window = new Mesh(windowGeometry, windowMaterial);
+      const mesh = new Mesh(geometry, material);
 
-      window.position.set(-0.5, 1, 2.75);
+      mesh.position.set(-0.5, 1, 2.75);
 
-      this.cabinet.add(window);
+      this.cabinet.add(mesh);
     });
   }
 }

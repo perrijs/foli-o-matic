@@ -3,30 +3,30 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
 import { Renderer } from "./globals/Renderer";
 import { Scene } from "./globals/Scene";
 import { Camera } from "./globals/Camera";
 import { AmbientLight } from "./globals/AmbientLight";
+import { DirectionalLight } from "./globals/DirectionalLight";
 
 import { Cabinet } from "./entities/Cabinet";
 import { CoilController } from "./controllers/CoilController";
 import { ButtonController } from "./controllers/ButtonController";
 import { ItemController } from "./controllers/ItemController";
+import { Floor } from "./entities/Floor";
 
 export class World {
   renderer = Renderer.getInstance();
   scene = Scene.getInstance();
   camera = Camera.getInstance();
   ambientLight = AmbientLight.getInstance();
+  directionalLight = DirectionalLight.getInstance();
 
   coilController = CoilController.getInstance();
   buttonController = ButtonController.getInstance();
   itemController = ItemController.getInstance();
   cabinet?: Cabinet;
+  floor?: Floor;
 
   controls?: OrbitControls;
   raycaster?: Raycaster;
@@ -54,6 +54,7 @@ export class World {
     this.renderer.setAnimationLoop(() => this.render());
     this.canvasParent.appendChild(this.renderer.domElement);
 
+    this.floor = new Floor();
     this.cabinet = new Cabinet();
   }
 
@@ -84,6 +85,8 @@ export class World {
   }
 
   handleScroll() {
+    gsap.registerPlugin(ScrollTrigger);
+
     const cameraLerp = gsap.to(this.camera.position, {
       z: 10,
       y: 0,
@@ -92,9 +95,9 @@ export class World {
       scrollTrigger: {
         trigger: this.renderer.domElement,
         start: "top top",
-        end: "4100",
+        end: ScrollTrigger.maxScroll(document.body),
         pin: true,
-        scrub: 1,
+        scrub: 0.5,
       },
       onUpdate: () => {
         if (!this.cabinet) return;

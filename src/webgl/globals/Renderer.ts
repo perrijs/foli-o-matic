@@ -1,4 +1,4 @@
-import { WebGLRenderer } from "three";
+import { WebGLRenderer, PCFSoftShadowMap } from "three";
 
 export class Renderer extends WebGLRenderer {
   static instance: Renderer;
@@ -10,6 +10,8 @@ export class Renderer extends WebGLRenderer {
       antialias: true,
       alpha: true,
     });
+    this.shadowMap.enabled = true;
+    this.shadowMap.type = PCFSoftShadowMap;
 
     this.elementCanvasParent = document.querySelector(".canvasParent");
     if (this.elementCanvasParent) {

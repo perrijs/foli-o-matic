@@ -50,6 +50,8 @@ export class ButtonController {
     this.buttons.forEach((button) => {
       if (button.buttonData.id === id) {
         PubSub.publish(GL_SELECT_ITEM, id);
+
+        button.press();
       }
     });
   }

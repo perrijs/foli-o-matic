@@ -1,10 +1,5 @@
-import {
-  Texture,
-  BoxGeometry,
-  MeshBasicMaterial,
-  Mesh,
-  MeshMatcapMaterial,
-} from "three";
+import { Texture, BoxGeometry, MeshMatcapMaterial, Mesh } from "three";
+import gsap from "gsap";
 
 import { Scene } from "@/webgl/globals/Scene";
 
@@ -14,7 +9,8 @@ export class Button {
   scene = Scene.getInstance();
 
   buttonData: ButtonData;
-  matcap: Texture;
+  mesh?: Mesh;
+  matcap?: Texture;
 
   constructor(buttonData: ButtonData, matcap: Texture) {
     this.buttonData = buttonData;
@@ -30,10 +26,29 @@ export class Button {
 
     const geometry = new BoxGeometry(0.35, 0.35, 0.35);
     const material = new MeshMatcapMaterial({ matcap: this.matcap });
-    const placeholderMesh = new Mesh(geometry, material);
+    const mesh = new Mesh(geometry, material);
 
-    placeholderMesh.name = this.buttonData.id;
-    placeholderMesh.position.set(position.x, position.y, position.z);
-    this.scene.add(placeholderMesh);
+    mesh.name = this.buttonData.id;
+    mesh.position.set(position.x, position.y, position.z);
+
+    this.mesh = mesh;
+    this.scene.add(this.mesh);
+  }
+
+  press() {
+    if (!this.mesh) return;
+
+    gsap.fromTo(
+      this.mesh.position,
+      {
+        z: 2.9,
+      },
+      {
+        duration: 0.1,
+        yoyo: true,
+        repeat: 1,
+        z: 2.85,
+      }
+    );
   }
 }

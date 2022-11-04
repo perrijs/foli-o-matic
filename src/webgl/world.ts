@@ -82,9 +82,11 @@ export class World {
     if (this.intersections.length > 0) {
       const topNode = this.intersections[0].object;
 
-      this.buttonController.handleClick(topNode.name);
+      if (topNode.name.includes("item")) {
+        this.buttonController.handleClick(topNode.name);
 
-      this.zoomOut();
+        this.zoomOut();
+      }
     }
   }
 

@@ -1,11 +1,4 @@
-import {
-  TextureLoader,
-  Texture,
-  Group,
-  Mesh,
-  MeshPhysicalMaterial,
-  MeshMatcapMaterial,
-} from "three";
+import { TextureLoader, Texture, Group, MeshMatcapMaterial, Mesh } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import PubSub from "pubsub-js";
 

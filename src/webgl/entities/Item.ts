@@ -29,11 +29,11 @@ export class Item {
     gsap.fromTo(
       this.model.position,
       {
-        z: 1.8,
+        z: 1.7,
       },
       {
         duration: 3,
-        z: 2.3,
+        z: 2,
       }
     );
 

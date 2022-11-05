@@ -44,7 +44,7 @@ export class CoilController {
         matcap: this.matcap,
       });
 
-      gltf.scene.scale.setScalar(0.1);
+      gltf.scene.scale.setScalar(0.075);
 
       this.model = gltf.scene;
 

@@ -29,8 +29,8 @@ export class ItemController {
   load() {
     const loader = new GLTFLoader();
 
-    loader.load("/models/placeholder_item.glb", (gltf) => {
-      gltf.scene.scale.setScalar(0.15);
+    loader.load("/models/placeholder_packet.glb", (gltf) => {
+      gltf.scene.scale.setScalar(0.075);
       gltf.scene.rotation.y = Math.PI / 2;
 
       this.model = gltf.scene;

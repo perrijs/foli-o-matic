@@ -15,6 +15,8 @@ import { AssetController } from "@/webgl/controllers/AssetController";
 import { Screen } from "@/webgl/entities/Screen";
 import { Flap } from "@/webgl/entities/Flap";
 
+import { GL_UPDATE_MATCAP } from "@/webgl/config/topics";
+
 export class Cabinet {
   scene = Scene.getInstance();
   assetController = AssetController.getInstance();
@@ -52,6 +54,14 @@ export class Cabinet {
 
     this.cabinet.castShadow = true;
     this.scene.add(this.cabinet);
+
+    this.handleSubscriptions();
+  }
+
+  handleSubscriptions() {
+    PubSub.subscribe(GL_UPDATE_MATCAP, (_event, data) =>
+      this.updateMatcap(data)
+    );
   }
 
   createBackPanel() {
@@ -59,6 +69,7 @@ export class Cabinet {
     const material = this.matcap;
     const mesh = new Mesh(geometry, material);
 
+    mesh.name = "matcapMain";
     mesh.castShadow = true;
 
     this.cabinet.add(mesh);
@@ -71,6 +82,8 @@ export class Cabinet {
 
     mesh.position.set(x, y, z);
     mesh.rotation.y = Math.PI / 2;
+
+    mesh.name = "matcapMain";
     mesh.castShadow = true;
 
     this.cabinet.add(mesh);
@@ -83,6 +96,8 @@ export class Cabinet {
 
     mesh.position.set(0, 3.5, 1.5);
     mesh.rotation.x = Math.PI / 2;
+
+    mesh.name = "matcapMain";
     mesh.castShadow = true;
 
     this.cabinet.add(mesh);
@@ -95,6 +110,8 @@ export class Cabinet {
 
     mesh.position.set(0, -3.5, 1.5);
     mesh.rotation.x = Math.PI / 2;
+
+    mesh.name = "matcapMain";
     mesh.castShadow = true;
 
     this.cabinet.add(mesh);
@@ -107,6 +124,8 @@ export class Cabinet {
 
     mesh.position.set(-0.75, -2.8, 1.5);
 
+    mesh.name = "matcapMain";
+
     this.cabinet.add(mesh);
   }
 
@@ -118,6 +137,8 @@ export class Cabinet {
     mesh.position.set(1, 0, 1.5);
     mesh.rotation.y = Math.PI / 2;
 
+    mesh.name = "matcapMain";
+
     this.cabinet.add(mesh);
   }
 
@@ -127,6 +148,8 @@ export class Cabinet {
     const mesh = new Mesh(geometry, material);
 
     mesh.position.set(1.5, 0, 2.75);
+
+    mesh.name = "matcapMain";
 
     this.cabinet.add(mesh);
   }
@@ -167,6 +190,20 @@ export class Cabinet {
       mesh.position.set(-0.5, 1, 2.75);
 
       this.cabinet.add(mesh);
+    });
+  }
+
+  updateMatcap(index: number) {
+    if (!this.assetController.matcaps) return;
+
+    this.matcap = this.assetController.matcaps[index];
+    this.cabinet.traverse((node) => {
+      if (node.type === "Mesh" && node.name === "matcapMain") {
+        if (!this.matcap) return;
+
+        const mesh = node as Mesh;
+        mesh.material = this.matcap;
+      }
     });
   }
 }

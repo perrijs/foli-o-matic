@@ -1,9 +1,11 @@
 import { BoxGeometry, MeshMatcapMaterial, Mesh } from "three";
+import PubSub from "pubsub-js";
 import gsap from "gsap";
 
 import { Scene } from "@/webgl/globals/Scene";
 
 import { ButtonData } from "@/webgl/config/types";
+import { GL_UPDATE_MATCAP } from "@/webgl/config/topics";
 
 export class Button {
   scene = Scene.getInstance();
@@ -11,10 +13,16 @@ export class Button {
   buttonData: ButtonData;
   mesh?: Mesh;
   matcap?: MeshMatcapMaterial;
+  index?: number;
 
-  constructor(buttonData: ButtonData, matcap: MeshMatcapMaterial) {
+  constructor(
+    buttonData: ButtonData,
+    matcap: MeshMatcapMaterial,
+    index: number
+  ) {
     this.buttonData = buttonData;
     this.matcap = matcap;
+    this.index = index;
 
     this.init();
   }
@@ -50,5 +58,7 @@ export class Button {
         z: 2.85,
       }
     );
+
+    PubSub.publish(GL_UPDATE_MATCAP, this.index);
   }
 }

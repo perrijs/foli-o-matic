@@ -9,10 +9,11 @@ import { Camera } from "./globals/Camera";
 import { AmbientLight } from "./globals/AmbientLight";
 import { DirectionalLight } from "./globals/DirectionalLight";
 
-import { Cabinet } from "./entities/Cabinet";
+import { AssetController } from "./controllers/AssetController";
 import { CoilController } from "./controllers/CoilController";
 import { ButtonController } from "./controllers/ButtonController";
 import { ItemController } from "./controllers/ItemController";
+import { Cabinet } from "./entities/Cabinet";
 import { Floor } from "./entities/Floor";
 
 export class World {
@@ -22,6 +23,7 @@ export class World {
   ambientLight = AmbientLight.getInstance();
   directionalLight = DirectionalLight.getInstance();
 
+  assetController = AssetController.getInstance();
   coilController = CoilController.getInstance();
   buttonController = ButtonController.getInstance();
   itemController = ItemController.getInstance();
@@ -47,7 +49,7 @@ export class World {
     this.addEventListeners();
   }
 
-  init() {
+  async init() {
     // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     // this.controls.update();
     this.camera.position.set(50, 50, 50);

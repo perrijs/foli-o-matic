@@ -1,7 +1,8 @@
-import { TextureLoader, Texture } from "three";
 import PubSub from "pubsub-js";
 
 import { Scene } from "@/webgl/globals/Scene";
+
+import { AssetController } from "@/webgl/controllers/AssetController";
 import { Button } from "@/webgl/entities/Button";
 
 import { BUTTONS } from "@/webgl/config/buttons";
@@ -9,13 +10,14 @@ import { GL_SELECT_ITEM } from "@/webgl/config/topics";
 
 export class ButtonController {
   static instance: ButtonController;
-  scene = Scene.getInstance();
 
-  matcap?: Texture;
+  scene = Scene.getInstance();
+  assetController = AssetController.getInstance();
+
   buttons?: Button[] = [];
 
   constructor() {
-    this.load();
+    this.init();
   }
 
   static getInstance() {
@@ -25,21 +27,14 @@ export class ButtonController {
     return ButtonController.instance;
   }
 
-  load() {
-    const loader = new TextureLoader();
-
-    loader.load("textures/matcaps/matcap_ivory.png", (texture) => {
-      this.matcap = texture;
-
-      this.init();
-    });
-  }
-
   init() {
-    BUTTONS.forEach((buttonData) => {
-      if (!this.buttons || !this.matcap) return;
+    BUTTONS.forEach((buttonData, index) => {
+      if (!this.buttons || !this.assetController.matcaps) return;
 
-      const button = new Button(buttonData, this.matcap);
+      const button = new Button(
+        buttonData,
+        this.assetController.matcaps[index]
+      );
       this.buttons.push(button);
     });
   }

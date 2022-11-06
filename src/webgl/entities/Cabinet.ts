@@ -1,6 +1,4 @@
 import {
-  TextureLoader,
-  Texture,
   Group,
   BoxGeometry,
   Mesh,
@@ -12,30 +10,26 @@ import {
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
 
 import { Scene } from "@/webgl/globals/Scene";
+
+import { AssetController } from "@/webgl/controllers/AssetController";
 import { Screen } from "@/webgl/entities/Screen";
 import { Flap } from "@/webgl/entities/Flap";
 
 export class Cabinet {
   scene = Scene.getInstance();
+  assetController = AssetController.getInstance();
 
-  matcap?: Texture;
+  matcap?: MeshMatcapMaterial;
   cabinet: Group;
 
   constructor() {
     this.cabinet = new Group();
 
-    this.load();
+    if (this.assetController.matcaps) {
+      this.matcap = this.assetController.matcaps[2];
+    }
+
     this.init();
-  }
-
-  load() {
-    const loader = new TextureLoader();
-
-    loader.load("textures/matcaps/matcap_red.png", (texture) => {
-      this.matcap = texture;
-
-      this.init();
-    });
   }
 
   init() {
@@ -62,7 +56,7 @@ export class Cabinet {
 
   createBackPanel() {
     const geometry = new BoxGeometry(5, 7.5, 0.5);
-    const material = new MeshMatcapMaterial({ matcap: this.matcap });
+    const material = this.matcap;
     const mesh = new Mesh(geometry, material);
 
     mesh.castShadow = true;
@@ -72,7 +66,7 @@ export class Cabinet {
 
   createSidePanel(x: number, y: number, z: number) {
     const geometry = new BoxGeometry(3, 7.5, 0.5);
-    const material = new MeshMatcapMaterial({ matcap: this.matcap });
+    const material = this.matcap;
     const mesh = new Mesh(geometry, material);
 
     mesh.position.set(x, y, z);
@@ -84,7 +78,7 @@ export class Cabinet {
 
   createTopPanel() {
     const geometry = new BoxGeometry(5, 3, 0.5);
-    const material = new MeshMatcapMaterial({ matcap: this.matcap });
+    const material = this.matcap;
     const mesh = new Mesh(geometry, material);
 
     mesh.position.set(0, 3.5, 1.5);
@@ -96,7 +90,7 @@ export class Cabinet {
 
   createBottomPanel() {
     const geometry = new BoxGeometry(5, 3, 0.5);
-    const material = new MeshMatcapMaterial({ matcap: this.matcap });
+    const material = this.matcap;
     const mesh = new Mesh(geometry, material);
 
     mesh.position.set(0, -3.5, 1.5);
@@ -108,7 +102,7 @@ export class Cabinet {
 
   createBottomFiller() {
     const geometry = new BoxGeometry(3, 1, 3);
-    const material = new MeshMatcapMaterial({ matcap: this.matcap });
+    const material = this.matcap;
     const mesh = new Mesh(geometry, material);
 
     mesh.position.set(-0.75, -2.8, 1.5);
@@ -118,7 +112,7 @@ export class Cabinet {
 
   createInsidePanel() {
     const geometry = new BoxGeometry(3, 7.5, 0.5);
-    const material = new MeshMatcapMaterial({ matcap: this.matcap });
+    const material = this.matcap;
     const mesh = new Mesh(geometry, material);
 
     mesh.position.set(1, 0, 1.5);
@@ -129,7 +123,7 @@ export class Cabinet {
 
   createFacePanel() {
     const geometry = new BoxGeometry(1.5, 7.5, 0.5);
-    const material = new MeshMatcapMaterial({ matcap: this.matcap });
+    const material = this.matcap;
     const mesh = new Mesh(geometry, material);
 
     mesh.position.set(1.5, 0, 2.75);

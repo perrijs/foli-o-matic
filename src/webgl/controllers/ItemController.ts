@@ -1,8 +1,10 @@
-import { Group } from "three";
+import { Group, Mesh, MeshMatcapMaterial } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import PubSub from "pubsub-js";
 
 import { Scene } from "@/webgl/globals/Scene";
+
+import { AssetController } from "@/webgl/controllers/AssetController";
 import { Item } from "@/webgl/entities/Item";
 
 import { ITEMS } from "@/webgl/config/items";
@@ -10,7 +12,9 @@ import { GL_SELECT_ITEM } from "@/webgl/config/topics";
 
 export class ItemController {
   static instance: ItemController;
+
   scene = Scene.getInstance();
+  assetController = AssetController.getInstance();
 
   model?: Group;
   items?: Item[] = [];
@@ -40,8 +44,13 @@ export class ItemController {
   }
 
   init() {
-    ITEMS.forEach((itemData) => {
+    ITEMS.forEach((itemData, index) => {
       if (!this.model || !this.items) return;
+
+      if (this.assetController.matcaps) {
+        const mesh = this.model.children[0] as Mesh;
+        mesh.material = this.assetController.matcaps[index];
+      }
 
       const item = new Item(itemData, this.model.clone());
       this.items.push(item);

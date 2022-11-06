@@ -1,9 +1,9 @@
-import WebGL from "@/webgl/index";
+import WebGLComponent from "@/webgl/index";
 
 const Index = () => {
   return (
     <>
-      <WebGL />
+      <WebGLComponent />
     </>
   );
 };

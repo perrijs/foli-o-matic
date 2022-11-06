@@ -1,19 +1,19 @@
 import { useEffect, useRef } from "react";
 
-import { World } from "./world";
+import { WebGL } from "./webgl";
 
 import { CanvasParent } from "./styles";
 
-const WebGL = () => {
+const WebGLComponent = () => {
   const canvasParent = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!canvasParent.current) return;
 
-    new World(canvasParent.current);
+    new WebGL(canvasParent.current);
   });
 
   return <CanvasParent ref={canvasParent} className={"canvasParent"} />;
 };
 
-export default WebGL;
+export default WebGLComponent;

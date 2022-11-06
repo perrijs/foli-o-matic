@@ -36,11 +36,11 @@ export class Screen {
   init() {
     if (!this.textures) return;
 
-    const screenGeometry = new PlaneGeometry(1.4, 1.4, 1.4);
+    const screenGeometry = new PlaneGeometry(1.4, 0.4, 1.4);
     const screenMaterial = new MeshBasicMaterial({ color: 0x000000 });
     const screen = new Mesh(screenGeometry, screenMaterial);
 
-    screen.position.set(1.633, 2.23, 3.001);
+    screen.position.set(1.633, 1.5, 3.002);
 
     this.mesh = screen;
     this.scene.add(this.mesh);

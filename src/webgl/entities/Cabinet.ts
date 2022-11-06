@@ -6,6 +6,7 @@ import {
   MeshPhysicalMaterial,
   EquirectangularReflectionMapping,
   MeshMatcapMaterial,
+  PlaneGeometry,
 } from "three";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
 
@@ -14,8 +15,6 @@ import { Scene } from "@/webgl/globals/Scene";
 import { AssetController } from "@/webgl/controllers/AssetController";
 import { Screen } from "@/webgl/entities/Screen";
 import { Flap } from "@/webgl/entities/Flap";
-
-import { GL_UPDATE_MATCAP } from "@/webgl/config/topics";
 
 export class Cabinet {
   scene = Scene.getInstance();
@@ -28,7 +27,7 @@ export class Cabinet {
     this.cabinet = new Group();
 
     if (this.assetController.matcaps) {
-      this.matcap = this.assetController.matcaps[2];
+      this.matcap = this.assetController.matcaps[0];
     }
 
     this.init();
@@ -43,6 +42,7 @@ export class Cabinet {
     this.createSidePanel(2.25, 0, 1.5);
     this.createInsidePanel();
     this.createFacePanel();
+    this.createButtonTray();
     this.createWindow();
 
     this.createTray(-0.5, 1.75, 1);
@@ -54,14 +54,6 @@ export class Cabinet {
 
     this.cabinet.castShadow = true;
     this.scene.add(this.cabinet);
-
-    this.handleSubscriptions();
-  }
-
-  handleSubscriptions() {
-    PubSub.subscribe(GL_UPDATE_MATCAP, (_event, data) =>
-      this.updateMatcap(data)
-    );
   }
 
   createBackPanel() {
@@ -154,6 +146,20 @@ export class Cabinet {
     this.cabinet.add(mesh);
   }
 
+  createButtonTray() {
+    if (!this.assetController.matcaps) return;
+
+    const geometry = new PlaneGeometry(1.6, 1.75, 1);
+    const material = this.assetController.matcaps[1];
+    const mesh = new Mesh(geometry, material);
+
+    mesh.position.set(1.625, 1, 3.001);
+
+    mesh.name = "matcapMain";
+
+    this.cabinet.add(mesh);
+  }
+
   createTray(x: number, y: number, z: number) {
     const geometry = new BoxGeometry(3.5, 2, 0.1);
     const material = new MeshBasicMaterial({ color: 0x000000 });
@@ -190,20 +196,6 @@ export class Cabinet {
       mesh.position.set(-0.5, 1, 2.75);
 
       this.cabinet.add(mesh);
-    });
-  }
-
-  updateMatcap(index: number) {
-    if (!this.assetController.matcaps) return;
-
-    this.matcap = this.assetController.matcaps[index];
-    this.cabinet.traverse((node) => {
-      if (node.type === "Mesh" && node.name === "matcapMain") {
-        if (!this.matcap) return;
-
-        const mesh = node as Mesh;
-        mesh.material = this.matcap;
-      }
     });
   }
 }

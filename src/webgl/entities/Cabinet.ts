@@ -42,7 +42,6 @@ export class Cabinet {
     this.createSidePanel(2.25, 0, 1.5);
     this.createInsidePanel();
     this.createFacePanel();
-    this.createButtonTray();
     this.createWindow();
 
     this.createTray(-0.5, 1.75, 1);
@@ -146,23 +145,11 @@ export class Cabinet {
     this.cabinet.add(mesh);
   }
 
-  createButtonTray() {
+  createTray(x: number, y: number, z: number) {
     if (!this.assetController.matcaps) return;
 
-    const geometry = new PlaneGeometry(1.6, 1.75, 1);
-    const material = this.assetController.matcaps[1];
-    const mesh = new Mesh(geometry, material);
-
-    mesh.position.set(1.625, 1, 3.001);
-
-    mesh.name = "matcapMain";
-
-    this.cabinet.add(mesh);
-  }
-
-  createTray(x: number, y: number, z: number) {
     const geometry = new BoxGeometry(3.5, 2, 0.1);
-    const material = new MeshBasicMaterial({ color: 0x000000 });
+    const material = this.assetController.matcaps[1];
     const mesh = new Mesh(geometry, material);
 
     mesh.position.set(x, y, z);

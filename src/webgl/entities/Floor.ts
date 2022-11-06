@@ -14,7 +14,7 @@ export class Floor {
   init() {
     const geometry = new PlaneGeometry(10000, 10000, 1);
     const material = new MeshLambertMaterial({
-      color: "#fbdae9",
+      color: "#f5f5f5",
       side: DoubleSide,
     });
     const mesh = new Mesh(geometry, material);

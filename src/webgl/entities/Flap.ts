@@ -1,41 +1,30 @@
-import {
-  TextureLoader,
-  Texture,
-  Mesh,
-  BoxGeometry,
-  MeshMatcapMaterial,
-} from "three";
+import { Mesh, BoxGeometry } from "three";
 import PubSub from "pubsub-js";
 import gsap from "gsap";
 
 import { Scene } from "@/webgl/globals/Scene";
+
+import { AssetController } from "@/webgl/controllers/AssetController";
 
 import { GL_SELECT_ITEM } from "@/webgl/config/topics";
 
 export class Flap {
   scene = Scene.getInstance();
 
+  assetController = AssetController.getInstance();
+
   mesh?: Mesh;
-  matcap?: Texture;
 
   constructor() {
-    this.load();
-  }
-
-  load() {
-    const loader = new TextureLoader();
-
-    loader.load("textures/matcaps/matcap_ivory.png", (texture) => {
-      this.matcap = texture;
-
-      this.init();
-    });
+    this.init();
   }
 
   init() {
-    const flapGeometry = new BoxGeometry(3, 0.75, 0.1);
-    const flapMaterial = new MeshMatcapMaterial({ matcap: this.matcap });
-    const flap = new Mesh(flapGeometry, flapMaterial);
+    if (!this.assetController.matcaps) return;
+
+    const geometry = new BoxGeometry(3, 0.75, 0.1);
+    const material = this.assetController.matcaps[1];
+    const flap = new Mesh(geometry, material);
 
     flap.position.set(-0.75, -2, 2.75);
 

@@ -1,4 +1,4 @@
-import { Group, Mesh, MeshMatcapMaterial } from "three";
+import { Group, Mesh } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import PubSub from "pubsub-js";
 
@@ -49,7 +49,7 @@ export class ItemController {
 
       if (this.assetController.matcaps) {
         const mesh = this.model.children[0] as Mesh;
-        mesh.material = this.assetController.matcaps[index];
+        mesh.material = this.assetController.matcaps[index + 2];
       }
 
       const item = new Item(itemData, this.model.clone());

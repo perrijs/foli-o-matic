@@ -7,7 +7,7 @@ export class DirectionalLight extends ThreeDirectionalLight {
   scene = Scene.getInstance();
 
   constructor() {
-    super(0xffffff, 1);
+    super(0xf5f5f5, 0.75);
     this.position.set(0, 3, 3);
     this.castShadow = true;
 

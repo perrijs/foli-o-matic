@@ -52,7 +52,7 @@ export class World {
   async init() {
     // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     // this.controls.update();
-    this.camera.position.set(50, 50, 50);
+    this.camera.position.set(40, 40, 40);
     this.camera.lookAt(0, 0, 0);
 
     this.renderer.setAnimationLoop(() => this.render());

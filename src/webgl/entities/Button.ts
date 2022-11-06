@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { Scene } from "@/webgl/globals/Scene";
 
 import { ButtonData } from "@/webgl/config/types";
-import { GL_UPDATE_MATCAP } from "@/webgl/config/topics";
+import { GL_UPDATE_COLOR } from "@/webgl/config/topics";
 
 export class Button {
   scene = Scene.getInstance();
@@ -59,6 +59,6 @@ export class Button {
       }
     );
 
-    PubSub.publish(GL_UPDATE_MATCAP, this.index);
+    PubSub.publish(GL_UPDATE_COLOR, this.index);
   }
 }

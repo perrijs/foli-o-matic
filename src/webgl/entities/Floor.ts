@@ -21,7 +21,7 @@ export class Floor {
     const geometry = new PlaneGeometry(10000, 10000, 1);
     const material = new ShadowMaterial({ side: DoubleSide });
     const mesh = new Mesh(geometry, material);
-    material.opacity = 1;
+    material.opacity = 0.6;
 
     mesh.position.set(0, -3.75, 0);
     mesh.rotation.x = Math.PI / 2;

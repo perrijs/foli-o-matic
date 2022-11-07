@@ -30,7 +30,7 @@ export class Screen {
     if (!this.textures) return;
 
     const screenGeometry = new PlaneGeometry(1.4, 0.4, 1);
-    const screenMaterial = new MeshBasicMaterial({ color: 0x000000 });
+    const screenMaterial = new MeshBasicMaterial({ color: 0x33312e });
     const screen = new Mesh(screenGeometry, screenMaterial);
 
     screen.position.set(1.633, 1.7, 3.002);

@@ -1,6 +1,6 @@
 export const MATCAPS = [
-  "/textures/matcaps/matcap_cream.png",
-  "/textures/matcaps/matcap_offblack.png",
+  "/textures/matcaps/matcap_cosmic_latte.png",
+  "/textures/matcaps/matcap_cosmic_americano.png",
   "/textures/matcaps/matcap_lightblue.png",
   "/textures/matcaps/matcap_darkred.png",
   "/textures/matcaps/matcap_sandstone.png",

@@ -15,6 +15,8 @@ import { ButtonController } from "./controllers/ButtonController";
 import { ItemController } from "./controllers/ItemController";
 import { Cabinet } from "./entities/Cabinet";
 import { Floor } from "./entities/Floor";
+import { GL_UPDATE_COLOR } from "./config/topics";
+import { ITEMS } from "./config/items";
 
 export class World {
   renderer = Renderer.getInstance();
@@ -69,6 +71,10 @@ export class World {
       this.handleMouseMove(event)
     );
     document.addEventListener("click", () => this.handleClick());
+
+    PubSub.subscribe(GL_UPDATE_COLOR, (_topic, data) =>
+      this.updateColor(parseInt(data))
+    );
   }
 
   handleMouseMove(event: MouseEvent) {
@@ -142,6 +148,14 @@ export class World {
       z: 8,
       y: 0,
       x: 0,
+    });
+  }
+
+  updateColor(index: number) {
+    console.log(index);
+    gsap.to(document.querySelector(".canvasParent"), {
+      duration: 3,
+      background: ITEMS[index].color,
     });
   }
 

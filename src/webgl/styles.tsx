@@ -5,7 +5,7 @@ export const CanvasParent = styled.div`
   width: 100vw;
   height: 100vh;
 
-  background: #ffbfc3;
+  background: #fbdada;
 
   canvas {
     transform: translate(0) !important;

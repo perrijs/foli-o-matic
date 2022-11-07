@@ -34,7 +34,7 @@ export class ButtonController {
       const button = new Button(
         buttonData,
         this.assetController.matcaps[index + 2],
-        index + 2
+        index
       );
       this.buttons.push(button);
     });

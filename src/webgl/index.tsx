@@ -13,7 +13,11 @@ const WebGLComponent = () => {
     new WebGL(canvasParent.current);
   });
 
-  return <CanvasParent ref={canvasParent} className={"canvasParent"} />;
+  return (
+    <>
+      <CanvasParent ref={canvasParent} className={"canvasParent"} />
+    </>
+  );
 };
 
 export default WebGLComponent;

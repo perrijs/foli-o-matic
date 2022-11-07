@@ -139,7 +139,7 @@ export class World {
     gsap.to(this.camera.position, {
       duration: 1.5,
       ease: "power4.inOut",
-      z: 10,
+      z: 8,
       y: 0,
       x: 0,
     });

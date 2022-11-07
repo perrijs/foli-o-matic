@@ -1,4 +1,13 @@
-import { TextureLoader, PlaneGeometry, MeshBasicMaterial, Mesh } from "three";
+import {
+  TextureLoader,
+  VideoTexture,
+  PlaneGeometry,
+  MeshBasicMaterial,
+  Mesh,
+  MeshStandardMaterial,
+  LinearFilter,
+  sRGBEncoding,
+} from "three";
 import PubSub from "pubsub-js";
 
 import { Scene } from "@/webgl/globals/Scene";
@@ -14,33 +23,17 @@ export class Screen {
   mesh?: Mesh;
 
   constructor() {
-    this.load();
-  }
-
-  async load() {
-    const loader = new TextureLoader();
-
-    SCREENS.forEach((screen, index) => {
-      loader.load(screen.url, (texture) => {
-        if (!this.textures) return;
-
-        this.textures.push({ id: screen.id, texture: texture });
-
-        if (index === SCREENS.length - 1) this.init();
-      });
-    });
-
     this.init();
   }
 
   init() {
     if (!this.textures) return;
 
-    const screenGeometry = new PlaneGeometry(1.4, 0.4, 1.4);
+    const screenGeometry = new PlaneGeometry(1.4, 0.4, 1);
     const screenMaterial = new MeshBasicMaterial({ color: 0x000000 });
     const screen = new Mesh(screenGeometry, screenMaterial);
 
-    screen.position.set(1.633, 1.5, 3.002);
+    screen.position.set(1.633, 1.7, 3.002);
 
     this.mesh = screen;
     this.scene.add(this.mesh);
@@ -53,16 +46,25 @@ export class Screen {
   }
 
   switchTexture(_topic: string, data: string) {
-    if (!this.textures || !this.mesh) return;
-
-    this.textures.forEach((texture) => {
+    SCREENS.forEach((screen) => {
       if (!this.mesh) return;
 
-      if (texture.id === data) {
-        const newMaterial = new MeshBasicMaterial({
-          map: texture.texture,
-        });
-        this.mesh.material = newMaterial;
+      if (screen.id === data) {
+        const videoElement = document.getElementById(
+          screen.videoId
+        ) as HTMLVideoElement;
+
+        if (videoElement) {
+          const texture = new VideoTexture(videoElement);
+          texture.magFilter = LinearFilter;
+          texture.encoding = sRGBEncoding;
+
+          this.mesh.material = new MeshStandardMaterial({
+            map: texture,
+          });
+        }
+
+        videoElement.play();
       }
     });
   }

@@ -31,11 +31,14 @@ export class CoilController {
     const textureLoader = new TextureLoader();
     const gltfLoader = new GLTFLoader();
 
-    await textureLoader.load("textures/matcaps/matcap_grey.png", (texture) => {
-      this.matcap = texture;
+    await textureLoader.load(
+      "textures/matcaps/matcap_darkgrey.png",
+      (texture) => {
+        this.matcap = texture;
 
-      this.init();
-    });
+        this.init();
+      }
+    );
 
     gltfLoader.load("/models/placeholder_coil.glb", (gltf) => {
       const mesh = gltf.scene.children[0] as Mesh;

@@ -1,4 +1,10 @@
-import { DoubleSide, Mesh, MeshLambertMaterial, PlaneGeometry } from "three";
+import {
+  DoubleSide,
+  Mesh,
+  MeshLambertMaterial,
+  PlaneGeometry,
+  ShadowMaterial,
+} from "three";
 
 import { Scene } from "@/webgl/globals/Scene";
 
@@ -13,11 +19,9 @@ export class Floor {
 
   init() {
     const geometry = new PlaneGeometry(10000, 10000, 1);
-    const material = new MeshLambertMaterial({
-      color: "#f5f5f5",
-      side: DoubleSide,
-    });
+    const material = new ShadowMaterial({ side: DoubleSide });
     const mesh = new Mesh(geometry, material);
+    material.opacity = 1;
 
     mesh.position.set(0, -3.75, 0);
     mesh.rotation.x = Math.PI / 2;

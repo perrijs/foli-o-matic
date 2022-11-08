@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
+import * as color from "@/styles/globals/color";
+
 interface WrapperProps {
-  $backgroundColor: string;
+  $backgroundColor?: string;
 }
 
 export const WipeScreenWrapper = styled.div<WrapperProps>`
@@ -11,7 +13,8 @@ export const WipeScreenWrapper = styled.div<WrapperProps>`
   width: 100vw;
   height: 100vh;
 
-  background-color: ${({ $backgroundColor }) => $backgroundColor};
+  background-color: ${({ $backgroundColor }) =>
+    $backgroundColor ? $backgroundColor : color.PINK_PASTEL};
 
   z-index: 1;
 `;

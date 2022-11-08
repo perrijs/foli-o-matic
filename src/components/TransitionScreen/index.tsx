@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
+import PubSub from "pubsub-js";
 import gsap from "gsap";
 
-import { GL_SET_PROJECT } from "@/webgl/config/topics";
+import { UI_HANDLE_TRANSITION } from "@/webgl/config/topics";
 import { ItemData } from "@/webgl/config/types";
 
 import { TransitionScreenWrapper } from "./styles";
@@ -27,7 +28,11 @@ const TransitionScreen = () => {
           ease: "power4.inOut",
           transform: "translateY(0%)",
           onComplete: () => {
-            router.push(`/projects/${data.slug}`);
+            if (data.slug === "/projects") {
+              router.push(data.slug);
+            } else {
+              router.push(`/projects/${data.slug}`);
+            }
           },
         }
       );
@@ -36,7 +41,7 @@ const TransitionScreen = () => {
   );
 
   useEffect(() => {
-    PubSub.subscribe(GL_SET_PROJECT, (_topic, data) => setProject(data));
+    PubSub.subscribe(UI_HANDLE_TRANSITION, (_topic, data) => setProject(data));
   }, [setProject]);
 
   return <TransitionScreenWrapper ref={transitionScreenRef} />;

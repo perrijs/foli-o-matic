@@ -12,9 +12,3 @@ html {
 body {
   height: 5000px;
 }
-
-button {
-  position: absolute;
-  top: 0;
-  left: 0;
-}

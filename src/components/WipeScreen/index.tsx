@@ -4,7 +4,7 @@ import gsap from "gsap";
 import { WipeScreenWrapper } from "./styles";
 
 interface Props {
-  backgroundColor: string;
+  backgroundColor?: string;
 }
 
 const WipeScreen = ({ backgroundColor }: Props) => {

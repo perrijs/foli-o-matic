@@ -23,7 +23,7 @@ export class Floor {
     const mesh = new Mesh(geometry, material);
     material.opacity = 0.6;
 
-    mesh.position.set(0, -3.75, 0);
+    mesh.position.set(0, -4, 0);
     mesh.rotation.x = Math.PI / 2;
     mesh.receiveShadow = true;
 

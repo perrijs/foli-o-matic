@@ -152,7 +152,6 @@ export class World {
   }
 
   updateColor(index: number) {
-    console.log(index);
     gsap.to(document.querySelector(".canvasParent"), {
       duration: 3,
       background: ITEMS[index].color,

@@ -2,11 +2,9 @@ import {
   Group,
   BoxGeometry,
   Mesh,
-  MeshBasicMaterial,
   MeshPhysicalMaterial,
   EquirectangularReflectionMapping,
   MeshMatcapMaterial,
-  PlaneGeometry,
 } from "three";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
 
@@ -47,6 +45,11 @@ export class Cabinet {
     this.createTray(-0.5, 1.75, 1);
     this.createTray(-0.5, 0.25, 1);
     this.createTray(-0.5, -1.25, 1);
+
+    this.createFoot(-2.25, -3.75, 2.75);
+    this.createFoot(2.25, -3.75, 2.75);
+    this.createFoot(-2.25, -3.75, 0);
+    this.createFoot(2.25, -3.75, 0);
 
     new Screen();
     new Flap();
@@ -154,6 +157,19 @@ export class Cabinet {
 
     mesh.position.set(x, y, z);
     mesh.rotation.x = Math.PI / 2;
+
+    this.cabinet.add(mesh);
+  }
+
+  createFoot(x: number, y: number, z: number) {
+    if (!this.assetController.matcaps) return;
+
+    const geometry = new BoxGeometry(0.25, 0.5, 0.25);
+    const material = this.assetController.matcaps[1];
+    const mesh = new Mesh(geometry, material);
+
+    mesh.castShadow = true;
+    mesh.position.set(x, y, z);
 
     this.cabinet.add(mesh);
   }

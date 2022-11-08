@@ -7,6 +7,7 @@ export const ITEMS = [
       y: 2.125,
       z: 1.7,
     },
+    slug: "shopper-hopper",
   },
   {
     id: "item_2",
@@ -16,6 +17,7 @@ export const ITEMS = [
       y: 2.125,
       z: 1.7,
     },
+    slug: "youtube-united",
   },
   {
     id: "item_3",
@@ -25,6 +27,7 @@ export const ITEMS = [
       y: 2.125,
       z: 1.7,
     },
+    slug: "pyramids-of-meroe",
   },
   {
     id: "item_4",
@@ -34,6 +37,7 @@ export const ITEMS = [
       y: 0.625,
       z: 1.7,
     },
+    slug: "digital-assets-demystified",
   },
   {
     id: "item_5",
@@ -43,6 +47,7 @@ export const ITEMS = [
       y: 0.625,
       z: 1.7,
     },
+    slug: "visit-planet-her",
   },
   {
     id: "item_6",
@@ -52,5 +57,6 @@ export const ITEMS = [
       y: 0.625,
       z: 1.7,
     },
+    slug: "xxim-records",
   },
 ];

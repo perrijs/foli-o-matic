@@ -1,5 +1,24 @@
+import WipeScreen from "@/components/WipeScreen";
+
 import { PROJECTS } from "@/pages/config/projects";
 import { Project } from "@/pages/config/types";
+
+interface PageProps {
+  project: Project;
+}
+
+const Project = ({ project }: PageProps) => {
+  return (
+    <>
+      <p>{project.id}</p>
+      <p>{project.name}</p>
+
+      <WipeScreen backgroundColor={project.color} />
+    </>
+  );
+};
+
+export default Project;
 
 export const getStaticPaths = async () => {
   const paths = PROJECTS.map((project: any) => {
@@ -14,7 +33,7 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps = async (context) => {
+export const getStaticProps = async (context: { params: { slug: string } }) => {
   let data;
 
   PROJECTS.forEach((element: Project) => {
@@ -25,14 +44,3 @@ export const getStaticProps = async (context) => {
     props: { project: data },
   };
 };
-
-const Project = ({ project }: Project) => {
-  return (
-    <>
-      <p>{project.id}</p>
-      <p>{project.name}</p>
-    </>
-  );
-};
-
-export default Project;

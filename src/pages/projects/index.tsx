@@ -1,9 +1,13 @@
 import Link from "next/link";
 
 import { PROJECTS } from "@/pages/config/projects";
-import { Projects, Project } from "@/pages/config/types";
+import { Project } from "@/pages/config/types";
 
-const Projects = ({ projects }: Projects) => {
+interface PageProps {
+  projects: Project[];
+}
+
+const Projects = ({ projects }: PageProps) => {
   return (
     <>
       {projects.map((project: Project) => {

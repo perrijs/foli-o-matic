@@ -18,7 +18,9 @@ export interface ButtonData {
 
 export interface ItemData {
   id: string;
+  color: string;
   position: Position;
+  slug: string;
 }
 
 export interface Textures {

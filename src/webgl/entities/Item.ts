@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { Scene } from "@/webgl/globals/Scene";
 
 import { ItemData } from "@/webgl/config/types";
+import { GL_SET_PROJECT } from "@/webgl/config/topics";
 
 export class Item {
   scene = Scene.getInstance();
@@ -51,6 +52,9 @@ export class Item {
         duration: 0.5,
         ease: "power4.in",
         y: -2,
+        onComplete: () => {
+          PubSub.publish(GL_SET_PROJECT, this.itemData);
+        },
       }
     );
 

@@ -17,6 +17,10 @@ export const ProjectsWrapper = styled.div<WrapperProps>`
 export const TableHeaders = styled.div`
   display: flex;
   width: 100%;
+
+  justify-content: space-between;
+
+  border-bottom: 1px solid ${color.PINK_DARK};
 `;
 
 export const TableHeader = styled.h2`
@@ -25,7 +29,6 @@ export const TableHeader = styled.h2`
   padding: 0 0 ${spacing.MARGIN_EXTRA_SMALL};
 
   color: ${color.RED_DARK};
-  border-bottom: 1px solid ${color.PINK_DARK};
 
   ${type.TYPE_HEADER_1}
 
@@ -38,37 +41,71 @@ export const TableHeader = styled.h2`
   }
 `;
 
-export const Section = styled.div`
+export const TableSection = styled.div`
   display: flex;
-  margin: ${spacing.MARGIN_MEDIUM} 0;
+  margin: ${spacing.MARGIN_SMALL} 0;
 
   flex-direction: column;
+
+  a {
+    text-decoration: none;
+  }
 `;
 
-export const SectionRow = styled.div`
+export const TableRow = styled.div`
   display: flex;
   width: 100%;
   margin: 0 0 ${spacing.MARGIN_EXTRA_SMALL};
   padding: 0 0 ${spacing.MARGIN_EXTRA_SMALL};
 
+  justify-content: space-between;
+
   border-bottom: 1px solid ${color.PINK_MEDIUM};
+
+  img {
+    opacity: 0;
+    transform: translateX(50%);
+    transition: 0.33s;
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    img {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+  }
 `;
 
-export const SectionType = styled.h3`
+export const TableSectionType = styled.h3`
   width: 20%;
   margin: 0;
-  padding: 0;
+  padding: ${spacing.MARGIN_EXTRA_SMALL} 0;
 
   color: ${color.RED_MEDIUM};
 
   ${type.TYPE_BODY_1}
 `;
 
-export const SectionEntry = styled.h3`
+export const TableSectionCode = styled.h3`
+  width: 20%;
+  margin: 0;
+  padding: ${spacing.MARGIN_EXTRA_SMALL} 0;
+
+  color: ${color.RED_MEDIUM};
+
+  ${type.TYPE_BODY_2}
+`;
+
+export const TableSectionEntry = styled.h3`
+  display: flex;
   width: 30%;
   margin: 0;
-  padding: 0 0 ${spacing.MARGIN_MEDIUM};
+  padding: ${spacing.MARGIN_EXTRA_SMALL} 0;
 
+  justify-content: space-between;
+  align-items: center;
   color: ${color.RED_MEDIUM};
 
   ${type.TYPE_BODY_2}

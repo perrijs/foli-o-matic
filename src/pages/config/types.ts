@@ -6,6 +6,7 @@ export interface SelectedWork {
   client: string;
   date: string;
   color: string;
+  images: CarouselImage[];
 }
 
 export interface OtherWork {
@@ -22,4 +23,10 @@ export interface Award {
   code: string;
   organisation: string;
   year: string;
+}
+
+export interface CarouselImage {
+  url: string;
+  aspectRatio: number;
+  width: number;
 }

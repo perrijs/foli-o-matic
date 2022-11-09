@@ -1,4 +1,5 @@
 import MenuButton from "@/components/MenuButton";
+import Carousel from "@/components/Carousel";
 import WipeScreen from "@/components/WipeScreen";
 import TransitionScreen from "@/components/TransitionScreen";
 
@@ -14,8 +15,10 @@ const Project = ({ project }: PageProps) => {
     <>
       <MenuButton />
 
-      <p>{project.id}</p>
-      <p>{project.name}</p>
+      {/* <p>{project.id}</p> */}
+      {/* <p>{project.name}</p> */}
+
+      <Carousel project={project} />
 
       <WipeScreen backgroundColor={project.color} />
       <TransitionScreen />
@@ -26,7 +29,7 @@ const Project = ({ project }: PageProps) => {
 export default Project;
 
 export const getStaticPaths = async () => {
-  const paths = SELECTED_WORKS.map((project: SelectedWork) => {
+  const paths = SELECTED_WORKS.map((project) => {
     return {
       params: { slug: project.slug },
     };
@@ -41,7 +44,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context: { params: { slug: string } }) => {
   let data;
 
-  SELECTED_WORKS.forEach((element: SelectedWork) => {
+  SELECTED_WORKS.forEach((element) => {
     if (element.slug === context.params.slug) data = element;
   });
 

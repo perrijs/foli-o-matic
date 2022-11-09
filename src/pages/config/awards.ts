@@ -3,14 +3,14 @@ export const AWARDS = [
     code: "AW/06",
     name: "Pyramids of Meroë / Cultural Institutions - Gold Award",
     url: "https://winners.lovieawards.com/#!w=150",
-    organisation: "Lovie Awards",
+    organisation: "The Lovie Awards",
     year: "2022",
   },
   {
     code: "AW/05",
     name: "Pyramids of Meroë / Best Use Of Augmented Reality - Bronze Award",
     url: "https://winners.lovieawards.com/#!m=104",
-    organisation: "Lovie Awards",
+    organisation: "The Lovie Awards",
     year: "2022",
   },
   {

@@ -3,8 +3,6 @@ import { WebGLRenderer, PCFSoftShadowMap } from "three";
 export class Renderer extends WebGLRenderer {
   static instance: Renderer;
 
-  elementCanvasParent: HTMLDivElement | null;
-
   constructor() {
     super({
       antialias: true,
@@ -13,13 +11,7 @@ export class Renderer extends WebGLRenderer {
     this.shadowMap.enabled = true;
     this.shadowMap.type = PCFSoftShadowMap;
 
-    this.elementCanvasParent = document.querySelector(".canvasParent");
-    if (this.elementCanvasParent) {
-      this.setSize(
-        this.elementCanvasParent.clientWidth,
-        this.elementCanvasParent.clientHeight
-      );
-    }
+    this.setSize(window.innerWidth, window.innerHeight);
   }
 
   static getInstance() {

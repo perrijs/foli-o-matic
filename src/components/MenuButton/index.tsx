@@ -5,7 +5,7 @@ import { Button } from "./styles";
 const MenuButton = () => {
   const openMenu = () => {
     PubSub.publish(UI_HANDLE_TRANSITION, {
-      slug: "/projects",
+      slug: "/collection",
       color: "#f5a3a3",
     });
   };

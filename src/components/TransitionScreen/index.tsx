@@ -28,10 +28,10 @@ const TransitionScreen = () => {
           ease: "power4.inOut",
           transform: "translateY(0%)",
           onComplete: () => {
-            if (data.slug === "/projects") {
+            if (data.slug === "/collection") {
               router.push(data.slug);
             } else {
-              router.push(`/projects/${data.slug}`);
+              router.push(`/collection/${data.slug}`);
             }
           },
         }

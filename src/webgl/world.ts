@@ -52,6 +52,8 @@ export class World {
   }
 
   async init() {
+    document.body.style.height = "5000px";
+
     // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     // this.controls.update();
     this.camera.position.set(40, 40, 40);

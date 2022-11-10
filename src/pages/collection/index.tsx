@@ -34,31 +34,32 @@ const Projects = ({ projects }: PageProps) => {
   };
 
   useEffect(() => {
-    const sections = document.querySelectorAll(".section");
+    const fadeInElement = document.querySelectorAll(".fadeIn");
 
-    sections.forEach((section, index) => {
+    fadeInElement.forEach((element, index) => {
       gsap.fromTo(
-        section,
+        element,
         { opacity: 0 },
-        { duration: 0.5, delay: 1 + 0.125 * index, opacity: 1 }
+        { duration: 0.1, delay: 1 + 0.025 * index, opacity: 1 }
       );
     });
   });
 
   return (
     <ProjectsWrapper>
-      <TableHeaders className="section">
+      <TableHeaders className="fadeIn">
         <TableHeader>TYPE</TableHeader>
         <TableHeader>TITLE</TableHeader>
         <TableHeader>CLIENT / ORGANISATION</TableHeader>
         <TableHeader>YEAR</TableHeader>
       </TableHeaders>
 
-      <TableSection className="section">
-        <TableSectionType>SELECTED WORKS /</TableSectionType>
+      <TableSection>
+        <TableSectionType className="fadeIn">SELECTED WORKS /</TableSectionType>
         {projects.map((project: SelectedWork) => {
           return (
             <TableRow
+              className="fadeIn"
               key={project.id}
               onClick={() => handleTransition(project.id)}
             >
@@ -79,8 +80,8 @@ const Projects = ({ projects }: PageProps) => {
         })}
       </TableSection>
 
-      <TableSection className="section">
-        <TableSectionType>OTHER WORKS /</TableSectionType>
+      <TableSection>
+        <TableSectionType className="fadeIn">OTHER WORKS /</TableSectionType>
         {OTHER_WORKS.map((project: OtherWork) => {
           return (
             <Link
@@ -89,7 +90,7 @@ const Projects = ({ projects }: PageProps) => {
               passHref={true}
               target="_blank"
             >
-              <TableRow>
+              <TableRow className="fadeIn">
                 <TableSectionCode>{project.code}</TableSectionCode>
                 <TableSectionEntry>{project.name}</TableSectionEntry>
                 <TableSectionEntry>{project.client}</TableSectionEntry>
@@ -108,8 +109,8 @@ const Projects = ({ projects }: PageProps) => {
         })}
       </TableSection>
 
-      <TableSection className="section">
-        <TableSectionType>AWARDS /</TableSectionType>
+      <TableSection>
+        <TableSectionType className="fadeIn">AWARDS /</TableSectionType>
         {AWARDS.map((award: Award) => {
           return (
             <Link
@@ -118,7 +119,7 @@ const Projects = ({ projects }: PageProps) => {
               passHref={true}
               target="_blank"
             >
-              <TableRow>
+              <TableRow className="fadeIn">
                 <TableSectionCode>{award.code}</TableSectionCode>
                 <TableSectionEntry>{award.name}</TableSectionEntry>
                 <TableSectionEntry>{award.organisation}</TableSectionEntry>

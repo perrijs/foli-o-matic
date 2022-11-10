@@ -8,7 +8,7 @@ export const CanvasParent = styled.div`
   height: 100vh;
 
   z-index: 0;
-  background: ${color.PINK_LIGHT};
+  background: ${color.PINK_1};
 
   canvas {
     transform: translate(0) !important;

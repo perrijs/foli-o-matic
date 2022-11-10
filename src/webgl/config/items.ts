@@ -1,7 +1,9 @@
+import { PINK_2 } from "@/styles/globals/color";
+
 export const ITEMS = [
   {
     id: "item_1",
-    color: "#92D9EB",
+    color: PINK_2,
     position: {
       x: -1.6,
       y: 2.125,

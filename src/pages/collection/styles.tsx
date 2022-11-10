@@ -11,7 +11,7 @@ interface WrapperProps {
 export const ProjectsWrapper = styled.div<WrapperProps>`
   padding: ${spacing.MARGIN_LARGE} ${spacing.MARGIN_EXTRA_LARGE};
 
-  background-color: ${color.PINK_LIGHT};
+  background-color: ${color.PINK_1};
 `;
 
 export const TableHeaders = styled.div`
@@ -20,7 +20,7 @@ export const TableHeaders = styled.div`
 
   justify-content: space-between;
 
-  border-bottom: 1px solid ${color.PINK_DARK};
+  border-bottom: 1px solid ${color.PINK_2};
 `;
 
 export const TableHeader = styled.h2`
@@ -28,9 +28,9 @@ export const TableHeader = styled.h2`
   margin: 0;
   padding: 0 0 ${spacing.MARGIN_EXTRA_SMALL};
 
-  color: ${color.RED_DARK};
+  color: ${color.PINK_4};
 
-  ${type.TYPE_HEADER_1}
+  ${type.TYPE_SANS_HEADER_1}
 
   &:first-child {
     width: 20%;
@@ -60,7 +60,7 @@ export const TableRow = styled.div`
 
   justify-content: space-between;
 
-  border-bottom: 1px solid ${color.PINK_MEDIUM};
+  border-bottom: 1px solid ${color.PINK_2};
 
   img {
     opacity: 0;
@@ -83,9 +83,9 @@ export const TableSectionType = styled.h3`
   margin: 0;
   padding: ${spacing.MARGIN_EXTRA_SMALL} 0;
 
-  color: ${color.RED_MEDIUM};
+  color: ${color.PINK_4};
 
-  ${type.TYPE_BODY_1}
+  ${type.TYPE_SANS_HEADER_2}
 `;
 
 export const TableSectionCode = styled.h3`
@@ -93,9 +93,9 @@ export const TableSectionCode = styled.h3`
   margin: 0;
   padding: ${spacing.MARGIN_EXTRA_SMALL} 0;
 
-  color: ${color.RED_MEDIUM};
+  color: ${color.PINK_4};
 
-  ${type.TYPE_BODY_2}
+  ${type.TYPE_SERIF_BODY_2}
 `;
 
 export const TableSectionEntry = styled.h3`
@@ -106,9 +106,9 @@ export const TableSectionEntry = styled.h3`
 
   justify-content: space-between;
   align-items: center;
-  color: ${color.RED_MEDIUM};
+  color: ${color.PINK_4};
 
-  ${type.TYPE_BODY_2}
+  ${type.TYPE_SERIF_BODY_2}
 
   &:last-child {
     width: 10%;

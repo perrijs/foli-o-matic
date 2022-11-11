@@ -30,12 +30,14 @@ export const MainImageContainer = styled.div`
 interface ImageContainerProps {
   $aspectRatio: number;
   $width: number;
+  $scale: number;
 }
 
 export const ImageContainer = styled.div<ImageContainerProps>`
   position: absolute;
   aspect-ratio: ${({ $aspectRatio }) => $aspectRatio};
   width: ${({ $width }) => `${$width}vw`};
+  transform: scale(${({ $scale }) => $scale});
 
   img {
     pointer-events: none;

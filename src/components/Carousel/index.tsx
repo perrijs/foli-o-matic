@@ -21,6 +21,20 @@ const Carousel = ({ project }: Props) => {
   const dragTotal = useRef<number>(0);
   const prevPageY = useRef<number>(0);
 
+  const handleNextImage = useCallback(() => {
+    currentIndex.current -= 1;
+
+    const image = document.querySelector(
+      `.image-${currentIndex.current}`
+    ) as HTMLImageElement;
+    currentImage.current = image;
+
+    gsap.to(currentImage.current, {
+      duration: 1,
+      transform: "scale(1)",
+    });
+  }, []);
+
   const handleDrag = useCallback((event: MouseEvent) => {
     if (!currentImage.current) return;
 
@@ -46,16 +60,10 @@ const Carousel = ({ project }: Props) => {
         {
           duration: 1,
           transform: "translateY(300%)",
-          onComplete: () => {
-            currentIndex.current -= 1;
-
-            const image = document.querySelector(
-              `.image-${currentIndex.current}`
-            ) as HTMLImageElement;
-            currentImage.current = image;
-          },
         }
       );
+
+      handleNextImage();
     } else {
       gsap.fromTo(
         currentImage.current,
@@ -69,7 +77,7 @@ const Carousel = ({ project }: Props) => {
 
     dragTotal.current = 0;
     prevPageY.current = 0;
-  }, []);
+  }, [handleNextImage]);
 
   useEffect(() => {
     const image = document.querySelector(
@@ -104,11 +112,13 @@ const Carousel = ({ project }: Props) => {
             className={`image-${index}`}
             $aspectRatio={image.aspectRatio}
             $width={image.width}
+            $scale={index === currentIndex.current ? 1 : 0.8}
           >
             <Image
               src={image.url}
               priority={index === project.images.length - 1}
               fill
+              sizes="100%"
               object-fit="contain"
               alt=""
             />

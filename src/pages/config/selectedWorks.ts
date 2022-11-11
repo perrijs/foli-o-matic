@@ -9,6 +9,7 @@ export const SELECTED_WORKS = [
     code: "SW/06",
     client: "Google Store",
     date: "2022",
+    color: PINK_2,
     images: [
       {
         url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_8.png",
@@ -60,6 +61,7 @@ export const SELECTED_WORKS = [
     code: "SW/05",
     client: "YouTube",
     date: "2022",
+    color: PINK_2,
     images: [
       {
         url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_1.png",
@@ -110,6 +112,7 @@ export const SELECTED_WORKS = [
     code: "SW/04",
     client: "Google Arts & Culture",
     date: "2021",
+    color: PINK_2,
     images: [
       {
         url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_1.png",
@@ -160,6 +163,7 @@ export const SELECTED_WORKS = [
     code: "SW/03",
     client: "Financial Times",
     date: "2021",
+    color: PINK_2,
     images: [
       {
         url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_1.png",
@@ -210,6 +214,7 @@ export const SELECTED_WORKS = [
     code: "SW/02",
     client: "Sony Music x Doja Cat",
     date: "2021",
+    color: PINK_2,
     images: [
       {
         url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_1.png",
@@ -260,6 +265,7 @@ export const SELECTED_WORKS = [
     code: "SW/01",
     client: "XXIM Records",
     date: "2020",
+    color: PINK_2,
     images: [
       {
         url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_1.png",

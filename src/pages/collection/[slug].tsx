@@ -20,7 +20,7 @@ const Project = ({ project }: PageProps) => {
 
       <Carousel project={project} />
 
-      <WipeScreen backgroundColor={project.colors.transition} />
+      <WipeScreen backgroundColor={project.color} />
       <TransitionScreen />
     </>
   );

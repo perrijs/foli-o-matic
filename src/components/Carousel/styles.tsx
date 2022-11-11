@@ -25,8 +25,6 @@ export const MainImageContainer = styled.div`
 
   width: 66vw;
   aspect-ratio: 16 / 9;
-
-  background-color: red;
 `;
 
 interface ImageContainerProps {
@@ -41,5 +39,6 @@ export const ImageContainer = styled.div<ImageContainerProps>`
 
   img {
     pointer-events: none;
+    user-select: none;
   }
 `;

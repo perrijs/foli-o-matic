@@ -1,5 +1,6 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
+import gsap from "gsap";
 
 import { SelectedWork } from "@/pages/config/types";
 
@@ -10,18 +11,70 @@ interface Props {
 }
 
 const Carousel = ({ project }: Props) => {
+  const currentIndex = useRef<number>(project.images.length - 1);
   const currentImage = useRef<HTMLImageElement>();
+
   const isMouseOver = useRef<boolean>(false);
   const isMouseDown = useRef<boolean>(false);
+  const canDrag = useRef<boolean>(false);
+
+  const dragTotal = useRef<number>(0);
   const prevPageY = useRef<number>(0);
 
-  useEffect(() => {
-    let dragAmount = 0;
+  const handleDrag = useCallback((event: MouseEvent) => {
+    if (!currentImage.current) return;
 
+    if (event.pageY > prevPageY.current) {
+      if (dragTotal.current < 100) {
+        dragTotal.current += 6.6;
+      }
+    }
+
+    currentImage.current.style.transform = `translateY(${dragTotal.current}px)`;
+    prevPageY.current = event.pageY;
+  }, []);
+
+  const handleRelease = useCallback(() => {
+    if (!currentImage.current) return;
+
+    isMouseDown.current = false;
+
+    if (dragTotal.current >= 100) {
+      gsap.fromTo(
+        currentImage.current,
+        { transform: currentImage.current.style.transform },
+        {
+          duration: 1,
+          transform: "translateY(300%)",
+          onComplete: () => {
+            currentIndex.current -= 1;
+
+            const image = document.querySelector(
+              `.image-${currentIndex.current}`
+            ) as HTMLImageElement;
+            currentImage.current = image;
+          },
+        }
+      );
+    } else {
+      gsap.fromTo(
+        currentImage.current,
+        { transform: currentImage.current.style.transform },
+        {
+          duration: 1,
+          transform: "translateY(0%)",
+        }
+      );
+    }
+
+    dragTotal.current = 0;
+    prevPageY.current = 0;
+  }, []);
+
+  useEffect(() => {
     const image = document.querySelector(
-      `.image-${project.images.length - 1}`
+      `.image-${currentIndex.current}`
     ) as HTMLImageElement;
-    console.log(image);
     currentImage.current = image;
 
     document.addEventListener("mousedown", () => {
@@ -29,33 +82,15 @@ const Carousel = ({ project }: Props) => {
     });
 
     document.addEventListener("mouseup", () => {
-      if (!currentImage.current) return;
-
-      isMouseDown.current = false;
-
-      if (dragAmount > 100) {
-        currentImage.current.style.transform = `translateY(300%)`;
-      } else {
-        currentImage.current.style.transform = `translateY(0%)`;
-      }
-
-      dragAmount = 0;
+      handleRelease();
     });
 
     document.addEventListener("mousemove", (event: MouseEvent) => {
       if (!isMouseOver.current || !isMouseDown.current) return;
 
-      if (event.pageY > prevPageY.current) {
-        if (!currentImage.current) return;
-
-        dragAmount += 5;
-
-        currentImage.current.style.transform = `translateY(${dragAmount}px)`;
-      }
-
-      prevPageY.current = event.pageY;
+      handleDrag(event);
     });
-  }, [project.images.length]);
+  }, [project, handleDrag, handleRelease]);
 
   return (
     <CarouselWrapper>
@@ -70,7 +105,13 @@ const Carousel = ({ project }: Props) => {
             $aspectRatio={image.aspectRatio}
             $width={image.width}
           >
-            <Image src={image.url} fill object-fit="contain" alt="" />
+            <Image
+              src={image.url}
+              priority={index === project.images.length - 1}
+              fill
+              object-fit="contain"
+              alt=""
+            />
           </ImageContainer>
         ))}
       </MainImageContainer>

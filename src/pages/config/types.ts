@@ -5,6 +5,7 @@ export interface SelectedWork {
   name: string;
   client: string;
   date: string;
+  color: string;
   images: CarouselImage[];
   roles: string[];
 }

@@ -7,6 +7,7 @@ export interface SelectedWork {
   date: string;
   color: string;
   video: string;
+  description: string;
   roles: string[];
 }
 

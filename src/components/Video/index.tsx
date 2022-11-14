@@ -5,7 +5,7 @@ interface Props {
 }
 
 const Video = ({ url }: Props) => (
-  <VideoPlayer autoPlay>
+  <VideoPlayer muted autoPlay>
     <source src={url} type="video/mp4"></source>
   </VideoPlayer>
 );

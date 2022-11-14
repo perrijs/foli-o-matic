@@ -14,7 +14,7 @@ import { UI_HANDLE_TRANSITION } from "@/webgl/config/topics";
 import { SelectedWork, OtherWork, Award } from "@/pages/config/types";
 
 import {
-  ProjectsWrapper,
+  CollectionWrapper,
   TableHeader,
   TableHeaders,
   TableSection,
@@ -28,7 +28,7 @@ interface PageProps {
   projects: SelectedWork[];
 }
 
-const Projects = ({ projects }: PageProps) => {
+const Collection = ({ projects }: PageProps) => {
   const handleTransition = (index: number) => {
     PubSub.publish(UI_HANDLE_TRANSITION, ITEMS[index]);
   };
@@ -46,7 +46,7 @@ const Projects = ({ projects }: PageProps) => {
   });
 
   return (
-    <ProjectsWrapper>
+    <CollectionWrapper>
       <TableHeaders className="fadeIn">
         <TableHeader>TYPE</TableHeader>
         <TableHeader>TITLE</TableHeader>
@@ -140,11 +140,11 @@ const Projects = ({ projects }: PageProps) => {
 
       <WipeScreen />
       <TransitionScreen />
-    </ProjectsWrapper>
+    </CollectionWrapper>
   );
 };
 
-export default Projects;
+export default Collection;
 
 export const getStaticProps = async () => {
   return {

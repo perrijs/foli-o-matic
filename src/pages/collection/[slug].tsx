@@ -6,23 +6,71 @@ import TransitionScreen from "@/components/TransitionScreen";
 import { SELECTED_WORKS } from "@/pages/config/selectedWorks";
 import { SelectedWork } from "@/pages/config/types";
 
+import {
+  ProjectWrapper,
+  ContentContainer,
+  ProjectDescriptionContainer,
+  ProjectTitle,
+  ProjectDescription,
+  ProjectInfoContainer,
+  InfoContainerSection,
+  SectionTitle,
+  SectionBodyContainer,
+  SectionBody,
+} from "./slugStyles";
+
 interface PageProps {
   project: SelectedWork;
 }
 
 const Project = ({ project }: PageProps) => {
   return (
-    <>
+    <ProjectWrapper>
       <MenuButton />
-
-      {/* <p>{project.id}</p> */}
-      {/* <p>{project.name}</p> */}
 
       <Video url={project.video} />
 
+      <ContentContainer>
+        <ProjectDescriptionContainer>
+          <ProjectTitle>{project.name} /</ProjectTitle>
+
+          <ProjectDescription>{project.description}</ProjectDescription>
+        </ProjectDescriptionContainer>
+
+        <ProjectInfoContainer>
+          <InfoContainerSection>
+            <SectionTitle>
+              <span>CLIENT</span>
+              <span>/</span>
+            </SectionTitle>
+            <SectionBody>{project.client}</SectionBody>
+          </InfoContainerSection>
+
+          <InfoContainerSection>
+            <SectionTitle>
+              <span>YEAR</span>
+              <span>/</span>
+            </SectionTitle>
+            <SectionBody>{project.date}</SectionBody>
+          </InfoContainerSection>
+
+          <InfoContainerSection>
+            <SectionTitle>
+              <span>ROLES</span>
+              <span>/</span>
+            </SectionTitle>
+            <SectionBodyContainer>
+              {project.roles.map((role, index) => (
+                <SectionBody key={index}>{role}</SectionBody>
+              ))}
+            </SectionBodyContainer>
+          </InfoContainerSection>
+        </ProjectInfoContainer>
+      </ContentContainer>
+
       <WipeScreen backgroundColor={project.color} />
       <TransitionScreen />
-    </>
+    </ProjectWrapper>
   );
 };
 

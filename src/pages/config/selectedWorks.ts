@@ -11,6 +11,8 @@ export const SELECTED_WORKS = [
     date: "2022",
     color: PINK_2,
     video: "/videos/projects/placeholder_video.mp4",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
     roles: ["WebGL", "Front-end", "Back-end"],
   },
   {
@@ -22,6 +24,8 @@ export const SELECTED_WORKS = [
     date: "2022",
     color: PINK_2,
     video: "/videos/projects/placeholder_video.mp4",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
   },
   {
     id: 2,
@@ -32,6 +36,8 @@ export const SELECTED_WORKS = [
     date: "2021",
     color: PINK_2,
     video: "/videos/projects/placeholder_video.mp4",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
   },
   {
     id: 3,
@@ -42,6 +48,8 @@ export const SELECTED_WORKS = [
     date: "2021",
     color: PINK_2,
     video: "/videos/projects/placeholder_video.mp4",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
   },
   {
     id: 4,
@@ -52,6 +60,8 @@ export const SELECTED_WORKS = [
     date: "2021",
     color: PINK_2,
     video: "/videos/projects/placeholder_video.mp4",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
   },
   {
     id: 5,
@@ -62,5 +72,7 @@ export const SELECTED_WORKS = [
     date: "2020",
     color: PINK_2,
     video: "/videos/projects/placeholder_video.mp4",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
   },
 ];

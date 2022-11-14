@@ -8,7 +8,7 @@ interface WrapperProps {
   $backgroundColor?: string;
 }
 
-export const ProjectsWrapper = styled.div<WrapperProps>`
+export const CollectionWrapper = styled.div<WrapperProps>`
   padding: ${spacing.MARGIN_LARGE} ${spacing.MARGIN_EXTRA_LARGE};
 
   background-color: ${color.PINK_1};
@@ -30,7 +30,7 @@ export const TableHeader = styled.h2`
 
   color: ${color.PINK_4};
 
-  ${type.TYPE_SANS_HEADER_1}
+  ${type.TYPE_SANS_HEADER_2}
 
   &:first-child {
     width: 20%;
@@ -85,7 +85,7 @@ export const TableSectionType = styled.h3`
 
   color: ${color.PINK_4};
 
-  ${type.TYPE_SANS_HEADER_2}
+  ${type.TYPE_SANS_HEADER_3}
 `;
 
 export const TableSectionCode = styled.h3`

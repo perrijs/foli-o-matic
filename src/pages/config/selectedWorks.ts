@@ -10,48 +10,7 @@ export const SELECTED_WORKS = [
     client: "Google Store",
     date: "2022",
     color: PINK_2,
-    images: [
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_8.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_7.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_6.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_5.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_4.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_3.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_2.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_1.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-    ],
+    video: "/videos/projects/placeholder_video.mp4",
     roles: ["WebGL", "Front-end", "Back-end"],
   },
   {
@@ -62,48 +21,7 @@ export const SELECTED_WORKS = [
     client: "YouTube",
     date: "2022",
     color: PINK_2,
-    images: [
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_1.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_2.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_3.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_4.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_5.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_6.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_7.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_8.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-    ],
+    video: "/videos/projects/placeholder_video.mp4",
   },
   {
     id: 2,
@@ -113,48 +31,7 @@ export const SELECTED_WORKS = [
     client: "Google Arts & Culture",
     date: "2021",
     color: PINK_2,
-    images: [
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_1.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_2.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_3.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_4.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_5.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_6.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_7.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_8.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-    ],
+    video: "/videos/projects/placeholder_video.mp4",
   },
   {
     id: 3,
@@ -164,48 +41,7 @@ export const SELECTED_WORKS = [
     client: "Financial Times",
     date: "2021",
     color: PINK_2,
-    images: [
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_1.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_2.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_3.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_4.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_5.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_6.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_7.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_8.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-    ],
+    video: "/videos/projects/placeholder_video.mp4",
   },
   {
     id: 4,
@@ -215,48 +51,7 @@ export const SELECTED_WORKS = [
     client: "Sony Music x Doja Cat",
     date: "2021",
     color: PINK_2,
-    images: [
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_1.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_2.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_3.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_4.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_5.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_6.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_7.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_8.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-    ],
+    video: "/videos/projects/placeholder_video.mp4",
   },
   {
     id: 5,
@@ -266,47 +61,6 @@ export const SELECTED_WORKS = [
     client: "XXIM Records",
     date: "2020",
     color: PINK_2,
-    images: [
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_1.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_2.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_3.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_4.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_5.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_6.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_7.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-      {
-        url: "/images/projects/pyramids-of-meroe/pyramids_of_meroe_8.png",
-        aspectRatio: 16 / 9,
-        width: 66,
-      },
-    ],
+    video: "/videos/projects/placeholder_video.mp4",
   },
 ];

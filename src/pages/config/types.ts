@@ -6,7 +6,7 @@ export interface SelectedWork {
   client: string;
   date: string;
   color: string;
-  images: CarouselImage[];
+  video: string;
   roles: string[];
 }
 
@@ -24,10 +24,4 @@ export interface Award {
   code: string;
   organisation: string;
   year: string;
-}
-
-export interface CarouselImage {
-  url: string;
-  aspectRatio: number;
-  width: number;
 }

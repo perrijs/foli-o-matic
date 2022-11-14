@@ -1,5 +1,5 @@
 import MenuButton from "@/components/MenuButton";
-import Carousel from "@/components/Carousel";
+import Video from "@/components/Video";
 import WipeScreen from "@/components/WipeScreen";
 import TransitionScreen from "@/components/TransitionScreen";
 
@@ -18,7 +18,7 @@ const Project = ({ project }: PageProps) => {
       {/* <p>{project.id}</p> */}
       {/* <p>{project.name}</p> */}
 
-      <Carousel project={project} />
+      <Video url={project.video} />
 
       <WipeScreen backgroundColor={project.color} />
       <TransitionScreen />

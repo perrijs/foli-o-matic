@@ -6,10 +6,9 @@ import * as spacing from "@/styles/globals/spacing";
 
 export const ProjectWrapper = styled.div`
   display: flex;
-  width: 100vw;
   height: fit-content;
   min-height: 100vh;
-  padding: ${spacing.MARGIN_LARGE} 0;
+  padding: ${spacing.MARGIN_LARGE} ${spacing.MARGIN_EXTRA_LARGE};
 
   flex-direction: column;
   align-items: center;
@@ -19,12 +18,10 @@ export const ProjectWrapper = styled.div`
 
 export const ContentContainer = styled.div`
   display: flex;
-  width: 90vw;
-  margin: ${spacing.MARGIN_MEDIUM} 0;
+  width: 100%;
+  margin: ${spacing.MARGIN_MEDIUM} 0 0;
 
   justify-content: space-between;
-
-  border-bottom: 1px solid ${color.PINK_2};
 `;
 
 export const ProjectDescriptionContainer = styled.div`
@@ -63,8 +60,8 @@ export const ProjectLink = styled.div`
   a {
     display: flex;
 
-    gap: ${spacing.MARGIN_EXTRA_SMALL};
     justify-content: center;
+    gap: ${spacing.MARGIN_EXTRA_SMALL};
     color: ${color.PINK_4};
 
     text-decoration: none;

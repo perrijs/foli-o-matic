@@ -23,6 +23,7 @@ import {
   TableSectionEntry,
   TableSectionCode,
 } from "./styles";
+import Footer from "@/components/Footer";
 
 interface PageProps {
   projects: SelectedWork[];
@@ -140,6 +141,8 @@ const Collection = ({ projects }: PageProps) => {
 
       <WipeScreen />
       <TransitionScreen />
+
+      <Footer />
     </CollectionWrapper>
   );
 };

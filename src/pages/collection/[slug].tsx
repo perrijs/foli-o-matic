@@ -22,6 +22,7 @@ import {
   SectionBodyContainer,
   SectionBody,
 } from "./slugStyles";
+import Footer from "@/components/Footer";
 
 interface PageProps {
   project: SelectedWork;
@@ -48,7 +49,7 @@ const Project = ({ project }: PageProps) => {
                 passHref={true}
                 target="_blank"
               >
-                View website
+                VIEW WEBSITE
                 <Image
                   src="/images/icons/open_in_new.svg"
                   width="18"
@@ -93,6 +94,8 @@ const Project = ({ project }: PageProps) => {
 
       <WipeScreen backgroundColor={project.color} />
       <TransitionScreen />
+
+      <Footer />
     </ProjectWrapper>
   );
 };

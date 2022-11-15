@@ -1,3 +1,6 @@
+import Link from "next/link";
+import Image from "next/image";
+
 import MenuButton from "@/components/MenuButton";
 import Video from "@/components/Video";
 import WipeScreen from "@/components/WipeScreen";
@@ -12,6 +15,7 @@ import {
   ProjectDescriptionContainer,
   ProjectTitle,
   ProjectDescription,
+  ProjectLink,
   ProjectInfoContainer,
   InfoContainerSection,
   SectionTitle,
@@ -35,6 +39,25 @@ const Project = ({ project }: PageProps) => {
           <ProjectTitle>{project.name} /</ProjectTitle>
 
           <ProjectDescription>{project.description}</ProjectDescription>
+
+          {project.url && (
+            <ProjectLink>
+              <Link
+                key={project.name}
+                href={project.url}
+                passHref={true}
+                target="_blank"
+              >
+                View website
+                <Image
+                  src="/images/icons/open_in_new.svg"
+                  width="18"
+                  height="18"
+                  alt=""
+                />
+              </Link>
+            </ProjectLink>
+          )}
         </ProjectDescriptionContainer>
 
         <ProjectInfoContainer>

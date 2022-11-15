@@ -19,7 +19,7 @@ export const ProjectWrapper = styled.div`
 
 export const ContentContainer = styled.div`
   display: flex;
-  width: 80vw;
+  width: 90vw;
   margin: ${spacing.MARGIN_MEDIUM} 0;
 
   justify-content: space-between;
@@ -50,6 +50,29 @@ export const ProjectDescription = styled.p`
   color: ${color.PINK_4};
 
   ${type.TYPE_SERIF_BODY_2}
+`;
+
+export const ProjectLink = styled.div`
+  display: flex;
+  width: fit-content;
+
+  justify-content: center;
+
+  ${type.TYPE_SANS_BODY_1};
+
+  a {
+    display: flex;
+
+    gap: ${spacing.MARGIN_EXTRA_SMALL};
+    justify-content: center;
+    color: ${color.PINK_4};
+
+    text-decoration: none;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 export const ProjectInfoContainer = styled.div`

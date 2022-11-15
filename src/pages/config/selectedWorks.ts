@@ -14,6 +14,7 @@ export const SELECTED_WORKS = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
     roles: ["WebGL", "Front-end", "Back-end"],
+    url: "https://www.google.com",
   },
   {
     id: 1,
@@ -26,6 +27,7 @@ export const SELECTED_WORKS = [
     video: "/videos/projects/placeholder_video.mp4",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
+    url: "https://www.google.com",
   },
   {
     id: 2,
@@ -38,6 +40,7 @@ export const SELECTED_WORKS = [
     video: "/videos/projects/placeholder_video.mp4",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
+    url: "https://www.google.com",
   },
   {
     id: 3,
@@ -50,6 +53,7 @@ export const SELECTED_WORKS = [
     video: "/videos/projects/placeholder_video.mp4",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
+    url: "https://www.google.com",
   },
   {
     id: 4,
@@ -62,6 +66,7 @@ export const SELECTED_WORKS = [
     video: "/videos/projects/placeholder_video.mp4",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
+    url: "https://www.google.com",
   },
   {
     id: 5,
@@ -74,5 +79,6 @@ export const SELECTED_WORKS = [
     video: "/videos/projects/placeholder_video.mp4",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
+    url: "https://www.google.com",
   },
 ];

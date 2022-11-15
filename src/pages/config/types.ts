@@ -9,6 +9,7 @@ export interface SelectedWork {
   video: string;
   description: string;
   roles: string[];
+  url?: string;
 }
 
 export interface OtherWork {

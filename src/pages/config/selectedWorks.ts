@@ -10,6 +10,7 @@ export const SELECTED_WORKS = [
     client: "Google Store",
     date: "2022",
     color: PINK_2,
+    image: "/images/projects/pyramids_of_meroe.png",
     video: "/videos/projects/placeholder_video.mp4",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
@@ -24,6 +25,7 @@ export const SELECTED_WORKS = [
     client: "YouTube",
     date: "2022",
     color: PINK_2,
+    image: "/images/projects/digital_assets_demystified.png",
     video: "/videos/projects/placeholder_video.mp4",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
@@ -37,6 +39,7 @@ export const SELECTED_WORKS = [
     client: "Google Arts & Culture",
     date: "2021",
     color: PINK_2,
+    image: "/images/projects/pyramids_of_meroe.png",
     video: "/videos/projects/placeholder_video.mp4",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
@@ -50,6 +53,7 @@ export const SELECTED_WORKS = [
     client: "Financial Times",
     date: "2021",
     color: PINK_2,
+    image: "/images/projects/digital_assets_demystified.png",
     video: "/videos/projects/placeholder_video.mp4",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
@@ -63,6 +67,7 @@ export const SELECTED_WORKS = [
     client: "Sony Music x Doja Cat",
     date: "2021",
     color: PINK_2,
+    image: "/images/projects/pyramids_of_meroe.png",
     video: "/videos/projects/placeholder_video.mp4",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
@@ -76,6 +81,7 @@ export const SELECTED_WORKS = [
     client: "XXIM Records",
     date: "2020",
     color: PINK_2,
+    image: "/images/projects/digital_assets_demystified.png",
     video: "/videos/projects/placeholder_video.mp4",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",

@@ -6,6 +6,7 @@ export interface SelectedWork {
   client: string;
   date: string;
   color: string;
+  image: string;
   video: string;
   description: string;
   roles: string[];

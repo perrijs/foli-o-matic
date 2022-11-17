@@ -43,9 +43,11 @@ export const TableHeader = styled.h2`
 
 export const TableSection = styled.div`
   display: flex;
+  position: relative;
   margin: ${spacing.MARGIN_SMALL} 0;
 
   flex-direction: column;
+  z-index: 1;
 
   a {
     text-decoration: none;
@@ -55,8 +57,8 @@ export const TableSection = styled.div`
 export const TableRow = styled.div`
   display: flex;
   width: 100%;
-  margin: 0 0 ${spacing.MARGIN_EXTRA_SMALL};
-  padding: 0 0 ${spacing.MARGIN_EXTRA_SMALL};
+  margin: 0;
+  padding: ${spacing.MARGIN_EXTRA_SMALL} 0;
 
   justify-content: space-between;
 
@@ -79,7 +81,7 @@ export const TableRow = styled.div`
 `;
 
 export const TableSectionType = styled.h3`
-  width: 20%;
+  width: 100%;
   margin: 0;
   padding: ${spacing.MARGIN_EXTRA_SMALL} 0;
 
@@ -112,5 +114,21 @@ export const TableSectionEntry = styled.h3`
 
   &:last-child {
     width: 10%;
+  }
+`;
+
+export const ImageContainer = styled.div`
+  position: absolute;
+  width: 50vw;
+  aspect-ratio: 16 / 9;
+
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+
+  img {
+    width: 100%;
+    height: 100%;
   }
 `;

@@ -3,6 +3,7 @@ import { PINK_2 } from "@/styles/globals/color";
 export const ITEMS = [
   {
     id: "item_1",
+    object: "/models/placeholder_pyramid.glb",
     color: PINK_2,
     position: {
       x: -1.6,
@@ -13,6 +14,7 @@ export const ITEMS = [
   },
   {
     id: "item_2",
+    object: "/models/placeholder_pyramid.glb",
     color: "#FF0000",
     position: {
       x: -0.6,
@@ -23,6 +25,7 @@ export const ITEMS = [
   },
   {
     id: "item_3",
+    object: "/models/placeholder_pyramid.glb",
     color: "#FFF6EB",
     position: {
       x: 0.4,
@@ -33,6 +36,7 @@ export const ITEMS = [
   },
   {
     id: "item_4",
+    object: "/models/placeholder_pyramid.glb",
     color: "#0A4869",
     position: {
       x: -1.6,
@@ -43,6 +47,7 @@ export const ITEMS = [
   },
   {
     id: "item_5",
+    object: "/models/placeholder_pyramid.glb",
     color: "#FFDBFD",
     position: {
       x: -0.6,
@@ -53,6 +58,7 @@ export const ITEMS = [
   },
   {
     id: "item_6",
+    object: "/models/placeholder_pyramid.glb",
     color: "#7D7D7D",
     position: {
       x: 0.4,

@@ -1,4 +1,4 @@
-import { Group } from "three";
+import { Mesh } from "three";
 import gsap from "gsap";
 
 import { Scene } from "@/webgl/globals/Scene";
@@ -10,9 +10,9 @@ export class Item {
   scene = Scene.getInstance();
 
   itemData: ItemData;
-  model: Group;
+  model: Mesh;
 
-  constructor(itemData: ItemData, model: Group) {
+  constructor(itemData: ItemData, model: Mesh) {
     this.itemData = itemData;
     this.model = model;
 

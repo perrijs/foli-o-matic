@@ -16,11 +16,11 @@ export class ItemController {
   scene = Scene.getInstance();
   assetController = AssetController.getInstance();
 
-  model?: Group;
+  model?: Mesh;
   items?: Item[] = [];
 
   constructor() {
-    this.load();
+    this.init();
   }
 
   static getInstance() {
@@ -30,29 +30,18 @@ export class ItemController {
     return ItemController.instance;
   }
 
-  load() {
-    const loader = new GLTFLoader();
-
-    loader.load("/models/placeholder_packet.glb", (gltf) => {
-      gltf.scene.scale.setScalar(0.075);
-      gltf.scene.rotation.y = Math.PI / 2;
-
-      this.model = gltf.scene;
-
-      this.init();
-    });
-  }
-
   init() {
     ITEMS.forEach((itemData, index) => {
-      if (!this.model || !this.items) return;
+      if (!this.assetController.models || !this.items) return;
+
+      const model = this.assetController.models[index].children[0] as Mesh;
+      model.scale.setScalar(0.5);
 
       if (this.assetController.matcaps) {
-        const mesh = this.model.children[0] as Mesh;
-        mesh.material = this.assetController.matcaps[index + 2];
+        model.material = this.assetController.matcaps[index + 2];
       }
 
-      const item = new Item(itemData, this.model.clone());
+      const item = new Item(itemData, model);
       this.items.push(item);
     });
 

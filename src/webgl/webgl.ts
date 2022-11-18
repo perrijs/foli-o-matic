@@ -16,6 +16,8 @@ export class WebGL {
   async init() {
     await this.assetController.loadMatcaps();
 
+    await this.assetController.loadModels();
+
     new World(this.canvasParent);
   }
 }

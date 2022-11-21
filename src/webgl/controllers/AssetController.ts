@@ -1,14 +1,17 @@
-import { TextureLoader, MeshMatcapMaterial, Object3D } from "three";
+import { TextureLoader, Group, MeshMatcapMaterial } from "three";
+import { GLTFLoader, GLTF } from "three/examples/jsm/loaders/GLTFLoader";
 
 import { MATCAPS } from "@/webgl/config/matcaps";
-import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { ITEMS } from "../config/items";
+import { ITEMS, WRAPPER } from "@/webgl/config/items";
 
 export class AssetController {
   static instance: AssetController;
 
+  loader = new GLTFLoader();
+
   matcaps?: MeshMatcapMaterial[] = [];
-  models?: Object3D[] = [];
+  wrapper?: GLTF;
+  models?: Group[] = [];
 
   constructor() {}
 
@@ -20,10 +23,8 @@ export class AssetController {
   }
 
   loadModel(url: string) {
-    const loader = new GLTFLoader();
-
     return new Promise<GLTF>((resolve) => {
-      loader.load(url, resolve);
+      this.loader.load(url, resolve);
     });
   }
 
@@ -42,6 +43,13 @@ export class AssetController {
 
     const matcaps = await Promise.all(matcapsMap);
     this.matcaps = matcaps;
+  }
+
+  async loadWrapper() {
+    const wrapperLoader = await this.loadModel(WRAPPER);
+
+    const wrapper = await Promise.resolve(wrapperLoader);
+    this.wrapper = wrapper;
   }
 
   async loadModels() {

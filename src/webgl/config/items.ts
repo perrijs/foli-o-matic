@@ -68,3 +68,5 @@ export const ITEMS = [
     slug: "xxim-records",
   },
 ];
+
+export const WRAPPER = "/models/placeholder_wrapper.glb";

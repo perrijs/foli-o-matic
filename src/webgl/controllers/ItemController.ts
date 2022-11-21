@@ -1,10 +1,10 @@
 import { Group, Mesh } from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import PubSub from "pubsub-js";
 
 import { Scene } from "@/webgl/globals/Scene";
 
 import { AssetController } from "@/webgl/controllers/AssetController";
+import { Wrapper } from "@/webgl/entities/Wrapper";
 import { Item } from "@/webgl/entities/Item";
 
 import { ITEMS } from "@/webgl/config/items";
@@ -34,14 +34,16 @@ export class ItemController {
     ITEMS.forEach((itemData, index) => {
       if (!this.assetController.models || !this.items) return;
 
+      const itemGroup = new Group();
+
       const model = this.assetController.models[index].children[0] as Mesh;
-      model.scale.setScalar(0.5);
+      model.scale.setScalar(0.15);
 
-      if (this.assetController.matcaps) {
-        model.material = this.assetController.matcaps[index + 2];
-      }
+      itemGroup.add(model);
 
-      const item = new Item(itemData, model);
+      new Wrapper(itemGroup);
+
+      const item = new Item(itemData, itemGroup);
       this.items.push(item);
     });
 

@@ -1,10 +1,8 @@
-import { PINK_2 } from "@/styles/globals/color";
-
 export const ITEMS = [
   {
     id: "item_1",
-    object: "/models/placeholder_pyramid.glb",
-    scalar: 0.125,
+    object: "/models/placeholder_joystick.glb",
+    scalar: 0.07,
     position: {
       x: -1.6,
       y: 2.125,
@@ -15,7 +13,6 @@ export const ITEMS = [
       y: 0,
       z: 0,
     },
-    color: PINK_2,
     slug: "shopper-hopper",
   },
   {
@@ -32,7 +29,6 @@ export const ITEMS = [
       y: 0,
       z: 0,
     },
-    color: "#FF0000",
     slug: "youtube-united",
   },
   {
@@ -49,12 +45,11 @@ export const ITEMS = [
       y: 0,
       z: 0,
     },
-    color: "#FFF6EB",
     slug: "pyramids-of-meroe",
   },
   {
     id: "item_4",
-    object: "/models/placeholder_pyramid.glb",
+    object: "/models/placeholder_coin.glb",
     scalar: 0.125,
     position: {
       x: -1.6,
@@ -62,11 +57,10 @@ export const ITEMS = [
       z: 1.7,
     },
     rotation: {
-      x: 0,
+      x: Math.PI / 2,
       y: 0,
       z: 0,
     },
-    color: "#0A4869",
     slug: "digital-assets-demystified",
   },
   {
@@ -83,7 +77,6 @@ export const ITEMS = [
       y: 0,
       z: 0,
     },
-    color: "#FFDBFD",
     slug: "visit-planet-her",
   },
   {
@@ -100,7 +93,6 @@ export const ITEMS = [
       y: 0,
       z: 0,
     },
-    color: "#7D7D7D",
     slug: "xxim-records",
   },
 ];

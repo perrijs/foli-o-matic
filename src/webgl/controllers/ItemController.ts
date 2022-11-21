@@ -35,9 +35,9 @@ export class ItemController {
       if (!this.assetController.models || !this.items) return;
 
       const itemGroup = new Group();
+      const model = this.assetController.models[index];
 
-      const model = this.assetController.models[index].children[0] as Mesh;
-      model.scale.setScalar(0.15);
+      model.scale.setScalar(itemData.scalar);
 
       itemGroup.add(model);
 

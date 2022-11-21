@@ -1,4 +1,4 @@
-import { Texture } from "three";
+import { Texture, MeshMatcapMaterial } from "three";
 
 export interface Position {
   x: number;
@@ -34,4 +34,9 @@ export interface ItemData {
 export interface Textures {
   id: string;
   texture: Texture;
+}
+
+export interface Matcap {
+  name: string;
+  matcap: MeshMatcapMaterial;
 }

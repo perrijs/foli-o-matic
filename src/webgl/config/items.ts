@@ -74,7 +74,7 @@ export const ITEMS = [
     },
     rotation: {
       x: 0,
-      y: 0,
+      y: -Math.PI / 2,
       z: 0,
     },
     slug: "visit-planet-her",

@@ -18,20 +18,25 @@ export class Cabinet {
   scene = Scene.getInstance();
   assetController = AssetController.getInstance();
 
-  matcap?: MeshMatcapMaterial;
+  matcapMain?: MeshMatcapMaterial;
+  matcapSub?: MeshMatcapMaterial;
   cabinet: Group;
 
   constructor() {
     this.cabinet = new Group();
 
-    if (this.assetController.matcaps) {
-      this.matcap = this.assetController.matcaps[0];
-    }
-
     this.init();
   }
 
   init() {
+    if (this.assetController.matcaps) {
+      this.assetController.matcaps.forEach((item) => {
+        if (item.name === "matcap_cosmic_latte") this.matcapMain = item.matcap;
+        if (item.name === "matcap_cosmic_americano")
+          this.matcapSub = item.matcap;
+      });
+    }
+
     this.createBackPanel();
     this.createTopPanel();
     this.createBottomPanel();
@@ -60,7 +65,7 @@ export class Cabinet {
 
   createBackPanel() {
     const geometry = new BoxGeometry(5, 7.5, 0.5);
-    const material = this.matcap;
+    const material = this.matcapMain;
     const mesh = new Mesh(geometry, material);
 
     mesh.name = "matcapMain";
@@ -71,7 +76,7 @@ export class Cabinet {
 
   createSidePanel(x: number, y: number, z: number) {
     const geometry = new BoxGeometry(3, 7.5, 0.5);
-    const material = this.matcap;
+    const material = this.matcapMain;
     const mesh = new Mesh(geometry, material);
 
     mesh.position.set(x, y, z);
@@ -85,7 +90,7 @@ export class Cabinet {
 
   createTopPanel() {
     const geometry = new BoxGeometry(5, 3, 0.5);
-    const material = this.matcap;
+    const material = this.matcapMain;
     const mesh = new Mesh(geometry, material);
 
     mesh.position.set(0, 3.5, 1.5);
@@ -99,7 +104,7 @@ export class Cabinet {
 
   createBottomPanel() {
     const geometry = new BoxGeometry(5, 3, 0.5);
-    const material = this.matcap;
+    const material = this.matcapMain;
     const mesh = new Mesh(geometry, material);
 
     mesh.position.set(0, -3.5, 1.5);
@@ -113,7 +118,7 @@ export class Cabinet {
 
   createBottomFiller() {
     const geometry = new BoxGeometry(3, 1, 3);
-    const material = this.matcap;
+    const material = this.matcapMain;
     const mesh = new Mesh(geometry, material);
 
     mesh.position.set(-0.75, -2.8, 1.5);
@@ -125,7 +130,7 @@ export class Cabinet {
 
   createInsidePanel() {
     const geometry = new BoxGeometry(3, 7.5, 0.5);
-    const material = this.matcap;
+    const material = this.matcapMain;
     const mesh = new Mesh(geometry, material);
 
     mesh.position.set(1, 0, 1.5);
@@ -138,7 +143,7 @@ export class Cabinet {
 
   createFacePanel() {
     const geometry = new BoxGeometry(1.5, 7.5, 0.5);
-    const material = this.matcap;
+    const material = this.matcapMain;
     const mesh = new Mesh(geometry, material);
 
     mesh.position.set(1.5, 0, 2.75);
@@ -152,7 +157,7 @@ export class Cabinet {
     if (!this.assetController.matcaps) return;
 
     const geometry = new BoxGeometry(3.5, 2, 0.1);
-    const material = this.assetController.matcaps[1];
+    const material = this.matcapSub;
     const mesh = new Mesh(geometry, material);
 
     mesh.position.set(x, y, z);
@@ -165,7 +170,7 @@ export class Cabinet {
     if (!this.assetController.matcaps) return;
 
     const geometry = new BoxGeometry(0.25, 0.5, 0.25);
-    const material = this.assetController.matcaps[1];
+    const material = this.matcapSub;
     const mesh = new Mesh(geometry, material);
 
     mesh.castShadow = true;

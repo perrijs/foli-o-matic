@@ -35,17 +35,13 @@ export class CoilController {
       "textures/matcaps/matcap_darkgrey.png",
       (texture) => {
         this.matcap = texture;
-
-        this.init();
       }
     );
 
     gltfLoader.load("/models/placeholder_coil.glb", (gltf) => {
       const mesh = gltf.scene.children[0] as Mesh;
 
-      mesh.material = new MeshMatcapMaterial({
-        matcap: this.matcap,
-      });
+      mesh.material = new MeshMatcapMaterial({});
 
       gltf.scene.scale.setScalar(0.075);
 

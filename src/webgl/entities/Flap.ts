@@ -1,4 +1,4 @@
-import { Mesh, BoxGeometry } from "three";
+import { Mesh, BoxGeometry, MeshMatcapMaterial } from "three";
 import PubSub from "pubsub-js";
 import gsap from "gsap";
 
@@ -13,6 +13,7 @@ export class Flap {
 
   assetController = AssetController.getInstance();
 
+  matcap?: MeshMatcapMaterial;
   mesh?: Mesh;
 
   constructor() {
@@ -20,11 +21,14 @@ export class Flap {
   }
 
   init() {
-    if (!this.assetController.matcaps) return;
+    if (this.assetController.matcaps) {
+      this.assetController.matcaps.forEach((item) => {
+        if (item.name === "matcap_cosmic_americano") this.matcap = item.matcap;
+      });
+    }
 
     const geometry = new BoxGeometry(3, 0.75, 0.1);
-    const material = this.assetController.matcaps[1];
-    const flap = new Mesh(geometry, material);
+    const flap = new Mesh(geometry, this.matcap);
 
     flap.position.set(-0.75, -2, 2.75);
 

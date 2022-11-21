@@ -1,4 +1,13 @@
-import { Group, Mesh, MeshPhysicalMaterial } from "three";
+import {
+  TextureLoader,
+  Group,
+  Mesh,
+  MeshPhysicalMaterial,
+  PlaneGeometry,
+  MeshLambertMaterial,
+  MeshBasicMaterial,
+  DoubleSide,
+} from "three";
 
 import { Scene } from "@/webgl/globals/Scene";
 
@@ -41,5 +50,39 @@ export class Wrapper {
 
       this.parent.add(model);
     }
+
+    this.addCard();
+  }
+
+  async addCard() {
+    const textureLoader = new TextureLoader();
+
+    const texture = await textureLoader.load(
+      "/textures/wrapper/placeholder_card.jpg"
+    );
+
+    const frontCardGeometry = new PlaneGeometry(0.65, 0.323, 1);
+    const frontCardMaterial = new MeshLambertMaterial({
+      map: texture,
+      side: DoubleSide,
+    });
+    const frontCardMesh = new Mesh(frontCardGeometry, frontCardMaterial);
+
+    frontCardMesh.position.y = 0.45;
+    frontCardMesh.position.z = 0.015;
+    frontCardMesh.rotation.x = -0.1;
+
+    const backCardGeometry = new PlaneGeometry(0.65, 0.323, 1);
+    const backCardMaterial = new MeshLambertMaterial({
+      color: "#fff",
+    });
+    const backCardMesh = new Mesh(backCardGeometry, backCardMaterial);
+
+    backCardMesh.position.y = 0.45;
+    backCardMesh.position.z = -0.015;
+    backCardMesh.rotation.x = 0.1;
+
+    this.parent.add(frontCardMesh);
+    this.parent.add(backCardMesh);
   }
 }

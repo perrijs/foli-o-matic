@@ -16,8 +16,6 @@ const TransitionScreen = () => {
     (data: ItemData) => {
       if (!transitionScreenRef.current) return;
 
-      transitionScreenRef.current.style.background = data.color;
-
       gsap.fromTo(
         transitionScreenRef.current,
         {

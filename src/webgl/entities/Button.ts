@@ -1,11 +1,9 @@
 import { BoxGeometry, MeshMatcapMaterial, Mesh } from "three";
-import PubSub from "pubsub-js";
 import gsap from "gsap";
 
 import { Scene } from "@/webgl/globals/Scene";
 
 import { ButtonData } from "@/webgl/config/types";
-import { GL_UPDATE_COLOR } from "@/webgl/config/topics";
 
 export class Button {
   scene = Scene.getInstance();
@@ -58,7 +56,5 @@ export class Button {
         z: 2.85,
       }
     );
-
-    PubSub.publish(GL_UPDATE_COLOR, this.index);
   }
 }

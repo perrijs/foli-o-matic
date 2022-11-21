@@ -35,13 +35,15 @@ export class ItemController {
       if (!this.assetController.models || !this.items) return;
 
       const itemGroup = new Group();
-      const model = this.assetController.models[index];
+      new Wrapper(itemGroup);
 
+      const model = this.assetController.models[index];
+      model.rotation.x = itemData.rotation.x;
+      model.rotation.y = itemData.rotation.y;
+      model.rotation.z = itemData.rotation.z;
       model.scale.setScalar(itemData.scalar);
 
       itemGroup.add(model);
-
-      new Wrapper(itemGroup);
 
       const item = new Item(itemData, itemGroup);
       this.items.push(item);

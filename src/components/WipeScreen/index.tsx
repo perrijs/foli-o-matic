@@ -3,11 +3,7 @@ import gsap from "gsap";
 
 import { WipeScreenWrapper } from "./styles";
 
-interface Props {
-  backgroundColor?: string;
-}
-
-const WipeScreen = ({ backgroundColor }: Props) => {
+const WipeScreen = () => {
   const transitionScreenRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -24,12 +20,7 @@ const WipeScreen = ({ backgroundColor }: Props) => {
     );
   }, []);
 
-  return (
-    <WipeScreenWrapper
-      ref={transitionScreenRef}
-      $backgroundColor={backgroundColor}
-    />
-  );
+  return <WipeScreenWrapper ref={transitionScreenRef} />;
 };
 
 export default WipeScreen;

@@ -6,6 +6,12 @@ export interface Position {
   z: number;
 }
 
+export interface Rotation {
+  x: number;
+  y: number;
+  z: number;
+}
+
 export interface CoilData {
   id: string;
   position: Position;
@@ -18,8 +24,10 @@ export interface ButtonData {
 
 export interface ItemData {
   id: string;
-  color: string;
+  object: string;
+  scalar: number;
   position: Position;
+  rotation: Rotation;
   slug: string;
 }
 

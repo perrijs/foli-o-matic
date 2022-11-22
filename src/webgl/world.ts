@@ -129,9 +129,9 @@ export class World {
     gsap.to(this.camera.position, {
       duration: 3,
       ease: "power4.inOut",
-      z: 4.5,
-      y: 1,
-      x: 1.5,
+      z: 4,
+      y: 1.5,
+      x: -0.5,
       onComplete: () => {
         this.canSelect = true;
       },
@@ -142,9 +142,12 @@ export class World {
     gsap.to(this.camera.position, {
       duration: 1.5,
       ease: "power4.inOut",
-      z: 8,
+      z: 10,
       y: 0,
       x: 0,
+      onUpdate: () => {
+        this.camera.lookAt(0, 0, 0);
+      },
     });
   }
 

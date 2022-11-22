@@ -57,9 +57,7 @@ export class Wrapper {
   async addCard() {
     const textureLoader = new TextureLoader();
 
-    const texture = await textureLoader.load(
-      "/textures/wrapper/placeholder_card.jpg"
-    );
+    const texture = await textureLoader.load("/textures/wrapper/item_card.png");
 
     const frontCardGeometry = new PlaneGeometry(0.55, 0.309, 1);
     const frontCardMaterial = new MeshLambertMaterial({

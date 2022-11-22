@@ -6,6 +6,7 @@ export const BUTTONS = [
       y: 1,
       z: 2.9,
     },
+    texture: "button_joystick",
   },
   {
     id: "item_2",
@@ -14,6 +15,7 @@ export const BUTTONS = [
       y: 1,
       z: 2.9,
     },
+    texture: "button_football",
   },
   {
     id: "item_3",
@@ -22,6 +24,7 @@ export const BUTTONS = [
       y: 1,
       z: 2.9,
     },
+    texture: "button_pyramid",
   },
   {
     id: "item_4",
@@ -30,6 +33,7 @@ export const BUTTONS = [
       y: 0.4,
       z: 2.9,
     },
+    texture: "button_coin",
   },
   {
     id: "item_5",
@@ -38,6 +42,7 @@ export const BUTTONS = [
       y: 0.4,
       z: 2.9,
     },
+    texture: "button_peach",
   },
   {
     id: "item_6",
@@ -46,5 +51,6 @@ export const BUTTONS = [
       y: 0.4,
       z: 2.9,
     },
+    texture: "button_record",
   },
 ];

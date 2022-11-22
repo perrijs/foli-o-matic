@@ -1,4 +1,10 @@
-import { BoxGeometry, MeshMatcapMaterial, Mesh } from "three";
+import {
+  Texture,
+  BoxGeometry,
+  Mesh,
+  MeshStandardMaterial,
+  MeshBasicMaterial,
+} from "three";
 import gsap from "gsap";
 
 import { Scene } from "@/webgl/globals/Scene";
@@ -10,16 +16,12 @@ export class Button {
 
   buttonData: ButtonData;
   mesh?: Mesh;
-  matcap?: MeshMatcapMaterial;
+  texture?: Texture;
   index?: number;
 
-  constructor(
-    buttonData: ButtonData,
-    matcap: MeshMatcapMaterial,
-    index: number
-  ) {
+  constructor(buttonData: ButtonData, texture: Texture, index: number) {
     this.buttonData = buttonData;
-    this.matcap = matcap;
+    this.texture = texture;
     this.index = index;
 
     this.init();
@@ -30,7 +32,7 @@ export class Button {
 
     const geometry = new BoxGeometry(0.35, 0.35, 0.35);
 
-    const material = this.matcap;
+    const material = new MeshBasicMaterial({ map: this.texture });
 
     const mesh = new Mesh(geometry, material);
 

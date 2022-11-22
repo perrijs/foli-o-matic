@@ -1,24 +1,20 @@
-import {
-  TextureLoader,
-  Group,
-  MeshMatcapMaterial,
-  Mesh,
-  MeshStandardMaterial,
-  Material,
-} from "three";
+import { Texture, TextureLoader, Group, MeshMatcapMaterial, Mesh } from "three";
 import { GLTFLoader, GLTF } from "three/examples/jsm/loaders/GLTFLoader";
 
 import { MATCAPS } from "@/webgl/config/matcaps";
 import { ITEMS, WRAPPER } from "@/webgl/config/items";
 import { Matcap } from "@/webgl/config/types";
 import { applyMatcaps } from "../utils/applyMatcaps";
+import { BUTTONS } from "../config/buttons";
 
 export class AssetController {
   static instance: AssetController;
 
-  loader = new GLTFLoader();
+  gltfLoader = new GLTFLoader();
+  textureLoader = new TextureLoader();
 
   matcaps?: Matcap[] = [];
+  buttonTextures?: Texture[] = [];
   wrapper?: GLTF;
   models?: Group[] = [];
 
@@ -33,15 +29,19 @@ export class AssetController {
 
   loadModel(url: string) {
     return new Promise<GLTF>((resolve) => {
-      this.loader.load(url, resolve);
+      this.gltfLoader.load(url, resolve);
+    });
+  }
+
+  loadTexture(url: string) {
+    return new Promise<Texture>((resolve) => {
+      this.textureLoader.load(url, resolve);
     });
   }
 
   async loadMatcaps() {
-    const textureLoader = new TextureLoader();
-
     const matcapsMap = MATCAPS.map(async (url) => {
-      const texture = await textureLoader.load(`/textures/matcaps/${url}.png`);
+      const texture = await this.loadTexture(`/textures/matcaps/${url}.png`);
 
       const matcap = new MeshMatcapMaterial({ matcap: texture });
 
@@ -50,6 +50,19 @@ export class AssetController {
 
     const matcaps = await Promise.all(matcapsMap);
     this.matcaps = matcaps;
+  }
+
+  async loadButtonTextures() {
+    const buttonTexturesMap = BUTTONS.map(async (button) => {
+      const texture = await this.loadTexture(
+        `/textures/buttons/${button.texture}.png`
+      );
+
+      return texture;
+    });
+
+    const buttonTextures = await Promise.all(buttonTexturesMap);
+    this.buttonTextures = buttonTextures;
   }
 
   async loadWrapper() {

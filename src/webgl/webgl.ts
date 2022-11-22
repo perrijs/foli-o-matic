@@ -15,6 +15,7 @@ export class WebGL {
 
   async init() {
     await this.assetController.loadMatcaps();
+    await this.assetController.loadButtonTextures();
     await this.assetController.loadWrapper();
     await this.assetController.loadModels();
 

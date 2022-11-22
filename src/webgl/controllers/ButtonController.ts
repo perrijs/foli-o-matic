@@ -29,11 +29,11 @@ export class ButtonController {
 
   init() {
     BUTTONS.forEach((buttonData, index) => {
-      if (!this.buttons || !this.assetController.matcaps) return;
+      if (!this.buttons || !this.assetController.buttonTextures) return;
 
       const button = new Button(
         buttonData,
-        this.assetController.matcaps[0].matcap,
+        this.assetController.buttonTextures[index],
         index
       );
       this.buttons.push(button);

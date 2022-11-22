@@ -36,6 +36,7 @@ export class World {
   pointer?: Vector2;
   intersections?: Intersection<Object3D<Event>>[];
 
+  isZoomed?: boolean;
   canSelect?: boolean;
   canvasParent: HTMLDivElement;
 
@@ -44,6 +45,7 @@ export class World {
     this.pointer = new Vector2();
 
     this.canSelect = false;
+    this.isZoomed = false;
     this.canvasParent = canvasParent;
 
     this.init();
@@ -82,16 +84,46 @@ export class World {
   }
 
   handleClick() {
-    if (!this.intersections || !this.canSelect) return;
+    if (!this.intersections) return;
 
     if (this.intersections.length > 0) {
       const topNode = this.intersections[0].object;
 
       if (topNode.name.includes("item")) {
-        this.buttonController.handleClick(topNode.name);
+        if (this.canSelect) {
+          this.zoomOut();
 
-        this.zoomOut();
+          this.buttonController.handleClick(topNode.name);
+        } else {
+          this.zoomInButtons();
+        }
+      } else if (topNode.name.includes("glass")) {
+        !this.isZoomed ? this.zoomInItems() : this.zoomOut();
       }
+    }
+  }
+
+  handleCursor() {
+    if (!this.intersections || this.intersections.length < 1) return;
+
+    if (this.intersections[0].object.name.includes("item")) {
+      if (this.canSelect) {
+        document.body.style.cursor = this.intersections[0].object.name.includes(
+          "item"
+        )
+          ? "pointer"
+          : "default";
+      } else {
+        document.body.style.cursor = this.intersections[0].object.name.includes(
+          "item"
+        )
+          ? "zoom-in"
+          : "default";
+      }
+    } else if (this.intersections[0].object.name.includes("glass")) {
+      document.body.style.cursor = !this.isZoomed ? "zoom-in" : "zoom-out";
+    } else {
+      document.body.style.cursor = "default";
     }
   }
 
@@ -119,19 +151,30 @@ export class World {
         cameraLerp.kill();
 
         document.body.style.height = "100vh";
-
-        this.zoomIn();
       },
     });
   }
 
-  zoomIn() {
+  zoomInItems() {
     gsap.to(this.camera.position, {
       duration: 3,
       ease: "power4.inOut",
       z: 4,
       y: 1.5,
       x: -0.5,
+      onComplete: () => {
+        this.isZoomed = true;
+      },
+    });
+  }
+
+  zoomInButtons() {
+    gsap.to(this.camera.position, {
+      duration: 3,
+      ease: "power4.inOut",
+      z: 4,
+      y: 0.75,
+      x: 1.5,
       onComplete: () => {
         this.canSelect = true;
       },
@@ -145,8 +188,8 @@ export class World {
       z: 10,
       y: 0,
       x: 0,
-      onUpdate: () => {
-        this.camera.lookAt(0, 0, 0);
+      onComplete: () => {
+        this.isZoomed = false;
       },
     });
   }
@@ -156,13 +199,8 @@ export class World {
       this.raycaster.setFromCamera(this.pointer, this.camera);
 
       this.intersections = this.raycaster.intersectObjects(this.scene.children);
-
-      if (this.intersections.length > 0 && this.canSelect) {
-        document.body.style.cursor = this.intersections[0].object.name.includes(
-          "item"
-        )
-          ? "pointer"
-          : "default";
+      if (this.intersections.length > 0) {
+        this.handleCursor();
       }
     }
     // if (this.controls) this.controls.update();

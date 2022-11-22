@@ -202,6 +202,7 @@ export class Cabinet {
       const mesh = new Mesh(geometry, material);
 
       mesh.position.set(-0.5, 1, 2.75);
+      mesh.name = "glass";
 
       this.cabinet.add(mesh);
     });

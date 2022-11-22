@@ -1,6 +1,5 @@
 import MenuButton from "@/components/MenuButton";
 import TransitionScreen from "@/components/TransitionScreen";
-import VideoTextures from "@/components/VideoTextures";
 import WebGLComponent from "@/webgl/index";
 
 const Index = () => {
@@ -11,8 +10,6 @@ const Index = () => {
       <WebGLComponent />
 
       <TransitionScreen />
-
-      <VideoTextures />
     </>
   );
 };

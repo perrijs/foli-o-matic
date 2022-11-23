@@ -16,7 +16,6 @@ export class Camera extends PerspectiveCamera {
   setAspectRatio(elementCanvasParent: HTMLDivElement) {
     this.aspect =
       elementCanvasParent.clientWidth / elementCanvasParent.clientHeight;
-    console.log(this.aspect);
     this.updateProjectionMatrix();
   }
 }

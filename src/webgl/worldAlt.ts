@@ -1,4 +1,4 @@
-import { Raycaster, Vector2, Object3D, Intersection } from "three";
+import { Raycaster, Vector2, Object3D, Intersection, Mesh, Group } from "three";
 
 import { Renderer } from "./globals/Renderer";
 import { Scene } from "./globals/Scene";
@@ -8,6 +8,7 @@ import { DirectionalLight } from "./globals/DirectionalLight";
 
 import { AssetController } from "./controllers/AssetController";
 import { ItemController } from "./controllers/ItemController";
+import { GL_SET_MODEL } from "./config/topics";
 
 export class WorldAlt {
   renderer = Renderer.getInstance();
@@ -18,13 +19,13 @@ export class WorldAlt {
 
   assetController = AssetController.getInstance();
   itemController = ItemController.getInstance();
+  model?: Group;
 
   raycaster?: Raycaster;
   pointer?: Vector2;
   intersections?: Intersection<Object3D<Event>>[];
+  modelRotation = 0;
 
-  isZoomed?: boolean;
-  canSelect?: boolean;
   canvasParent: HTMLDivElement;
 
   constructor(canvasParent: HTMLDivElement) {
@@ -51,15 +52,32 @@ export class WorldAlt {
     this.camera.position.set(0, 0, 1);
     this.camera.lookAt(0, 0, 0);
 
-    this.itemController.getItem(0);
-
-    this.scene.add(this.itemController.items[0].model);
-
     this.renderer.setAnimationLoop(() => this.render());
     this.canvasParent.appendChild(this.renderer.domElement);
+
+    PubSub.subscribe(GL_SET_MODEL, (_topic, data) => this.setModel(data));
+  }
+
+  setModel(index: number) {
+    if (!this.itemController.items) return;
+
+    this.scene.traverse((child) => {
+      if (child instanceof Group) this.scene.remove(child);
+    });
+
+    if (index <= this.itemController.items.length - 1) {
+      this.itemController.getItem(index);
+      this.model = this.itemController.items[index].model;
+      this.scene.add(this.model);
+    }
   }
 
   render() {
+    if (!this.model) return;
+
+    this.modelRotation -= 0.01;
+    this.model.rotation.y = this.modelRotation;
+
     this.renderer.render(this.scene, this.camera);
   }
 }

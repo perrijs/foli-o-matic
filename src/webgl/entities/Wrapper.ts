@@ -2,10 +2,9 @@ import {
   TextureLoader,
   Group,
   Mesh,
-  MeshPhysicalMaterial,
   PlaneGeometry,
+  MeshPhysicalMaterial,
   MeshLambertMaterial,
-  MeshBasicMaterial,
   DoubleSide,
 } from "three";
 
@@ -34,7 +33,7 @@ export class Wrapper {
 
       model.rotation.z = Math.PI / 2;
       model.rotation.y = Math.PI / 2;
-      model.scale.set(0.275, 0.175, 0.275);
+      model.scale.set(0.275, 0.15, 0.275);
 
       model.material = new MeshPhysicalMaterial({
         transparent: true,
@@ -59,26 +58,21 @@ export class Wrapper {
 
     const texture = await textureLoader.load("/textures/wrapper/item_card.png");
 
-    const frontCardGeometry = new PlaneGeometry(0.55, 0.309, 1);
-    const frontCardMaterial = new MeshLambertMaterial({
+    const geometry = new PlaneGeometry(0.55, 0.309, 1);
+    const material = new MeshLambertMaterial({
       map: texture,
       side: DoubleSide,
     });
-    const frontCardMesh = new Mesh(frontCardGeometry, frontCardMaterial);
-
+    const frontCardMesh = new Mesh(geometry, material);
     frontCardMesh.position.y = 0.4;
     frontCardMesh.position.z = 0.015;
-    frontCardMesh.rotation.x = -0.1;
+    frontCardMesh.rotation.x = -0.08;
 
-    const backCardGeometry = new PlaneGeometry(0.55, 0.309, 1);
-    const backCardMaterial = new MeshLambertMaterial({
-      color: "#fff",
-    });
-    const backCardMesh = new Mesh(backCardGeometry, backCardMaterial);
-
+    const backCardMesh = new Mesh(geometry, material);
+    backCardMesh.scale.x = -1;
     backCardMesh.position.y = 0.4;
     backCardMesh.position.z = -0.015;
-    backCardMesh.rotation.x = 0.1;
+    backCardMesh.rotation.x = 0.08;
 
     this.parent.add(frontCardMesh);
     this.parent.add(backCardMesh);

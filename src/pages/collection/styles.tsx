@@ -128,6 +128,4 @@ export const CanvasContainer = styled.div`
   z-index: 0;
   /* opacity: 0; */
   pointer-events: none;
-
-  background-color: red;
 `;

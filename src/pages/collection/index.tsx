@@ -14,7 +14,7 @@ import { SELECTED_WORKS } from "@/pages/config/selectedWorks";
 import { OTHER_WORKS } from "@/pages/config/otherWorks";
 import { AWARDS } from "@/pages/config/awards";
 import { ITEMS } from "@/webgl/config/items";
-import { UI_HANDLE_TRANSITION } from "@/webgl/config/topics";
+import { GL_SET_MODEL, UI_HANDLE_TRANSITION } from "@/webgl/config/topics";
 import { SelectedWork, OtherWork, Award } from "@/pages/config/types";
 
 import {
@@ -86,14 +86,15 @@ const Collection = ({ projects }: PageProps) => {
         <TableHeader>YEAR</TableHeader>
       </TableHeaders>
 
-      <TableSection>
+      <TableSection onMouseLeave={() => PubSub.publish(GL_SET_MODEL, 99)}>
         <TableSectionType className="fadeIn">SELECTED WORKS /</TableSectionType>
-        {projects.map((project: SelectedWork) => {
+        {projects.map((project: SelectedWork, index) => {
           return (
             <TableRow
               className="fadeIn"
               key={project.id}
               onClick={() => handleTransition(project.id)}
+              onMouseEnter={() => PubSub.publish(GL_SET_MODEL, index)}
             >
               <TableSectionCode>{project.code}</TableSectionCode>
               <TableSectionEntry>{project.name}</TableSectionEntry>

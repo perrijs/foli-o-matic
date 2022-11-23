@@ -26,17 +26,20 @@ export const ContentContainer = styled.div`
 
 export const ProjectDescriptionContainer = styled.div`
   display: flex;
+  width: 100%;
 
   flex-direction: column;
 `;
 
-export const ProjectTitle = styled.h2`
-  margin: 0 0 ${spacing.MARGIN_SMALL};
+export const ProjectTitle = styled.h1`
+  width: 500px;
+  margin: 0;
   padding: 0;
 
   color: ${color.PINK_4};
+  text-transform: uppercase;
 
-  ${type.TYPE_SANS_HEADER_1};
+  ${type.TYPE_SANS_HEADER_1}
 `;
 
 export const ProjectDescription = styled.p`
@@ -52,6 +55,7 @@ export const ProjectDescription = styled.p`
 export const ProjectLink = styled.div`
   display: flex;
   width: fit-content;
+  margin-top: 3px;
 
   justify-content: center;
 
@@ -63,7 +67,6 @@ export const ProjectLink = styled.div`
     justify-content: center;
     gap: ${spacing.MARGIN_EXTRA_SMALL};
     color: ${color.PINK_4};
-
     text-decoration: none;
   }
 
@@ -74,25 +77,22 @@ export const ProjectLink = styled.div`
 
 export const ProjectInfoContainer = styled.div`
   display: flex;
+  width: 100%;
+  margin-bottom: ${spacing.MARGIN_SMALL};
 
-  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const InfoContainerSection = styled.div`
   display: flex;
-  margin-bottom: ${spacing.MARGIN_SMALL};
-
-  flex-direction: column;
 `;
 
 export const SectionTitle = styled.h3`
   display: flex;
-  width: 65px;
-  margin: 0 0 4px;
+  margin: 3px 4px 0 0;
   padding: 0;
 
   justify-content: space-between;
-
   color: ${color.PINK_4};
 
   ${type.TYPE_SANS_HEADER_3}
@@ -101,8 +101,7 @@ export const SectionTitle = styled.h3`
 export const SectionBodyContainer = styled.div`
   display: flex;
 
-  flex-direction: column;
-  text-align: left;
+  gap: 4px;
 `;
 
 export const SectionBody = styled.span`

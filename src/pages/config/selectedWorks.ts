@@ -1,5 +1,3 @@
-import { PINK_2 } from "@/styles/globals/color";
-
 export const SELECTED_WORKS = [
   {
     id: 0,
@@ -9,13 +7,11 @@ export const SELECTED_WORKS = [
     code: "SW/06",
     client: "Google Store",
     date: "2022",
-    color: PINK_2,
-    image: "/images/projects/pyramids_of_meroe.png",
-    video: "/videos/projects/placeholder_video.mp4",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
-    roles: ["WebGL", "Front-end", "Back-end"],
+    roles: ["Lead", "WebGL", "Frontend", "Backend"],
     url: "https://www.google.com",
+    video: "/videos/projects/placeholder_video.mp4",
   },
   {
     id: 1,
@@ -24,12 +20,11 @@ export const SELECTED_WORKS = [
     code: "SW/05",
     client: "YouTube",
     date: "2022",
-    color: PINK_2,
-    image: "/images/projects/digital_assets_demystified.png",
-    video: "/videos/projects/placeholder_video.mp4",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
+    roles: ["Lead", "WebGL", "Frontend", "Backend"],
     url: "https://www.google.com",
+    video: "/videos/projects/placeholder_video.mp4",
   },
   {
     id: 2,
@@ -38,12 +33,11 @@ export const SELECTED_WORKS = [
     code: "SW/04",
     client: "Google Arts & Culture",
     date: "2021",
-    color: PINK_2,
-    image: "/images/projects/pyramids_of_meroe.png",
-    video: "/videos/projects/placeholder_video.mp4",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
+    roles: ["Lead", "WebGL", "Frontend", "Backend"],
     url: "https://www.google.com",
+    video: "/videos/projects/placeholder_video.mp4",
   },
   {
     id: 3,
@@ -52,12 +46,11 @@ export const SELECTED_WORKS = [
     code: "SW/03",
     client: "Financial Times",
     date: "2021",
-    color: PINK_2,
-    image: "/images/projects/digital_assets_demystified.png",
-    video: "/videos/projects/placeholder_video.mp4",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
+    roles: ["Lead", "WebGL", "Frontend", "Backend"],
     url: "https://www.google.com",
+    video: "/videos/projects/placeholder_video.mp4",
   },
   {
     id: 4,
@@ -66,12 +59,11 @@ export const SELECTED_WORKS = [
     code: "SW/02",
     client: "Sony Music x Doja Cat",
     date: "2021",
-    color: PINK_2,
-    image: "/images/projects/pyramids_of_meroe.png",
-    video: "/videos/projects/placeholder_video.mp4",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
+    roles: ["Lead", "WebGL", "Frontend", "Backend"],
     url: "https://www.google.com",
+    video: "/videos/projects/placeholder_video.mp4",
   },
   {
     id: 5,
@@ -80,11 +72,10 @@ export const SELECTED_WORKS = [
     code: "SW/01",
     client: "XXIM Records",
     date: "2020",
-    color: PINK_2,
-    image: "/images/projects/digital_assets_demystified.png",
-    video: "/videos/projects/placeholder_video.mp4",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
+    roles: ["Lead", "WebGL", "Frontend", "Backend"],
     url: "https://www.google.com",
+    video: "/videos/projects/placeholder_video.mp4",
   },
 ];

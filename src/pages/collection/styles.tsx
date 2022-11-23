@@ -19,7 +19,6 @@ export const TableHeaders = styled.div`
   width: 100%;
 
   justify-content: space-between;
-
   border-bottom: 1px solid ${color.PINK_2};
 `;
 
@@ -118,14 +117,13 @@ export const TableSectionEntry = styled.h3`
 `;
 
 export const CanvasContainer = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 50vw;
   height: 50vw;
 
-  transform: translate(-50%, -50%);
   z-index: 0;
-  /* opacity: 0; */
+  transform: translate(-50%, -50%);
   pointer-events: none;
 `;

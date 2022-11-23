@@ -3,14 +3,12 @@ export interface SelectedWork {
   slug: string;
   code: string;
   name: string;
+  description: string;
   client: string;
   date: string;
-  color: string;
-  image: string;
-  video: string;
-  description: string;
   roles: string[];
   url?: string;
+  video: string;
 }
 
 export interface OtherWork {

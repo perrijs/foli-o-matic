@@ -7,8 +7,6 @@ import * as spacing from "@/styles/globals/spacing";
 export const FooterWrapper = styled.div`
   width: 100%;
   padding: ${spacing.MARGIN_MEDIUM} 0 0;
-
-  border-top: 1px solid ${color.PINK_2};
 `;
 
 export const FooterLinksContainer = styled.div`

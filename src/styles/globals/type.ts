@@ -1,7 +1,8 @@
 export const TYPE_SANS_HEADER_1 = `
   font-family: Roboto, sans-serif;
-  font-size: 32px;
-  font-weight: 500;
+  font-size: 92px;
+  line-height: 92px;
+  font-weight: 700;
 `;
 
 export const TYPE_SANS_HEADER_2 = `

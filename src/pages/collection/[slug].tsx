@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import gsap from "gsap";
 
 import MenuButton from "@/components/MenuButton";
 import Video from "@/components/Video";
@@ -23,76 +24,85 @@ import {
   SectionBody,
 } from "./slugStyles";
 import Footer from "@/components/Footer";
+import { useEffect } from "react";
 
 interface PageProps {
   project: SelectedWork;
 }
 
 const Project = ({ project }: PageProps) => {
+  useEffect(() => {
+    const fadeInElements = document.querySelectorAll(".fadeIn");
+
+    fadeInElements.forEach((element, index) => {
+      gsap.fromTo(
+        element,
+        { opacity: 0 },
+        { duration: 0.5, delay: 1 + 0.05 * index, opacity: 1 }
+      );
+    });
+  }, []);
+
   return (
     <ProjectWrapper>
       <MenuButton />
 
-      <Video url={project.video} />
-
       <ContentContainer>
         <ProjectDescriptionContainer>
-          <ProjectTitle>{project.name} /</ProjectTitle>
+          <ProjectTitle className="fadeIn">{project.name}</ProjectTitle>
 
-          <ProjectDescription>{project.description}</ProjectDescription>
+          <ProjectDescription className="fadeIn">
+            {project.description}
+          </ProjectDescription>
 
-          {project.url && (
-            <ProjectLink>
-              <Link
-                key={project.name}
-                href={project.url}
-                passHref={true}
-                target="_blank"
-              >
-                VIEW WEBSITE
-                <Image
-                  src="/images/icons/open_in_new.svg"
-                  width="18"
-                  height="18"
-                  alt=""
-                />
-              </Link>
-            </ProjectLink>
-          )}
+          <ProjectInfoContainer>
+            <InfoContainerSection>
+              <SectionTitle className="fadeIn">CLIENT /</SectionTitle>
+              <SectionBody className="fadeIn">{project.client}</SectionBody>
+            </InfoContainerSection>
+
+            <InfoContainerSection>
+              <SectionTitle className="fadeIn">YEAR /</SectionTitle>
+              <SectionBody className="fadeIn">{project.date}</SectionBody>
+            </InfoContainerSection>
+
+            <InfoContainerSection>
+              <SectionTitle className="fadeIn">ROLES /</SectionTitle>
+              <SectionBodyContainer>
+                {project.roles.map((role, index) => (
+                  <SectionBody key={index} className="fadeIn">
+                    {role}
+                    {index !== project.roles.length - 1 && <span>,</span>}
+                  </SectionBody>
+                ))}
+              </SectionBodyContainer>
+            </InfoContainerSection>
+
+            {project.url && (
+              <ProjectLink className="fadeIn">
+                <Link
+                  key={project.name}
+                  href={project.url}
+                  passHref={true}
+                  target="_blank"
+                >
+                  VIEW WEBSITE
+                  <Image
+                    src="/images/icons/open_in_new.svg"
+                    width="18"
+                    height="18"
+                    alt=""
+                  />
+                </Link>
+              </ProjectLink>
+            )}
+          </ProjectInfoContainer>
         </ProjectDescriptionContainer>
-
-        <ProjectInfoContainer>
-          <InfoContainerSection>
-            <SectionTitle>
-              <span>CLIENT</span>
-              <span>/</span>
-            </SectionTitle>
-            <SectionBody>{project.client}</SectionBody>
-          </InfoContainerSection>
-
-          <InfoContainerSection>
-            <SectionTitle>
-              <span>YEAR</span>
-              <span>/</span>
-            </SectionTitle>
-            <SectionBody>{project.date}</SectionBody>
-          </InfoContainerSection>
-
-          <InfoContainerSection>
-            <SectionTitle>
-              <span>ROLES</span>
-              <span>/</span>
-            </SectionTitle>
-            <SectionBodyContainer>
-              {project.roles.map((role, index) => (
-                <SectionBody key={index}>{role}</SectionBody>
-              ))}
-            </SectionBodyContainer>
-          </InfoContainerSection>
-        </ProjectInfoContainer>
       </ContentContainer>
 
-      <WipeScreen backgroundColor={project.color} />
+      <Video className="fadeIn" url={project.video} />
+
+      <WipeScreen />
       <TransitionScreen />
 
       <Footer />

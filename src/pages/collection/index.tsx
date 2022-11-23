@@ -64,9 +64,9 @@ const Collection = ({ projects }: PageProps) => {
   );
 
   useEffect(() => {
-    const fadeInElement = document.querySelectorAll(".fadeIn");
+    const fadeInElements = document.querySelectorAll(".fadeIn");
 
-    fadeInElement.forEach((element, index) => {
+    fadeInElements.forEach((element, index) => {
       gsap.fromTo(
         element,
         { opacity: 0 },
@@ -87,14 +87,19 @@ const Collection = ({ projects }: PageProps) => {
       </TableHeaders>
 
       <TableSection onMouseLeave={() => PubSub.publish(GL_SET_MODEL, 99)}>
-        <TableSectionType className="fadeIn">SELECTED WORKS /</TableSectionType>
+        <TableSectionType
+          className="fadeIn"
+          onMouseEnter={() => PubSub.publish(GL_SET_MODEL, 99)}
+        >
+          SELECTED WORKS /
+        </TableSectionType>
         {projects.map((project: SelectedWork, index) => {
           return (
             <TableRow
               className="fadeIn"
               key={project.id}
               onClick={() => handleTransition(project.id)}
-              onMouseEnter={() => PubSub.publish(GL_SET_MODEL, index)}
+              onMouseMove={() => PubSub.publish(GL_SET_MODEL, index)}
             >
               <TableSectionCode>{project.code}</TableSectionCode>
               <TableSectionEntry>{project.name}</TableSectionEntry>
@@ -114,7 +119,12 @@ const Collection = ({ projects }: PageProps) => {
       </TableSection>
 
       <TableSection>
-        <TableSectionType className="fadeIn">OTHER WORKS /</TableSectionType>
+        <TableSectionType
+          className="fadeIn"
+          onMouseEnter={() => PubSub.publish(GL_SET_MODEL, 99)}
+        >
+          OTHER WORKS /
+        </TableSectionType>
         {OTHER_WORKS.map((project: OtherWork) => {
           return (
             <Link
@@ -143,7 +153,12 @@ const Collection = ({ projects }: PageProps) => {
       </TableSection>
 
       <TableSection>
-        <TableSectionType className="fadeIn">AWARDS /</TableSectionType>
+        <TableSectionType
+          className="fadeIn"
+          onMouseEnter={() => PubSub.publish(GL_SET_MODEL, 99)}
+        >
+          AWARDS /
+        </TableSectionType>
         {AWARDS.map((award: Award) => {
           return (
             <Link
@@ -171,7 +186,7 @@ const Collection = ({ projects }: PageProps) => {
         })}
       </TableSection>
 
-      <CanvasContainer ref={canvasRef}>
+      <CanvasContainer className="fadeIn" ref={canvasRef}>
         <ItemCanvas />
       </CanvasContainer>
 

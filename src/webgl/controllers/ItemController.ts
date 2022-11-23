@@ -57,6 +57,19 @@ export class ItemController {
     PubSub.subscribe(GL_SELECT_ITEM, this.handleMove.bind(this));
   }
 
+  getItem(index: number) {
+    if (!this.items) return;
+
+    const model = this.items[index].model;
+    model.position.x = 0;
+    model.position.y = 0;
+    model.position.z = 0;
+    model.rotation.x = 0;
+    model.rotation.y = 0;
+    model.rotation.z = 0;
+    // model.scale.setScalar(3);
+  }
+
   handleMove(_topic: string, data: string) {
     if (!this.items) return;
 

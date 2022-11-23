@@ -12,4 +12,10 @@ export class Scene extends ThreeScene {
 
     return Scene.instance;
   }
+
+  cleanup() {
+    while (this.children.length > 0) {
+      this.remove(this.children[0]);
+    }
+  }
 }

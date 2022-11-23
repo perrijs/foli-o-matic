@@ -1,4 +1,4 @@
-import { World } from "./world";
+import { WorldMain } from "./worldMain";
 import { WorldAlt } from "./worldAlt";
 
 import { AssetController } from "./controllers/AssetController";
@@ -7,13 +7,11 @@ export class WebGL {
   assetController = AssetController.getInstance();
 
   canvasParent: HTMLDivElement;
-  isMain: boolean;
 
   constructor(canvasParent: HTMLDivElement, isMain: boolean) {
     this.canvasParent = canvasParent;
-    this.isMain = isMain;
 
-    this.isMain ? this.init() : this.initAlt();
+    isMain ? this.init() : this.initAlt();
   }
 
   async init() {
@@ -22,7 +20,7 @@ export class WebGL {
     await this.assetController.loadWrapper();
     await this.assetController.loadModels();
 
-    new World(this.canvasParent);
+    new WorldMain(this.canvasParent);
   }
 
   async initAlt() {

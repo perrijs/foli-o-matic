@@ -16,12 +16,12 @@ import { ItemController } from "./controllers/ItemController";
 import { Cabinet } from "./entities/Cabinet";
 import { Floor } from "./entities/Floor";
 
-export class World {
-  renderer: Renderer;
+export class WorldMain {
+  renderer = Renderer.getInstance();
   scene = Scene.getInstance();
   camera = Camera.getInstance();
-  ambientLight = AmbientLight.getInstance();
-  directionalLight = DirectionalLight.getInstance();
+  ambientLight: AmbientLight;
+  directionalLight: DirectionalLight;
 
   assetController = AssetController.getInstance();
   coilController = CoilController.getInstance();
@@ -35,13 +35,13 @@ export class World {
   pointer?: Vector2;
   intersections?: Intersection<Object3D<Event>>[];
 
-  isMain?: boolean;
   isZoomed?: boolean;
   canSelect?: boolean;
   canvasParent: HTMLDivElement;
 
   constructor(canvasParent: HTMLDivElement) {
-    this.renderer = new Renderer(canvasParent);
+    this.ambientLight = new AmbientLight();
+    this.directionalLight = new DirectionalLight();
     this.raycaster = new Raycaster();
     this.pointer = new Vector2();
 
@@ -56,10 +56,17 @@ export class World {
   async init() {
     document.body.style.height = "5000px";
 
-    // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-    // this.controls.update();
+    this.renderer.setAspectRatio(this.canvasParent);
+    this.camera.setAspectRatio(this.canvasParent);
+
+    this.scene.add(this.camera);
     this.camera.position.set(40, 40, 40);
     this.camera.lookAt(0, 0, 0);
+    // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    // this.controls.update();
+
+    this.scene.add(this.ambientLight);
+    this.scene.add(this.directionalLight);
 
     this.renderer.setAnimationLoop(() => this.render());
     this.canvasParent.appendChild(this.renderer.domElement);

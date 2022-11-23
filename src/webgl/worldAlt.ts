@@ -1,13 +1,4 @@
-import {
-  Raycaster,
-  Vector2,
-  Object3D,
-  Intersection,
-  Mesh,
-  BoxGeometry,
-  MeshBasicMaterial,
-} from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { Raycaster, Vector2, Object3D, Intersection } from "three";
 
 import { Renderer } from "./globals/Renderer";
 import { Scene } from "./globals/Scene";
@@ -19,27 +10,26 @@ import { AssetController } from "./controllers/AssetController";
 import { ItemController } from "./controllers/ItemController";
 
 export class WorldAlt {
-  renderer: Renderer;
-  scene = Scene.getInstance();
+  renderer = Renderer.getInstance();
   camera = Camera.getInstance();
-  ambientLight = AmbientLight.getInstance();
-  directionalLight = DirectionalLight.getInstance();
+  scene = Scene.getInstance();
+  ambientLight: AmbientLight;
+  directionalLight: DirectionalLight;
 
   assetController = AssetController.getInstance();
   itemController = ItemController.getInstance();
 
-  controls?: OrbitControls;
   raycaster?: Raycaster;
   pointer?: Vector2;
   intersections?: Intersection<Object3D<Event>>[];
 
-  isMain?: boolean;
   isZoomed?: boolean;
   canSelect?: boolean;
   canvasParent: HTMLDivElement;
 
   constructor(canvasParent: HTMLDivElement) {
-    this.renderer = new Renderer(canvasParent);
+    this.ambientLight = new AmbientLight();
+    this.directionalLight = new DirectionalLight();
 
     this.canvasParent = canvasParent;
 
@@ -47,29 +37,29 @@ export class WorldAlt {
   }
 
   async init() {
+    if (!this.itemController.items) return;
+
     document.body.style.height = "100vh";
 
-    while (this.scene.children.length > 0) {
-      this.scene.remove(this.scene.children[0]);
-    }
+    this.renderer.setAspectRatio(this.canvasParent);
+    this.camera.setAspectRatio(this.canvasParent);
 
-    // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-    // this.controls.update();
-    this.camera.position.set(0, 0, 5);
+    this.scene.cleanup();
+    this.scene.add(this.ambientLight);
+    this.scene.add(this.directionalLight);
+
+    this.camera.position.set(0, 0, 1);
     this.camera.lookAt(0, 0, 0);
 
-    const geometry = new BoxGeometry(1, 1, 1);
-    const material = new MeshBasicMaterial({ color: 0x00ff00 });
-    const cube = new Mesh(geometry, material);
-    this.scene.add(cube);
+    this.itemController.getItem(0);
+
+    this.scene.add(this.itemController.items[0].model);
 
     this.renderer.setAnimationLoop(() => this.render());
     this.canvasParent.appendChild(this.renderer.domElement);
   }
 
   render() {
-    // if (this.controls) this.controls.update();
-
     this.renderer.render(this.scene, this.camera);
   }
 }

@@ -117,18 +117,17 @@ export const TableSectionEntry = styled.h3`
   }
 `;
 
-export const ImageContainer = styled.div`
+export const CanvasContainer = styled.div`
   position: absolute;
+  top: 0;
+  left: 0;
   width: 50vw;
-  aspect-ratio: 16 / 9;
+  height: 50vw;
 
   transform: translate(-50%, -50%);
   z-index: 0;
-  opacity: 0;
+  /* opacity: 0; */
   pointer-events: none;
 
-  img {
-    width: 100%;
-    height: 100%;
-  }
+  background-color: red;
 `;

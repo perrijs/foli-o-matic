@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import gsap from "gsap";
 
+import ItemCanvas from "@/components/ItemCanvas";
 import Footer from "@/components/Footer";
 import WipeScreen from "@/components/WipeScreen";
 import TransitionScreen from "@/components/TransitionScreen";
@@ -25,7 +26,7 @@ import {
   TableSectionType,
   TableSectionEntry,
   TableSectionCode,
-  ImageContainer,
+  CanvasContainer,
 } from "./styles";
 
 interface MousePos {
@@ -38,44 +39,19 @@ interface PageProps {
 }
 
 const Collection = ({ projects }: PageProps) => {
-  const imageParentRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLDivElement>(null);
   const mousePos = useRef<MousePos>({ x: 0, y: 0 });
 
   const handleTransition = (index: number) => {
     PubSub.publish(UI_HANDLE_TRANSITION, ITEMS[index]);
   };
 
-  const setImage = useCallback((src?: string) => {
-    if (!imageParentRef.current) return;
-
-    const image = document.querySelector(".rowImage") as HTMLImageElement;
-    if (src) {
-      gsap.to(imageParentRef.current, {
-        duration: 0.25,
-        opacity: 0,
-        onComplete: () => {
-          if (image && src) image.src = src;
-
-          gsap.to(imageParentRef.current, {
-            duration: 0.33,
-            opacity: 1,
-          });
-        },
-      });
-    } else {
-      gsap.to(imageParentRef.current, {
-        duration: 0.33,
-        opacity: 0,
-      });
-    }
-  }, []);
-
   const setImagePosition = useCallback(() => {
-    if (!imageParentRef.current) return;
+    if (!canvasRef.current) return;
 
-    imageParentRef.current.style.top = `${mousePos.current.y}px`;
+    canvasRef.current.style.top = `${mousePos.current.y}px`;
 
-    imageParentRef.current.style.left = `${mousePos.current.x}px`;
+    canvasRef.current.style.left = `${mousePos.current.x}px`;
   }, []);
 
   const handleMouseMove = useCallback(
@@ -110,21 +86,14 @@ const Collection = ({ projects }: PageProps) => {
         <TableHeader>YEAR</TableHeader>
       </TableHeaders>
 
-      <TableSection onMouseLeave={() => setImage(undefined)}>
-        <TableSectionType
-          className="fadeIn"
-          onMouseEnter={() => setImage(undefined)}
-        >
-          SELECTED WORKS /
-        </TableSectionType>
+      <TableSection>
+        <TableSectionType className="fadeIn">SELECTED WORKS /</TableSectionType>
         {projects.map((project: SelectedWork) => {
           return (
             <TableRow
               className="fadeIn"
               key={project.id}
               onClick={() => handleTransition(project.id)}
-              onMouseEnter={() => setImage(project.image)}
-              onMouseLeave={() => setImage(undefined)}
             >
               <TableSectionCode>{project.code}</TableSectionCode>
               <TableSectionEntry>{project.name}</TableSectionEntry>
@@ -144,12 +113,7 @@ const Collection = ({ projects }: PageProps) => {
       </TableSection>
 
       <TableSection>
-        <TableSectionType
-          className="fadeIn"
-          onMouseEnter={() => setImage(undefined)}
-        >
-          OTHER WORKS /
-        </TableSectionType>
+        <TableSectionType className="fadeIn">OTHER WORKS /</TableSectionType>
         {OTHER_WORKS.map((project: OtherWork) => {
           return (
             <Link
@@ -178,12 +142,7 @@ const Collection = ({ projects }: PageProps) => {
       </TableSection>
 
       <TableSection>
-        <TableSectionType
-          className="fadeIn"
-          onMouseEnter={() => setImage(undefined)}
-        >
-          AWARDS /
-        </TableSectionType>
+        <TableSectionType className="fadeIn">AWARDS /</TableSectionType>
         {AWARDS.map((award: Award) => {
           return (
             <Link
@@ -211,9 +170,9 @@ const Collection = ({ projects }: PageProps) => {
         })}
       </TableSection>
 
-      <ImageContainer ref={imageParentRef}>
-        <img className="rowImage" src={projects[0].image} alt="" />
-      </ImageContainer>
+      <CanvasContainer ref={canvasRef}>
+        <ItemCanvas />
+      </CanvasContainer>
 
       <WipeScreen />
       <TransitionScreen />

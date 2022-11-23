@@ -1,16 +1,16 @@
 import { useEffect, useRef } from "react";
 
-import { WebGL } from "./webgl";
+import { WebGL } from "@/webgl/webgl";
 
 import { CanvasParent } from "./styles";
 
-const WebGLComponent = () => {
+const ItemCanvas = () => {
   const canvasParent = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!canvasParent.current) return;
 
-    new WebGL(canvasParent.current, true);
+    new WebGL(canvasParent.current, false);
   });
 
   return (
@@ -20,4 +20,4 @@ const WebGLComponent = () => {
   );
 };
 
-export default WebGLComponent;
+export default ItemCanvas;

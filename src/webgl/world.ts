@@ -15,10 +15,9 @@ import { ButtonController } from "./controllers/ButtonController";
 import { ItemController } from "./controllers/ItemController";
 import { Cabinet } from "./entities/Cabinet";
 import { Floor } from "./entities/Floor";
-import { ITEMS } from "./config/items";
 
 export class World {
-  renderer = Renderer.getInstance();
+  renderer: Renderer;
   scene = Scene.getInstance();
   camera = Camera.getInstance();
   ambientLight = AmbientLight.getInstance();
@@ -36,11 +35,13 @@ export class World {
   pointer?: Vector2;
   intersections?: Intersection<Object3D<Event>>[];
 
+  isMain?: boolean;
   isZoomed?: boolean;
   canSelect?: boolean;
   canvasParent: HTMLDivElement;
 
   constructor(canvasParent: HTMLDivElement) {
+    this.renderer = new Renderer(canvasParent);
     this.raycaster = new Raycaster();
     this.pointer = new Vector2();
 

@@ -1,4 +1,4 @@
-import { Group, Material, Mesh, MeshStandardMaterial } from "three";
+import { Group, Mesh } from "three";
 import PubSub from "pubsub-js";
 
 import { Scene } from "@/webgl/globals/Scene";
@@ -9,7 +9,6 @@ import { Item } from "@/webgl/entities/Item";
 
 import { ITEMS } from "@/webgl/config/items";
 import { GL_SELECT_ITEM } from "@/webgl/config/topics";
-import { applyMatcaps } from "../utils/applyMatcaps";
 
 export class ItemController {
   static instance: ItemController;
@@ -67,7 +66,6 @@ export class ItemController {
     model.rotation.x = 0;
     model.rotation.y = 0;
     model.rotation.z = 0;
-    // model.scale.setScalar(3);
   }
 
   handleMove(_topic: string, data: string) {

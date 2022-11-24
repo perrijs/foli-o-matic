@@ -10,6 +10,8 @@ export class Renderer extends WebGLRenderer {
     });
     this.shadowMap.enabled = true;
     this.shadowMap.type = PCFSoftShadowMap;
+
+    this.setPixelRatio(window.devicePixelRatio);
   }
 
   static getInstance() {

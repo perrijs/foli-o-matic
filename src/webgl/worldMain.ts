@@ -9,12 +9,20 @@ import { Camera } from "./globals/Camera";
 import { AmbientLight } from "./globals/AmbientLight";
 import { DirectionalLight } from "./globals/DirectionalLight";
 
+import { Cabinet } from "./entities/Cabinet";
+import { Floor } from "./entities/Floor";
+
 import { AssetController } from "./controllers/AssetController";
 import { CoilController } from "./controllers/CoilController";
 import { ButtonController } from "./controllers/ButtonController";
 import { ItemController } from "./controllers/ItemController";
-import { Cabinet } from "./entities/Cabinet";
-import { Floor } from "./entities/Floor";
+import { SpriteController } from "./controllers/SpriteController";
+
+import {
+  GL_DISPLAY_SPRITES,
+  UI_TOOLTIP_SCROLL,
+  UI_TOOLTIP_ZOOM,
+} from "./config/topics";
 
 export class WorldMain {
   renderer = Renderer.getInstance();
@@ -27,6 +35,7 @@ export class WorldMain {
   coilController = CoilController.getInstance();
   buttonController = ButtonController.getInstance();
   itemController = ItemController.getInstance();
+  spriteController = SpriteController.getInstance();
   cabinet?: Cabinet;
   floor?: Floor;
 
@@ -35,6 +44,7 @@ export class WorldMain {
   pointer?: Vector2;
   intersections?: Intersection<Object3D<Event>>[];
 
+  timer?: ReturnType<typeof setInterval>;
   isZoomed?: boolean;
   canSelect?: boolean;
   canvasParent: HTMLDivElement;
@@ -60,7 +70,7 @@ export class WorldMain {
     this.camera.setAspectRatio(this.canvasParent);
 
     this.scene.add(this.camera);
-    this.camera.position.set(40, 40, 40);
+    this.camera.position.set(25, 25, 25);
     this.camera.lookAt(0, 0, 0);
     // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     // this.controls.update();
@@ -153,17 +163,45 @@ export class WorldMain {
       onUpdate: () => {
         if (!this.cabinet) return;
 
+        PubSub.publish(UI_TOOLTIP_SCROLL, false);
+
+        clearInterval(this.timer);
+        this.scrollTimer();
+
         this.camera.lookAt(this.cabinet.cabinet.position);
       },
       onComplete: () => {
         cameraLerp.kill();
 
+        PubSub.publish(GL_DISPLAY_SPRITES, true);
+
+        clearInterval(this.timer);
+        this.zoomTimer();
+
         document.body.style.height = "100vh";
       },
     });
+
+    this.scrollTimer();
+  }
+
+  scrollTimer() {
+    this.timer = setInterval(() => {
+      PubSub.publish(UI_TOOLTIP_SCROLL, true);
+    }, 3000);
+  }
+
+  zoomTimer() {
+    this.timer = setInterval(() => {
+      PubSub.publish(UI_TOOLTIP_ZOOM, true);
+    }, 5000);
   }
 
   zoomInItems() {
+    clearInterval(this.timer);
+    PubSub.publish(UI_TOOLTIP_ZOOM, false);
+    PubSub.publish(GL_DISPLAY_SPRITES, false);
+
     gsap.to(this.camera.position, {
       duration: 3,
       ease: "power4.inOut",
@@ -177,6 +215,10 @@ export class WorldMain {
   }
 
   zoomInButtons() {
+    clearInterval(this.timer);
+    PubSub.publish(UI_TOOLTIP_ZOOM, false);
+    PubSub.publish(GL_DISPLAY_SPRITES, false);
+
     gsap.to(this.camera.position, {
       duration: 3,
       ease: "power4.inOut",
@@ -198,6 +240,8 @@ export class WorldMain {
       x: 0,
       onComplete: () => {
         this.isZoomed = false;
+
+        PubSub.publish(GL_DISPLAY_SPRITES, true);
       },
     });
   }

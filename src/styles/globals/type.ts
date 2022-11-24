@@ -29,6 +29,12 @@ export const TYPE_SANS_BODY_2 = `
   font-weight: 400;
 `;
 
+export const TYPE_SANS_BODY_3 = `
+  font-family: Roboto, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+`;
+
 export const TYPE_SERIF_HEADER_1 = `
   font-family: 'Playfair Display', serif;
   font-size: 20px;

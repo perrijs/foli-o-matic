@@ -45,8 +45,9 @@ export class WorldMain {
   intersections?: Intersection<Object3D<Event>>[];
 
   timer?: ReturnType<typeof setInterval>;
-  isZoomed?: boolean;
   canSelect?: boolean;
+  itemSelected?: boolean;
+  isZoomed?: boolean;
   canvasParent: HTMLDivElement;
 
   constructor(canvasParent: HTMLDivElement) {
@@ -56,6 +57,7 @@ export class WorldMain {
     this.pointer = new Vector2();
 
     this.canSelect = false;
+    this.itemSelected = false;
     this.isZoomed = false;
     this.canvasParent = canvasParent;
 
@@ -107,16 +109,20 @@ export class WorldMain {
     if (this.intersections.length > 0) {
       const topNode = this.intersections[0].object;
 
-      if (topNode.name.includes("item")) {
-        if (this.canSelect) {
-          this.zoomOut();
+      if (topNode.name.includes("sprite")) {
+        topNode.name === "sprite_items"
+          ? this.zoomInItems()
+          : this.zoomInButtons();
+      }
 
-          this.buttonController.handleClick(topNode.name);
-        } else {
-          this.zoomInButtons();
-        }
-      } else if (topNode.name.includes("glass")) {
-        !this.isZoomed ? this.zoomInItems() : this.zoomOut();
+      if (topNode.name.includes("item")) {
+        if (!this.canSelect) return;
+
+        this.itemSelected = true;
+
+        this.zoomOut();
+
+        this.buttonController.handleClick(topNode.name);
       }
     }
   }
@@ -124,24 +130,17 @@ export class WorldMain {
   handleCursor() {
     if (!this.intersections || this.intersections.length < 1) return;
 
-    if (this.intersections[0].object.name.includes("item")) {
-      if (this.canSelect) {
-        document.body.style.cursor = this.intersections[0].object.name.includes(
-          "item"
-        )
-          ? "pointer"
-          : "default";
+    if (this.intersections.length > 0) {
+      const topNode = this.intersections[0].object;
+
+      const objectItem = topNode.name.includes("item") && this.canSelect;
+      const objectSprite = topNode.name.includes("sprite");
+
+      if (objectItem || objectSprite) {
+        document.body.style.cursor = "pointer";
       } else {
-        document.body.style.cursor = this.intersections[0].object.name.includes(
-          "item"
-        )
-          ? "zoom-in"
-          : "default";
+        document.body.style.cursor = "default";
       }
-    } else if (this.intersections[0].object.name.includes("glass")) {
-      document.body.style.cursor = !this.isZoomed ? "zoom-in" : "zoom-out";
-    } else {
-      document.body.style.cursor = "default";
     }
   }
 
@@ -241,7 +240,7 @@ export class WorldMain {
       onComplete: () => {
         this.isZoomed = false;
 
-        PubSub.publish(GL_DISPLAY_SPRITES, true);
+        if (!this.itemSelected) PubSub.publish(GL_DISPLAY_SPRITES, true);
       },
     });
   }

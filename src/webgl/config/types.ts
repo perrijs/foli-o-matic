@@ -32,6 +32,7 @@ export interface ItemData {
 }
 
 export interface SpriteData {
+  name: string;
   position: Position;
   scalar: number;
 }

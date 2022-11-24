@@ -1,5 +1,6 @@
 export const SPRITES = [
   {
+    name: "sprite_items",
     position: {
       x: -1.5,
       y: 2.5,
@@ -8,7 +9,7 @@ export const SPRITES = [
     scalar: 0.35,
   },
   {
-    id: "item_2",
+    name: "sprite_buttons",
     position: {
       x: 1.5,
       y: 2,

@@ -31,6 +31,8 @@ export class Sprite {
       this.spriteData.position.z
     );
     this.sprite.scale.setScalar(this.spriteData.scalar);
+    this.sprite.name = this.spriteData.name;
+
     this.scene.add(this.sprite);
   }
 }

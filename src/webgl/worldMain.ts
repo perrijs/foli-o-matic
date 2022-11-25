@@ -20,6 +20,7 @@ import { SpriteController } from "./controllers/SpriteController";
 
 import {
   GL_DISPLAY_SPRITES,
+  GL_SELECT_ITEM,
   UI_HANDLE_TRANSITION,
   UI_TOOLTIP_SCROLL,
   UI_TOOLTIP_ZOOM,
@@ -45,10 +46,9 @@ export class WorldMain {
   pointer?: Vector2;
   intersections?: Intersection<Object3D<Event>>[];
 
+  keycode?: string;
   timer?: ReturnType<typeof setInterval>;
   canSelect?: boolean;
-  itemSelected?: boolean;
-  isZoomed?: boolean;
   canvasParent: HTMLDivElement;
 
   constructor(canvasParent: HTMLDivElement) {
@@ -57,9 +57,8 @@ export class WorldMain {
     this.raycaster = new Raycaster();
     this.pointer = new Vector2();
 
-    this.canSelect = false;
-    this.itemSelected = false;
-    this.isZoomed = false;
+    this.keycode = "";
+    this.canSelect = true;
     this.canvasParent = canvasParent;
 
     this.init();
@@ -116,14 +115,13 @@ export class WorldMain {
           : this.zoomInButtons();
       }
 
-      if (topNode.name.includes("item")) {
+      if (topNode.name.includes("button")) {
         if (!this.canSelect) return;
 
-        this.itemSelected = true;
+        const keyValue = topNode.name.split("_")[1];
 
-        this.zoomOut();
-
-        this.buttonController.handleClick(topNode.name);
+        this.handleKeyCode(keyValue);
+        this.buttonController.handleClick(keyValue);
       }
     }
   }
@@ -134,7 +132,7 @@ export class WorldMain {
     if (this.intersections.length > 0) {
       const topNode = this.intersections[0].object;
 
-      const objectItem = topNode.name.includes("item") && this.canSelect;
+      const objectItem = topNode.name.includes("button") && this.canSelect;
       const objectSprite = topNode.name.includes("sprite");
 
       if (objectItem || objectSprite) {
@@ -142,6 +140,23 @@ export class WorldMain {
       } else {
         document.body.style.cursor = "default";
       }
+    }
+  }
+
+  handleKeyCode(key: string) {
+    if (!this.itemController.items) return;
+
+    console.log(this.keycode);
+
+    if (key === "C") {
+      this.keycode = "";
+    } else if (key === "E") {
+      this.itemController.items.forEach((item) => {
+        if (item.itemData.item_code === this.keycode)
+          PubSub.publish(GL_SELECT_ITEM, item.itemData.id);
+      });
+    } else {
+      this.keycode = `${this.keycode}${key}`;
     }
   }
 
@@ -210,9 +225,6 @@ export class WorldMain {
       z: 4,
       y: 1.5,
       x: -0.5,
-      onComplete: () => {
-        this.isZoomed = true;
-      },
     });
   }
 
@@ -240,11 +252,6 @@ export class WorldMain {
       z: 10,
       y: 0,
       x: 0,
-      onComplete: () => {
-        this.isZoomed = false;
-
-        if (!this.itemSelected) PubSub.publish(GL_DISPLAY_SPRITES, true);
-      },
     });
   }
 

@@ -1,6 +1,7 @@
 export const ITEMS = [
   {
     id: "item_1",
+    item_code: "01",
     object: "/models/placeholder_joystick.glb",
     scalar: 0.07,
     position: {
@@ -17,6 +18,7 @@ export const ITEMS = [
   },
   {
     id: "item_2",
+    item_code: "02",
     object: "/models/placeholder_football.glb",
     scalar: 0.125,
     position: {
@@ -33,6 +35,7 @@ export const ITEMS = [
   },
   {
     id: "item_3",
+    item_code: "03",
     object: "/models/placeholder_pyramid.glb",
     scalar: 0.125,
     position: {
@@ -49,6 +52,7 @@ export const ITEMS = [
   },
   {
     id: "item_4",
+    item_code: "04",
     object: "/models/placeholder_coin.glb",
     scalar: 0.125,
     position: {
@@ -65,6 +69,7 @@ export const ITEMS = [
   },
   {
     id: "item_5",
+    item_code: "05",
     object: "/models/placeholder_peach.glb",
     scalar: 0.125,
     position: {
@@ -81,6 +86,7 @@ export const ITEMS = [
   },
   {
     id: "item_6",
+    item_code: "06",
     object: "/models/placeholder_record.glb",
     scalar: 0.125,
     position: {

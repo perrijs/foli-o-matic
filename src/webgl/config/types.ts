@@ -18,12 +18,13 @@ export interface CoilData {
 }
 
 export interface ButtonData {
-  id: string;
+  key_value: string;
   position: Position;
 }
 
 export interface ItemData {
   id: string;
+  item_code: string;
   object: string;
   scalar: number;
   position: Position;

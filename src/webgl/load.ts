@@ -11,7 +11,6 @@ export class Load {
 
   async load() {
     await this.assetController.loadMatcaps();
-    await this.assetController.loadButtonTextures();
     await this.assetController.loadHDRS();
     await this.assetController.loadWrapper();
     await this.assetController.loadModels();

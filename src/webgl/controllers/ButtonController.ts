@@ -29,26 +29,18 @@ export class ButtonController {
 
   init() {
     BUTTONS.forEach((buttonData, index) => {
-      if (!this.buttons || !this.assetController.buttonTextures) return;
+      if (!this.buttons) return;
 
-      const button = new Button(
-        buttonData,
-        this.assetController.buttonTextures[index],
-        index
-      );
+      const button = new Button(buttonData, index);
       this.buttons.push(button);
     });
   }
 
-  handleClick(id: string) {
+  handleClick(keyValue: string) {
     if (!this.buttons) return;
 
     this.buttons.forEach((button) => {
-      if (button.buttonData.id === id) {
-        PubSub.publish(GL_SELECT_ITEM, id);
-
-        button.press();
-      }
+      if (button.buttonData.key_value === keyValue) button.press();
     });
   }
 }

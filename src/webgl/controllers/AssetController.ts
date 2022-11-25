@@ -12,7 +12,6 @@ import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
 import { applyMatcaps } from "@/webgl/utils/applyMatcaps";
 
 import { MATCAPS } from "@/webgl/config/matcaps";
-import { BUTTONS } from "@/webgl/config/buttons";
 import { HDRS } from "@/webgl/config/hdrs";
 import { ITEMS, WRAPPER } from "@/webgl/config/items";
 import { Matcap } from "@/webgl/config/types";
@@ -25,7 +24,6 @@ export class AssetController {
   hdrLoader = new RGBELoader();
 
   matcaps?: Matcap[] = [];
-  buttonTextures?: Texture[] = [];
   hdrs?: DataTexture[] = [];
   wrapper?: GLTF;
   models?: Group[] = [];
@@ -68,19 +66,6 @@ export class AssetController {
 
     const matcaps = await Promise.all(matcapsMap);
     this.matcaps = matcaps;
-  }
-
-  async loadButtonTextures() {
-    const buttonTexturesMap = BUTTONS.map(async (button) => {
-      const texture = await this.loadTexture(
-        `/textures/buttons/${button.texture}.png`
-      );
-
-      return texture;
-    });
-
-    const buttonTextures = await Promise.all(buttonTexturesMap);
-    this.buttonTextures = buttonTextures;
   }
 
   async loadHDRS() {

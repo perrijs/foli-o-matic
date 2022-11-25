@@ -1,5 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-
 import { useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -74,6 +72,8 @@ const Collection = ({ projects }: PageProps) => {
       );
     });
 
+    PubSub.publish(GL_SET_MODEL, 0);
+
     document.addEventListener("mousemove", (event) => handleMouseMove(event));
   }, [handleMouseMove]);
 
@@ -99,7 +99,12 @@ const Collection = ({ projects }: PageProps) => {
               className="fadeIn"
               key={project.id}
               onClick={() => handleTransition(project.id)}
-              onMouseMove={() => PubSub.publish(GL_SET_MODEL, index)}
+              onMouseMove={() => {
+                if (!canvasRef.current) return;
+
+                canvasRef.current.style.opacity = "1";
+                PubSub.publish(GL_SET_MODEL, index);
+              }}
             >
               <TableSectionCode>{project.code}</TableSectionCode>
               <TableSectionEntry>{project.name}</TableSectionEntry>
@@ -186,7 +191,7 @@ const Collection = ({ projects }: PageProps) => {
         })}
       </TableSection>
 
-      <CanvasContainer className="fadeIn" ref={canvasRef}>
+      <CanvasContainer ref={canvasRef}>
         <ItemCanvas />
       </CanvasContainer>
 

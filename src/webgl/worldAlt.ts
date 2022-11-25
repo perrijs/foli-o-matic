@@ -46,6 +46,7 @@ export class WorldAlt {
     this.camera.setAspectRatio(this.canvasParent);
 
     this.scene.cleanup();
+
     this.scene.add(this.ambientLight);
     this.scene.add(this.directionalLight);
 
@@ -62,12 +63,15 @@ export class WorldAlt {
     if (!this.itemController.items) return;
 
     this.scene.traverse((child) => {
-      if (child instanceof Group) this.scene.remove(child);
+      if (child instanceof Group) {
+        this.scene.remove(child);
+      }
     });
 
     if (index <= this.itemController.items.length - 1) {
       this.itemController.getItem(index);
       this.model = this.itemController.items[index].model;
+
       this.scene.add(this.model);
     }
   }

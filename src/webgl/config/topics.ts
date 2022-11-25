@@ -1,3 +1,5 @@
+export const LOAD_COMPLETE = "loadComplete";
+
 export const GL_SELECT_ITEM = "glRotateCoil";
 export const GL_SET_MODEL = "glSetModel";
 export const GL_DISPLAY_SPRITES = "glDisplaySprites";

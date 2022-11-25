@@ -20,6 +20,7 @@ import { SpriteController } from "./controllers/SpriteController";
 
 import {
   GL_DISPLAY_SPRITES,
+  UI_HANDLE_TRANSITION,
   UI_TOOLTIP_SCROLL,
   UI_TOOLTIP_ZOOM,
 } from "./config/topics";
@@ -180,6 +181,8 @@ export class WorldMain {
         document.body.style.height = "100vh";
       },
     });
+
+    PubSub.subscribe(UI_HANDLE_TRANSITION, () => cameraLerp.kill());
 
     this.scrollTimer();
   }

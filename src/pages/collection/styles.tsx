@@ -124,6 +124,7 @@ export const CanvasContainer = styled.div`
   height: 50vw;
 
   z-index: 0;
+  opacity: 0;
   transform: translate(-50%, -50%);
   pointer-events: none;
 `;

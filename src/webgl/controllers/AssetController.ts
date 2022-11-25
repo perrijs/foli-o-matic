@@ -1,20 +1,32 @@
-import { Texture, TextureLoader, Group, MeshMatcapMaterial, Mesh } from "three";
+import {
+  Texture,
+  DataTexture,
+  TextureLoader,
+  Group,
+  MeshMatcapMaterial,
+  Mesh,
+} from "three";
 import { GLTFLoader, GLTF } from "three/examples/jsm/loaders/GLTFLoader";
+import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
+
+import { applyMatcaps } from "@/webgl/utils/applyMatcaps";
 
 import { MATCAPS } from "@/webgl/config/matcaps";
+import { BUTTONS } from "@/webgl/config/buttons";
+import { HDRS } from "@/webgl/config/hdrs";
 import { ITEMS, WRAPPER } from "@/webgl/config/items";
 import { Matcap } from "@/webgl/config/types";
-import { applyMatcaps } from "../utils/applyMatcaps";
-import { BUTTONS } from "../config/buttons";
 
 export class AssetController {
   static instance: AssetController;
 
   gltfLoader = new GLTFLoader();
   textureLoader = new TextureLoader();
+  hdrLoader = new RGBELoader();
 
   matcaps?: Matcap[] = [];
   buttonTextures?: Texture[] = [];
+  hdrs?: DataTexture[] = [];
   wrapper?: GLTF;
   models?: Group[] = [];
 
@@ -36,6 +48,12 @@ export class AssetController {
   loadTexture(url: string) {
     return new Promise<Texture>((resolve) => {
       this.textureLoader.load(url, resolve);
+    });
+  }
+
+  loadHDR(url: string) {
+    return new Promise<DataTexture>((resolve) => {
+      this.hdrLoader.load(url, resolve);
     });
   }
 
@@ -63,6 +81,17 @@ export class AssetController {
 
     const buttonTextures = await Promise.all(buttonTexturesMap);
     this.buttonTextures = buttonTextures;
+  }
+
+  async loadHDRS() {
+    const hdrsMap = HDRS.map(async (hdr) => {
+      const hdrTexture = await this.loadHDR(`/textures/hdr/${hdr}.hdr`);
+
+      return hdrTexture;
+    });
+
+    const hdrs = await Promise.all(hdrsMap);
+    this.hdrs = hdrs;
   }
 
   async loadWrapper() {

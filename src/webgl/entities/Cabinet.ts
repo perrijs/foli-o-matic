@@ -180,31 +180,32 @@ export class Cabinet {
   }
 
   createWindow() {
-    new RGBELoader().load("/textures/hdr/placeholder_hdr.hdr", (texture) => {
-      texture.mapping = EquirectangularReflectionMapping;
+    if (!this.assetController.hdrs) return;
 
-      this.scene.environment = texture;
+    const texture = this.assetController.hdrs[0];
+    texture.mapping = EquirectangularReflectionMapping;
 
-      const geometry = new BoxGeometry(3.5, 5.25, 0.1);
-      const material = new MeshPhysicalMaterial({
-        color: 0x666d70,
-        emissive: 0x000000,
-        transparent: true,
-        opacity: 0.2,
-        roughness: 0,
-        metalness: 0,
-        transmission: 0,
-        reflectivity: 1,
-        clearcoat: 1,
-        clearcoatRoughness: 0,
-        ior: 2.3,
-      });
-      const mesh = new Mesh(geometry, material);
+    this.scene.environment = texture;
 
-      mesh.position.set(-0.5, 1, 2.75);
-      mesh.name = "glass";
-
-      this.cabinet.add(mesh);
+    const geometry = new BoxGeometry(3.5, 5.25, 0.1);
+    const material = new MeshPhysicalMaterial({
+      color: 0x666d70,
+      emissive: 0x000000,
+      transparent: true,
+      opacity: 0.2,
+      roughness: 0,
+      metalness: 0,
+      transmission: 0,
+      reflectivity: 1,
+      clearcoat: 1,
+      clearcoatRoughness: 0,
+      ior: 2.3,
     });
+    const mesh = new Mesh(geometry, material);
+
+    mesh.position.set(-0.5, 1, 2.75);
+    mesh.name = "glass";
+
+    this.cabinet.add(mesh);
   }
 }

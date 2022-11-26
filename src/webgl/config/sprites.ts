@@ -9,7 +9,7 @@ export const SPRITES = [
     scalar: 0.35,
   },
   {
-    name: "sprite_buttons",
+    name: "sprite_keys",
     position: {
       x: 1.5,
       y: 2,

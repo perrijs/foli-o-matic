@@ -20,6 +20,7 @@ import { SpriteController } from "./controllers/SpriteController";
 
 import {
   GL_DISPLAY_SPRITES,
+  GL_PRESS_KEY,
   GL_SELECT_ITEM,
   UI_HANDLE_TRANSITION,
   UI_TOOLTIP_SCROLL,
@@ -146,17 +147,19 @@ export class WorldMain {
   handleKeyCode(key: string) {
     if (!this.itemController.items) return;
 
-    console.log(this.keycode);
-
     if (key === "C") {
       this.keycode = "";
+      PubSub.publish(GL_PRESS_KEY, this.keycode);
     } else if (key === "E") {
       this.itemController.items.forEach((item) => {
         if (item.itemData.item_code === this.keycode)
           PubSub.publish(GL_SELECT_ITEM, item.itemData.id);
       });
+
+      PubSub.publish(GL_PRESS_KEY, "ENJOY!");
     } else {
       this.keycode = `${this.keycode}${key}`;
+      PubSub.publish(GL_PRESS_KEY, this.keycode);
     }
   }
 

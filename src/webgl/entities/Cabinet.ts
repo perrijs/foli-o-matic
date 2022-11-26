@@ -6,17 +6,18 @@ import {
   EquirectangularReflectionMapping,
   MeshMatcapMaterial,
 } from "three";
-import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
 
 import { Scene } from "@/webgl/globals/Scene";
 
 import { AssetController } from "@/webgl/controllers/AssetController";
+import { ScreenController } from "@/webgl/controllers/ScreenController";
 import { Screen } from "@/webgl/entities/Screen";
 import { Flap } from "@/webgl/entities/Flap";
 
 export class Cabinet {
   scene = Scene.getInstance();
   assetController = AssetController.getInstance();
+  screenController = ScreenController.getInstance();
 
   matcapMain?: MeshMatcapMaterial;
   matcapSub?: MeshMatcapMaterial;
@@ -56,7 +57,7 @@ export class Cabinet {
     this.createFoot(-2.25, -3.75, 0);
     this.createFoot(2.25, -3.75, 0);
 
-    new Screen();
+    this.screenController.init();
     new Flap();
 
     this.cabinet.castShadow = true;

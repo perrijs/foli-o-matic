@@ -52,7 +52,7 @@ export const ITEMS = [
   },
   {
     id: "item_4",
-    item_code: "04",
+    item_code: "11",
     object: "/models/placeholder_coin.glb",
     scalar: 0.125,
     position: {
@@ -69,7 +69,7 @@ export const ITEMS = [
   },
   {
     id: "item_5",
-    item_code: "05",
+    item_code: "12",
     object: "/models/placeholder_peach.glb",
     scalar: 0.125,
     position: {
@@ -86,7 +86,7 @@ export const ITEMS = [
   },
   {
     id: "item_6",
-    item_code: "06",
+    item_code: "13",
     object: "/models/placeholder_record.glb",
     scalar: 0.125,
     position: {

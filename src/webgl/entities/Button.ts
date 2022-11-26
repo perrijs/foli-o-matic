@@ -1,4 +1,4 @@
-import { BoxGeometry, Mesh, MeshBasicMaterial } from "three";
+import { BoxGeometry, CanvasTexture, Mesh, MeshBasicMaterial } from "three";
 import gsap from "gsap";
 
 import { Scene } from "@/webgl/globals/Scene";
@@ -22,9 +22,25 @@ export class Button {
   init() {
     const position = this.buttonData.position;
 
-    const geometry = new BoxGeometry(0.35, 0.35, 0.35);
+    const geometry = new BoxGeometry(0.275, 0.275, 0.35);
 
-    const material = new MeshBasicMaterial();
+    const ctx = document
+      .createElement("canvas")
+      .getContext("2d") as CanvasRenderingContext2D;
+    ctx.canvas.width = 256;
+    ctx.canvas.height = 256;
+
+    ctx.fillStyle = "#33312e";
+    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+    ctx.fillStyle = "#00ff33";
+    ctx.font = `100px IBM Plex Mono`;
+    ctx.fillText(this.buttonData.key_value, 90, 165);
+
+    const texture = new CanvasTexture(ctx.canvas);
+    const material = new MeshBasicMaterial({
+      map: texture,
+    });
 
     const mesh = new Mesh(geometry, material);
 

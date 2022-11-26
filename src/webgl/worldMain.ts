@@ -151,12 +151,26 @@ export class WorldMain {
       this.keycode = "";
       PubSub.publish(GL_PRESS_KEY, this.keycode);
     } else if (key === "E") {
-      this.itemController.items.forEach((item) => {
-        if (item.itemData.item_code === this.keycode)
-          PubSub.publish(GL_SELECT_ITEM, item.itemData.id);
-      });
+      let hasMatched = false;
 
-      PubSub.publish(GL_PRESS_KEY, "ENJOY!");
+      this.itemController.items.forEach((item, index) => {
+        if (!this.itemController.items) return;
+
+        if (item.itemData.item_code === this.keycode) {
+          hasMatched = true;
+
+          PubSub.publish(GL_PRESS_KEY, "ENJOY!");
+          PubSub.publish(GL_SELECT_ITEM, item.itemData.id);
+
+          this.zoomOut();
+        }
+
+        if (index === this.itemController.items.length - 1 && !hasMatched) {
+          this.keycode = "";
+
+          PubSub.publish(GL_PRESS_KEY, "INVALID");
+        }
+      });
     } else {
       this.keycode = `${this.keycode}${key}`;
       PubSub.publish(GL_PRESS_KEY, this.keycode);
@@ -225,7 +239,7 @@ export class WorldMain {
     gsap.to(this.camera.position, {
       duration: 3,
       ease: "power4.inOut",
-      z: 4,
+      z: 4.5,
       y: 1.5,
       x: -0.5,
     });
@@ -239,8 +253,8 @@ export class WorldMain {
     gsap.to(this.camera.position, {
       duration: 3,
       ease: "power4.inOut",
-      z: 4,
-      y: 0.75,
+      z: 4.5,
+      y: 1,
       x: 1.5,
       onComplete: () => {
         this.canSelect = true;

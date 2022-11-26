@@ -36,19 +36,23 @@ export class ScreenController {
       .createElement("canvas")
       .getContext("2d") as CanvasRenderingContext2D;
     ctx.canvas.width = 512;
-    ctx.canvas.height = 146;
+    ctx.canvas.height = 102;
 
     ctx.fillStyle = "#33312e";
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     ctx.fillStyle = "#00ff33";
-    ctx.font = `100px IBM Plex Mono`;
-    ctx.fillText(data, 10, 110);
+    ctx.font = `75px IBM Plex Mono`;
+    ctx.fillText(data, 10, 80);
 
     const texture = new CanvasTexture(ctx.canvas);
     this.screen.mesh.material = new MeshBasicMaterial({
       map: texture,
     });
+
+    setTimeout(() => {
+      if (data === "INVALID") this.createCanvasTexture("", "");
+    }, 500);
   }
 
   handleSubscriptions() {

@@ -134,7 +134,7 @@ export class Cabinet {
     const material = this.matcapMain;
     const mesh = new Mesh(geometry, material);
 
-    mesh.position.set(1, 0, 1.5);
+    mesh.position.set(1, 0, 1.45);
     mesh.rotation.y = Math.PI / 2;
 
     mesh.name = "matcapMain";

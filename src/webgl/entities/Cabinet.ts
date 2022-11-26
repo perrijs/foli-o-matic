@@ -5,13 +5,15 @@ import {
   MeshPhysicalMaterial,
   EquirectangularReflectionMapping,
   MeshMatcapMaterial,
+  PlaneGeometry,
+  MeshBasicMaterial,
+  CanvasTexture,
 } from "three";
 
 import { Scene } from "@/webgl/globals/Scene";
 
 import { AssetController } from "@/webgl/controllers/AssetController";
 import { ScreenController } from "@/webgl/controllers/ScreenController";
-import { Screen } from "@/webgl/entities/Screen";
 import { Flap } from "@/webgl/entities/Flap";
 
 export class Cabinet {
@@ -48,9 +50,9 @@ export class Cabinet {
     this.createFacePanel();
     this.createWindow();
 
-    this.createTray(-0.5, 1.75, 1);
-    this.createTray(-0.5, 0.25, 1);
-    this.createTray(-0.5, -1.25, 1);
+    this.createTray(-0.5, 1.75, 1, 0);
+    this.createTray(-0.5, 0.25, 1, 1);
+    this.createTray(-0.5, -1.25, 1, 2);
 
     this.createFoot(-2.25, -3.75, 2.75);
     this.createFoot(2.25, -3.75, 2.75);
@@ -154,7 +156,7 @@ export class Cabinet {
     this.cabinet.add(mesh);
   }
 
-  createTray(x: number, y: number, z: number) {
+  createTray(x: number, y: number, z: number, i: number) {
     if (!this.assetController.matcaps) return;
 
     const geometry = new BoxGeometry(3.5, 2, 0.1);
@@ -163,6 +165,41 @@ export class Cabinet {
 
     mesh.position.set(x, y, z);
     mesh.rotation.x = Math.PI / 2;
+
+    this.cabinet.add(mesh);
+
+    const labels = [-1.6, -0.6, 0.4];
+    labels.forEach((x, j) => {
+      this.createLabel(x, y, 2, `${i}${j + 1}`);
+    });
+  }
+
+  createLabel(x: number, y: number, z: number, label: string) {
+    if (!this.assetController.matcaps) return;
+
+    const geometry = new PlaneGeometry(0.2, 0.1, 1);
+
+    const ctx = document
+      .createElement("canvas")
+      .getContext("2d") as CanvasRenderingContext2D;
+    ctx.canvas.width = 256;
+    ctx.canvas.height = 128;
+
+    ctx.fillStyle = "#000000";
+    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+    ctx.fillStyle = "#ffffff";
+    ctx.font = `bold 75px IBM Plex Mono`;
+    ctx.fillText(label, 75, 85);
+
+    const texture = new CanvasTexture(ctx.canvas);
+    const material = new MeshBasicMaterial({
+      map: texture,
+    });
+
+    const mesh = new Mesh(geometry, material);
+
+    mesh.position.set(x, y, z);
 
     this.cabinet.add(mesh);
   }

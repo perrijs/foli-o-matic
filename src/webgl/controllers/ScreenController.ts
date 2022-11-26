@@ -42,7 +42,7 @@ export class ScreenController {
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     ctx.fillStyle = "#00ff33";
-    ctx.font = `75px IBM Plex Mono`;
+    ctx.font = `bold 75px IBM Plex Mono`;
     ctx.fillText(data, 10, 80);
 
     const texture = new CanvasTexture(ctx.canvas);

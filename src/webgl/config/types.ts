@@ -32,12 +32,6 @@ export interface ItemData {
   slug: string;
 }
 
-export interface SpriteData {
-  name: string;
-  position: Position;
-  scalar: number;
-}
-
 export interface Textures {
   id: string;
   texture: Texture;

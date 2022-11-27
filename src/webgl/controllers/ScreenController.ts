@@ -1,7 +1,6 @@
 import PubSub from "pubsub-js";
 
 import { Scene } from "@/webgl/globals/Scene";
-import { Sprite } from "@/webgl/entities/Sprite";
 
 import { GL_PRESS_KEY } from "@/webgl/config/topics";
 import { Screen } from "../entities/Screen";
@@ -12,7 +11,6 @@ export class ScreenController {
   scene = Scene.getInstance();
 
   screen?: Screen;
-  sprites?: Sprite[] = [];
 
   constructor() {}
 

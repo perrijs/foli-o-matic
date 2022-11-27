@@ -16,16 +16,15 @@ import { AssetController } from "./controllers/AssetController";
 import { CoilController } from "./controllers/CoilController";
 import { ButtonController } from "./controllers/ButtonController";
 import { ItemController } from "./controllers/ItemController";
-import { SpriteController } from "./controllers/SpriteController";
 
 import {
-  GL_DISPLAY_SPRITES,
   GL_PRESS_KEY,
   GL_SELECT_ITEM,
   UI_HANDLE_TRANSITION,
   UI_TOOLTIP_SCROLL,
-  UI_TOOLTIP_ZOOM,
+  UI_TOOLTIP_TAP,
 } from "./config/topics";
+import { Position } from "./config/types";
 
 export class WorldMain {
   renderer = Renderer.getInstance();
@@ -38,7 +37,6 @@ export class WorldMain {
   coilController = CoilController.getInstance();
   buttonController = ButtonController.getInstance();
   itemController = ItemController.getInstance();
-  spriteController = SpriteController.getInstance();
   cabinet?: Cabinet;
   floor?: Floor;
 
@@ -48,7 +46,6 @@ export class WorldMain {
   intersections?: Intersection<Object3D<Event>>[];
 
   keycode?: string;
-  timer?: ReturnType<typeof setInterval>;
   canSelect?: boolean;
   canvasParent: HTMLDivElement;
 
@@ -67,7 +64,7 @@ export class WorldMain {
   }
 
   async init() {
-    document.body.style.height = "5000px";
+    // document.body.style.height = "6000px";
 
     this.renderer.setAspectRatio(this.canvasParent);
     this.camera.setAspectRatio(this.canvasParent);
@@ -87,7 +84,8 @@ export class WorldMain {
     this.floor = new Floor();
     this.cabinet = new Cabinet();
 
-    this.scroll();
+    this.initScroll();
+    this.handleTooltip();
   }
 
   addEventListeners() {
@@ -110,12 +108,6 @@ export class WorldMain {
     if (this.intersections.length > 0) {
       const topNode = this.intersections[0].object;
 
-      if (topNode.name.includes("sprite")) {
-        topNode.name === "sprite_items"
-          ? this.zoomInItems()
-          : this.zoomInButtons();
-      }
-
       if (topNode.name.includes("button")) {
         if (!this.canSelect) return;
 
@@ -134,9 +126,8 @@ export class WorldMain {
       const topNode = this.intersections[0].object;
 
       const objectItem = topNode.name.includes("button") && this.canSelect;
-      const objectSprite = topNode.name.includes("sprite");
 
-      if (objectItem || objectSprite) {
+      if (objectItem) {
         document.body.style.cursor = "pointer";
       } else {
         document.body.style.cursor = "default";
@@ -158,11 +149,14 @@ export class WorldMain {
 
         if (item.itemData.item_code === this.keycode) {
           hasMatched = true;
+          document.body.style.height = "100vh";
+
+          this.zoomOut();
 
           PubSub.publish(GL_PRESS_KEY, "ENJOY!");
           PubSub.publish(GL_SELECT_ITEM, item.itemData.id);
-
-          this.zoomOut();
+          PubSub.publish(UI_TOOLTIP_TAP, true);
+          PubSub.publish(UI_TOOLTIP_SCROLL, false);
         }
 
         if (index === this.itemController.items.length - 1 && !hasMatched) {
@@ -177,89 +171,86 @@ export class WorldMain {
     }
   }
 
-  scroll() {
+  initScroll() {
     gsap.registerPlugin(ScrollTrigger);
 
-    const cameraLerp = gsap.to(this.camera.position, {
-      delay: 1,
-      z: 10,
-      y: 0,
-      x: 0,
-      scrollTrigger: {
-        trigger: this.renderer.domElement,
-        start: "top top",
-        end: ScrollTrigger.maxScroll(document.body),
-        pin: true,
-        scrub: 0.25,
-      },
-      onUpdate: () => {
-        if (!this.cabinet) return;
+    const scrollTriggerOne = document.querySelector(
+      ".scrollTriggerOne"
+    ) as HTMLDivElement;
+    this.createPathPoint(
+      scrollTriggerOne,
+      { z: 25, y: 25, x: 25 },
+      { z: 10, y: 0, x: 0 },
+      0
+    );
 
-        PubSub.publish(UI_TOOLTIP_SCROLL, false);
+    const scrollTriggerTwo = document.querySelector(
+      ".scrollTriggerTwo"
+    ) as HTMLDivElement;
+    this.createPathPoint(
+      scrollTriggerTwo,
+      { z: 10, y: 0, x: 0 },
+      { z: 4.5, y: 1.5, x: -0.5 },
+      2000
+    );
 
-        clearInterval(this.timer);
-        this.scrollTimer();
+    const scrollTriggerThree = document.querySelector(
+      ".scrollTriggerThree"
+    ) as HTMLDivElement;
+    this.createPathPoint(
+      scrollTriggerThree,
+      { z: 4.5, y: 1.5, x: -0.5 },
+      { z: 4.5, y: 1, x: 2 },
+      4000
+    );
 
-        this.camera.lookAt(this.cabinet.cabinet.position);
-      },
-      onComplete: () => {
-        cameraLerp.kill();
-
-        PubSub.publish(GL_DISPLAY_SPRITES, true);
-
-        clearInterval(this.timer);
-        this.zoomTimer();
-
-        document.body.style.height = "100vh";
-      },
-    });
-
-    PubSub.subscribe(UI_HANDLE_TRANSITION, () => cameraLerp.kill());
-
-    this.scrollTimer();
+    this.camera.position.set(25, 25, 25);
+    this.camera.lookAt(0, 0, 0);
   }
 
-  scrollTimer() {
-    this.timer = setInterval(() => {
+  createPathPoint(
+    trigger: HTMLDivElement,
+    initialPosition: Position,
+    newPosition: Position,
+    start: number
+  ) {
+    const pathLerp = gsap.fromTo(
+      this.camera.position,
+      { x: initialPosition.x, y: initialPosition.y, z: initialPosition.z },
+      {
+        x: newPosition.x,
+        y: newPosition.y,
+        z: newPosition.z,
+        scrollTrigger: {
+          trigger,
+          start,
+          scrub: 0.25,
+          onToggle: (self) => {
+            if (self.isActive) this.handleTooltip();
+          },
+        },
+        onUpdate: () => {
+          if (!this.cabinet) return;
+
+          if (start === 0) this.camera.lookAt(this.cabinet.cabinet.position);
+        },
+      }
+    );
+
+    PubSub.subscribe(GL_SELECT_ITEM, () => pathLerp.kill());
+    PubSub.subscribe(UI_HANDLE_TRANSITION, () => pathLerp.kill());
+  }
+
+  handleTooltip() {
+    const currentScroll = document.documentElement.scrollTop;
+
+    if (currentScroll < 4000) {
       PubSub.publish(UI_TOOLTIP_SCROLL, true);
-    }, 3000);
-  }
-
-  zoomTimer() {
-    this.timer = setInterval(() => {
-      PubSub.publish(UI_TOOLTIP_ZOOM, true);
-    }, 5000);
-  }
-
-  zoomInItems() {
-    clearInterval(this.timer);
-    PubSub.publish(UI_TOOLTIP_ZOOM, false);
-    PubSub.publish(GL_DISPLAY_SPRITES, false);
-
-    gsap.to(this.camera.position, {
-      duration: 3,
-      ease: "power4.inOut",
-      z: 4.5,
-      y: 1.5,
-      x: -0.5,
-    });
-  }
-
-  zoomInButtons() {
-    clearInterval(this.timer);
-    PubSub.publish(UI_TOOLTIP_ZOOM, false);
-    PubSub.publish(GL_DISPLAY_SPRITES, false);
-
-    gsap.to(this.camera.position, {
-      duration: 3,
-      ease: "power4.inOut",
-      z: 4.5,
-      y: 1,
-      x: 1.5,
-      onComplete: () => {
-        this.canSelect = true;
-      },
-    });
+      PubSub.publish(UI_TOOLTIP_TAP, false);
+    } else {
+      PubSub.publish(UI_TOOLTIP_TAP, true);
+      PubSub.publish(UI_TOOLTIP_SCROLL, false);
+    }
   }
 
   zoomOut() {

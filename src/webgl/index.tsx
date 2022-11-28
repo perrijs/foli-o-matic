@@ -1,19 +1,19 @@
 import { useEffect, useRef } from "react";
 
 import { CanvasParent } from "./styles";
-import { LOAD_COMPLETE } from "./config/topics";
+import { GL_START_VENDING_MACHINE } from "./config/topics";
 import { WorldVendingMachine } from "./worldVendingMachine";
 
 const WebGL = () => {
   const canvasParent = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    PubSub.subscribe(LOAD_COMPLETE, () => {
+    PubSub.subscribe(GL_START_VENDING_MACHINE, () => {
       if (!canvasParent.current) return;
 
       new WorldVendingMachine(canvasParent.current);
     });
-  });
+  }, []);
 
   return (
     <>

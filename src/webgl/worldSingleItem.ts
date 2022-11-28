@@ -21,13 +21,9 @@ export class WorldSingleItem {
 
   itemController?: ItemController;
   model?: Group;
-
-  raycaster?: Raycaster;
-  pointer?: Vector2;
-  intersections?: Intersection<Object3D<Event>>[];
-  modelRotation = 0;
-
   canvasParent: HTMLDivElement;
+
+  modelRotation = 0;
 
   constructor(canvasParent: HTMLDivElement) {
     this.renderer = new Renderer();
@@ -43,8 +39,6 @@ export class WorldSingleItem {
   }
 
   async init() {
-    document.body.style.height = "100vh";
-
     this.renderer.setAspectRatio(this.canvasParent);
     this.camera.setAspectRatio(this.canvasParent);
 

@@ -9,14 +9,15 @@ import { AssetController } from "@/webgl/controllers/AssetController";
 import { GL_SELECT_ITEM } from "@/webgl/config/topics";
 
 export class Flap {
-  scene = Scene.getInstance();
-
   assetController = AssetController.getInstance();
 
+  scene: Scene;
   matcap?: MeshMatcapMaterial;
   mesh?: Mesh;
 
-  constructor() {
+  constructor(scene: Scene) {
+    this.scene = scene;
+
     this.init();
   }
 

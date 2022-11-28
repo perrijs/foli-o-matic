@@ -3,11 +3,12 @@ import { PlaneGeometry, MeshBasicMaterial, Mesh, Material } from "three";
 import { Scene } from "@/webgl/globals/Scene";
 
 export class Screen {
-  scene = Scene.getInstance();
-
+  scene: Scene;
   mesh?: Mesh;
 
-  constructor() {
+  constructor(scene: Scene) {
+    this.scene = scene;
+
     this.init();
   }
 

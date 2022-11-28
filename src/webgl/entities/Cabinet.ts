@@ -17,16 +17,18 @@ import { ScreenController } from "@/webgl/controllers/ScreenController";
 import { Flap } from "@/webgl/entities/Flap";
 
 export class Cabinet {
-  scene = Scene.getInstance();
   assetController = AssetController.getInstance();
-  screenController = ScreenController.getInstance();
 
+  scene: Scene;
   matcapMain?: MeshMatcapMaterial;
   matcapSub?: MeshMatcapMaterial;
   cabinet: Group;
+  screenController: ScreenController;
 
-  constructor() {
+  constructor(scene: Scene) {
+    this.scene = scene;
     this.cabinet = new Group();
+    this.screenController = new ScreenController(this.scene);
 
     this.init();
   }
@@ -60,7 +62,7 @@ export class Cabinet {
     this.createFoot(2.25, -3.75, 0);
 
     this.screenController.init();
-    new Flap();
+    new Flap(this.scene);
 
     this.cabinet.castShadow = true;
     this.scene.add(this.cabinet);

@@ -6,12 +6,12 @@ import { Scene } from "@/webgl/globals/Scene";
 import { CoilData } from "@/webgl/config/types";
 
 export class Coil {
-  scene = Scene.getInstance();
-
+  scene: Scene;
   coilData: CoilData;
   model: Group;
 
-  constructor(coilData: CoilData, model: Group) {
+  constructor(scene: Scene, coilData: CoilData, model: Group) {
+    this.scene = scene;
     this.coilData = coilData;
     this.model = model;
 

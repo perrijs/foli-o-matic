@@ -10,23 +10,17 @@ import { COILS } from "@/webgl/config/coils";
 import { GL_SELECT_ITEM } from "@/webgl/config/topics";
 
 export class CoilController {
-  static instance: CoilController;
   assetController = AssetController.getInstance();
-  scene = Scene.getInstance();
 
+  scene: Scene;
   model?: Group;
   matcap?: MeshMatcapMaterial;
   coils?: Coil[] = [];
 
-  constructor() {
+  constructor(scene: Scene) {
+    this.scene = scene;
+
     this.load();
-  }
-
-  static getInstance() {
-    if (!CoilController.instance)
-      CoilController.instance = new CoilController();
-
-    return CoilController.instance;
   }
 
   async load() {
@@ -55,7 +49,7 @@ export class CoilController {
     COILS.forEach((coilData) => {
       if (!this.model || !this.coils) return;
 
-      const coil = new Coil(coilData, this.model.clone());
+      const coil = new Coil(this.scene, coilData, this.model.clone());
       this.coils.push(coil);
     });
 

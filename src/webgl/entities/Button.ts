@@ -6,13 +6,13 @@ import { Scene } from "@/webgl/globals/Scene";
 import { ButtonData } from "@/webgl/config/types";
 
 export class Button {
-  scene = Scene.getInstance();
-
+  scene: Scene;
   buttonData: ButtonData;
   mesh?: Mesh;
   index?: number;
 
-  constructor(buttonData: ButtonData, index: number) {
+  constructor(scene: Scene, buttonData: ButtonData, index: number) {
+    this.scene = scene;
     this.buttonData = buttonData;
     this.index = index;
 

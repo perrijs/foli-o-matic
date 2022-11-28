@@ -3,7 +3,7 @@ import ScrollTrigger from "@/components/ScrollTrigger";
 import TransitionScreen from "@/components/TransitionScreen";
 import MenuButton from "@/components/MenuButton";
 import Tooltip from "@/components/Tooltip";
-import WebGLComponent from "@/webgl/index";
+import WebGL from "@/webgl/index";
 
 const Index = () => {
   return (
@@ -17,7 +17,7 @@ const Index = () => {
       <MenuButton />
       <Tooltip />
 
-      <WebGLComponent />
+      <WebGL />
       <TransitionScreen />
     </>
   );

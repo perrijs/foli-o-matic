@@ -11,23 +11,16 @@ import { ITEMS } from "@/webgl/config/items";
 import { GL_SELECT_ITEM } from "@/webgl/config/topics";
 
 export class ItemController {
-  static instance: ItemController;
-
-  scene = Scene.getInstance();
   assetController = AssetController.getInstance();
 
+  scene: Scene;
   model?: Mesh;
   items?: Item[] = [];
 
-  constructor() {
+  constructor(scene: Scene) {
+    this.scene = scene;
+
     this.init();
-  }
-
-  static getInstance() {
-    if (!ItemController.instance)
-      ItemController.instance = new ItemController();
-
-    return ItemController.instance;
   }
 
   init() {
@@ -35,7 +28,7 @@ export class ItemController {
       if (!this.assetController.models || !this.items) return;
 
       const itemGroup = new Group();
-      new Wrapper(itemGroup);
+      new Wrapper(this.scene, itemGroup);
 
       const model = this.assetController.models[index];
       model.rotation.x = itemData.rotation.x;
@@ -45,7 +38,7 @@ export class ItemController {
 
       itemGroup.add(model);
 
-      const item = new Item(itemData, itemGroup);
+      const item = new Item(this.scene, itemData, itemGroup);
       this.items.push(item);
     });
 

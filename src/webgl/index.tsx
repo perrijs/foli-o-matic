@@ -1,18 +1,17 @@
 import { useEffect, useRef } from "react";
 
-import { WebGL } from "./webgl";
-
 import { CanvasParent } from "./styles";
 import { LOAD_COMPLETE } from "./config/topics";
+import { WorldVendingMachine } from "./worldVendingMachine";
 
-const WebGLComponent = () => {
+const WebGL = () => {
   const canvasParent = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     PubSub.subscribe(LOAD_COMPLETE, () => {
       if (!canvasParent.current) return;
 
-      new WebGL(canvasParent.current, true);
+      new WorldVendingMachine(canvasParent.current);
     });
   });
 
@@ -23,4 +22,4 @@ const WebGLComponent = () => {
   );
 };
 
-export default WebGLComponent;
+export default WebGL;

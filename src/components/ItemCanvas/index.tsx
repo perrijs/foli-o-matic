@@ -1,8 +1,7 @@
 import { useEffect, useRef } from "react";
 
-import { WebGL } from "@/webgl/webgl";
-
 import { CanvasParent } from "./styles";
+import { WorldSingleItem } from "@/webgl/worldSingleItem";
 
 const ItemCanvas = () => {
   const canvasParent = useRef<HTMLDivElement>(null);
@@ -10,7 +9,7 @@ const ItemCanvas = () => {
   useEffect(() => {
     if (!canvasParent.current) return;
 
-    new WebGL(canvasParent.current, false);
+    new WorldSingleItem(canvasParent.current);
   });
 
   return (

@@ -7,22 +7,15 @@ import { Screen } from "../entities/Screen";
 import { CanvasTexture, MeshBasicMaterial } from "three";
 
 export class ScreenController {
-  static instance: ScreenController;
-  scene = Scene.getInstance();
-
+  scene: Scene;
   screen?: Screen;
 
-  constructor() {}
-
-  static getInstance() {
-    if (!ScreenController.instance)
-      ScreenController.instance = new ScreenController();
-
-    return ScreenController.instance;
+  constructor(scene: Scene) {
+    this.scene = scene;
   }
 
   init() {
-    this.screen = new Screen();
+    this.screen = new Screen(this.scene);
 
     this.handleSubscriptions();
   }

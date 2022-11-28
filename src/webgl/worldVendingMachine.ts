@@ -26,17 +26,18 @@ import {
 } from "./config/topics";
 import { Position } from "./config/types";
 
-export class WorldMain {
-  renderer = Renderer.getInstance();
-  scene = Scene.getInstance();
-  camera = Camera.getInstance();
+export class WorldVendingMachine {
+  assetController = AssetController.getInstance();
+
+  renderer: Renderer;
+  camera: Camera;
+  scene: Scene;
   ambientLight: AmbientLight;
   directionalLight: DirectionalLight;
 
-  assetController = AssetController.getInstance();
-  coilController = CoilController.getInstance();
-  buttonController = ButtonController.getInstance();
-  itemController = ItemController.getInstance();
+  coilController?: CoilController;
+  buttonController?: ButtonController;
+  itemController?: ItemController;
   cabinet?: Cabinet;
   floor?: Floor;
 
@@ -50,8 +51,12 @@ export class WorldMain {
   canvasParent: HTMLDivElement;
 
   constructor(canvasParent: HTMLDivElement) {
+    this.renderer = new Renderer();
+    this.camera = new Camera();
+    this.scene = new Scene();
     this.ambientLight = new AmbientLight();
     this.directionalLight = new DirectionalLight();
+
     this.raycaster = new Raycaster();
     this.pointer = new Vector2();
 
@@ -64,8 +69,6 @@ export class WorldMain {
   }
 
   async init() {
-    // document.body.style.height = "6000px";
-
     this.renderer.setAspectRatio(this.canvasParent);
     this.camera.setAspectRatio(this.canvasParent);
 
@@ -81,8 +84,11 @@ export class WorldMain {
     this.renderer.setAnimationLoop(() => this.render());
     this.canvasParent.appendChild(this.renderer.domElement);
 
-    this.floor = new Floor();
-    this.cabinet = new Cabinet();
+    this.coilController = new CoilController(this.scene);
+    this.buttonController = new ButtonController(this.scene);
+    this.itemController = new ItemController(this.scene);
+    this.floor = new Floor(this.scene);
+    this.cabinet = new Cabinet(this.scene);
 
     this.initScroll();
     this.handleTooltip();
@@ -114,7 +120,7 @@ export class WorldMain {
         const keyValue = topNode.name.split("_")[1];
 
         this.handleKeyCode(keyValue);
-        this.buttonController.handleClick(keyValue);
+        if (this.buttonController) this.buttonController.handleClick(keyValue);
       }
     }
   }
@@ -136,7 +142,7 @@ export class WorldMain {
   }
 
   handleKeyCode(key: string) {
-    if (!this.itemController.items) return;
+    if (!this.itemController || !this.itemController.items) return;
 
     if (key === "C") {
       this.keycode = "";
@@ -145,7 +151,7 @@ export class WorldMain {
       let hasMatched = false;
 
       this.itemController.items.forEach((item, index) => {
-        if (!this.itemController.items) return;
+        if (!this.itemController || !this.itemController.items) return;
 
         if (item.itemData.item_code === this.keycode) {
           hasMatched = true;

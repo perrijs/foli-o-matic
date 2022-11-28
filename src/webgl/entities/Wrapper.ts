@@ -13,12 +13,13 @@ import { Scene } from "@/webgl/globals/Scene";
 import { AssetController } from "@/webgl/controllers/AssetController";
 
 export class Wrapper {
-  scene = Scene.getInstance();
   assetController = AssetController.getInstance();
 
+  scene: Scene;
   parent: Group;
 
-  constructor(parent: Group) {
+  constructor(scene: Scene, parent: Group) {
+    this.scene = scene;
     this.parent = parent;
 
     this.init();

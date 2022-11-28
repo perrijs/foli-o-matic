@@ -7,12 +7,12 @@ import { ItemData } from "@/webgl/config/types";
 import { UI_HANDLE_TRANSITION } from "@/webgl/config/topics";
 
 export class Item {
-  scene = Scene.getInstance();
-
+  scene: Scene;
   itemData: ItemData;
   model: Group;
 
-  constructor(itemData: ItemData, model: Group) {
+  constructor(scene: Scene, itemData: ItemData, model: Group) {
+    this.scene = scene;
     this.itemData = itemData;
     this.model = model;
 

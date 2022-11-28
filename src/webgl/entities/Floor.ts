@@ -1,19 +1,13 @@
-import {
-  DoubleSide,
-  Mesh,
-  MeshLambertMaterial,
-  PlaneGeometry,
-  ShadowMaterial,
-} from "three";
+import { DoubleSide, Mesh, PlaneGeometry, ShadowMaterial } from "three";
 
 import { Scene } from "@/webgl/globals/Scene";
 
 export class Floor {
-  scene = Scene.getInstance();
-
+  scene: Scene;
   mesh?: Mesh;
 
-  constructor() {
+  constructor(scene: Scene) {
+    this.scene = scene;
     this.init();
   }
 

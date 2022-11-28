@@ -10,15 +10,16 @@ import { AssetController } from "./controllers/AssetController";
 import { ItemController } from "./controllers/ItemController";
 import { GL_SET_MODEL } from "./config/topics";
 
-export class WorldAlt {
-  renderer = Renderer.getInstance();
-  camera = Camera.getInstance();
-  scene = Scene.getInstance();
+export class WorldSingleItem {
+  assetController = AssetController.getInstance();
+
+  renderer: Renderer;
+  camera: Camera;
+  scene: Scene;
   ambientLight: AmbientLight;
   directionalLight: DirectionalLight;
 
-  assetController = AssetController.getInstance();
-  itemController = ItemController.getInstance();
+  itemController?: ItemController;
   model?: Group;
 
   raycaster?: Raycaster;
@@ -29,8 +30,12 @@ export class WorldAlt {
   canvasParent: HTMLDivElement;
 
   constructor(canvasParent: HTMLDivElement) {
+    this.renderer = new Renderer();
+    this.camera = new Camera();
+    this.scene = new Scene();
     this.ambientLight = new AmbientLight();
     this.directionalLight = new DirectionalLight();
+    this.itemController = new ItemController(this.scene);
 
     this.canvasParent = canvasParent;
 
@@ -38,8 +43,6 @@ export class WorldAlt {
   }
 
   async init() {
-    if (!this.itemController.items) return;
-
     document.body.style.height = "100vh";
 
     this.renderer.setAspectRatio(this.canvasParent);
@@ -60,7 +63,7 @@ export class WorldAlt {
   }
 
   setModel(index: number) {
-    if (!this.itemController.items) return;
+    if (!this.itemController || !this.itemController.items) return;
 
     this.scene.traverse((child) => {
       if (child instanceof Group) {

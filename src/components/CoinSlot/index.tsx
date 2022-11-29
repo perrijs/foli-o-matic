@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { worldCoinSlot } from "@/webgl/worldCoinSlot";
 
 import { CanvasParent } from "./styles";
-import { GL_START_VENDING_MACHINE, LOAD_COMPLETE } from "@/webgl/config/topics";
+import { GL_INSERT_COIN, LOAD_COMPLETE } from "@/webgl/config/topics";
 
 const CoinSlot = () => {
   const canvasParent = useRef<HTMLDivElement>(null);
@@ -26,9 +26,7 @@ const CoinSlot = () => {
   const start = () => {
     if (!hasLoaded) return;
 
-    document.body.style.overflow = "scroll";
-
-    PubSub.publish(GL_START_VENDING_MACHINE);
+    PubSub.publish(GL_INSERT_COIN);
   };
 
   return (

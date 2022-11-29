@@ -68,7 +68,7 @@ export class WorldVendingMachine {
     this.addEventListeners();
   }
 
-  async init() {
+  init() {
     this.renderer.setAspectRatio(this.canvasParent);
     this.camera.setAspectRatio(this.canvasParent);
 

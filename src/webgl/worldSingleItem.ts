@@ -38,7 +38,7 @@ export class WorldSingleItem {
     this.init();
   }
 
-  async init() {
+  init() {
     this.renderer.setAspectRatio(this.canvasParent);
     this.camera.setAspectRatio(this.canvasParent);
 

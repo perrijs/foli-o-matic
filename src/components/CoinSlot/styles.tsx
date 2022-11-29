@@ -1,11 +1,14 @@
 import styled from "styled-components";
 
 export const CanvasParent = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  position: relative;
+  width: 30vw;
+  aspect-ratio: 1/1;
 
   z-index: 0;
+  opacity: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;

@@ -2,16 +2,32 @@ import { useEffect, useRef, useCallback } from "react";
 import gsap from "gsap";
 
 import { Load } from "@/webgl/load";
-import { GL_START_VENDING_MACHINE } from "@/webgl/config/topics";
+import { GL_START_VENDING_MACHINE, LOAD_COMPLETE } from "@/webgl/config/topics";
 
 import CoinSlot from "@/components/CoinSlot";
 
-import { StartScreenWrapper } from "./styles";
+import { CopyContainer, Credit, StartScreenWrapper, Title } from "./styles";
 
 const StartScreen = () => {
+  const creditRef = useRef<HTMLHeadingElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
   const startScreenRef = useRef<HTMLDivElement>(null);
 
   const handleSubscriptions = useCallback(() => {
+    PubSub.subscribe(LOAD_COMPLETE, () => {
+      gsap.to(titleRef.current, {
+        delay: 1,
+        duration: 1,
+        opacity: 1,
+      });
+
+      gsap.to(creditRef.current, {
+        delay: 1,
+        duration: 1,
+        opacity: 1,
+      });
+    });
+
     PubSub.subscribe(GL_START_VENDING_MACHINE, () => removeStartScreen());
   }, []);
 
@@ -35,6 +51,13 @@ const StartScreen = () => {
 
   return (
     <StartScreenWrapper ref={startScreenRef}>
+      <CopyContainer>
+        <Title ref={titleRef}>foli-o-matic!</Title>
+        <Credit ref={creditRef}>
+          <span>by</span> PERRI SCHOFIELD
+        </Credit>
+      </CopyContainer>
+
       <CoinSlot />
     </StartScreenWrapper>
   );

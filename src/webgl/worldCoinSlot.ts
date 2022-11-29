@@ -50,10 +50,9 @@ export class worldCoinSlot {
     if (!this.assetController.models) return;
 
     this.coin = this.assetController.models[3].clone();
-    this.coin.position.z = 3;
+    this.coin.position.z = 2;
     this.coin.position.y = -2;
     this.coin.rotation.x = Math.PI / 2;
-    this.coin.rotation.z = Math.PI / 2;
     this.coin.scale.setScalar(0.25);
 
     this.scene.add(this.coin);
@@ -67,7 +66,7 @@ export class worldCoinSlot {
     this.scene.add(this.ambientLight);
     this.scene.add(this.directionalLight);
 
-    this.camera.position.set(0, 0, 5);
+    this.camera.position.set(0, 0, 3);
     this.camera.lookAt(0, 0, 0);
 
     this.renderer.setAnimationLoop(() => this.render());
@@ -94,7 +93,7 @@ export class worldCoinSlot {
     metal.position.z = -0.01;
     this.scene.add(metal);
 
-    const planeGeometry = new PlaneGeometry(0.25, 1, 1);
+    const planeGeometry = new PlaneGeometry(0.25, 1.5, 1);
     const planeMaterial = new MeshBasicMaterial({ color: 0x000000 });
     const plane = new Mesh(planeGeometry, planeMaterial);
     this.scene.add(plane);
@@ -103,23 +102,21 @@ export class worldCoinSlot {
   insertCoin() {
     if (!this.coin) return;
 
-    const lmao = gsap.to(this.coin.position, {
-      delay: 0,
+    const lerpUp = gsap.to(this.coin.position, {
       duration: 1,
-      z: 3,
+      z: 2,
       y: 0,
-      ease: "back.out(3)",
+      ease: "back.out(2.5)",
       onComplete: () => {
         if (!this.coin) return;
 
         gsap.to(this.coin.position, {
-          delay: 0,
-          duration: 1.5,
+          duration: 1,
           z: -1,
           y: 0,
-          ease: "expo.inOut",
+          ease: "back.in(1)",
           onComplete: () => {
-            lmao.kill();
+            lerpUp.kill();
             document.body.style.overflow = "scroll";
 
             PubSub.publish(GL_START_VENDING_MACHINE);
@@ -127,12 +124,19 @@ export class worldCoinSlot {
         });
       },
     });
+
+    gsap.to(this.coin.rotation, {
+      delay: 0.75,
+      duration: 0.5,
+      z: Math.PI / 2,
+      y: 0,
+    });
   }
 
   render() {
     if (!this.coin) return;
 
-    this.coin.rotation.x -= 0.01;
+    this.coin.rotation.x -= 0.1;
     this.renderer.render(this.scene, this.camera);
   }
 }

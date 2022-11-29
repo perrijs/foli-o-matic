@@ -55,12 +55,12 @@ const Tooltip = () => {
   return (
     <TooltipWrapper>
       <TipContainer ref={scrollRef}>
-        <span>SCROLL TO PERUSE</span>
+        <span>SCROLL TO BROWSE</span>
         <Image src="/images/icons/scroll.svg" width="24" height="24" alt="" />
       </TipContainer>
 
       <TipContainer ref={zoomRef}>
-        <span>TAP TO SELECT</span>
+        <span>INTERACT TO SELECT</span>
         <Image src="/images/icons/tap.svg" width="24" height="24" alt="" />
       </TipContainer>
     </TooltipWrapper>

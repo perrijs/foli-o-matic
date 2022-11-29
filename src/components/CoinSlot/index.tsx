@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 
 import { worldCoinSlot } from "@/webgl/worldCoinSlot";
+import { GL_INSERT_COIN, LOAD_COMPLETE } from "@/webgl/config/topics";
 
 import { CanvasParent } from "./styles";
-import { GL_INSERT_COIN, LOAD_COMPLETE } from "@/webgl/config/topics";
 
 const CoinSlot = () => {
   const canvasParent = useRef<HTMLDivElement>(null);
@@ -20,7 +21,17 @@ const CoinSlot = () => {
   }, []);
 
   const handleSubscriptions = () => {
-    PubSub.subscribe(LOAD_COMPLETE, () => setHasLoaded(true));
+    PubSub.subscribe(LOAD_COMPLETE, () => {
+      if (!canvasParent.current) return;
+
+      setHasLoaded(true);
+
+      gsap.to(canvasParent.current, {
+        delay: 1,
+        duration: 1,
+        opacity: 1,
+      });
+    });
   };
 
   const start = () => {

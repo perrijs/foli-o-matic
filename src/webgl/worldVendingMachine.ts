@@ -197,7 +197,7 @@ export class WorldVendingMachine {
       scrollTriggerTwo,
       { z: 10, y: 0, x: 0 },
       { z: 4.5, y: 1.5, x: -0.5 },
-      2000
+      4000
     );
 
     const scrollTriggerThree = document.querySelector(
@@ -206,8 +206,8 @@ export class WorldVendingMachine {
     this.createPathPoint(
       scrollTriggerThree,
       { z: 4.5, y: 1.5, x: -0.5 },
-      { z: 4.5, y: 1, x: 2 },
-      4000
+      { z: 4.5, y: 1, x: 1.5 },
+      8000
     );
 
     this.camera.position.set(25, 25, 25);
@@ -250,7 +250,7 @@ export class WorldVendingMachine {
   handleTooltip() {
     const currentScroll = document.documentElement.scrollTop;
 
-    if (currentScroll < 4000) {
+    if (currentScroll < 8000) {
       PubSub.publish(UI_TOOLTIP_SCROLL, true);
       PubSub.publish(UI_TOOLTIP_TAP, false);
     } else {

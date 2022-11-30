@@ -8,7 +8,7 @@ import { Wrapper } from "@/webgl/entities/Wrapper";
 import { Item } from "@/webgl/entities/Item";
 
 import { ITEMS } from "@/webgl/config/items";
-import { GL_SELECT_ITEM } from "@/webgl/config/topics";
+import { GL_SELECT_ITEM, LOAD_COMPLETE } from "@/webgl/config/topics";
 
 export class ItemController {
   assetController = AssetController.getInstance();
@@ -21,9 +21,13 @@ export class ItemController {
     this.scene = scene;
 
     this.init();
+    this.handleSubscriptions();
   }
 
   init() {
+    if (!this.assetController.models || this.assetController.models.length < 1)
+      return;
+
     ITEMS.forEach((itemData, index) => {
       if (!this.assetController.models || !this.items) return;
 
@@ -41,12 +45,11 @@ export class ItemController {
       const item = new Item(this.scene, itemData, itemGroup);
       this.items.push(item);
     });
-
-    this.handleSubscriptions();
   }
 
   handleSubscriptions() {
-    PubSub.subscribe(GL_SELECT_ITEM, this.handleMove.bind(this));
+    PubSub.subscribe(GL_SELECT_ITEM, () => this.handleMove());
+    PubSub.subscribe(LOAD_COMPLETE, () => this.init());
   }
 
   getItem(index: number) {

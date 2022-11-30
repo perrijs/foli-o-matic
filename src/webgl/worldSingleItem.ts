@@ -1,4 +1,4 @@
-import { Raycaster, Vector2, Object3D, Intersection, Mesh, Group } from "three";
+import { Group } from "three";
 
 import { Renderer } from "./globals/Renderer";
 import { Scene } from "./globals/Scene";
@@ -8,7 +8,7 @@ import { DirectionalLight } from "./globals/DirectionalLight";
 
 import { AssetController } from "./controllers/AssetController";
 import { ItemController } from "./controllers/ItemController";
-import { GL_SET_MODEL } from "./config/topics";
+import { GL_SET_MODEL, LOAD_COMPLETE } from "./config/topics";
 
 export class WorldSingleItem {
   assetController = AssetController.getInstance();
@@ -35,10 +35,13 @@ export class WorldSingleItem {
 
     this.canvasParent = canvasParent;
 
+    this.handleSubscriptions();
     this.init();
   }
 
   init() {
+    if (!this.assetController.models) return;
+
     this.renderer.setAspectRatio(this.canvasParent);
     this.camera.setAspectRatio(this.canvasParent);
 
@@ -52,7 +55,10 @@ export class WorldSingleItem {
 
     this.renderer.setAnimationLoop(() => this.render());
     this.canvasParent.appendChild(this.renderer.domElement);
+  }
 
+  handleSubscriptions() {
+    PubSub.subscribe(LOAD_COMPLETE, () => this.init());
     PubSub.subscribe(GL_SET_MODEL, (_topic, data) => this.setModel(data));
   }
 

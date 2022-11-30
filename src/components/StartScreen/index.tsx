@@ -34,6 +34,8 @@ const StartScreen = () => {
   useEffect(() => {
     new Load();
 
+    console.log("running?");
+
     handleSubscriptions();
   }, [handleSubscriptions]);
 

@@ -1,4 +1,3 @@
-import StartScreen from "@/components/StartScreen";
 import ScrollTrigger from "@/components/ScrollTrigger";
 import TransitionScreen from "@/components/TransitionScreen";
 import MenuButton from "@/components/MenuButton";
@@ -8,8 +7,6 @@ import WebGL from "@/webgl/index";
 const Index = () => {
   return (
     <>
-      <StartScreen />
-
       <ScrollTrigger className={"scrollTriggerOne"} />
       <ScrollTrigger className={"scrollTriggerTwo"} />
       <ScrollTrigger className={"scrollTriggerThree"} />

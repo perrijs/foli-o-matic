@@ -48,7 +48,7 @@ export class ItemController {
   }
 
   handleSubscriptions() {
-    PubSub.subscribe(GL_SELECT_ITEM, () => this.handleMove());
+    PubSub.subscribe(GL_SELECT_ITEM, this.handleMove.bind(this));
     PubSub.subscribe(LOAD_COMPLETE, () => this.init());
   }
 

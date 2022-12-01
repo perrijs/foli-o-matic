@@ -104,3 +104,5 @@ export const ITEMS = [
 ];
 
 export const WRAPPER = "/models/placeholder_wrapper.glb";
+
+export const COIL = "/models/placeholder_coil.glb";

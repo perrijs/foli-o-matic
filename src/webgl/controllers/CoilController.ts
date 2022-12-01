@@ -1,4 +1,4 @@
-import { Group, Mesh, MeshMatcapMaterial } from "three";
+import { Group, Material, Mesh, MeshMatcapMaterial } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import PubSub from "pubsub-js";
 
@@ -20,32 +20,24 @@ export class CoilController {
   constructor(scene: Scene) {
     this.scene = scene;
 
-    this.load();
+    this.init();
   }
 
-  async load() {
+  init() {
     if (this.assetController.matcaps) {
       this.assetController.matcaps.forEach((item) => {
         if (item.name === "matcap_silver") this.matcap = item.matcap;
       });
     }
 
-    const gltfLoader = new GLTFLoader();
+    if (this.assetController.coil && this.matcap) {
+      this.model = this.assetController.coil.scene;
+      this.model.scale.set(0.05, 0.05, 0.085);
 
-    gltfLoader.load("/models/placeholder_coil.glb", (gltf) => {
-      const mesh = gltf.scene.children[0] as Mesh;
-
+      const mesh = this.model.children[0] as Mesh;
       if (this.matcap) mesh.material = this.matcap;
+    }
 
-      gltf.scene.scale.set(0.05, 0.05, 0.085);
-
-      this.model = gltf.scene;
-
-      this.init();
-    });
-  }
-
-  init() {
     COILS.forEach((coilData) => {
       if (!this.model || !this.coils) return;
 

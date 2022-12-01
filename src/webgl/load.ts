@@ -13,6 +13,7 @@ export class Load {
     await this.assetController.loadMatcaps();
     await this.assetController.loadHDRS();
     await this.assetController.loadWrapper();
+    await this.assetController.loadCoil();
     await this.assetController.loadModels();
 
     PubSub.publish(LOAD_COMPLETE);

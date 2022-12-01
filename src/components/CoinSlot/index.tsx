@@ -13,26 +13,30 @@ const CoinSlot = () => {
   useEffect(() => {
     if (!canvasParent.current) return;
 
-    document.body.style.overflow = "hidden";
-
     new worldCoinSlot(canvasParent.current);
+
+    document.body.style.overflow = "hidden";
 
     handleSubscriptions();
   }, []);
 
   const handleSubscriptions = () => {
-    PubSub.subscribe(LOAD_COMPLETE, () => {
-      if (!canvasParent.current) return;
-
-      setHasLoaded(true);
-
-      gsap.to(canvasParent.current, {
-        delay: 1,
-        duration: 1,
-        opacity: 1,
-      });
-    });
+    PubSub.subscribe(LOAD_COMPLETE, () =>
+      setTimeout(() => {
+        setHasLoaded(true);
+      }, 2000)
+    );
   };
+
+  useEffect(() => {
+    if (!hasLoaded) return;
+
+    gsap.to(canvasParent.current, {
+      delay: 1,
+      duration: 1,
+      opacity: 1,
+    });
+  }, [hasLoaded]);
 
   const start = () => {
     if (!hasLoaded) return;
@@ -40,15 +44,7 @@ const CoinSlot = () => {
     PubSub.publish(GL_INSERT_COIN);
   };
 
-  return (
-    <>
-      <CanvasParent
-        ref={canvasParent}
-        className={"canvasParent"}
-        onClick={start}
-      />
-    </>
-  );
+  return <CanvasParent ref={canvasParent} onClick={start} />;
 };
 
 export default CoinSlot;

@@ -1,43 +1,51 @@
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import gsap from "gsap";
+
+import Loader from "@/components/Loader";
+import CoinSlot from "@/components/CoinSlot";
 
 import { Load } from "@/webgl/load";
 import { GL_START_VENDING_MACHINE, LOAD_COMPLETE } from "@/webgl/config/topics";
 
-import CoinSlot from "@/components/CoinSlot";
-
 import { CopyContainer, Credit, StartScreenWrapper, Title } from "./styles";
 
 const StartScreen = () => {
+  const [hasLoaded, setHasLoaded] = useState<boolean>(false);
+
   const creditRef = useRef<HTMLHeadingElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const startScreenRef = useRef<HTMLDivElement>(null);
 
   const handleSubscriptions = useCallback(() => {
     PubSub.subscribe(LOAD_COMPLETE, () => {
-      gsap.to(titleRef.current, {
-        delay: 1,
-        duration: 1,
-        opacity: 1,
-      });
-
-      gsap.to(creditRef.current, {
-        delay: 1,
-        duration: 1,
-        opacity: 1,
-      });
+      setTimeout(() => {
+        setHasLoaded(true);
+      }, 2000);
     });
-
     PubSub.subscribe(GL_START_VENDING_MACHINE, () => removeStartScreen());
   }, []);
 
   useEffect(() => {
     new Load();
 
-    console.log("running?");
-
     handleSubscriptions();
   }, [handleSubscriptions]);
+
+  useEffect(() => {
+    if (!hasLoaded) return;
+
+    gsap.to(titleRef.current, {
+      delay: 1,
+      duration: 1,
+      opacity: 1,
+    });
+
+    gsap.to(creditRef.current, {
+      delay: 1,
+      duration: 1,
+      opacity: 1,
+    });
+  }, [hasLoaded]);
 
   const removeStartScreen = () => {
     gsap.to(startScreenRef.current, {
@@ -53,12 +61,18 @@ const StartScreen = () => {
 
   return (
     <StartScreenWrapper ref={startScreenRef}>
-      <CopyContainer>
-        <Title ref={titleRef}>foli-o-matic!</Title>
-        <Credit ref={creditRef}>
-          <span>by</span> PERRI SCHOFIELD
-        </Credit>
-      </CopyContainer>
+      {hasLoaded ? (
+        <>
+          <CopyContainer>
+            <Title ref={titleRef}>foli-o-matic!</Title>
+            <Credit ref={creditRef}>
+              <span>by</span> PERRI SCHOFIELD
+            </Credit>
+          </CopyContainer>
+        </>
+      ) : (
+        <Loader />
+      )}
 
       <CoinSlot />
     </StartScreenWrapper>

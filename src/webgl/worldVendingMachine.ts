@@ -25,6 +25,7 @@ import {
   UI_TOOLTIP_TAP,
 } from "./config/topics";
 import { Position } from "./config/types";
+import { CAMERA_POSITION, TRIGGER_ELEMENTS } from "./config/scrollTriggers";
 
 export class WorldVendingMachine {
   assetController = AssetController.getInstance();
@@ -180,71 +181,56 @@ export class WorldVendingMachine {
   initScroll() {
     gsap.registerPlugin(ScrollTrigger);
 
-    const scrollTriggerOne = document.querySelector(
-      ".scrollTriggerOne"
-    ) as HTMLDivElement;
-    this.createPathPoint(
-      scrollTriggerOne,
-      { z: 25, y: 25, x: 25 },
-      { z: 10, y: 0, x: 0 },
-      0
-    );
+    const timeline = gsap.timeline();
 
-    const scrollTriggerTwo = document.querySelector(
-      ".scrollTriggerTwo"
-    ) as HTMLDivElement;
-    this.createPathPoint(
-      scrollTriggerTwo,
-      { z: 10, y: 0, x: 0 },
-      { z: 4.5, y: 1.5, x: -0.5 },
-      4000
-    );
+    TRIGGER_ELEMENTS.forEach((query, index) => {
+      const triggerElement = document.querySelector(query) as HTMLDivElement;
 
-    const scrollTriggerThree = document.querySelector(
-      ".scrollTriggerThree"
-    ) as HTMLDivElement;
-    this.createPathPoint(
-      scrollTriggerThree,
-      { z: 4.5, y: 1.5, x: -0.5 },
-      { z: 4.5, y: 1, x: 1.5 },
-      8000
-    );
+      this.createPathPoint(
+        timeline,
+        triggerElement,
+        {
+          x: CAMERA_POSITION[index].x,
+          y: CAMERA_POSITION[index].y,
+          z: CAMERA_POSITION[index].z,
+        },
+        index === 0
+      );
+    });
 
     this.camera.position.set(25, 25, 25);
     this.camera.lookAt(0, 0, 0);
   }
 
   createPathPoint(
+    timeline: GSAPTimeline,
     trigger: HTMLDivElement,
-    initialPosition: Position,
-    newPosition: Position,
-    start: number
+    position: Position,
+    update: boolean
   ) {
-    const pathLerp = gsap.fromTo(
-      this.camera.position,
-      { x: initialPosition.x, y: initialPosition.y, z: initialPosition.z },
-      {
-        x: newPosition.x,
-        y: newPosition.y,
-        z: newPosition.z,
-        scrollTrigger: {
-          trigger,
-          start,
-          scrub: 0.25,
-          onToggle: (self) => {
-            if (self.isActive) this.handleTooltip();
-          },
+    const pathLerp = timeline.to(this.camera.position, {
+      x: position.x,
+      y: position.y,
+      z: position.z,
+      scrollTrigger: {
+        trigger,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: true,
+        immediateRender: false,
+        onToggle: (self: { isActive: boolean }) => {
+          if (self.isActive) this.handleTooltip();
         },
         onUpdate: () => {
           if (!this.cabinet) return;
 
-          if (start === 0) this.camera.lookAt(this.cabinet.cabinet.position);
+          if (update) this.camera.lookAt(this.cabinet.cabinet.position);
         },
-      }
-    );
+      },
+    });
 
-    PubSub.subscribe(GL_SELECT_ITEM, () => pathLerp.kill());
-    PubSub.subscribe(UI_HANDLE_TRANSITION, () => pathLerp.kill());
+    PubSub.subscribe(GL_SELECT_ITEM, () => timeline.kill());
+    PubSub.subscribe(UI_HANDLE_TRANSITION, () => timeline.kill());
   }
 
   handleTooltip() {

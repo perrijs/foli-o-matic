@@ -8,7 +8,11 @@ import { DirectionalLight } from "./globals/DirectionalLight";
 
 import { AssetController } from "./controllers/AssetController";
 import { ItemController } from "./controllers/ItemController";
-import { GL_SET_MODEL, LOAD_COMPLETE } from "./config/topics";
+import {
+  GL_SET_MODEL,
+  LOAD_COMPLETE,
+  UI_HANDLE_TRANSITION,
+} from "./config/topics";
 
 export class WorldSingleItem {
   assetController = AssetController.getInstance();
@@ -60,6 +64,9 @@ export class WorldSingleItem {
   handleSubscriptions() {
     PubSub.subscribe(LOAD_COMPLETE, () => this.init());
     PubSub.subscribe(GL_SET_MODEL, (_topic, data) => this.setModel(data));
+    PubSub.subscribe(UI_HANDLE_TRANSITION, () =>
+      this.renderer.setAnimationLoop(null)
+    );
   }
 
   setModel(index: number) {

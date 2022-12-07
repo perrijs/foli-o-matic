@@ -6,6 +6,7 @@ import {
   PlaneGeometry,
   MeshStandardMaterial,
   EquirectangularReflectionMapping,
+  MeshPhysicalMaterial,
 } from "three";
 import gsap from "gsap";
 
@@ -78,15 +79,20 @@ export class worldCoinSlot {
   handleSubscriptions() {
     PubSub.subscribe(LOAD_COMPLETE, () => this.init());
     PubSub.subscribe(GL_INSERT_COIN, () => this.insertCoin());
+    PubSub.subscribe(GL_START_VENDING_MACHINE, () =>
+      this.renderer.setAnimationLoop(null)
+    );
   }
 
   addEntities() {
     const metalGeometry = new PlaneGeometry(2, 3, 1);
-    const metalMaterial = new MeshStandardMaterial({
-      color: 0xc0c0c0,
-      roughness: 0.85,
+    const metalMaterial = new MeshPhysicalMaterial({
+      color: 0xf0f0f0,
+      emissive: 0x000000,
+      roughness: 0.75,
       metalness: 1,
       envMap: this.hdr,
+      ior: 0,
     });
 
     const metal = new Mesh(metalGeometry, metalMaterial);

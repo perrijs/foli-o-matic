@@ -26,6 +26,8 @@ import {
   TableSectionCode,
   CanvasContainer,
 } from "./styles";
+import { useRouter } from "next/router";
+import VendingButton from "@/components/VendingButton";
 
 interface MousePos {
   x: number;
@@ -79,6 +81,8 @@ const Collection = ({ projects }: PageProps) => {
 
   return (
     <CollectionWrapper>
+      <VendingButton />
+
       <TableHeaders className="fadeIn">
         <TableHeader>TYPE</TableHeader>
         <TableHeader>TITLE</TableHeader>

@@ -194,6 +194,7 @@ export class WorldVendingMachine {
           y: CAMERA_POSITION[index].y,
           z: CAMERA_POSITION[index].z,
         },
+        4000 * index,
         index === 0
       );
     });
@@ -206,16 +207,16 @@ export class WorldVendingMachine {
     timeline: GSAPTimeline,
     trigger: HTMLDivElement,
     position: Position,
+    start: number,
     update: boolean
   ) {
-    const pathLerp = timeline.to(this.camera.position, {
+    timeline.to(this.camera.position, {
       x: position.x,
       y: position.y,
       z: position.z,
       scrollTrigger: {
         trigger,
-        start: "top top",
-        end: "bottom bottom",
+        start,
         scrub: true,
         immediateRender: false,
         onToggle: (self: { isActive: boolean }) => {

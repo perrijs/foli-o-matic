@@ -12,7 +12,7 @@ const TransitionScreen = () => {
   const router = useRouter();
   const transitionScreenRef = useRef<HTMLDivElement>(null);
 
-  const setProject = useCallback(
+  const setPath = useCallback(
     (data: ItemData) => {
       if (!transitionScreenRef.current) return;
 
@@ -26,7 +26,9 @@ const TransitionScreen = () => {
           ease: "power4.inOut",
           transform: "translateY(0%)",
           onComplete: () => {
-            if (data.slug === "/collection") {
+            if (data.slug === "/") {
+              router.push("/");
+            } else if (data.slug === "/collection") {
               router.push(data.slug);
             } else {
               router.push(`/collection/${data.slug}`);
@@ -39,8 +41,8 @@ const TransitionScreen = () => {
   );
 
   useEffect(() => {
-    PubSub.subscribe(UI_HANDLE_TRANSITION, (_topic, data) => setProject(data));
-  }, [setProject]);
+    PubSub.subscribe(UI_HANDLE_TRANSITION, (_topic, data) => setPath(data));
+  }, [setPath]);
 
   return <TransitionScreenWrapper ref={transitionScreenRef} />;
 };

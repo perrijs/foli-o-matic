@@ -1,8 +1,8 @@
 import ScrollTrigger from "@/components/ScrollTrigger";
-import TransitionScreen from "@/components/TransitionScreen";
 import MenuButton from "@/components/MenuButton";
 import Tooltip from "@/components/Tooltip";
 import WebGL from "@/webgl/index";
+import TransitionScreen from "@/components/TransitionScreen";
 
 const Index = () => {
   return (
@@ -12,6 +12,7 @@ const Index = () => {
       <ScrollTrigger className={"scrollTriggerThree"} />
 
       <MenuButton />
+
       <Tooltip />
 
       <WebGL />

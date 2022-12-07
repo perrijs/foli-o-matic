@@ -6,7 +6,7 @@ import * as spacing from "@/styles/globals/spacing";
 
 export const TooltipWrapper = styled.div`
   position: fixed;
-  bottom: ${spacing.MARGIN_MEDIUM};
+  bottom: ${spacing.MARGIN_LARGE};
   left: 50%;
   width: 150px;
   height: 50px;

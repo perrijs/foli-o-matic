@@ -11,10 +11,10 @@ const Loader = () => {
   const loaderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const buttons = document.querySelectorAll(".button");
+    const buttons = document.querySelectorAll(".loaderButton");
 
     setInterval(() => {
-      highlightButton(buttons);
+      highlightButtons(buttons);
     }, 500);
 
     handleSubscriptions();
@@ -30,7 +30,7 @@ const Loader = () => {
     });
   };
 
-  const highlightButton = (buttons: NodeListOf<Element>) => {
+  const highlightButtons = (buttons: NodeListOf<Element>) => {
     if (buttons) {
       const randomEl = Math.floor(Math.random() * buttons.length);
 
@@ -49,7 +49,7 @@ const Loader = () => {
       </MachineScreen>
 
       {BUTTONS.map((button) => (
-        <Button key={button} className="button">
+        <Button key={button} className="loaderButton">
           {button}
         </Button>
       ))}

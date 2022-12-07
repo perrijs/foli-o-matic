@@ -25,6 +25,7 @@ import {
 } from "./slugStyles";
 import Footer from "@/components/Footer";
 import { useEffect } from "react";
+import VendingButton from "@/components/VendingButton";
 
 interface PageProps {
   project: SelectedWork;
@@ -45,6 +46,7 @@ const Project = ({ project }: PageProps) => {
 
   return (
     <ProjectWrapper>
+      <VendingButton />
       <MenuButton />
 
       <ContentContainer>

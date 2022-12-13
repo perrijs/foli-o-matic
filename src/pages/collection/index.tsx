@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import gsap from "gsap";
 
+import HomeButton from "@/components/HomeButton";
 import ItemCanvas from "@/components/ItemCanvas";
 import Footer from "@/components/Footer";
 import WipeScreen from "@/components/WipeScreen";
@@ -26,8 +27,6 @@ import {
   TableSectionCode,
   CanvasContainer,
 } from "./styles";
-import { useRouter } from "next/router";
-import VendingButton from "@/components/VendingButton";
 
 interface MousePos {
   x: number;
@@ -81,7 +80,7 @@ const Collection = ({ projects }: PageProps) => {
 
   return (
     <CollectionWrapper>
-      <VendingButton />
+      <HomeButton />
 
       <TableHeaders className="fadeIn">
         <TableHeader>TYPE</TableHeader>

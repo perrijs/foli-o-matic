@@ -17,6 +17,7 @@ export const LoaderWrapper = styled.div`
   gap: ${spacing.MARGIN_EXTRA_SMALL};
   transform: translate(-50%, -40%);
   border: 2px solid ${color.PINK_4};
+  box-shadow: 1px 1px ${color.PINK_4};
 
   .active {
     color: #ffffff;

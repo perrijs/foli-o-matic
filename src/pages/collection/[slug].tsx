@@ -13,101 +13,80 @@ import { SelectedWork } from "@/pages/config/types";
 import {
   ProjectWrapper,
   ContentContainer,
-  ProjectDescriptionContainer,
   ProjectTitle,
-  ProjectDescription,
-  ProjectLink,
   ProjectInfoContainer,
-  InfoContainerSection,
-  SectionTitle,
-  SectionBodyContainer,
-  SectionBody,
+  ProjectInfo,
+  ProjectLink,
 } from "./slugStyles";
-import Footer from "@/components/Footer";
-import { useEffect } from "react";
-import VendingButton from "@/components/VendingButton";
+import { useEffect, useRef } from "react";
+import HomeButton from "@/components/HomeButton";
 
 interface PageProps {
   project: SelectedWork;
 }
 
 const Project = ({ project }: PageProps) => {
-  useEffect(() => {
-    const fadeInElements = document.querySelectorAll(".fadeIn");
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-    fadeInElements.forEach((element, index) => {
-      gsap.fromTo(
-        element,
-        { opacity: 0 },
-        { duration: 0.5, delay: 1 + 0.05 * index, opacity: 1 }
-      );
-    });
+  useEffect(() => {
+    if (!videoRef.current) return;
+
+    gsap.fromTo(
+      videoRef.current,
+      { scale: 0 },
+      {
+        delay: 2,
+        duration: 0.5,
+        scale: 1,
+        ease: "back.out(1.5)",
+        onComplete: () => {
+          const fadeInElements = document.querySelectorAll(".fadeIn");
+          fadeInElements.forEach((element) => {
+            gsap.fromTo(element, { opacity: 0 }, { duration: 1, opacity: 1 });
+          });
+        },
+      }
+    );
   }, []);
 
   return (
     <ProjectWrapper>
-      <VendingButton />
+      <HomeButton />
       <MenuButton />
 
       <ContentContainer>
-        <ProjectDescriptionContainer>
-          <ProjectTitle className="fadeIn">{project.name}</ProjectTitle>
+        <ProjectTitle className="fadeIn">{project.name} /</ProjectTitle>
 
-          <ProjectDescription className="fadeIn">
-            {project.description}
-          </ProjectDescription>
+        <ProjectInfoContainer>
+          <ProjectInfo className="fadeIn">
+            {project.client}, {project.date}
+          </ProjectInfo>
 
-          <ProjectInfoContainer>
-            <InfoContainerSection>
-              <SectionTitle className="fadeIn">CLIENT /</SectionTitle>
-              <SectionBody className="fadeIn">{project.client}</SectionBody>
-            </InfoContainerSection>
-
-            <InfoContainerSection>
-              <SectionTitle className="fadeIn">YEAR /</SectionTitle>
-              <SectionBody className="fadeIn">{project.date}</SectionBody>
-            </InfoContainerSection>
-
-            <InfoContainerSection>
-              <SectionTitle className="fadeIn">ROLES /</SectionTitle>
-              <SectionBodyContainer>
-                {project.roles.map((role, index) => (
-                  <SectionBody key={index} className="fadeIn">
-                    {role}
-                    {index !== project.roles.length - 1 && <span>,</span>}
-                  </SectionBody>
-                ))}
-              </SectionBodyContainer>
-            </InfoContainerSection>
-
-            {project.url && (
-              <ProjectLink className="fadeIn">
-                <Link
-                  key={project.name}
-                  href={project.url}
-                  passHref={true}
-                  target="_blank"
-                >
-                  VIEW WEBSITE
-                  <Image
-                    src="/images/icons/open_in_new.svg"
-                    width="18"
-                    height="18"
-                    alt=""
-                  />
-                </Link>
-              </ProjectLink>
-            )}
-          </ProjectInfoContainer>
-        </ProjectDescriptionContainer>
+          {project.url && (
+            <ProjectLink className="fadeIn">
+              <Link
+                key={project.name}
+                href={project.url}
+                passHref={true}
+                target="_blank"
+              >
+                Visit Website
+                <Image
+                  src="/images/icons/open_in_new.svg"
+                  width="18"
+                  height="18"
+                  alt=""
+                />
+              </Link>
+            </ProjectLink>
+          )}
+        </ProjectInfoContainer>
       </ContentContainer>
 
-      <Video className="fadeIn" url={project.video} />
+      <Video ref={videoRef} url={project.video} />
 
       <WipeScreen />
       <TransitionScreen />
-
-      <Footer />
     </ProjectWrapper>
   );
 };

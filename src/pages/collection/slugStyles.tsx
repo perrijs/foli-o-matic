@@ -7,11 +7,13 @@ import * as spacing from "@/styles/globals/spacing";
 export const ProjectWrapper = styled.div`
   display: flex;
   height: fit-content;
-  min-height: 100vh;
-  padding: ${spacing.MARGIN_LARGE} ${spacing.MARGIN_EXTRA_LARGE};
+  height: calc(100vh - ${spacing.MARGIN_LARGE} * 2);
+  max-height: 100vh;
+  padding: ${spacing.MARGIN_LARGE} ${spacing.MARGIN_LARGEST};
 
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   background-color: ${color.PINK_1};
 `;
@@ -19,34 +21,32 @@ export const ProjectWrapper = styled.div`
 export const ContentContainer = styled.div`
   display: flex;
   width: 100%;
-  margin: ${spacing.MARGIN_MEDIUM} 0 0;
-
-  justify-content: space-between;
-`;
-
-export const ProjectDescriptionContainer = styled.div`
-  display: flex;
-  width: 100%;
+  margin-bottom: ${spacing.MARGIN_SMALL};
 
   flex-direction: column;
 `;
 
 export const ProjectTitle = styled.h1`
-  width: 500px;
+  width: fit-content;
   margin: 0;
   padding: 0;
 
   color: ${color.PINK_4};
+  opacity: 0;
   text-transform: uppercase;
 
-  ${type.TYPE_SANS_HEADER_1}
+  ${type.TYPE_SANS_BODY_1}
 `;
 
-export const ProjectDescription = styled.p`
-  width: 400px;
-  margin: 0 0 ${spacing.MARGIN_SMALL};
-  padding: 0;
+export const ProjectInfoContainer = styled.div`
+  display: flex;
+  width: 100%;
 
+  justify-content: space-between;
+`;
+
+export const ProjectInfo = styled.span`
+  opacity: 0;
   color: ${color.PINK_4};
 
   ${type.TYPE_SERIF_BODY_2}
@@ -55,11 +55,12 @@ export const ProjectDescription = styled.p`
 export const ProjectLink = styled.div`
   display: flex;
   width: fit-content;
-  margin-top: 3px;
 
   justify-content: center;
+  align-items: center;
+  opacity: 0;
 
-  ${type.TYPE_SANS_BODY_1};
+  ${type.TYPE_SERIF_BODY_2}
 
   a {
     display: flex;
@@ -70,42 +71,11 @@ export const ProjectLink = styled.div`
     text-decoration: none;
   }
 
+  img {
+    margin-top: 3px;
+  }
+
   &:hover {
     text-decoration: underline;
   }
-`;
-
-export const ProjectInfoContainer = styled.div`
-  display: flex;
-  width: 100%;
-  margin-bottom: ${spacing.MARGIN_SMALL};
-
-  justify-content: space-between;
-`;
-
-export const InfoContainerSection = styled.div`
-  display: flex;
-`;
-
-export const SectionTitle = styled.h3`
-  display: flex;
-  margin: 3px 4px 0 0;
-  padding: 0;
-
-  justify-content: space-between;
-  color: ${color.PINK_4};
-
-  ${type.TYPE_SANS_HEADER_3}
-`;
-
-export const SectionBodyContainer = styled.div`
-  display: flex;
-
-  gap: 4px;
-`;
-
-export const SectionBody = styled.span`
-  color: ${color.PINK_4};
-
-  ${type.TYPE_SERIF_BODY_2}
 `;

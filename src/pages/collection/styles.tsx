@@ -9,7 +9,7 @@ interface WrapperProps {
 }
 
 export const CollectionWrapper = styled.div<WrapperProps>`
-  padding: ${spacing.MARGIN_LARGE} ${spacing.MARGIN_EXTRA_LARGE};
+  padding: ${spacing.MARGIN_LARGE} ${spacing.MARGIN_LARGEST};
 
   background-color: ${color.PINK_1};
 `;

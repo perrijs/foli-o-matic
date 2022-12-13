@@ -18,6 +18,7 @@
     "paths": {
       "@/pages/*": ["src/pages/*"],
       "@/components/*": ["src/components/*"],
+      "@/contexts/*": ["src/contexts/*"],
       "@/webgl/*": ["src/webgl/*"],
       "@/styles/*": ["src/styles/*"]
     }

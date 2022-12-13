@@ -7,7 +7,6 @@ export const CanvasParent = styled.div`
   top: 0;
 
   z-index: 0;
-  opacity: 0;
 
   canvas {
     transform: translate(0) !important;

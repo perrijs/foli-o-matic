@@ -1,35 +1,27 @@
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
 
+import WipeScreen from "@/components/WipeScreen";
+import { useLoading } from "@/contexts/loadingContext";
 import { WorldVendingMachine } from "./worldVendingMachine";
-
-import { GL_START_VENDING_MACHINE } from "./config/topics";
 
 import { CanvasParent } from "./styles";
 
 const WebGL = () => {
+  const { loaded } = useLoading();
+
   const canvasParent = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    PubSub.subscribe(GL_START_VENDING_MACHINE, () => {
-      setTimeout(() => {
-        if (!canvasParent.current) return;
+    if (!canvasParent.current) return;
 
-        new WorldVendingMachine(canvasParent.current);
-      }, 1000);
-
-      gsap.to(canvasParent.current, {
-        delay: 2,
-        duration: 1,
-        opacity: 1,
-        onStart: () => {},
-      });
-    });
-  }, []);
+    new WorldVendingMachine(canvasParent.current);
+  }, [loaded]);
 
   return (
     <>
-      <CanvasParent ref={canvasParent} className={"canvasParent"} />
+      {loaded && <CanvasParent ref={canvasParent} className={"canvasParent"} />}
+
+      <WipeScreen />
     </>
   );
 };

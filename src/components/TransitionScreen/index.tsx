@@ -3,7 +3,10 @@ import { useRouter } from "next/router";
 import PubSub from "pubsub-js";
 import gsap from "gsap";
 
-import { UI_HANDLE_TRANSITION } from "@/webgl/config/topics";
+import {
+  GL_START_VENDING_MACHINE,
+  UI_HANDLE_TRANSITION,
+} from "@/webgl/config/topics";
 import { ItemData } from "@/webgl/config/types";
 
 import { TransitionScreenWrapper } from "./styles";

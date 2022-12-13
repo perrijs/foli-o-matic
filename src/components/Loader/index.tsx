@@ -1,6 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import gsap from "gsap";
 
+import { useLoading } from "@/contexts/loadingContext";
 import { LOAD_COMPLETE } from "@/webgl/config/topics";
 
 import { Button, LoaderWrapper, MachineScreen } from "./styles";
@@ -8,7 +9,21 @@ import { Button, LoaderWrapper, MachineScreen } from "./styles";
 const BUTTONS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "C", "0", "E"];
 
 const Loader = () => {
+  const { setLoaded } = useLoading();
+
   const loaderRef = useRef<HTMLDivElement>(null);
+
+  const handleSubscriptions = useCallback(() => {
+    PubSub.subscribe(LOAD_COMPLETE, () => {
+      setLoaded(true);
+
+      gsap.to(loaderRef.current, {
+        delay: 1,
+        duration: 1,
+        opacity: 0,
+      });
+    });
+  }, [setLoaded]);
 
   useEffect(() => {
     const buttons = document.querySelectorAll(".loaderButton");
@@ -18,17 +33,7 @@ const Loader = () => {
     }, 500);
 
     handleSubscriptions();
-  }, []);
-
-  const handleSubscriptions = () => {
-    PubSub.subscribe(LOAD_COMPLETE, () => {
-      gsap.to(loaderRef.current, {
-        delay: 1,
-        duration: 1,
-        opacity: 0,
-      });
-    });
-  };
+  }, [handleSubscriptions]);
 
   const highlightButtons = (buttons: NodeListOf<Element>) => {
     if (buttons) {

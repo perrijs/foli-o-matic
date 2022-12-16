@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 import WipeScreen from "@/components/WipeScreen";
 import { useLoading } from "@/contexts/loadingContext";
-import { WorldVendingMachine } from "./worldVendingMachine";
+import { VendingMachine } from "./worlds/VendingMachine";
 
 import { CanvasParent } from "./styles";
 
@@ -14,7 +14,7 @@ const WebGL = () => {
   useEffect(() => {
     if (!canvasParent.current) return;
 
-    new WorldVendingMachine(canvasParent.current);
+    new VendingMachine(canvasParent.current);
   }, [loaded]);
 
   return (

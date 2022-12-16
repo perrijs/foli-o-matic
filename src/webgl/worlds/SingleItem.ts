@@ -1,20 +1,20 @@
 import { Group } from "three";
 
-import { Renderer } from "./globals/Renderer";
-import { Scene } from "./globals/Scene";
-import { Camera } from "./globals/Camera";
-import { AmbientLight } from "./globals/AmbientLight";
-import { DirectionalLight } from "./globals/DirectionalLight";
+import { Renderer } from "@/webgl/globals/Renderer";
+import { Scene } from "@/webgl/globals/Scene";
+import { Camera } from "@/webgl/globals/Camera";
+import { AmbientLight } from "@/webgl/globals/AmbientLight";
+import { DirectionalLight } from "@/webgl/globals/DirectionalLight";
 
-import { AssetController } from "./controllers/AssetController";
-import { ItemController } from "./controllers/ItemController";
+import { AssetController } from "@/webgl/controllers/AssetController";
+import { ItemController } from "@/webgl/controllers/ItemController";
 import {
   GL_SET_MODEL,
   LOAD_COMPLETE,
   UI_HANDLE_TRANSITION,
-} from "./config/topics";
+} from "@/webgl/config/topics";
 
-export class WorldSingleItem {
+export class SingleItem {
   assetController = AssetController.getInstance();
 
   renderer: Renderer;

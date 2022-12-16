@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
-import { worldCoinSlot } from "@/webgl/worldCoinSlot";
+import { CoinSlot as WorldCoinSlot } from "@/webgl/worlds/CoinSlot";
 import { GL_INSERT_COIN, LOAD_COMPLETE } from "@/webgl/config/topics";
 
 import { CanvasParent } from "./styles";
@@ -13,9 +13,7 @@ const CoinSlot = () => {
   useEffect(() => {
     if (!canvasParent.current) return;
 
-    new worldCoinSlot(canvasParent.current);
-
-    document.body.style.overflow = "hidden";
+    new WorldCoinSlot(canvasParent.current);
 
     handleSubscriptions();
   }, []);

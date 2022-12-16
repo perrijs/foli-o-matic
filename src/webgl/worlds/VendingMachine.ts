@@ -3,19 +3,19 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
-import { Renderer } from "./globals/Renderer";
-import { Scene } from "./globals/Scene";
-import { Camera } from "./globals/Camera";
-import { AmbientLight } from "./globals/AmbientLight";
-import { DirectionalLight } from "./globals/DirectionalLight";
+import { Renderer } from "@/webgl/globals/Renderer";
+import { Scene } from "@/webgl/globals/Scene";
+import { Camera } from "@/webgl/globals/Camera";
+import { AmbientLight } from "@/webgl/globals/AmbientLight";
+import { DirectionalLight } from "@/webgl/globals/DirectionalLight";
 
-import { Cabinet } from "./entities/Cabinet";
-import { Floor } from "./entities/Floor";
+import { Cabinet } from "@/webgl/entities/Cabinet";
+import { Floor } from "@/webgl/entities/Floor";
 
-import { AssetController } from "./controllers/AssetController";
-import { CoilController } from "./controllers/CoilController";
-import { ButtonController } from "./controllers/ButtonController";
-import { ItemController } from "./controllers/ItemController";
+import { AssetController } from "@/webgl/controllers/AssetController";
+import { CoilController } from "@/webgl/controllers/CoilController";
+import { ButtonController } from "@/webgl/controllers/ButtonController";
+import { ItemController } from "@/webgl/controllers/ItemController";
 
 import {
   GL_PRESS_KEY,
@@ -23,11 +23,16 @@ import {
   UI_HANDLE_TRANSITION,
   UI_TOOLTIP_SCROLL,
   UI_TOOLTIP_TAP,
-} from "./config/topics";
-import { Position } from "./config/types";
-import { CAMERA_POSITION, TRIGGER_ELEMENTS } from "./config/scrollTriggers";
+} from "@/webgl/config/topics";
+import {
+  CAMERA_POSITION,
+  TRIGGER_ELEMENTS,
+} from "@/webgl/config/scrollTriggers";
+import { Position } from "@/webgl/config/types";
 
-export class WorldVendingMachine {
+gsap.registerPlugin(ScrollTrigger);
+
+export class VendingMachine {
   assetController = AssetController.getInstance();
 
   renderer: Renderer;
@@ -70,6 +75,8 @@ export class WorldVendingMachine {
   }
 
   init() {
+    document.body.style.overflowY = "scroll";
+
     this.renderer.setAspectRatio(this.canvasParent);
     this.camera.setAspectRatio(this.canvasParent);
 
@@ -100,6 +107,13 @@ export class WorldVendingMachine {
       this.handleMouseMove(event)
     );
     document.addEventListener("click", () => this.handleClick());
+  }
+
+  removeEventListeners() {
+    document.removeEventListener("mousemove", (event) =>
+      this.handleMouseMove(event)
+    );
+    document.removeEventListener("click", () => this.handleClick());
   }
 
   handleMouseMove(event: MouseEvent) {
@@ -156,7 +170,7 @@ export class WorldVendingMachine {
 
         if (item.itemData.item_code === this.keycode) {
           hasMatched = true;
-          document.body.style.height = "100vh";
+          document.body.style.overflowY = "hidden";
 
           this.zoomOut();
 
@@ -179,8 +193,6 @@ export class WorldVendingMachine {
   }
 
   initScroll() {
-    gsap.registerPlugin(ScrollTrigger);
-
     const timeline = gsap.timeline();
 
     TRIGGER_ELEMENTS.forEach((query, index) => {
@@ -198,40 +210,49 @@ export class WorldVendingMachine {
         index === 0
       );
     });
-
-    this.camera.position.set(25, 25, 25);
-    this.camera.lookAt(0, 0, 0);
   }
 
   createPathPoint(
-    timeline: GSAPTimeline,
+    timeline: GSAPTimeline | null,
     trigger: HTMLDivElement,
     position: Position,
     start: number,
     update: boolean
   ) {
-    timeline.to(this.camera.position, {
-      x: position.x,
-      y: position.y,
-      z: position.z,
-      scrollTrigger: {
-        trigger,
-        start,
-        scrub: true,
-        immediateRender: false,
-        onToggle: (self: { isActive: boolean }) => {
-          if (self.isActive) this.handleTooltip();
-        },
-        onUpdate: () => {
-          if (!this.cabinet) return;
+    if (timeline)
+      timeline.to(this.camera.position, {
+        x: position.x,
+        y: position.y,
+        z: position.z,
+        scrollTrigger: {
+          trigger,
+          start,
+          scrub: true,
+          immediateRender: false,
+          onToggle: (self: { isActive: boolean }) => {
+            if (self.isActive) this.handleTooltip();
+          },
+          onUpdate: () => {
+            if (!this.cabinet) return;
 
-          if (update) this.camera.lookAt(this.cabinet.cabinet.position);
+            if (update) this.camera.lookAt(this.cabinet.cabinet.position);
+          },
         },
-      },
+      });
+
+    PubSub.subscribe(UI_HANDLE_TRANSITION, () => {
+      if (timeline) {
+        timeline.kill();
+        timeline = null;
+      }
+
+      document.body.style.overflowY = "hidden";
+
+      setTimeout(() => {
+        this.removeEventListeners();
+        this.renderer.setAnimationLoop(null);
+      }, 1000);
     });
-
-    PubSub.subscribe(GL_SELECT_ITEM, () => timeline.kill());
-    PubSub.subscribe(UI_HANDLE_TRANSITION, () => timeline.kill());
   }
 
   handleTooltip() {

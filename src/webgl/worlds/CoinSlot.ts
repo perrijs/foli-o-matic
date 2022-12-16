@@ -4,25 +4,24 @@ import {
   Mesh,
   MeshBasicMaterial,
   PlaneGeometry,
-  MeshStandardMaterial,
   EquirectangularReflectionMapping,
   MeshPhysicalMaterial,
 } from "three";
 import gsap from "gsap";
 
-import { Renderer } from "./globals/Renderer";
-import { Scene } from "./globals/Scene";
-import { Camera } from "./globals/Camera";
-import { AmbientLight } from "./globals/AmbientLight";
-import { DirectionalLight } from "./globals/DirectionalLight";
+import { Renderer } from "../globals/Renderer";
+import { Scene } from "../globals/Scene";
+import { Camera } from "../globals/Camera";
+import { AmbientLight } from "../globals/AmbientLight";
+import { DirectionalLight } from "../globals/DirectionalLight";
 import {
   LOAD_COMPLETE,
   GL_INSERT_COIN,
   GL_START_VENDING_MACHINE,
-} from "./config/topics";
-import { AssetController } from "./controllers/AssetController";
+} from "../config/topics";
+import { AssetController } from "../controllers/AssetController";
 
-export class worldCoinSlot {
+export class CoinSlot {
   assetController = AssetController.getInstance();
 
   renderer: Renderer;
@@ -123,7 +122,6 @@ export class worldCoinSlot {
           ease: "back.in(1)",
           onComplete: () => {
             lerpUp.kill();
-            document.body.style.overflow = "scroll";
 
             PubSub.publish(GL_START_VENDING_MACHINE);
           },

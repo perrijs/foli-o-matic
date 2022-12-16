@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-import { WorldSingleItem } from "@/webgl/worldSingleItem";
+import { SingleItem } from "@/webgl/worlds/SingleItem";
 
 import { CanvasParent } from "./styles";
 
@@ -10,7 +10,7 @@ const ItemCanvas = () => {
   useEffect(() => {
     if (!canvasParent.current) return;
 
-    new WorldSingleItem(canvasParent.current);
+    new SingleItem(canvasParent.current);
   });
 
   return <CanvasParent ref={canvasParent} className={"canvasParent"} />;

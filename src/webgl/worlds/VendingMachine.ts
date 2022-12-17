@@ -83,8 +83,6 @@ export class VendingMachine {
     this.scene.add(this.camera);
     this.camera.position.set(25, 25, 25);
     this.camera.lookAt(0, 0, 0);
-    // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-    // this.controls.update();
 
     this.scene.add(this.ambientLight);
     this.scene.add(this.directionalLight);
@@ -286,7 +284,6 @@ export class VendingMachine {
         this.handleCursor();
       }
     }
-    // if (this.controls) this.controls.update();
 
     this.renderer.render(this.scene, this.camera);
   }

@@ -12,7 +12,7 @@ export class Floor {
   }
 
   init() {
-    const geometry = new PlaneGeometry(10000, 10000, 1);
+    const geometry = new PlaneGeometry(100, 100, 1);
     const material = new ShadowMaterial({ side: DoubleSide });
     const mesh = new Mesh(geometry, material);
     material.opacity = 0.6;

@@ -6,6 +6,7 @@ import {
   PlaneGeometry,
   EquirectangularReflectionMapping,
   MeshPhysicalMaterial,
+  CanvasTexture,
 } from "three";
 import gsap from "gsap";
 
@@ -32,6 +33,7 @@ export class CoinSlot {
 
   hdr?: Texture;
   coin?: Group;
+  label?: Mesh;
   canvasParent: HTMLDivElement;
 
   constructor(canvasParent: HTMLDivElement) {
@@ -46,17 +48,15 @@ export class CoinSlot {
     this.handleSubscriptions();
   }
 
+  handleSubscriptions() {
+    PubSub.subscribe(LOAD_COMPLETE, () => this.init());
+    PubSub.subscribe(GL_INSERT_COIN, () => this.insertCoin());
+    PubSub.subscribe(GL_START_VENDING_MACHINE, () =>
+      this.renderer.setAnimationLoop(null)
+    );
+  }
+
   init() {
-    if (!this.assetController.models) return;
-
-    this.coin = this.assetController.models[3].clone();
-    this.coin.position.z = 2;
-    this.coin.position.y = -2;
-    this.coin.rotation.x = Math.PI / 2;
-    this.coin.scale.setScalar(0.25);
-
-    this.scene.add(this.coin);
-
     if (this.assetController.hdrs) this.hdr = this.assetController.hdrs[0];
     if (this.hdr) this.hdr.mapping = EquirectangularReflectionMapping;
 
@@ -72,15 +72,20 @@ export class CoinSlot {
     this.renderer.setAnimationLoop(() => this.render());
     this.canvasParent.appendChild(this.renderer.domElement);
 
+    this.initCoin();
     this.addEntities();
   }
 
-  handleSubscriptions() {
-    PubSub.subscribe(LOAD_COMPLETE, () => this.init());
-    PubSub.subscribe(GL_INSERT_COIN, () => this.insertCoin());
-    PubSub.subscribe(GL_START_VENDING_MACHINE, () =>
-      this.renderer.setAnimationLoop(null)
-    );
+  initCoin() {
+    if (!this.assetController.models) return;
+
+    this.coin = this.assetController.models[3].clone();
+    this.coin.position.z = 2;
+    this.coin.position.y = -2;
+    this.coin.rotation.x = Math.PI / 2;
+    this.coin.scale.setScalar(0.25);
+
+    this.scene.add(this.coin);
   }
 
   addEntities() {
@@ -98,10 +103,44 @@ export class CoinSlot {
     metal.position.z = -0.01;
     this.scene.add(metal);
 
-    const planeGeometry = new PlaneGeometry(0.25, 1.5, 1);
-    const planeMaterial = new MeshBasicMaterial({ color: 0x000000 });
-    const plane = new Mesh(planeGeometry, planeMaterial);
-    this.scene.add(plane);
+    const slotGeometry = new PlaneGeometry(0.25, 1.5, 1);
+    const slotMaterial = new MeshBasicMaterial({ color: 0x000000 });
+    const slot = new Mesh(slotGeometry, slotMaterial);
+    this.scene.add(slot);
+
+    const labelGeometry = new PlaneGeometry(1.25, 0.5, 1);
+    const labelMaterial = new MeshBasicMaterial({ transparent: true });
+    this.label = new Mesh(labelGeometry, labelMaterial);
+    this.label.position.set(0, 1.075, 0);
+    this.scene.add(this.label);
+
+    this.createCanvasTexture();
+  }
+
+  createCanvasTexture() {
+    if (!this.label) return;
+
+    const ctx = document
+      .createElement("canvas")
+      .getContext("2d") as CanvasRenderingContext2D;
+    ctx.canvas.width = 512;
+    ctx.canvas.height = 204;
+
+    ctx.fillStyle = "#000000";
+    ctx.font = `bold 65px Verdana`;
+    ctx.fillText("INSERT COIN", 10, 80);
+
+    ctx.beginPath();
+    ctx.moveTo(206, 133);
+    ctx.lineTo(306, 133);
+    ctx.lineTo(256, 183);
+    ctx.fill();
+
+    const texture = new CanvasTexture(ctx.canvas);
+    this.label.material = new MeshBasicMaterial({
+      map: texture,
+      transparent: true,
+    });
   }
 
   insertCoin() {

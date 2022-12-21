@@ -75,6 +75,7 @@ const Collection = ({ projects }: PageProps) => {
 
     PubSub.publish(GL_SET_MODEL, 0);
 
+    document.body.style.overflowY = "scroll";
     document.addEventListener("mousemove", (event) => handleMouseMove(event));
   }, [handleMouseMove]);
 

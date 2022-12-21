@@ -20,7 +20,7 @@ export const LoaderWrapper = styled.div`
   box-shadow: 1px 1px ${color.PINK_4};
 
   .active {
-    color: #ffffff;
+    color: ${color.WHITE};
     background-color: ${color.PINK_4};
   }
 `;

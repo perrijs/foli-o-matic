@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "framer-motion": "^7.10.2",
     "gsap": "^3.11.3",
     "next": "13.0.0",
     "pubsub-js": "^1.9.4",

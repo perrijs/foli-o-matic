@@ -65,7 +65,9 @@ export class SingleItem {
     PubSub.subscribe(LOAD_COMPLETE, () => this.init());
     PubSub.subscribe(GL_SET_MODEL, (_topic, data) => this.setModel(data));
     PubSub.subscribe(UI_HANDLE_TRANSITION, () =>
-      this.renderer.setAnimationLoop(null)
+      setTimeout(() => {
+        this.renderer.setAnimationLoop(null);
+      }, 1000)
     );
   }
 

@@ -25,7 +25,7 @@ export const VendingWrapper = styled.div`
     cursor: pointer;
 
     div {
-      background-color: #000000;
+      background-color: ${color.BLACK};
     }
   }
 `;

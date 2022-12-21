@@ -21,7 +21,7 @@ export const MenuWrapper = styled.div`
   z-index: 1;
 
   .active {
-    color: #ffffff;
+    color: ${color.WHITE};
     background-color: ${color.PINK_4};
   }
 

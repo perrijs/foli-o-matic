@@ -4,11 +4,7 @@ import * as type from "@/styles/globals/type";
 import * as color from "@/styles/globals/color";
 import * as spacing from "@/styles/globals/spacing";
 
-interface WrapperProps {
-  $backgroundColor?: string;
-}
-
-export const CollectionWrapper = styled.div<WrapperProps>`
+export const CollectionWrapper = styled.div`
   padding: ${spacing.MARGIN_LARGE} ${spacing.MARGIN_LARGEST};
 
   background-color: ${color.PINK_1};

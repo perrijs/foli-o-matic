@@ -1,7 +1,9 @@
+import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import gsap from "gsap";
+import { AnimatePresence } from "framer-motion";
 
+import HomeButton from "@/components/HomeButton";
 import MenuButton from "@/components/MenuButton";
 import Video from "@/components/Video";
 import WipeScreen from "@/components/WipeScreen";
@@ -14,12 +16,17 @@ import {
   ProjectWrapper,
   ContentContainer,
   ProjectTitle,
-  ProjectInfoContainer,
-  ProjectInfo,
+  ProjectCreditsContainer,
+  ProjectCredits,
   ProjectLink,
+  VideoContainer,
+  ProjectInfo,
+  ProjectInfoContainer,
+  ProjectInfoButton,
+  ProjectRolesContainer,
+  ProjectRole,
+  ProjectInfoSpan,
 } from "./slugStyles";
-import { useEffect, useRef } from "react";
-import HomeButton from "@/components/HomeButton";
 
 interface PageProps {
   project: SelectedWork;
@@ -28,39 +35,24 @@ interface PageProps {
 const Project = ({ project }: PageProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  useEffect(() => {
-    if (!videoRef.current) return;
-
-    gsap.fromTo(
-      videoRef.current,
-      { scale: 0 },
-      {
-        delay: 2,
-        duration: 0.5,
-        scale: 1,
-        ease: "back.out(1.5)",
-        onComplete: () => {
-          const fadeInElements = document.querySelectorAll(".fadeIn");
-          fadeInElements.forEach((element) => {
-            gsap.fromTo(element, { opacity: 0 }, { duration: 1, opacity: 1 });
-          });
-        },
-      }
-    );
-  }, []);
+  const [showInfo, setShowInfo] = useState<boolean>(false);
 
   return (
     <ProjectWrapper>
       <HomeButton />
       <MenuButton />
 
-      <ContentContainer>
+      <ContentContainer
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 4, duration: 1, ease: "easeOut" }}
+      >
         <ProjectTitle className="fadeIn">{project.name} /</ProjectTitle>
 
-        <ProjectInfoContainer>
-          <ProjectInfo className="fadeIn">
+        <ProjectCreditsContainer>
+          <ProjectCredits className="fadeIn">
             {project.client}, {project.date}
-          </ProjectInfo>
+          </ProjectCredits>
 
           {project.url && (
             <ProjectLink className="fadeIn">
@@ -80,10 +72,81 @@ const Project = ({ project }: PageProps) => {
               </Link>
             </ProjectLink>
           )}
-        </ProjectInfoContainer>
+        </ProjectCreditsContainer>
       </ContentContainer>
 
-      <Video ref={videoRef} url={project.video} />
+      <VideoContainer>
+        <Video ref={videoRef} url={project.video} />
+
+        <AnimatePresence>
+          {showInfo && (
+            <ProjectInfoContainer
+              key={"infoContainer"}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1, ease: "easeOut" }}
+            >
+              <ProjectInfo>{project.description}</ProjectInfo>
+              <ProjectRolesContainer>
+                {project.roles.map((role, index) => (
+                  <>
+                    <ProjectRole key={role}>{role}</ProjectRole>
+                    {index < project.roles.length - 1 && (
+                      <ProjectRole>&#8226;</ProjectRole>
+                    )}
+                  </>
+                ))}
+              </ProjectRolesContainer>
+            </ProjectInfoContainer>
+          )}
+
+          <ProjectInfoButton
+            key={"infoButton"}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 4, duration: 1, ease: "easeOut" }}
+            onClick={() => setShowInfo(!showInfo)}
+          >
+            {showInfo ? (
+              <AnimatePresence>
+                <ProjectInfoSpan
+                  $alt
+                  key={"infoSpan2"}
+                  initial={{ opacity: 0 }}
+                  animate={{
+                    opacity: 1,
+                    transition: { delay: 0.5, duration: 1, ease: "easeOut" },
+                  }}
+                  exit={{
+                    opacity: 0,
+                    transition: { delay: 0, duration: 1, ease: "easeOut" },
+                  }}
+                >
+                  CLOSE
+                </ProjectInfoSpan>
+              </AnimatePresence>
+            ) : (
+              <AnimatePresence>
+                <ProjectInfoSpan
+                  key={"infoSpan1"}
+                  initial={{ opacity: 0 }}
+                  animate={{
+                    opacity: 1,
+                    transition: { delay: 0.5, duration: 1, ease: "easeOut" },
+                  }}
+                  exit={{
+                    opacity: 0,
+                    transition: { delay: 0, duration: 1, ease: "easeOut" },
+                  }}
+                >
+                  READ MORE
+                </ProjectInfoSpan>
+              </AnimatePresence>
+            )}
+          </ProjectInfoButton>
+        </AnimatePresence>
+      </VideoContainer>
 
       <WipeScreen />
       <TransitionScreen />

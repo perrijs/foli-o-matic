@@ -26,6 +26,7 @@ import {
   ProjectRolesContainer,
   ProjectRole,
   InfoButtonSpan,
+  AnimationSpan,
 } from "./slugStyles";
 
 interface PageProps {
@@ -42,36 +43,52 @@ const Project = ({ project }: PageProps) => {
       <HomeButton />
       <MenuButton />
 
-      <ContentContainer
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 4, duration: 0.5, ease: "easeOut" }}
-      >
-        <ProjectTitle className="fadeIn">{project.name} /</ProjectTitle>
+      <ContentContainer>
+        <AnimationSpan>
+          <ProjectTitle
+            initial={{ y: "-100%" }}
+            animate={{ y: "0%" }}
+            transition={{ delay: 3.5, duration: 0.5, ease: "easeInOut" }}
+          >
+            {project.name} /
+          </ProjectTitle>
+        </AnimationSpan>
 
         <ProjectCreditsContainer>
-          <ProjectCredits className="fadeIn">
-            {project.client}, {project.date}
-          </ProjectCredits>
+          <AnimationSpan>
+            <ProjectCredits
+              initial={{ y: "-100%" }}
+              animate={{ y: "0%" }}
+              transition={{ delay: 3.6, duration: 0.5, ease: "easeInOut" }}
+            >
+              {project.client}, {project.date}
+            </ProjectCredits>
+          </AnimationSpan>
 
-          {project.url && (
-            <ProjectLink className="fadeIn">
-              <Link
-                key={project.name}
-                href={project.url}
-                passHref={true}
-                target="_blank"
+          <AnimationSpan>
+            {project.url && (
+              <ProjectLink
+                initial={{ y: "-100%" }}
+                animate={{ y: "0%" }}
+                transition={{ delay: 3.7, duration: 0.5, ease: "easeInOut" }}
               >
-                <span>Visit Website</span>
-                <Image
-                  src="/images/icons/open_in_new.svg"
-                  width="18"
-                  height="18"
-                  alt=""
-                />
-              </Link>
-            </ProjectLink>
-          )}
+                <Link
+                  key={project.name}
+                  href={project.url}
+                  passHref={true}
+                  target="_blank"
+                >
+                  <span>Visit Website</span>
+                  <Image
+                    src="/images/icons/open_in_new.svg"
+                    width="18"
+                    height="18"
+                    alt=""
+                  />
+                </Link>
+              </ProjectLink>
+            )}
+          </AnimationSpan>
         </ProjectCreditsContainer>
       </ContentContainer>
 

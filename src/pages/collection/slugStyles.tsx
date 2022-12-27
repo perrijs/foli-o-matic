@@ -19,7 +19,7 @@ export const ProjectWrapper = styled.div`
   background-color: ${color.COSMIC_LATTE};
 `;
 
-export const ContentContainer = styled(motion.div)`
+export const ContentContainer = styled.div`
   display: flex;
   width: 100%;
   margin-bottom: ${spacing.MARGIN_SMALL};
@@ -27,7 +27,7 @@ export const ContentContainer = styled(motion.div)`
   flex-direction: column;
 `;
 
-export const ProjectTitle = styled.h1`
+export const ProjectTitle = styled(motion.h1)`
   width: fit-content;
   margin: 0;
   padding: 0;
@@ -45,13 +45,13 @@ export const ProjectCreditsContainer = styled.div`
   justify-content: space-between;
 `;
 
-export const ProjectCredits = styled.span`
+export const ProjectCredits = styled(motion.span)`
   color: ${color.COSMIC_AMERICANO};
 
   ${type.TYPE_SERIF_BODY_2}
 `;
 
-export const ProjectLink = styled.div`
+export const ProjectLink = styled(motion.div)`
   display: flex;
   width: fit-content;
 
@@ -103,6 +103,7 @@ export const VideoContainer = styled.div`
   width: 100%;
 
   justify-content: center;
+  overflow: hidden;
 `;
 
 export const ProjectInfoContainer = styled(motion.div)`
@@ -163,4 +164,10 @@ export const ProjectRole = styled.span`
 export const InfoButtonSpan = styled(motion.span)`
   display: flex;
   margin-left: -3px;
+`;
+
+export const AnimationSpan = styled.div`
+  display: flex;
+
+  overflow: hidden;
 `;

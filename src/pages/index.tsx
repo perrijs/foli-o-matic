@@ -1,24 +1,27 @@
 import ScrollTrigger from "@/components/ScrollTrigger";
 import MenuButton from "@/components/MenuButton";
 import Tooltip from "@/components/Tooltip";
-import WebGL from "@/webgl/index";
 import TransitionScreen from "@/components/TransitionScreen";
+import WipeScreen from "@/components/WipeScreen";
+import WebGL from "@/webgl/index";
 
-const Index = () => {
-  return (
-    <>
-      <ScrollTrigger className={"scrollTriggerOne"} />
-      <ScrollTrigger className={"scrollTriggerTwo"} />
-      <ScrollTrigger className={"scrollTriggerThree"} />
+import { TRIGGER_ELEMENTS } from "@/webgl/config/scrollTriggers";
 
-      <MenuButton />
+const Index = () => (
+  <>
+    {TRIGGER_ELEMENTS.map((name) => (
+      <ScrollTrigger key={name} className={name} />
+    ))}
 
-      <Tooltip />
+    <MenuButton />
 
-      <WebGL />
-      <TransitionScreen />
-    </>
-  );
-};
+    <Tooltip />
+
+    <WebGL />
+
+    <WipeScreen />
+    <TransitionScreen />
+  </>
+);
 
 export default Index;

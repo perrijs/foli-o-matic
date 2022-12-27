@@ -44,6 +44,7 @@ export const Title = styled.h1`
 
   opacity: 0;
   color: ${color.PINK_4};
+  text-shadow: -2px -2px ${color.PINK_2};
 
   ${type.TYPE_CURSIVE_HEADER_1}
 `;

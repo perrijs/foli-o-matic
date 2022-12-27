@@ -1,9 +1,9 @@
 import { UI_HANDLE_TRANSITION } from "@/webgl/config/topics";
 import { useEffect, useRef, useState } from "react";
 
-import { Button, MenuWrapper, MachineScreen } from "./styles";
+import { BUTTONS } from "src/config/buttons";
 
-const BUTTONS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "C", "0", "E"];
+import { Button, MenuWrapper, MachineScreen } from "./styles";
 
 const MenuButton = () => {
   const buttons = useRef<NodeListOf<Element>>();
@@ -41,7 +41,7 @@ const MenuButton = () => {
         setButtonInterval(
           setInterval(() => {
             highlightButtons();
-          }, 250)
+          }, 333)
         );
       }}
       onMouseLeave={() => {

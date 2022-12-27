@@ -4,7 +4,7 @@ import PubSub from "pubsub-js";
 import gsap from "gsap";
 
 import {
-  GL_START_VENDING_MACHINE,
+  GL_ZOOM_VENDING_MACHINE,
   UI_HANDLE_TRANSITION,
 } from "@/webgl/config/topics";
 import { ItemData } from "@/webgl/config/types";
@@ -31,6 +31,10 @@ const TransitionScreen = () => {
           onComplete: () => {
             if (data.slug === "/") {
               router.push("/");
+
+              setTimeout(() => {
+                PubSub.publish(GL_ZOOM_VENDING_MACHINE);
+              }, 3000);
             } else if (data.slug === "/collection") {
               router.push(data.slug);
             } else {

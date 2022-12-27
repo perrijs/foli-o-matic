@@ -5,7 +5,11 @@ import Loader from "@/components/Loader";
 import CoinSlot from "@/components/CoinSlot";
 
 import { Load } from "@/webgl/load";
-import { GL_START_VENDING_MACHINE, LOAD_COMPLETE } from "@/webgl/config/topics";
+import {
+  GL_START_VENDING_MACHINE,
+  GL_ZOOM_VENDING_MACHINE,
+  LOAD_COMPLETE,
+} from "@/webgl/config/topics";
 
 import { CopyContainer, Credit, StartScreenWrapper, Title } from "./styles";
 
@@ -53,6 +57,8 @@ const StartScreen = () => {
       opacity: 0,
       onComplete: () => {
         if (!startScreenRef.current) return;
+
+        PubSub.publish(GL_ZOOM_VENDING_MACHINE);
 
         startScreenRef.current.style.display = "none";
       },

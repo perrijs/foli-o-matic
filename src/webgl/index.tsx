@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 
-import WipeScreen from "@/components/WipeScreen";
 import { useLoading } from "@/contexts/loadingContext";
 import { VendingMachine } from "./worlds/VendingMachine";
 
@@ -20,8 +19,6 @@ const WebGL = () => {
   return (
     <>
       {loaded && <CanvasParent ref={canvasParent} className={"canvasParent"} />}
-
-      <WipeScreen />
     </>
   );
 };

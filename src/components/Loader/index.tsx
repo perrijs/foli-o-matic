@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useRef } from "react";
 import gsap from "gsap";
 
+import { BUTTONS } from "src/config/buttons";
 import { useLoading } from "@/contexts/loadingContext";
 import { LOAD_COMPLETE } from "@/webgl/config/topics";
 
 import { Button, LoaderWrapper, MachineScreen } from "./styles";
-
-const BUTTONS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "C", "0", "E"];
 
 const Loader = () => {
   const { setLoaded } = useLoading();
@@ -30,7 +29,7 @@ const Loader = () => {
 
     setInterval(() => {
       highlightButtons(buttons);
-    }, 500);
+    }, 333);
 
     handleSubscriptions();
   }, [handleSubscriptions]);

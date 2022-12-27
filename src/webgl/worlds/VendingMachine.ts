@@ -20,6 +20,7 @@ import { ItemController } from "@/webgl/controllers/ItemController";
 import {
   GL_PRESS_KEY,
   GL_SELECT_ITEM,
+  GL_ZOOM_VENDING_MACHINE,
   UI_HANDLE_TRANSITION,
   UI_TOOLTIP_SCROLL,
   UI_TOOLTIP_TAP,
@@ -27,6 +28,7 @@ import {
 import {
   CAMERA_POSITION,
   TRIGGER_ELEMENTS,
+  SCROLL_HEIGHT,
 } from "@/webgl/config/scrollTriggers";
 import { Position } from "@/webgl/config/types";
 
@@ -75,20 +77,15 @@ export class VendingMachine {
   }
 
   init() {
-    document.body.style.overflowY = "scroll";
-
     this.renderer.setAspectRatio(this.canvasParent);
     this.camera.setAspectRatio(this.canvasParent);
 
     this.scene.add(this.camera);
-    this.camera.position.set(25, 25, 25);
+    this.camera.position.set(0, 0, 50);
     this.camera.lookAt(0, 0, 0);
 
     this.scene.add(this.ambientLight);
     this.scene.add(this.directionalLight);
-
-    this.renderer.setAnimationLoop(() => this.render());
-    this.canvasParent.appendChild(this.renderer.domElement);
 
     this.coilController = new CoilController(this.scene);
     this.buttonController = new ButtonController(this.scene);
@@ -97,7 +94,9 @@ export class VendingMachine {
     this.cabinet = new Cabinet(this.scene);
 
     this.initScroll();
-    this.handleTooltip();
+
+    this.renderer.setAnimationLoop(() => this.render());
+    this.canvasParent.appendChild(this.renderer.domElement);
   }
 
   addEventListeners() {
@@ -105,6 +104,10 @@ export class VendingMachine {
       this.handleMouseMove(event)
     );
     document.addEventListener("click", () => this.handleClick());
+
+    PubSub.subscribe(GL_ZOOM_VENDING_MACHINE, () =>
+      this.setDefaultPosition(2, true)
+    );
   }
 
   removeEventListeners() {
@@ -170,7 +173,7 @@ export class VendingMachine {
           hasMatched = true;
           document.body.style.overflowY = "hidden";
 
-          this.zoomOut();
+          this.setDefaultPosition(2);
 
           PubSub.publish(GL_PRESS_KEY, "ENJOY!");
           PubSub.publish(GL_SELECT_ITEM, item.itemData.id);
@@ -194,7 +197,9 @@ export class VendingMachine {
     const timeline = gsap.timeline();
 
     TRIGGER_ELEMENTS.forEach((query, index) => {
-      const triggerElement = document.querySelector(query) as HTMLDivElement;
+      const triggerElement = document.querySelector(
+        `.${query}`
+      ) as HTMLDivElement;
 
       this.createPathPoint(
         timeline,
@@ -204,8 +209,7 @@ export class VendingMachine {
           y: CAMERA_POSITION[index].y,
           z: CAMERA_POSITION[index].z,
         },
-        4000 * index,
-        index === 0
+        SCROLL_HEIGHT * index
       );
     });
   }
@@ -214,8 +218,7 @@ export class VendingMachine {
     timeline: GSAPTimeline | null,
     trigger: HTMLDivElement,
     position: Position,
-    start: number,
-    update: boolean
+    start: number
   ) {
     if (timeline)
       timeline.to(this.camera.position, {
@@ -229,11 +232,6 @@ export class VendingMachine {
           immediateRender: false,
           onToggle: (self: { isActive: boolean }) => {
             if (self.isActive) this.handleTooltip();
-          },
-          onUpdate: () => {
-            if (!this.cabinet) return;
-
-            if (update) this.camera.lookAt(this.cabinet.cabinet.position);
           },
         },
       });
@@ -256,7 +254,7 @@ export class VendingMachine {
   handleTooltip() {
     const currentScroll = document.documentElement.scrollTop;
 
-    if (currentScroll < 8000) {
+    if (currentScroll < SCROLL_HEIGHT) {
       PubSub.publish(UI_TOOLTIP_SCROLL, true);
       PubSub.publish(UI_TOOLTIP_TAP, false);
     } else {
@@ -265,13 +263,20 @@ export class VendingMachine {
     }
   }
 
-  zoomOut() {
+  setDefaultPosition(duration: number, init?: boolean) {
     gsap.to(this.camera.position, {
-      duration: 1.5,
+      duration: duration,
       ease: "power4.inOut",
-      z: 10,
-      y: 0,
       x: 0,
+      y: 0,
+      z: 10,
+      onComplete: () => {
+        if (!init) return;
+
+        document.body.style.overflowY = "scroll";
+
+        this.handleTooltip();
+      },
     });
   }
 

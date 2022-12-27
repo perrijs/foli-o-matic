@@ -33,7 +33,7 @@ export const TipContainer = styled.div`
   text-align: center;
 
   span {
-    color: ${color.PINK_4};
+    color: ${color.VERMILLION};
 
     ${type.TYPE_SANS_BODY_3}
   }

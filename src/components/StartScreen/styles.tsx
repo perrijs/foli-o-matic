@@ -17,7 +17,7 @@ export const StartScreenWrapper = styled.div`
   align-items: center;
   z-index: 1;
 
-  background-color: ${color.PINK_1};
+  background-color: ${color.COSMIC_LATTE};
 `;
 
 export const CopyContainer = styled.div`
@@ -33,7 +33,7 @@ export const Credit = styled.h3`
   padding: 0;
 
   opacity: 0;
-  color: ${color.PINK_4};
+  color: ${color.COSMIC_AMERICANO};
 
   ${type.TYPE_SANS_BODY_1}
 `;
@@ -43,8 +43,8 @@ export const Title = styled.h1`
   padding: 0;
 
   opacity: 0;
-  color: ${color.PINK_4};
-  text-shadow: -2px -2px ${color.PINK_2};
+  color: ${color.VERMILLION};
+  text-shadow: -2px -2px ${color.COSMIC_AMERICANO};
 
   ${type.TYPE_CURSIVE_HEADER_1}
 `;

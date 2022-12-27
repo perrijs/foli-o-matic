@@ -12,26 +12,26 @@ export const VendingWrapper = styled.div`
   width: 30px;
   height: 76px;
   padding: 4px;
-  box-shadow: 1px 1px ${color.PINK_4};
+  box-shadow: 1px 1px ${color.VERMILLION};
 
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   z-index: 1;
-  border: 1px solid ${color.PINK_4};
+  border: 1px solid ${color.VERMILLION};
   text-align: center;
 
   &:hover {
     cursor: pointer;
 
     div {
-      background-color: ${color.BLACK};
+      background-color: ${color.COSMIC_AMERICANO};
     }
   }
 `;
 
 export const VendingLabel = styled.span`
-  color: ${color.PINK_4};
+  color: ${color.VERMILLION};
 
   ${type.TYPE_SANS_BODY_2}
   font-size: 8px;
@@ -44,5 +44,5 @@ export const CoinSlot = styled.div`
   height: 50px;
   margin: auto 0;
 
-  background-color: ${color.PINK_4};
+  background-color: ${color.VERMILLION};
 `;

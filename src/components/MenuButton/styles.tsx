@@ -15,14 +15,14 @@ export const MenuWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 4px;
-  border: 1px solid ${color.PINK_4};
-  box-shadow: 1px 1px ${color.PINK_4};
+  border: 1px solid ${color.VERMILLION};
+  box-shadow: 1px 1px ${color.VERMILLION};
 
   z-index: 1;
 
   .active {
     color: ${color.WHITE};
-    background-color: ${color.PINK_4};
+    background-color: ${color.VERMILLION};
   }
 
   &:hover {
@@ -36,8 +36,8 @@ export const MachineScreen = styled.div`
   height: 10px;
 
   align-items: center;
-  color: ${color.PINK_4};
-  border: 1px solid ${color.PINK_4};
+  color: ${color.VERMILLION};
+  border: 1px solid ${color.VERMILLION};
 
   ${type.TYPE_SANS_BODY_2}
   font-size: 8px;
@@ -54,8 +54,8 @@ export const Button = styled.div`
 
   align-items: center;
   justify-content: center;
-  color: ${color.PINK_4};
-  border: 1px solid ${color.PINK_4};
+  color: ${color.VERMILLION};
+  border: 1px solid ${color.VERMILLION};
 
   ${type.TYPE_SANS_BODY_2}
   font-size: 8px;

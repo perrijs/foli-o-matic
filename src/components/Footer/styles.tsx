@@ -16,7 +16,7 @@ export const FooterLinksContainer = styled.div`
   gap: ${spacing.MARGIN_EXTRA_SMALL};
 
   a {
-    color: ${color.PINK_4};
+    color: ${color.VERMILLION};
     text-decoration: none;
 
     ${type.TYPE_SERIF_BODY_2}
@@ -28,7 +28,7 @@ export const FooterLinksContainer = styled.div`
 `;
 
 export const Deliniator = styled.span`
-  color: ${color.PINK_4};
+  color: ${color.VERMILLION};
 
   ${type.TYPE_SERIF_BODY_2}
 `;

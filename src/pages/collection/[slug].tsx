@@ -62,7 +62,7 @@ const Project = ({ project }: PageProps) => {
                 passHref={true}
                 target="_blank"
               >
-                Visit Website
+                <span>Visit Website</span>
                 <Image
                   src="/images/icons/open_in_new.svg"
                   width="18"

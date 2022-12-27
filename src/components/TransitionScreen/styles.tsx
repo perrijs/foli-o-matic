@@ -11,5 +11,5 @@ export const TransitionScreenWrapper = styled.div`
 
   z-index: 1;
   transform: translateY(-100%);
-  background-color: ${color.PINK_2};
+  background-color: ${color.COSMIC_AMERICANO};
 `;

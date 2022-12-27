@@ -10,5 +10,5 @@ export const WipeScreenWrapper = styled.div`
   height: 100vh;
 
   z-index: 1;
-  background-color: ${color.PINK_2};
+  background-color: ${color.COSMIC_AMERICANO};
 `;

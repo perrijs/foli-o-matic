@@ -16,12 +16,12 @@ export const LoaderWrapper = styled.div`
   justify-content: space-between;
   gap: ${spacing.MARGIN_EXTRA_SMALL};
   transform: translate(-50%, -40%);
-  border: 2px solid ${color.PINK_4};
-  box-shadow: 1px 1px ${color.PINK_4};
+  border: 2px solid ${color.VERMILLION};
+  box-shadow: 1px 1px ${color.VERMILLION};
 
   .active {
     color: ${color.WHITE};
-    background-color: ${color.PINK_4};
+    background-color: ${color.VERMILLION};
   }
 `;
 
@@ -31,8 +31,8 @@ export const MachineScreen = styled.div`
   height: 20px;
 
   align-items: center;
-  color: ${color.PINK_4};
-  border: 2px solid ${color.PINK_4};
+  color: ${color.VERMILLION};
+  border: 2px solid ${color.VERMILLION};
 
   ${type.TYPE_SANS_BODY_2}
 
@@ -48,8 +48,8 @@ export const Button = styled.div`
 
   align-items: center;
   justify-content: center;
-  color: ${color.PINK_4};
-  border: 2px solid ${color.PINK_4};
+  color: ${color.VERMILLION};
+  border: 2px solid ${color.VERMILLION};
 
   ${type.TYPE_SANS_BODY_2}
 `;

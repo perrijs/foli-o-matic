@@ -7,7 +7,7 @@ import * as spacing from "@/styles/globals/spacing";
 export const CollectionWrapper = styled.div`
   padding: ${spacing.MARGIN_LARGE} ${spacing.MARGIN_LARGEST};
 
-  background-color: ${color.PINK_1};
+  background-color: ${color.COSMIC_LATTE};
 `;
 
 export const TableHeaders = styled.div`
@@ -15,7 +15,7 @@ export const TableHeaders = styled.div`
   width: 100%;
 
   justify-content: space-between;
-  border-bottom: 1px solid ${color.PINK_2};
+  border-bottom: 1px solid ${color.COSMIC_AMERICANO};
 `;
 
 export const TableHeader = styled.h2`
@@ -23,7 +23,7 @@ export const TableHeader = styled.h2`
   margin: 0;
   padding: 0 0 ${spacing.MARGIN_EXTRA_SMALL};
 
-  color: ${color.PINK_4};
+  color: ${color.COSMIC_AMERICANO};
 
   ${type.TYPE_SANS_HEADER_2}
 
@@ -57,7 +57,7 @@ export const TableRow = styled.div`
 
   justify-content: space-between;
 
-  border-bottom: 1px solid ${color.PINK_2};
+  border-bottom: 1px solid ${color.COSMIC_AMERICANO};
 
   img {
     opacity: 0;
@@ -72,6 +72,10 @@ export const TableRow = styled.div`
       transform: translateX(0%);
       opacity: 1;
     }
+
+    span {
+      color: ${color.VERMILLION};
+    }
   }
 `;
 
@@ -80,22 +84,23 @@ export const TableSectionType = styled.h3`
   margin: 0;
   padding: ${spacing.MARGIN_EXTRA_SMALL} 0;
 
-  color: ${color.PINK_4};
+  color: ${color.COSMIC_AMERICANO};
 
   ${type.TYPE_SANS_HEADER_3}
 `;
 
-export const TableSectionCode = styled.h3`
+export const TableSectionCode = styled.span`
   width: 20%;
   margin: 0;
   padding: ${spacing.MARGIN_EXTRA_SMALL} 0;
 
-  color: ${color.PINK_4};
+  transition: 0.33s;
+  color: ${color.COSMIC_AMERICANO};
 
   ${type.TYPE_SERIF_BODY_2}
 `;
 
-export const TableSectionEntry = styled.h3`
+export const TableSectionEntry = styled.span`
   display: flex;
   width: 30%;
   margin: 0;
@@ -103,7 +108,8 @@ export const TableSectionEntry = styled.h3`
 
   justify-content: space-between;
   align-items: center;
-  color: ${color.PINK_4};
+  transition: 0.33s;
+  color: ${color.COSMIC_AMERICANO};
 
   ${type.TYPE_SERIF_BODY_2}
 

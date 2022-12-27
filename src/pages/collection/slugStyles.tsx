@@ -16,7 +16,7 @@ export const ProjectWrapper = styled.div`
   align-items: center;
   justify-content: center;
 
-  background-color: ${color.PINK_1};
+  background-color: ${color.COSMIC_LATTE};
 `;
 
 export const ContentContainer = styled(motion.div)`
@@ -32,7 +32,7 @@ export const ProjectTitle = styled.h1`
   margin: 0;
   padding: 0;
 
-  color: ${color.PINK_4};
+  color: ${color.COSMIC_AMERICANO};
   text-transform: uppercase;
 
   ${type.TYPE_SANS_BODY_1}
@@ -46,7 +46,7 @@ export const ProjectCreditsContainer = styled.div`
 `;
 
 export const ProjectCredits = styled.span`
-  color: ${color.PINK_4};
+  color: ${color.COSMIC_AMERICANO};
 
   ${type.TYPE_SERIF_BODY_2}
 `;
@@ -65,16 +65,35 @@ export const ProjectLink = styled.div`
 
     justify-content: center;
     gap: ${spacing.MARGIN_EXTRA_SMALL};
-    color: ${color.PINK_4};
+    color: ${color.COSMIC_AMERICANO};
     text-decoration: none;
+  }
+
+  span {
+    transform: translateX(27.5%);
+    transition: 0.33s;
   }
 
   img {
     margin-top: 3px;
+
+    opacity: 0;
+    transform: translateX(50%);
+    transition: 0.33s;
   }
 
   &:hover {
-    text-decoration: underline;
+    cursor: pointer;
+
+    span {
+      transform: translateX(0%);
+      color: ${color.VERMILLION};
+    }
+
+    img {
+      transform: translateX(0%);
+      opacity: 1;
+    }
   }
 `;
 

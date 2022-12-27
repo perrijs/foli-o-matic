@@ -4,4 +4,4 @@ export const BLACK = "#000000";
 export const COSMIC_LATTE = "#fff8e7";
 export const COSMIC_AMERICANO = "#33312e";
 
-export const VERMILLION = "#E1190E";
+export const VERMILLION = "#e1190e";

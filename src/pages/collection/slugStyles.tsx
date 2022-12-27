@@ -118,6 +118,23 @@ export const ProjectInfoContainer = styled(motion.div)`
   background-color: rgba(0, 0, 0, 0.75);
 `;
 
+export const ProjectInfoButton = styled(motion.button)`
+  position: absolute;
+  display: flex;
+  bottom: ${spacing.MARGIN_MEDIUM};
+  right: ${spacing.MARGIN_MEDIUM};
+  margin: 0;
+  padding: 0;
+
+  z-index: 1;
+  background: none;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 export const ProjectInfo = styled.p`
   color: ${color.WHITE};
   pointer-events: none;
@@ -143,42 +160,7 @@ export const ProjectRole = styled.span`
   font-weight: 400;
 `;
 
-interface ProjectInfoSpanProps {
-  $alt?: boolean;
-}
-
-export const ProjectInfoSpan = styled(motion.span)<ProjectInfoSpanProps>`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  color: ${(props) => (props.$alt ? "#ffffff" : "#e93535")};
-
-  transform: translate(-50%, -50%);
-
-  font-family: "Playfair Display", serif;
-  font-size: 24px;
-  font-weight: 400;
-`;
-
-export const ProjectInfoButton = styled(motion.button)`
-  position: absolute;
-  bottom: ${spacing.MARGIN_MEDIUM};
-  right: ${spacing.MARGIN_MEDIUM};
-  width: 150px;
-  height: 50px;
-  margin: 0;
-  padding: 0;
-
-  z-index: 1;
-  background: none;
-  border: none;
-
-  &:hover {
-    cursor: pointer;
-
-    ${ProjectInfoSpan} {
-      text-decoration: underline;
-    }
-  }
+export const InfoButtonSpan = styled(motion.span)`
+  display: flex;
+  margin-left: -3px;
 `;

@@ -16,19 +16,20 @@ export const FooterLinksContainer = styled.div`
   gap: ${spacing.MARGIN_EXTRA_SMALL};
 
   a {
-    color: ${color.VERMILLION};
+    transition: 0.5s;
+    color: ${color.COSMIC_AMERICANO};
     text-decoration: none;
 
     ${type.TYPE_SERIF_BODY_2}
 
     &:hover {
-      text-decoration: underline;
+      color: ${color.VERMILLION};
     }
   }
 `;
 
 export const Deliniator = styled.span`
-  color: ${color.VERMILLION};
+  color: ${color.COSMIC_AMERICANO};
 
   ${type.TYPE_SERIF_BODY_2}
 `;

@@ -25,7 +25,7 @@ import {
   ProjectInfoButton,
   ProjectRolesContainer,
   ProjectRole,
-  ProjectInfoSpan,
+  InfoButtonSpan,
 } from "./slugStyles";
 
 interface PageProps {
@@ -45,7 +45,7 @@ const Project = ({ project }: PageProps) => {
       <ContentContainer
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 4, duration: 1, ease: "easeOut" }}
+        transition={{ delay: 4, duration: 0.5, ease: "easeOut" }}
       >
         <ProjectTitle className="fadeIn">{project.name} /</ProjectTitle>
 
@@ -85,7 +85,7 @@ const Project = ({ project }: PageProps) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 1, ease: "easeOut" }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
             >
               <ProjectInfo>{project.description}</ProjectInfo>
               <ProjectRolesContainer>
@@ -105,45 +105,23 @@ const Project = ({ project }: PageProps) => {
             key={"infoButton"}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 4, duration: 1, ease: "easeOut" }}
+            transition={{ delay: 4, duration: 0.5, ease: "easeOut" }}
             onClick={() => setShowInfo(!showInfo)}
           >
-            {showInfo ? (
-              <AnimatePresence>
-                <ProjectInfoSpan
-                  $alt
-                  key={"infoSpan2"}
-                  initial={{ opacity: 0 }}
-                  animate={{
-                    opacity: 1,
-                    transition: { delay: 0.5, duration: 1, ease: "easeOut" },
-                  }}
-                  exit={{
-                    opacity: 0,
-                    transition: { delay: 0, duration: 1, ease: "easeOut" },
-                  }}
-                >
-                  CLOSE
-                </ProjectInfoSpan>
-              </AnimatePresence>
-            ) : (
-              <AnimatePresence>
-                <ProjectInfoSpan
-                  key={"infoSpan1"}
-                  initial={{ opacity: 0 }}
-                  animate={{
-                    opacity: 1,
-                    transition: { delay: 0.5, duration: 1, ease: "easeOut" },
-                  }}
-                  exit={{
-                    opacity: 0,
-                    transition: { delay: 0, duration: 1, ease: "easeOut" },
-                  }}
-                >
-                  READ MORE
-                </ProjectInfoSpan>
-              </AnimatePresence>
-            )}
+            <Image src="/images/icons/info.svg" width="24" height="24" alt="" />
+
+            <InfoButtonSpan
+              key={"infoButtonSpan"}
+              animate={{ rotate: showInfo ? 45 : 0 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+            >
+              <Image
+                src="/images/icons/plus.svg"
+                width="24"
+                height="24"
+                alt=""
+              />
+            </InfoButtonSpan>
           </ProjectInfoButton>
         </AnimatePresence>
       </VideoContainer>

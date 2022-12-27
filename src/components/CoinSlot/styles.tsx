@@ -6,7 +6,6 @@ export const CanvasParent = styled.div`
   aspect-ratio: 1/1;
 
   z-index: 0;
-  opacity: 0;
 
   &:hover {
     cursor: pointer;

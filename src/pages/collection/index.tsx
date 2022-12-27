@@ -1,7 +1,6 @@
 import { useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import gsap from "gsap";
 
 import HomeButton from "@/components/HomeButton";
 import ItemCanvas from "@/components/ItemCanvas";
@@ -63,16 +62,6 @@ const Collection = ({ projects }: PageProps) => {
   );
 
   useEffect(() => {
-    const fadeInElements = document.querySelectorAll(".fadeIn");
-
-    fadeInElements.forEach((element, index) => {
-      gsap.fromTo(
-        element,
-        { opacity: 0 },
-        { duration: 0.1, delay: 1 + 0.025 * index, opacity: 1 }
-      );
-    });
-
     PubSub.publish(GL_SET_MODEL, 0);
 
     document.body.style.overflowY = "scroll";

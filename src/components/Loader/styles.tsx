@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 import * as color from "@/styles/globals/color";
 import * as spacing from "@/styles/globals/spacing";
 import * as type from "@/styles/globals/type";
 
-export const LoaderWrapper = styled.div`
+export const LoaderWrapper = styled(motion.div)`
   display: flex;
   position: absolute;
   top: 40%;
@@ -16,12 +17,12 @@ export const LoaderWrapper = styled.div`
   justify-content: space-between;
   gap: ${spacing.MARGIN_EXTRA_SMALL};
   transform: translate(-50%, -40%);
-  border: 2px solid ${color.VERMILLION};
-  box-shadow: 1px 1px ${color.VERMILLION};
+  border: 2px solid ${color.COSMIC_LATTE};
+  box-shadow: 1px 1px ${color.COSMIC_LATTE};
 
   .active {
-    color: ${color.WHITE};
-    background-color: ${color.VERMILLION};
+    color: ${color.COSMIC_AMERICANO};
+    background-color: ${color.COSMIC_LATTE};
   }
 `;
 
@@ -31,8 +32,8 @@ export const MachineScreen = styled.div`
   height: 20px;
 
   align-items: center;
-  color: ${color.VERMILLION};
-  border: 2px solid ${color.VERMILLION};
+  color: ${color.COSMIC_LATTE};
+  border: 2px solid ${color.COSMIC_LATTE};
 
   ${type.TYPE_SANS_BODY_2}
 
@@ -48,8 +49,8 @@ export const Button = styled.div`
 
   align-items: center;
   justify-content: center;
-  color: ${color.VERMILLION};
-  border: 2px solid ${color.VERMILLION};
+  color: ${color.COSMIC_LATTE};
+  border: 2px solid ${color.COSMIC_LATTE};
 
   ${type.TYPE_SANS_BODY_2}
 `;

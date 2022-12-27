@@ -177,7 +177,7 @@ export class VendingMachine {
 
           PubSub.publish(GL_PRESS_KEY, "ENJOY!");
           PubSub.publish(GL_SELECT_ITEM, item.itemData.id);
-          PubSub.publish(UI_TOOLTIP_TAP, true);
+          PubSub.publish(UI_TOOLTIP_TAP, false);
           PubSub.publish(UI_TOOLTIP_SCROLL, false);
         }
 

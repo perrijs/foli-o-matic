@@ -46,10 +46,10 @@ export class CoinSlot {
     this.canvasParent = canvasParent;
 
     this.handleSubscriptions();
+    this.init();
   }
 
   handleSubscriptions() {
-    PubSub.subscribe(LOAD_COMPLETE, () => this.init());
     PubSub.subscribe(GL_INSERT_COIN, () => this.insertCoin());
     PubSub.subscribe(GL_START_VENDING_MACHINE, () =>
       this.renderer.setAnimationLoop(null)

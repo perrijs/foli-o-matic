@@ -1,38 +1,17 @@
-import { useCallback, useEffect, useRef } from "react";
-import gsap from "gsap";
+import { useEffect } from "react";
 
 import { BUTTONS } from "src/config/buttons";
-import { useLoading } from "@/contexts/loadingContext";
-import { LOAD_COMPLETE } from "@/webgl/config/topics";
 
 import { Button, LoaderWrapper, MachineScreen } from "./styles";
 
 const Loader = () => {
-  const { setLoaded } = useLoading();
-
-  const loaderRef = useRef<HTMLDivElement>(null);
-
-  const handleSubscriptions = useCallback(() => {
-    PubSub.subscribe(LOAD_COMPLETE, () => {
-      setLoaded(true);
-
-      gsap.to(loaderRef.current, {
-        delay: 1,
-        duration: 1,
-        opacity: 0,
-      });
-    });
-  }, [setLoaded]);
-
   useEffect(() => {
     const buttons = document.querySelectorAll(".loaderButton");
 
     setInterval(() => {
       highlightButtons(buttons);
     }, 333);
-
-    handleSubscriptions();
-  }, [handleSubscriptions]);
+  }, []);
 
   const highlightButtons = (buttons: NodeListOf<Element>) => {
     if (buttons) {
@@ -47,7 +26,11 @@ const Loader = () => {
   };
 
   return (
-    <LoaderWrapper ref={loaderRef}>
+    <LoaderWrapper
+      initial={{ opacity: 1 }}
+      animate={{ opacity: 0 }}
+      transition={{ delay: 2, duration: 0.5, ease: "easeOut" }}
+    >
       <MachineScreen>
         <span>LOADING...</span>
       </MachineScreen>

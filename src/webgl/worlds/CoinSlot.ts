@@ -45,15 +45,21 @@ export class CoinSlot {
 
     this.canvasParent = canvasParent;
 
-    this.handleSubscriptions();
+    this.addEventListeners();
     this.init();
   }
 
-  handleSubscriptions() {
+  addEventListeners() {
+    window.addEventListener("resize", () => this.handleResize());
+
     PubSub.subscribe(GL_INSERT_COIN, () => this.insertCoin());
     PubSub.subscribe(GL_START_VENDING_MACHINE, () =>
       this.renderer.setAnimationLoop(null)
     );
+  }
+
+  removeEventListeners() {
+    window.removeEventListener("resize", () => this.handleResize());
   }
 
   init() {
@@ -74,6 +80,11 @@ export class CoinSlot {
 
     this.initCoin();
     this.addEntities();
+  }
+
+  handleResize() {
+    this.renderer.setAspectRatio(this.canvasParent);
+    this.camera.setAspectRatio(this.canvasParent);
   }
 
   initCoin() {

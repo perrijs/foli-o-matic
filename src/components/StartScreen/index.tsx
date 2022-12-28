@@ -37,7 +37,7 @@ const StartScreen = () => {
             <Title>
               {CHARACTERS.map((character, index) => (
                 <TitleSpan
-                  key={character}
+                  key={index}
                   initial={{ y: "-150%" }}
                   animate={{ y: "0%" }}
                   transition={{

@@ -121,7 +121,7 @@ export const ProjectInfoContainer = styled(motion.div)`
 
 export const InfoButtonSpan = styled(motion.span)`
   display: flex;
-  margin-left: -3px;
+  margin: -${spacing.MARGIN_EXTRA_SMALL} 0 0 -${spacing.MARGIN_EXTRA_SMALL};
 `;
 
 export const ProjectInfoButton = styled(motion.button)`

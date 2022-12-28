@@ -19,9 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
     PubSub.subscribe(GL_START_VENDING_MACHINE, () => {
       setShow(false);
 
-      setTimeout(() => {
-        PubSub.publish(GL_ZOOM_VENDING_MACHINE);
-      }, 1000);
+      PubSub.publish(GL_ZOOM_VENDING_MACHINE);
     });
   }, []);
 

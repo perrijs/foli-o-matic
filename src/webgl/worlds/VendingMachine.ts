@@ -72,8 +72,28 @@ export class VendingMachine {
     this.canSelect = true;
     this.canvasParent = canvasParent;
 
-    this.init();
     this.addEventListeners();
+    this.init();
+  }
+
+  addEventListeners() {
+    window.addEventListener("resize", () => this.handleResize());
+    document.addEventListener("mousemove", (event) =>
+      this.handleMouseMove(event)
+    );
+    document.addEventListener("click", () => this.handleClick());
+
+    PubSub.subscribe(GL_ZOOM_VENDING_MACHINE, () =>
+      this.setDefaultPosition(2, true)
+    );
+  }
+
+  removeEventListeners() {
+    window.removeEventListener("resize", () => this.handleResize());
+    document.removeEventListener("mousemove", (event) =>
+      this.handleMouseMove(event)
+    );
+    document.removeEventListener("click", () => this.handleClick());
   }
 
   init() {
@@ -99,29 +119,16 @@ export class VendingMachine {
     this.canvasParent.appendChild(this.renderer.domElement);
   }
 
-  addEventListeners() {
-    document.addEventListener("mousemove", (event) =>
-      this.handleMouseMove(event)
-    );
-    document.addEventListener("click", () => this.handleClick());
-
-    PubSub.subscribe(GL_ZOOM_VENDING_MACHINE, () =>
-      this.setDefaultPosition(2, true)
-    );
-  }
-
-  removeEventListeners() {
-    document.removeEventListener("mousemove", (event) =>
-      this.handleMouseMove(event)
-    );
-    document.removeEventListener("click", () => this.handleClick());
-  }
-
   handleMouseMove(event: MouseEvent) {
     if (!this.pointer) return;
 
     this.pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
     this.pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  }
+
+  handleResize() {
+    this.renderer.setAspectRatio(this.canvasParent);
+    this.camera.setAspectRatio(this.canvasParent);
   }
 
   handleClick() {

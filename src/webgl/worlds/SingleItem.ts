@@ -8,11 +8,7 @@ import { DirectionalLight } from "@/webgl/globals/DirectionalLight";
 
 import { AssetController } from "@/webgl/controllers/AssetController";
 import { ItemController } from "@/webgl/controllers/ItemController";
-import {
-  GL_SET_MODEL,
-  LOAD_COMPLETE,
-  UI_HANDLE_TRANSITION,
-} from "@/webgl/config/topics";
+import { GL_SET_MODEL, UI_HANDLE_TRANSITION } from "@/webgl/config/topics";
 
 export class SingleItem {
   assetController = AssetController.getInstance();
@@ -39,8 +35,24 @@ export class SingleItem {
 
     this.canvasParent = canvasParent;
 
-    this.handleSubscriptions();
+    this.addEventListeners();
     this.init();
+  }
+
+  addEventListeners() {
+    window.addEventListener("resize", () => this.handleResize());
+
+    PubSub.subscribe(GL_SET_MODEL, (_topic, data) => this.setModel(data));
+    PubSub.subscribe(UI_HANDLE_TRANSITION, () =>
+      setTimeout(() => {
+        this.removeEventListeners();
+        this.renderer.setAnimationLoop(null);
+      }, 1000)
+    );
+  }
+
+  removeEventListeners() {
+    window.removeEventListener("resize", () => this.handleResize());
   }
 
   init() {
@@ -61,13 +73,9 @@ export class SingleItem {
     this.canvasParent.appendChild(this.renderer.domElement);
   }
 
-  handleSubscriptions() {
-    PubSub.subscribe(GL_SET_MODEL, (_topic, data) => this.setModel(data));
-    PubSub.subscribe(UI_HANDLE_TRANSITION, () =>
-      setTimeout(() => {
-        this.renderer.setAnimationLoop(null);
-      }, 1000)
-    );
+  handleResize() {
+    this.renderer.setAspectRatio(this.canvasParent);
+    this.camera.setAspectRatio(this.canvasParent);
   }
 
   setModel(index: number) {

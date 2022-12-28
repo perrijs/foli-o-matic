@@ -129,7 +129,8 @@ const Project = ({ project }: PageProps) => {
 
             <InfoButtonSpan
               key={"infoButtonSpan"}
-              animate={{ rotate: showInfo ? 45 : 0 }}
+              initial={{ scale: 0.75 }}
+              animate={{ scale: 0.75, rotate: showInfo ? 45 : 0 }}
               transition={{ duration: 0.33, ease: "easeInOut" }}
             >
               <Image

@@ -34,7 +34,7 @@ const TransitionScreen = () => {
 
               setTimeout(() => {
                 PubSub.publish(GL_ZOOM_VENDING_MACHINE);
-              }, 3000);
+              }, 1000);
             } else if (data.slug === "/collection") {
               router.push(data.slug);
             } else {

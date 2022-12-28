@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import * as color from "@/styles/globals/color";
 import * as type from "@/styles/globals/type";
 import * as spacing from "@/styles/globals/spacing";
+import * as breakpoint from "@/styles/globals/breakpoints";
 
 export const StartScreenWrapper = styled(motion.div)`
   position: fixed;
@@ -53,4 +54,12 @@ export const Credit = styled(motion.h3)`
 
 export const CoinSlotContainer = styled(motion.div)`
   display: flex;
+  width: 35vw;
+  height: 35vw;
+  aspect-ratio: 1/1;
+
+  @media (max-width: ${breakpoint.MOBILE_MAX}) {
+    width: 100vw;
+    height: 100vw;
+  }
 `;

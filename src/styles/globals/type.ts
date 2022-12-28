@@ -1,13 +1,20 @@
+import * as breakpoint from "@/styles/globals/breakpoints";
+
 export const TYPE_CURSIVE_HEADER_1 = `
   font-family: Yellowtail, cursive;
-  font-size: 92px;
-  line-height: 92px;
+  font-size: 96px;
+  line-height: 96px;
+
+  @media (max-width: ${breakpoint.MOBILE_MAX}) {
+    font-size: 64px;
+    line-height: 64px;
+  }
 `;
 
 export const TYPE_SANS_HEADER_1 = `
   font-family: Roboto, sans-serif;
-  font-size: 92px;
-  line-height: 92px;
+  font-size: 96px;
+  line-height: 96px;
   font-weight: 700;
 `;
 

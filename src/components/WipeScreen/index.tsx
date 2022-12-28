@@ -17,6 +17,11 @@ const WipeScreen = () => {
         duration: 1,
         ease: "power4.inOut",
         transform: "translateY(-100%)",
+        onComplete: () => {
+          if (!transitionScreenRef.current) return;
+
+          transitionScreenRef.current.style.transform = "translateY(-200%)";
+        },
       }
     );
   }, []);

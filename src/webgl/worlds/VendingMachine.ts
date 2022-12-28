@@ -57,6 +57,7 @@ export class VendingMachine {
   keycode?: string;
   canSelect?: boolean;
   canvasParent: HTMLDivElement;
+  isMobile: boolean;
 
   constructor(canvasParent: HTMLDivElement) {
     this.renderer = new Renderer();
@@ -71,6 +72,7 @@ export class VendingMachine {
     this.keycode = "";
     this.canSelect = true;
     this.canvasParent = canvasParent;
+    this.isMobile = canvasParent.clientWidth < 600;
 
     this.addEventListeners();
     this.init();
@@ -127,6 +129,8 @@ export class VendingMachine {
   }
 
   handleResize() {
+    this.isMobile = this.canvasParent.clientWidth < 600;
+
     this.renderer.setAspectRatio(this.canvasParent);
     this.camera.setAspectRatio(this.canvasParent);
   }
@@ -231,7 +235,7 @@ export class VendingMachine {
       timeline.to(this.camera.position, {
         x: position.x,
         y: position.y,
-        z: position.z,
+        z: this.isMobile ? position.z + 2 : position.z,
         scrollTrigger: {
           trigger,
           start,
@@ -270,19 +274,21 @@ export class VendingMachine {
     }
   }
 
-  setDefaultPosition(duration: number, init?: boolean) {
+  setDefaultPosition(duration: number, init?: boolean, reset?: boolean) {
+    if (reset) document.documentElement.scrollTop = 0;
+
     gsap.to(this.camera.position, {
       duration: duration,
       ease: "power4.inOut",
       x: 0,
       y: 0,
-      z: 10,
+      z: this.isMobile ? 12 : 10,
       onComplete: () => {
-        if (!init) return;
+        if (init) {
+          document.body.style.overflowY = "scroll";
 
-        document.body.style.overflowY = "scroll";
-
-        this.handleTooltip();
+          this.handleTooltip();
+        }
       },
     });
   }

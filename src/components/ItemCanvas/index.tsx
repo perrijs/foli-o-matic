@@ -11,7 +11,7 @@ const ItemCanvas = () => {
     if (!canvasParent.current) return;
 
     new SingleItem(canvasParent.current);
-  });
+  }, []);
 
   return <CanvasParent ref={canvasParent} className={"canvasParent"} />;
 };

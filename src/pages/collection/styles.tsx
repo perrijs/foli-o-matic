@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 import * as type from "@/styles/globals/type";
 import * as color from "@/styles/globals/color";
@@ -10,7 +11,7 @@ export const CollectionWrapper = styled.div`
   background-color: ${color.COSMIC_LATTE};
 `;
 
-export const TableHeaders = styled.div`
+export const TableHeaders = styled(motion.div)`
   display: flex;
   width: 100%;
 
@@ -49,7 +50,7 @@ export const TableSection = styled.div`
   }
 `;
 
-export const TableRow = styled.div`
+export const TableRow = styled(motion.div)`
   display: flex;
   width: 100%;
   margin: 0;
@@ -79,7 +80,7 @@ export const TableRow = styled.div`
   }
 `;
 
-export const TableSectionType = styled.h3`
+export const TableSectionType = styled(motion.h3)`
   width: 100%;
   margin: 0;
   padding: ${spacing.MARGIN_EXTRA_SMALL} 0;
@@ -129,4 +130,10 @@ export const CanvasContainer = styled.div`
   opacity: 0;
   transform: translate(-50%, -50%);
   pointer-events: none;
+`;
+
+export const AnimationSpan = styled.div`
+  display: flex;
+
+  overflow: hidden;
 `;

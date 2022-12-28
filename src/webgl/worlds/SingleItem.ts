@@ -62,7 +62,6 @@ export class SingleItem {
   }
 
   handleSubscriptions() {
-    PubSub.subscribe(LOAD_COMPLETE, () => this.init());
     PubSub.subscribe(GL_SET_MODEL, (_topic, data) => this.setModel(data));
     PubSub.subscribe(UI_HANDLE_TRANSITION, () =>
       setTimeout(() => {

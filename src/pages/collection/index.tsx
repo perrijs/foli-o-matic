@@ -1,6 +1,7 @@
 import { useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { AnimatePresence } from "framer-motion";
 
 import HomeButton from "@/components/HomeButton";
 import ItemCanvas from "@/components/ItemCanvas";
@@ -15,8 +16,11 @@ import { ITEMS } from "@/webgl/config/items";
 import { GL_SET_MODEL, UI_HANDLE_TRANSITION } from "@/webgl/config/topics";
 import { SelectedWork, OtherWork, Award } from "@/pages/config/types";
 
+import { useLoading } from "@/contexts/loadingContext";
+
 import {
   CollectionWrapper,
+  AnimationSpan,
   TableHeader,
   TableHeaders,
   TableSection,
@@ -37,6 +41,8 @@ interface PageProps {
 }
 
 const Collection = ({ projects }: PageProps) => {
+  const { loaded } = useLoading();
+
   const canvasRef = useRef<HTMLDivElement>(null);
   const mousePos = useRef<MousePos>({ x: 0, y: 0 });
 
@@ -72,121 +78,177 @@ const Collection = ({ projects }: PageProps) => {
     <CollectionWrapper>
       <HomeButton />
 
-      <TableHeaders className="fadeIn">
-        <TableHeader>TYPE</TableHeader>
-        <TableHeader>TITLE</TableHeader>
-        <TableHeader>CLIENT / ORGANISATION</TableHeader>
-        <TableHeader>YEAR</TableHeader>
-      </TableHeaders>
+      <AnimatePresence>
+        <AnimationSpan>
+          <TableHeaders
+            key="tableHeaders"
+            initial={{ y: "-100%" }}
+            animate={{ y: "0%" }}
+            transition={{ delay: 2, duration: 0.5, ease: "easeInOut" }}
+          >
+            <TableHeader>TYPE</TableHeader>
+            <TableHeader>TITLE</TableHeader>
+            <TableHeader>CLIENT / ORGANISATION</TableHeader>
+            <TableHeader>YEAR</TableHeader>
+          </TableHeaders>
+        </AnimationSpan>
 
-      <TableSection onMouseLeave={() => PubSub.publish(GL_SET_MODEL, 99)}>
-        <TableSectionType
-          className="fadeIn"
-          onMouseEnter={() => PubSub.publish(GL_SET_MODEL, 99)}
-        >
-          SELECTED WORKS /
-        </TableSectionType>
-        {projects.map((project: SelectedWork, index) => {
-          return (
-            <TableRow
-              className="fadeIn"
-              key={project.id}
-              onClick={() => handleTransition(project.id)}
-              onMouseMove={() => {
-                if (!canvasRef.current) return;
-
-                canvasRef.current.style.opacity = "1";
-                PubSub.publish(GL_SET_MODEL, index);
-              }}
+        <TableSection onMouseLeave={() => PubSub.publish(GL_SET_MODEL, 99)}>
+          <AnimationSpan>
+            <TableSectionType
+              key="selectedWorksType"
+              initial={{ y: "-100%" }}
+              animate={{ y: "0%" }}
+              transition={{ delay: 2.05, duration: 0.5, ease: "easeInOut" }}
+              onMouseEnter={() => PubSub.publish(GL_SET_MODEL, 99)}
             >
-              <TableSectionCode>{project.code}</TableSectionCode>
-              <TableSectionEntry>{project.name}</TableSectionEntry>
-              <TableSectionEntry>{project.client}</TableSectionEntry>
-              <TableSectionEntry>
-                {project.date}
-                <Image
-                  src="/images/icons/arrow_right.svg"
-                  width="18"
-                  height="18"
-                  alt=""
-                />
-              </TableSectionEntry>
-            </TableRow>
-          );
-        })}
-      </TableSection>
+              SELECTED WORKS /
+            </TableSectionType>
+          </AnimationSpan>
 
-      <TableSection>
-        <TableSectionType
-          className="fadeIn"
-          onMouseEnter={() => PubSub.publish(GL_SET_MODEL, 99)}
-        >
-          OTHER WORKS /
-        </TableSectionType>
-        {OTHER_WORKS.map((project: OtherWork) => {
-          return (
-            <Link
-              key={project.name}
-              href={project.url}
-              passHref={true}
-              target="_blank"
+          {projects.map((project: SelectedWork, index) => {
+            return (
+              <AnimationSpan key={project.name}>
+                <TableRow
+                  initial={{ opacity: 0, y: "-100%" }}
+                  animate={{ opacity: 1, y: "0%" }}
+                  transition={{
+                    delay: 2.1 + index * 0.05,
+                    duration: 0.5,
+                    ease: "easeInOut",
+                  }}
+                  onClick={() => handleTransition(project.id)}
+                  onMouseMove={() => {
+                    if (!canvasRef.current) return;
+
+                    canvasRef.current.style.opacity = "1";
+                    PubSub.publish(GL_SET_MODEL, index);
+                  }}
+                >
+                  <TableSectionCode>{project.code}</TableSectionCode>
+                  <TableSectionEntry>{project.name}</TableSectionEntry>
+                  <TableSectionEntry>{project.client}</TableSectionEntry>
+                  <TableSectionEntry>
+                    {project.date}
+                    <Image
+                      src="/images/icons/arrow_right.svg"
+                      width="18"
+                      height="18"
+                      alt=""
+                    />
+                  </TableSectionEntry>
+                </TableRow>
+              </AnimationSpan>
+            );
+          })}
+        </TableSection>
+
+        <TableSection>
+          <AnimationSpan>
+            <TableSectionType
+              key="otherWorksType"
+              initial={{ y: "-100%" }}
+              animate={{ y: "0%" }}
+              transition={{ delay: 2.4, duration: 0.5, ease: "easeInOut" }}
+              onMouseEnter={() => PubSub.publish(GL_SET_MODEL, 99)}
             >
-              <TableRow className="fadeIn">
-                <TableSectionCode>{project.code}</TableSectionCode>
-                <TableSectionEntry>{project.name}</TableSectionEntry>
-                <TableSectionEntry>{project.client}</TableSectionEntry>
-                <TableSectionEntry>
-                  {project.date}
-                  <Image
-                    src="/images/icons/open_in_new.svg"
-                    width="18"
-                    height="18"
-                    alt=""
-                  />
-                </TableSectionEntry>
-              </TableRow>
-            </Link>
-          );
-        })}
-      </TableSection>
+              OTHER WORKS /
+            </TableSectionType>
+          </AnimationSpan>
 
-      <TableSection>
-        <TableSectionType
-          className="fadeIn"
-          onMouseEnter={() => PubSub.publish(GL_SET_MODEL, 99)}
-        >
-          AWARDS /
-        </TableSectionType>
-        {AWARDS.map((award: Award) => {
-          return (
-            <Link
-              key={award.name}
-              href={award.url}
-              passHref={true}
-              target="_blank"
+          {OTHER_WORKS.map((project: OtherWork, index) => {
+            return (
+              <Link
+                key={project.name}
+                href={project.url}
+                passHref={true}
+                target="_blank"
+              >
+                <AnimationSpan>
+                  <TableRow
+                    initial={{ opacity: 0, y: "-100%" }}
+                    animate={{ opacity: 1, y: "0%" }}
+                    transition={{
+                      delay: 2.4 + index * 0.05,
+                      duration: 0.5,
+                      ease: "easeInOut",
+                    }}
+                  >
+                    <TableSectionCode>{project.code}</TableSectionCode>
+                    <TableSectionEntry>{project.name}</TableSectionEntry>
+                    <TableSectionEntry>{project.client}</TableSectionEntry>
+                    <TableSectionEntry>
+                      {project.date}
+                      <Image
+                        src="/images/icons/open_in_new.svg"
+                        width="18"
+                        height="18"
+                        alt=""
+                      />
+                    </TableSectionEntry>
+                  </TableRow>
+                </AnimationSpan>
+              </Link>
+            );
+          })}
+        </TableSection>
+
+        <TableSection>
+          <AnimationSpan>
+            <TableSectionType
+              key="awardsType"
+              initial={{ y: "-100%" }}
+              animate={{ y: "0%" }}
+              transition={{ delay: 2.65, duration: 0.5, ease: "easeInOut" }}
+              onMouseEnter={() => PubSub.publish(GL_SET_MODEL, 99)}
             >
-              <TableRow className="fadeIn">
-                <TableSectionCode>{award.code}</TableSectionCode>
-                <TableSectionEntry>{award.name}</TableSectionEntry>
-                <TableSectionEntry>{award.organisation}</TableSectionEntry>
-                <TableSectionEntry>
-                  {award.year}
-                  <Image
-                    src="/images/icons/open_in_new.svg"
-                    width="18"
-                    height="18"
-                    alt=""
-                  />
-                </TableSectionEntry>
-              </TableRow>
-            </Link>
-          );
-        })}
-      </TableSection>
+              AWARDS /
+            </TableSectionType>
+          </AnimationSpan>
 
-      <CanvasContainer ref={canvasRef}>
-        <ItemCanvas />
-      </CanvasContainer>
+          {AWARDS.map((award: Award, index) => {
+            return (
+              <Link
+                key={award.name}
+                href={award.url}
+                passHref={true}
+                target="_blank"
+              >
+                <AnimationSpan>
+                  <TableRow
+                    initial={{ opacity: 0, y: "-100%" }}
+                    animate={{ opacity: 1, y: "0%" }}
+                    transition={{
+                      delay: 2.65 + index * 0.05,
+                      duration: 0.5,
+                      ease: "easeInOut",
+                    }}
+                  >
+                    <TableSectionCode>{award.code}</TableSectionCode>
+                    <TableSectionEntry>{award.name}</TableSectionEntry>
+                    <TableSectionEntry>{award.organisation}</TableSectionEntry>
+                    <TableSectionEntry>
+                      {award.year}
+                      <Image
+                        src="/images/icons/open_in_new.svg"
+                        width="18"
+                        height="18"
+                        alt=""
+                      />
+                    </TableSectionEntry>
+                  </TableRow>
+                </AnimationSpan>
+              </Link>
+            );
+          })}
+        </TableSection>
+      </AnimatePresence>
+
+      {loaded && (
+        <CanvasContainer ref={canvasRef}>
+          <ItemCanvas />
+        </CanvasContainer>
+      )}
 
       <WipeScreen />
       <TransitionScreen />

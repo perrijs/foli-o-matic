@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
+import { LOAD_COMPLETE } from "@/webgl/config/topics";
 
 interface ContextProps {
   loaded: boolean;
@@ -13,6 +15,10 @@ const LoadingContext = React.createContext<ContextProps>({} as ContextProps);
 
 const LoadingProvider = ({ children }: ProviderProps) => {
   const [loaded, setLoaded] = useState<boolean>(false);
+
+  useEffect(() => {
+    PubSub.subscribe(LOAD_COMPLETE, () => setLoaded(true));
+  }, []);
 
   return (
     <LoadingContext.Provider

@@ -28,8 +28,8 @@ const Loader = () => {
   return (
     <LoaderWrapper
       initial={{ opacity: 1 }}
-      animate={{ opacity: 0 }}
-      transition={{ delay: 2, duration: 0.5, ease: "easeOut" }}
+      exit={{ opacity: 0 }}
+      transition={{ delay: 3, duration: 0.5, ease: "easeOut" }}
     >
       <MachineScreen>
         <span>LOADING...</span>

@@ -8,7 +8,7 @@ import { Wrapper } from "@/webgl/entities/Wrapper";
 import { Item } from "@/webgl/entities/Item";
 
 import { ITEMS } from "@/webgl/config/items";
-import { GL_SELECT_ITEM, LOAD_COMPLETE } from "@/webgl/config/topics";
+import { GL_SELECT_ITEM } from "@/webgl/config/topics";
 
 export class ItemController {
   assetController = AssetController.getInstance();
@@ -49,7 +49,6 @@ export class ItemController {
 
   handleSubscriptions() {
     PubSub.subscribe(GL_SELECT_ITEM, this.handleMove.bind(this));
-    PubSub.subscribe(LOAD_COMPLETE, () => this.init());
   }
 
   getItem(index: number) {

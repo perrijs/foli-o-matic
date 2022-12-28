@@ -7,7 +7,16 @@ import { Load } from "@/webgl/load";
 
 import { useLoading } from "@/contexts/loadingContext";
 
-import { StartScreenWrapper, ContentContainer, Title, Credit } from "./styles";
+import {
+  StartScreenWrapper,
+  ContentContainer,
+  Title,
+  Credit,
+  TitleSpan,
+  CoinSlotContainer,
+} from "./styles";
+
+const CHARACTERS = ["f", "o", "l", "i", "-", "o", "-", "m", "a", "t", "i", "c"];
 
 const StartScreen = () => {
   const { loaded } = useLoading();
@@ -24,16 +33,38 @@ const StartScreen = () => {
     >
       <AnimatePresence>
         {loaded ? (
-          <ContentContainer
-            key="copyContainer"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 4, duration: 0.5, ease: "easeOut" }}
-          >
-            <Title>foli-o-matic!</Title>
-            <Credit>by PERRI SCHOFIELD</Credit>
+          <ContentContainer>
+            <Title>
+              {CHARACTERS.map((character, index) => (
+                <TitleSpan
+                  key={character}
+                  initial={{ y: "-150%" }}
+                  animate={{ y: "0%" }}
+                  transition={{
+                    delay: 4 + index * 0.033,
+                    duration: 0.33,
+                    ease: "easeInOut",
+                  }}
+                >
+                  {character}
+                </TitleSpan>
+              ))}
+            </Title>
+            <Credit
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 5, duration: 1, ease: "easeOut" }}
+            >
+              by PERRI SCHOFIELD
+            </Credit>
 
-            <CoinSlot />
+            <CoinSlotContainer
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 6, duration: 1, ease: "easeOut" }}
+            >
+              <CoinSlot />
+            </CoinSlotContainer>
           </ContentContainer>
         ) : (
           <Loader key="loader" />

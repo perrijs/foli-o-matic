@@ -84,7 +84,7 @@ const Collection = ({ projects }: PageProps) => {
             key="tableHeaders"
             initial={{ y: "-100%" }}
             animate={{ y: "0%" }}
-            transition={{ delay: 2, duration: 0.5, ease: "easeInOut" }}
+            transition={{ delay: 2, duration: 0.33, ease: "easeInOut" }}
           >
             <TableHeader>TYPE</TableHeader>
             <TableHeader>TITLE</TableHeader>
@@ -99,7 +99,7 @@ const Collection = ({ projects }: PageProps) => {
               key="selectedWorksType"
               initial={{ y: "-100%" }}
               animate={{ y: "0%" }}
-              transition={{ delay: 2.05, duration: 0.5, ease: "easeInOut" }}
+              transition={{ delay: 2.05, duration: 0.33, ease: "easeInOut" }}
               onMouseEnter={() => PubSub.publish(GL_SET_MODEL, 99)}
             >
               SELECTED WORKS /
@@ -114,7 +114,7 @@ const Collection = ({ projects }: PageProps) => {
                   animate={{ opacity: 1, y: "0%" }}
                   transition={{
                     delay: 2.1 + index * 0.05,
-                    duration: 0.5,
+                    duration: 0.33,
                     ease: "easeInOut",
                   }}
                   onClick={() => handleTransition(project.id)}
@@ -149,7 +149,7 @@ const Collection = ({ projects }: PageProps) => {
               key="otherWorksType"
               initial={{ y: "-100%" }}
               animate={{ y: "0%" }}
-              transition={{ delay: 2.4, duration: 0.5, ease: "easeInOut" }}
+              transition={{ delay: 2.4, duration: 0.33, ease: "easeInOut" }}
               onMouseEnter={() => PubSub.publish(GL_SET_MODEL, 99)}
             >
               OTHER WORKS /
@@ -170,7 +170,7 @@ const Collection = ({ projects }: PageProps) => {
                     animate={{ opacity: 1, y: "0%" }}
                     transition={{
                       delay: 2.4 + index * 0.05,
-                      duration: 0.5,
+                      duration: 0.33,
                       ease: "easeInOut",
                     }}
                   >
@@ -199,7 +199,7 @@ const Collection = ({ projects }: PageProps) => {
               key="awardsType"
               initial={{ y: "-100%" }}
               animate={{ y: "0%" }}
-              transition={{ delay: 2.65, duration: 0.5, ease: "easeInOut" }}
+              transition={{ delay: 2.65, duration: 0.33, ease: "easeInOut" }}
               onMouseEnter={() => PubSub.publish(GL_SET_MODEL, 99)}
             >
               AWARDS /
@@ -220,7 +220,7 @@ const Collection = ({ projects }: PageProps) => {
                     animate={{ opacity: 1, y: "0%" }}
                     transition={{
                       delay: 2.65 + index * 0.05,
-                      duration: 0.5,
+                      duration: 0.33,
                       ease: "easeInOut",
                     }}
                   >

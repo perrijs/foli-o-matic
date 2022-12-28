@@ -20,7 +20,7 @@ export const StartScreenWrapper = styled(motion.div)`
   background-color: ${color.COSMIC_AMERICANO};
 `;
 
-export const ContentContainer = styled(motion.div)`
+export const ContentContainer = styled.div`
   display: flex;
 
   flex-direction: column;
@@ -28,8 +28,22 @@ export const ContentContainer = styled(motion.div)`
   align-items: center;
 `;
 
-export const Credit = styled.h3`
-  margin: 0 0 ${spacing.MARGIN_SMALL};
+export const Title = styled.h1`
+  display: flex;
+  margin: 0;
+  padding: ${spacing.MARGIN_SMALL};
+
+  overflow: hidden;
+  color: ${color.VERMILLION};
+  text-shadow: 2px 2px ${color.COSMIC_LATTE};
+
+  ${type.TYPE_CURSIVE_HEADER_1}
+`;
+
+export const TitleSpan = styled(motion.span)``;
+
+export const Credit = styled(motion.h3)`
+  margin: -${spacing.MARGIN_SMALL} 0 0;
   padding: 0;
 
   color: ${color.COSMIC_LATTE};
@@ -37,12 +51,6 @@ export const Credit = styled.h3`
   ${type.TYPE_SANS_BODY_1}
 `;
 
-export const Title = styled.h1`
-  margin: 0;
-  padding: 0;
-
-  color: ${color.VERMILLION};
-  text-shadow: 2px 2px ${color.COSMIC_LATTE};
-
-  ${type.TYPE_CURSIVE_HEADER_1}
+export const CoinSlotContainer = styled(motion.div)`
+  display: flex;
 `;

@@ -119,6 +119,11 @@ export const ProjectInfoContainer = styled(motion.div)`
   background-color: rgba(0, 0, 0, 0.75);
 `;
 
+export const InfoButtonSpan = styled(motion.span)`
+  display: flex;
+  margin-left: -3px;
+`;
+
 export const ProjectInfoButton = styled(motion.button)`
   position: absolute;
   display: flex;
@@ -159,11 +164,6 @@ export const ProjectRole = styled.span`
   font-family: "Playfair Display", serif;
   font-size: 32px;
   font-weight: 400;
-`;
-
-export const InfoButtonSpan = styled(motion.span)`
-  display: flex;
-  margin-left: -3px;
 `;
 
 export const AnimationSpan = styled.div`

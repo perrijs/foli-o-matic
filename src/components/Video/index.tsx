@@ -12,7 +12,7 @@ const Video = React.forwardRef<HTMLVideoElement, Props>((props, ref) => (
     autoPlay
     initial={{ y: "-100%" }}
     animate={{ y: "0%" }}
-    transition={{ delay: 3, duration: 0.5, ease: "easeInOut" }}
+    transition={{ delay: 2, duration: 0.75, ease: "easeInOut" }}
   >
     <source src={props.url} type="video/mp4"></source>
   </VideoPlayer>

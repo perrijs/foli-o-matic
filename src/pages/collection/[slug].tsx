@@ -46,9 +46,9 @@ const Project = ({ project }: PageProps) => {
       <ContentContainer>
         <AnimationSpan>
           <ProjectTitle
-            initial={{ y: "-100%" }}
-            animate={{ y: "0%" }}
-            transition={{ delay: 3.5, duration: 0.5, ease: "easeInOut" }}
+            initial={{ opacity: 0, y: "-100%" }}
+            animate={{ opacity: 1, y: "0%" }}
+            transition={{ delay: 2.5, duration: 0.33, ease: "easeInOut" }}
           >
             {project.name} /
           </ProjectTitle>
@@ -57,9 +57,9 @@ const Project = ({ project }: PageProps) => {
         <ProjectCreditsContainer>
           <AnimationSpan>
             <ProjectCredits
-              initial={{ y: "-100%" }}
-              animate={{ y: "0%" }}
-              transition={{ delay: 3.6, duration: 0.5, ease: "easeInOut" }}
+              initial={{ opacity: 0, y: "-100%" }}
+              animate={{ opacity: 1, y: "0%" }}
+              transition={{ delay: 2.55, duration: 0.33, ease: "easeInOut" }}
             >
               {project.client}, {project.date}
             </ProjectCredits>
@@ -68,9 +68,9 @@ const Project = ({ project }: PageProps) => {
           <AnimationSpan>
             {project.url && (
               <ProjectLink
-                initial={{ y: "-100%" }}
-                animate={{ y: "0%" }}
-                transition={{ delay: 3.7, duration: 0.5, ease: "easeInOut" }}
+                initial={{ opacity: 0, y: "-100%" }}
+                animate={{ opacity: 1, y: "0%" }}
+                transition={{ delay: 2.6, duration: 0.33, ease: "easeInOut" }}
               >
                 <Link
                   key={project.name}
@@ -102,7 +102,7 @@ const Project = ({ project }: PageProps) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
+              transition={{ duration: 0.33, ease: "easeOut" }}
             >
               <ProjectInfo>{project.description}</ProjectInfo>
               <ProjectRolesContainer>
@@ -122,7 +122,7 @@ const Project = ({ project }: PageProps) => {
             key={"infoButton"}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 4, duration: 0.5, ease: "easeOut" }}
+            transition={{ delay: 4, duration: 1, ease: "easeOut" }}
             onClick={() => setShowInfo(!showInfo)}
           >
             <Image src="/images/icons/info.svg" width="24" height="24" alt="" />
@@ -130,7 +130,7 @@ const Project = ({ project }: PageProps) => {
             <InfoButtonSpan
               key={"infoButtonSpan"}
               animate={{ rotate: showInfo ? 45 : 0 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
+              transition={{ duration: 0.33, ease: "easeInOut" }}
             >
               <Image
                 src="/images/icons/plus.svg"

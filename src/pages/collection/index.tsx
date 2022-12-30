@@ -76,7 +76,7 @@ const Collection = ({ projects }: PageProps) => {
 
   return (
     <CollectionWrapper>
-      <HomeButton />
+      <HomeButton isAlt />
 
       <AnimatePresence>
         <TableHeaders

@@ -10,6 +10,7 @@ const Video = React.forwardRef<HTMLVideoElement, Props>((props, ref) => (
     ref={ref}
     muted
     autoPlay
+    loop
     initial={{ y: "-100%" }}
     animate={{ y: "0%" }}
     transition={{ delay: 2, duration: 0.75, ease: "easeInOut" }}

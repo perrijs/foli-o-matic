@@ -38,8 +38,8 @@ const StartScreen = () => {
               {CHARACTERS.map((character, index) => (
                 <TitleSpan
                   key={index}
-                  initial={{ y: "-150%" }}
-                  animate={{ y: "0%" }}
+                  initial={{ opacity: 0, y: "-150%" }}
+                  animate={{ opacity: 1, y: "0%" }}
                   transition={{
                     delay: 4 + index * 0.033,
                     duration: 0.33,

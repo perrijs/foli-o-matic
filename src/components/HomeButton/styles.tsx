@@ -1,11 +1,15 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import * as color from "@/styles/globals/color";
 import * as spacing from "@/styles/globals/spacing";
 import * as type from "@/styles/globals/type";
 import * as breakpoint from "@/styles/globals/breakpoints";
 
-export const VendingWrapper = styled.div`
+interface HomeButtonWrapperProps {
+  $alt?: boolean;
+}
+
+export const HomeButtonWrapper = styled.div<HomeButtonWrapperProps>`
   display: flex;
   position: fixed;
   top: ${spacing.MARGIN_LARGE};
@@ -31,11 +35,20 @@ export const VendingWrapper = styled.div`
   }
 
   @media (max-width: ${breakpoint.MOBILE_MAX}) {
-    position: relative;
-    top: 0;
-    left: 0;
-    margin-bottom: ${spacing.MARGIN_SMALL};
+    top: ${spacing.MARGIN_EXTRA_SMALL};
+    left: ${spacing.MARGIN_EXTRA_SMALL};
   }
+
+  ${(props) =>
+    props.$alt &&
+    css`
+      @media (max-width: ${breakpoint.MOBILE_MAX}) {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin-bottom: ${spacing.MARGIN_SMALL};
+      }
+    `}
 `;
 
 export const VendingLabel = styled.span`

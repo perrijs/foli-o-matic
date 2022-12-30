@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import * as type from "@/styles/globals/type";
 import * as color from "@/styles/globals/color";
 import * as spacing from "@/styles/globals/spacing";
+import * as breakpoint from "@/styles/globals/breakpoints";
 
 export const ProjectWrapper = styled.div`
   display: flex;
@@ -17,6 +18,14 @@ export const ProjectWrapper = styled.div`
   justify-content: center;
 
   background-color: ${color.COSMIC_LATTE};
+
+  @media (max-width: ${breakpoint.TABLET_MAX}) {
+    padding: ${spacing.MARGIN_LARGE};
+  }
+
+  @media (max-width: ${breakpoint.MOBILE_MAX}) {
+    padding: ${spacing.MARGIN_EXTRA_SMALL};
+  }
 `;
 
 export const ContentContainer = styled.div`
@@ -98,8 +107,8 @@ export const ProjectLink = styled(motion.div)`
 `;
 
 export const VideoContainer = styled.div`
-  position: relative;
   display: flex;
+  position: relative;
   width: 100%;
 
   justify-content: center;
@@ -122,6 +131,8 @@ export const ProjectInfoContainer = styled(motion.div)`
 export const InfoButtonSpan = styled(motion.span)`
   display: flex;
   margin: -${spacing.MARGIN_EXTRA_SMALL} 0 0 -${spacing.MARGIN_EXTRA_SMALL};
+
+  transform-origin: center;
 `;
 
 export const ProjectInfoButton = styled(motion.button)`
@@ -146,9 +157,13 @@ export const ProjectInfo = styled.p`
   pointer-events: none;
 
   font-family: "Playfair Display", serif;
-  font-size: 64px;
+  font-size: 4vw;
   font-weight: 400;
   font-style: italic;
+
+  @media (max-width: ${breakpoint.MOBILE_MAX}) {
+    font-size: 6vw;
+  }
 `;
 
 export const ProjectRolesContainer = styled.div`
@@ -162,8 +177,12 @@ export const ProjectRole = styled.span`
   pointer-events: none;
 
   font-family: "Playfair Display", serif;
-  font-size: 32px;
+  font-size: 2vw;
   font-weight: 400;
+
+  @media (max-width: ${breakpoint.MOBILE_MAX}) {
+    font-size: 3vw;
+  }
 `;
 
 export const AnimationSpan = styled.div`

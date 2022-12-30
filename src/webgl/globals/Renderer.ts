@@ -8,8 +8,6 @@ export class Renderer extends WebGLRenderer {
     });
     this.shadowMap.enabled = true;
     this.shadowMap.type = PCFSoftShadowMap;
-
-    this.setPixelRatio(1.5);
   }
 
   setAspectRatio(elementCanvasParent: HTMLDivElement) {

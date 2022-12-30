@@ -1,8 +1,12 @@
 import { UI_HANDLE_TRANSITION } from "@/webgl/config/topics";
 
-import { VendingWrapper, CoinSlot, VendingLabel } from "./styles";
+import { HomeButtonWrapper, CoinSlot, VendingLabel } from "./styles";
 
-const VendingButton = () => {
+interface Props {
+  isAlt?: boolean;
+}
+
+const VendingButton = ({ isAlt }: Props) => {
   const openVending = () => {
     PubSub.publish(UI_HANDLE_TRANSITION, {
       slug: "/",
@@ -11,11 +15,11 @@ const VendingButton = () => {
   };
 
   return (
-    <VendingWrapper onClick={openVending}>
+    <HomeButtonWrapper $alt={isAlt} onClick={openVending}>
       <VendingLabel>INSERT COIN</VendingLabel>
 
       <CoinSlot />
-    </VendingWrapper>
+    </HomeButtonWrapper>
   );
 };
 

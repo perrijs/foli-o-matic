@@ -4,11 +4,16 @@ import { motion } from "framer-motion";
 import * as type from "@/styles/globals/type";
 import * as color from "@/styles/globals/color";
 import * as spacing from "@/styles/globals/spacing";
+import * as breakpoint from "@/styles/globals/breakpoints";
 
 export const CollectionWrapper = styled.div`
   padding: ${spacing.MARGIN_LARGE} ${spacing.MARGIN_LARGEST};
 
   background-color: ${color.COSMIC_LATTE};
+
+  @media (max-width: ${breakpoint.MOBILE_MAX}) {
+    padding: ${spacing.MARGIN_EXTRA_SMALL};
+  }
 `;
 
 export const TableHeaders = styled(motion.div)`
@@ -34,6 +39,14 @@ export const TableHeader = styled.h2`
 
   &:last-child {
     width: 10%;
+  }
+
+  @media (max-width: ${breakpoint.TABLET_MAX}) {
+    font-size: 16px;
+  }
+
+  @media (max-width: ${breakpoint.MOBILE_MAX}) {
+    font-size: 12px;
   }
 `;
 
@@ -88,6 +101,10 @@ export const TableSectionType = styled(motion.h3)`
   color: ${color.COSMIC_AMERICANO};
 
   ${type.TYPE_SANS_HEADER_3}
+
+  @media (max-width: ${breakpoint.MOBILE_MAX}) {
+    font-size: 12px;
+  }
 `;
 
 export const TableSectionCode = styled.span`
@@ -99,6 +116,10 @@ export const TableSectionCode = styled.span`
   color: ${color.COSMIC_AMERICANO};
 
   ${type.TYPE_SERIF_BODY_2}
+
+  @media (max-width: ${breakpoint.MOBILE_MAX}) {
+    font-size: 12px;
+  }
 `;
 
 export const TableSectionEntry = styled.span`
@@ -117,6 +138,10 @@ export const TableSectionEntry = styled.span`
   &:last-child {
     width: 10%;
   }
+
+  @media (max-width: ${breakpoint.MOBILE_MAX}) {
+    font-size: 12px;
+  }
 `;
 
 export const CanvasContainer = styled.div`
@@ -130,6 +155,10 @@ export const CanvasContainer = styled.div`
   opacity: 0;
   transform: translate(-50%, -50%);
   pointer-events: none;
+
+  @media (max-width: ${breakpoint.MOBILE_MAX}) {
+    display: none;
+  }
 `;
 
 export const AnimationSpan = styled.div`

@@ -79,19 +79,17 @@ const Collection = ({ projects }: PageProps) => {
       <HomeButton />
 
       <AnimatePresence>
-        <AnimationSpan>
-          <TableHeaders
-            key="tableHeaders"
-            initial={{ y: "-100%" }}
-            animate={{ y: "0%" }}
-            transition={{ delay: 2, duration: 0.33, ease: "easeInOut" }}
-          >
-            <TableHeader>TYPE</TableHeader>
-            <TableHeader>TITLE</TableHeader>
-            <TableHeader>CLIENT / ORGANISATION</TableHeader>
-            <TableHeader>YEAR</TableHeader>
-          </TableHeaders>
-        </AnimationSpan>
+        <TableHeaders
+          key="tableHeaders"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2, duration: 0.33, ease: "easeInOut" }}
+        >
+          <TableHeader>TYPE</TableHeader>
+          <TableHeader>TITLE</TableHeader>
+          <TableHeader>CLIENT / ORGANISATION</TableHeader>
+          <TableHeader>YEAR</TableHeader>
+        </TableHeaders>
 
         <TableSection onMouseLeave={() => PubSub.publish(GL_SET_MODEL, 99)}>
           <AnimationSpan>

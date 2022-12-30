@@ -3,6 +3,7 @@ import styled from "styled-components";
 import * as color from "@/styles/globals/color";
 import * as spacing from "@/styles/globals/spacing";
 import * as type from "@/styles/globals/type";
+import * as breakpoint from "@/styles/globals/breakpoints";
 
 export const VendingWrapper = styled.div`
   display: flex;
@@ -27,6 +28,13 @@ export const VendingWrapper = styled.div`
     div {
       background-color: ${color.COSMIC_AMERICANO};
     }
+  }
+
+  @media (max-width: ${breakpoint.MOBILE_MAX}) {
+    position: relative;
+    top: 0;
+    left: 0;
+    margin-bottom: ${spacing.MARGIN_SMALL};
   }
 `;
 

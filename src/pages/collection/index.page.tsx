@@ -9,12 +9,12 @@ import Footer from "@/components/Footer";
 import WipeScreen from "@/components/WipeScreen";
 import TransitionScreen from "@/components/TransitionScreen";
 
-import { SELECTED_WORKS } from "@/pages/config/selectedWorks";
-import { OTHER_WORKS } from "@/pages/config/otherWorks";
-import { AWARDS } from "@/pages/config/awards";
+import { SELECTED_WORKS } from "src/config/selectedWorks";
+import { OTHER_WORKS } from "src/config/otherWorks";
+import { AWARDS } from "src/config/awards";
+import { SelectedWork, OtherWork, Award } from "src/config/types";
 import { ITEMS } from "@/webgl/config/items";
 import { GL_SET_MODEL, UI_HANDLE_TRANSITION } from "@/webgl/config/topics";
-import { SelectedWork, OtherWork, Award } from "@/pages/config/types";
 
 import { useLoading } from "@/contexts/loadingContext";
 

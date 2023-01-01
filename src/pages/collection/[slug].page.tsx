@@ -9,8 +9,8 @@ import Video from "@/components/Video";
 import WipeScreen from "@/components/WipeScreen";
 import TransitionScreen from "@/components/TransitionScreen";
 
-import { SELECTED_WORKS } from "@/pages/config/selectedWorks";
-import { SelectedWork } from "@/pages/config/types";
+import { SELECTED_WORKS } from "src/config/selectedWorks";
+import { SelectedWork } from "src/config/types";
 
 import {
   ProjectWrapper,

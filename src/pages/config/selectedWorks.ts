@@ -10,8 +10,8 @@ export const SELECTED_WORKS = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
     roles: ["Lead", "WebGL", "Frontend", "Backend"],
-    url: "https://www.google.com",
-    video: "/videos/projects/placeholder_video.mp4",
+    url: "shopperhopper.withgoogle.com",
+    video: "/videos/projects/shopper_hopper.mp4",
   },
   {
     id: 1,
@@ -23,8 +23,7 @@ export const SELECTED_WORKS = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
     roles: ["Lead", "WebGL", "Frontend", "Backend"],
-    url: "https://www.google.com",
-    video: "/videos/projects/placeholder_video.mp4",
+    video: "/videos/projects/youtube_united.mp4",
   },
   {
     id: 2,
@@ -36,8 +35,8 @@ export const SELECTED_WORKS = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
     roles: ["Lead", "WebGL", "Frontend", "Backend"],
-    url: "https://www.google.com",
-    video: "/videos/projects/placeholder_video.mp4",
+    url: "https://artsexperiments.withgoogle.com/meroe/",
+    video: "/videos/projects/pyramids_of_meroe.mp4",
   },
   {
     id: 3,
@@ -49,8 +48,8 @@ export const SELECTED_WORKS = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
     roles: ["Lead", "WebGL", "Frontend", "Backend"],
-    url: "https://www.google.com",
-    video: "/videos/projects/placeholder_video.mp4",
+    url: "https://digitalassetsdemystified.ft.com/",
+    video: "/videos/projects/digital_assets_demystified.mp4",
   },
   {
     id: 4,
@@ -62,8 +61,7 @@ export const SELECTED_WORKS = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
     roles: ["Lead", "WebGL", "Frontend", "Backend"],
-    url: "https://www.google.com",
-    video: "/videos/projects/placeholder_video.mp4",
+    video: "/videos/projects/visit_planet_her.mp4",
   },
   {
     id: 5,
@@ -75,7 +73,6 @@ export const SELECTED_WORKS = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
     roles: ["Lead", "WebGL", "Frontend", "Backend"],
-    url: "https://www.google.com",
-    video: "/videos/projects/placeholder_video.mp4",
+    video: "/videos/projects/xxim.mp4",
   },
 ];

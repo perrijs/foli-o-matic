@@ -28,7 +28,7 @@ export const ProjectWrapper = styled.div`
   }
 `;
 
-export const ContentContainer = styled.div`
+export const TitleContainer = styled.div`
   display: flex;
   width: 100%;
   margin-bottom: ${spacing.MARGIN_SMALL};
@@ -106,10 +106,17 @@ export const ProjectLink = styled(motion.div)`
   }
 `;
 
+export const ContentContainer = styled.div`
+  display: flex;
+  position: relative;
+  max-width: 1100px;
+
+  flex-direction: column;
+`;
+
 export const VideoContainer = styled.div`
   display: flex;
   position: relative;
-  width: 100%;
 
   justify-content: center;
   overflow: hidden;
@@ -157,12 +164,12 @@ export const ProjectInfo = styled.p`
   pointer-events: none;
 
   font-family: "Playfair Display", serif;
-  font-size: 4vw;
+  font-size: 3vw;
   font-weight: 400;
   font-style: italic;
 
   @media (max-width: ${breakpoint.MOBILE_MAX}) {
-    font-size: 6vw;
+    font-size: 5vw;
   }
 `;
 

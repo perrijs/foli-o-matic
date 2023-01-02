@@ -84,6 +84,7 @@ export class VendingMachine {
       this.handleMouseMove(event)
     );
     document.addEventListener("click", () => this.handleClick());
+    document.addEventListener("touchstart", () => this.handleClick());
 
     PubSub.subscribe(GL_ZOOM_VENDING_MACHINE, () =>
       this.setDefaultPosition(2, true)
@@ -96,6 +97,7 @@ export class VendingMachine {
       this.handleMouseMove(event)
     );
     document.removeEventListener("click", () => this.handleClick());
+    document.removeEventListener("touchstart", () => this.handleClick());
   }
 
   init() {

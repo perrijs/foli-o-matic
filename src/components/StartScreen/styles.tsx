@@ -43,7 +43,7 @@ export const Title = styled.h1`
 
 export const TitleSpan = styled(motion.span)``;
 
-export const Credit = styled(motion.h3)`
+export const Credit = styled(motion.h2)`
   margin: -${spacing.MARGIN_SMALL} 0 0;
   padding: 0;
 

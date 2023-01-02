@@ -2,7 +2,7 @@ export const ITEMS = [
   {
     id: "item_1",
     item_code: "01",
-    object: "/models/placeholder_joystick.glb",
+    object: "/models/joystick.glb",
     scalar: 0.07,
     position: {
       x: -1.6,
@@ -19,7 +19,7 @@ export const ITEMS = [
   {
     id: "item_2",
     item_code: "02",
-    object: "/models/placeholder_football.glb",
+    object: "/models/football.glb",
     scalar: 0.125,
     position: {
       x: -0.6,
@@ -36,7 +36,7 @@ export const ITEMS = [
   {
     id: "item_3",
     item_code: "03",
-    object: "/models/placeholder_pyramid.glb",
+    object: "/models/pyramid.glb",
     scalar: 0.125,
     position: {
       x: 0.4,
@@ -53,7 +53,7 @@ export const ITEMS = [
   {
     id: "item_4",
     item_code: "11",
-    object: "/models/placeholder_coin.glb",
+    object: "/models/coin.glb",
     scalar: 0.125,
     position: {
       x: -1.6,
@@ -70,7 +70,7 @@ export const ITEMS = [
   {
     id: "item_5",
     item_code: "12",
-    object: "/models/placeholder_peach.glb",
+    object: "/models/peach.glb",
     scalar: 0.125,
     position: {
       x: -0.6,
@@ -87,7 +87,7 @@ export const ITEMS = [
   {
     id: "item_6",
     item_code: "13",
-    object: "/models/placeholder_record.glb",
+    object: "/models/record.glb",
     scalar: 0.125,
     position: {
       x: 0.4,
@@ -103,6 +103,6 @@ export const ITEMS = [
   },
 ];
 
-export const WRAPPER = "/models/placeholder_wrapper.glb";
+export const WRAPPER = "/models/wrapper.glb";
 
-export const COIL = "/models/placeholder_coil.glb";
+export const COIL = "/models/coil.glb";

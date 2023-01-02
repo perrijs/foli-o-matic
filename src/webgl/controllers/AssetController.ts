@@ -58,7 +58,7 @@ export class AssetController {
 
   async loadMatcaps() {
     const matcapsMap = MATCAPS.map(async (url) => {
-      const texture = await this.loadTexture(`/textures/matcaps/${url}.png`);
+      const texture = await this.loadTexture(`/textures/matcaps/${url}.webp`);
 
       const matcap = new MeshMatcapMaterial({ matcap: texture });
 

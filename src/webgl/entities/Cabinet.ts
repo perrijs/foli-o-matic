@@ -222,7 +222,7 @@ export class Cabinet {
   createWindow() {
     if (!this.assetController.hdrs) return;
 
-    const hdr = this.assetController.hdrs[1];
+    const hdr = this.assetController.hdrs[0];
     hdr.mapping = EquirectangularReflectionMapping;
 
     const geometry = new BoxGeometry(3.5, 5.25, 0.1);
@@ -230,15 +230,14 @@ export class Cabinet {
       color: 0x666d70,
       emissive: 0x000000,
       transparent: true,
-      opacity: 0.15,
-      roughness: 0,
+      opacity: 0.1,
+      roughness: 0.3,
       metalness: 0,
       transmission: 0,
       reflectivity: 1,
       clearcoat: 1,
-      clearcoatRoughness: 0,
       envMap: hdr,
-      ior: 0.15,
+      ior: 1.5,
     });
     const mesh = new Mesh(geometry, material);
 

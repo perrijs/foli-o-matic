@@ -80,11 +80,11 @@ export class VendingMachine {
 
   addEventListeners() {
     window.addEventListener("resize", () => this.handleResize());
-    document.addEventListener("mousemove", (event) =>
+    window.addEventListener("mousemove", (event) =>
       this.handleMouseMove(event)
     );
-    document.addEventListener("click", () => this.handleClick());
-    document.addEventListener("touchstart", (event) =>
+    window.addEventListener("click", () => this.handleClick());
+    window.addEventListener("touchstart", (event) =>
       this.handleTouchStart(event)
     );
 
@@ -95,13 +95,13 @@ export class VendingMachine {
 
   removeEventListeners() {
     window.removeEventListener("resize", () => this.handleResize());
-    document.removeEventListener("mousemove", (event) =>
+    window.removeEventListener("mousemove", (event) =>
       this.handleMouseMove(event)
     );
-    document.removeEventListener("click", () => {
+    window.removeEventListener("click", () => {
       this.handleClick();
     });
-    document.removeEventListener("touchstart", (event) =>
+    window.removeEventListener("touchstart", (event) =>
       this.handleTouchStart(event)
     );
   }

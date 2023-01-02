@@ -84,7 +84,9 @@ export class VendingMachine {
       this.handleMouseMove(event)
     );
     document.addEventListener("click", () => this.handleClick());
-    document.addEventListener("touchstart", () => this.handleClick());
+    document.addEventListener("touchstart", (event) =>
+      this.handleTouchStart(event)
+    );
 
     PubSub.subscribe(GL_ZOOM_VENDING_MACHINE, () =>
       this.setDefaultPosition(2, true)
@@ -96,8 +98,12 @@ export class VendingMachine {
     document.removeEventListener("mousemove", (event) =>
       this.handleMouseMove(event)
     );
-    document.removeEventListener("click", () => this.handleClick());
-    document.removeEventListener("touchstart", () => this.handleClick());
+    document.removeEventListener("click", () => {
+      this.handleClick();
+    });
+    document.removeEventListener("touchstart", (event) =>
+      this.handleTouchStart(event)
+    );
   }
 
   init() {
@@ -121,6 +127,15 @@ export class VendingMachine {
 
     this.renderer.setAnimationLoop(() => this.render());
     this.canvasParent.appendChild(this.renderer.domElement);
+  }
+
+  handleTouchStart(event: TouchEvent) {
+    if (!this.pointer) return;
+
+    this.pointer.x =
+      (event.changedTouches[0].clientX / window.innerWidth) * 2 - 1;
+    this.pointer.y =
+      -(event.changedTouches[0].clientY / window.innerHeight) * 2 + 1;
   }
 
   handleMouseMove(event: MouseEvent) {

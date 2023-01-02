@@ -11,5 +11,7 @@ export const CanvasParent = styled.div`
   canvas {
     transform: translate(0) !important;
     inset: 0 !important;
+
+    user-select: none;
   }
 `;

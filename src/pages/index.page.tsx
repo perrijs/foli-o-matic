@@ -1,3 +1,5 @@
+import Head from "next/head";
+
 import ScrollTrigger from "@/components/ScrollTrigger";
 import MenuButton from "@/components/MenuButton";
 import Tooltip from "@/components/Tooltip";
@@ -9,6 +11,22 @@ import { TRIGGER_ELEMENTS } from "@/webgl/config/scrollTriggers";
 
 const Index = () => (
   <>
+    <Head>
+      <title>foli-o-matic! - Perri Schofield</title>
+
+      <meta property="og:title" content="foli-o-matic! - Perri Schofield" />
+      <meta
+        name="description"
+        content="Bite sized digital snacks for the busy creative on the go!"
+      />
+
+      <meta name="twitter:title" content="foli-o-matic! - Perri Schofield" />
+      <meta
+        name="twitter:description"
+        content="Bite sized digital snacks for the busy creative on the go!"
+      />
+    </Head>
+
     {TRIGGER_ELEMENTS.map((name) => (
       <ScrollTrigger key={name} className={name} />
     ))}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { AnimatePresence } from "framer-motion";
+import Head from "next/head";
 import type { AppProps } from "next/app";
+import { AnimatePresence } from "framer-motion";
 
 import StartScreen from "@/components/StartScreen";
 import { LoadingProvider } from "src/contexts/loadingContext";
@@ -25,6 +26,16 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <LoadingProvider>
+      <Head>
+        <link rel="shortcut icon" href="/images/meta/favicon.png" />
+
+        <meta property="og:url" content="https://perrijs.io" />
+        <meta property="og:image" content="/images/meta/share_image.jpg" />
+
+        <meta name="twitter:image" content="/images/meta/share_image.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Head>
+
       <Component {...pageProps} />
 
       <AnimatePresence>{show && <StartScreen />}</AnimatePresence>

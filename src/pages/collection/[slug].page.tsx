@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
@@ -45,6 +46,19 @@ const Project = ({ project }: PageProps) => {
 
   return (
     <ProjectWrapper>
+      <Head>
+        <title>foli-o-matic! - {project.name}</title>
+
+        <meta property="og:title" content={`foli-o-matic! - ${project.name}`} />
+        <meta property="og:description" content={project.description} />
+
+        <meta
+          name="twitter:title"
+          content={`foli-o-matic! - ${project.name}`}
+        />
+        <meta name="twitter:description" content={project.description} />
+      </Head>
+
       <HomeButton />
       <MenuButton />
 

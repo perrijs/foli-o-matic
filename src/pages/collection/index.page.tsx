@@ -1,4 +1,5 @@
 import { useRef, useEffect, useCallback } from "react";
+import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
@@ -76,20 +77,39 @@ const Collection = ({ projects }: PageProps) => {
 
   return (
     <CollectionWrapper>
+      <Head>
+        <title>foli-o-matic! - Perri Schofield</title>
+
+        <meta property="og:title" content="foli-o-matic! - Perri Schofield" />
+        <meta
+          name="description"
+          content="Bite sized digital snacks for the busy creative on the go!"
+        />
+
+        <meta name="twitter:title" content="foli-o-matic! - Perri Schofield" />
+        <meta
+          name="twitter:description"
+          content="Bite sized digital snacks for the busy creative on the go!"
+        />
+      </Head>
+
       <HomeButton isAlt />
 
       <AnimatePresence>
-        <TableHeaders
-          key="tableHeaders"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 0.33, ease: "easeInOut" }}
-        >
-          <TableHeader>TYPE</TableHeader>
-          <TableHeader>TITLE</TableHeader>
-          <TableHeader>CLIENT / ORGANISATION</TableHeader>
-          <TableHeader>YEAR</TableHeader>
-        </TableHeaders>
+        <AnimationSpan>
+          <TableHeaders
+            key="tableHeaders"
+            initial={{ y: "-100%" }}
+            animate={{ y: "0%" }}
+            transition={{ delay: 2, duration: 0.33, ease: "easeInOut" }}
+            onMouseEnter={() => PubSub.publish(GL_SET_MODEL, 99)}
+          >
+            <TableHeader>TYPE</TableHeader>
+            <TableHeader>TITLE</TableHeader>
+            <TableHeader>CLIENT / ORGANISATION</TableHeader>
+            <TableHeader>YEAR</TableHeader>
+          </TableHeaders>
+        </AnimationSpan>
 
         <TableSection onMouseLeave={() => PubSub.publish(GL_SET_MODEL, 99)}>
           <AnimationSpan>
@@ -154,41 +174,39 @@ const Collection = ({ projects }: PageProps) => {
             </TableSectionType>
           </AnimationSpan>
 
-          {OTHER_WORKS.map((project: OtherWork, index) => {
-            return (
-              <Link
-                key={project.name}
-                href={project.url}
-                passHref={true}
-                target="_blank"
-              >
-                <AnimationSpan>
-                  <TableRow
-                    initial={{ opacity: 0, y: "-100%" }}
-                    animate={{ opacity: 1, y: "0%" }}
-                    transition={{
-                      delay: 2.4 + index * 0.05,
-                      duration: 0.33,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    <TableSectionCode>{project.code}</TableSectionCode>
-                    <TableSectionEntry>{project.name}</TableSectionEntry>
-                    <TableSectionEntry>{project.client}</TableSectionEntry>
-                    <TableSectionEntry>
-                      {project.date}
-                      <Image
-                        src="/images/icons/open_in_new.svg"
-                        width="18"
-                        height="18"
-                        alt=""
-                      />
-                    </TableSectionEntry>
-                  </TableRow>
-                </AnimationSpan>
-              </Link>
-            );
-          })}
+          {OTHER_WORKS.map((project: OtherWork, index) => (
+            <Link
+              key={project.name}
+              href={project.url}
+              passHref={true}
+              target="_blank"
+            >
+              <AnimationSpan>
+                <TableRow
+                  initial={{ opacity: 0, y: "-100%" }}
+                  animate={{ opacity: 1, y: "0%" }}
+                  transition={{
+                    delay: 2.4 + index * 0.05,
+                    duration: 0.33,
+                    ease: "easeInOut",
+                  }}
+                >
+                  <TableSectionCode>{project.code}</TableSectionCode>
+                  <TableSectionEntry>{project.name}</TableSectionEntry>
+                  <TableSectionEntry>{project.client}</TableSectionEntry>
+                  <TableSectionEntry>
+                    {project.date}
+                    <Image
+                      src="/images/icons/open_in_new.svg"
+                      width="18"
+                      height="18"
+                      alt=""
+                    />
+                  </TableSectionEntry>
+                </TableRow>
+              </AnimationSpan>
+            </Link>
+          ))}
         </TableSection>
 
         <TableSection>
@@ -204,41 +222,39 @@ const Collection = ({ projects }: PageProps) => {
             </TableSectionType>
           </AnimationSpan>
 
-          {AWARDS.map((award: Award, index) => {
-            return (
-              <Link
-                key={award.name}
-                href={award.url}
-                passHref={true}
-                target="_blank"
-              >
-                <AnimationSpan>
-                  <TableRow
-                    initial={{ opacity: 0, y: "-100%" }}
-                    animate={{ opacity: 1, y: "0%" }}
-                    transition={{
-                      delay: 2.65 + index * 0.05,
-                      duration: 0.33,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    <TableSectionCode>{award.code}</TableSectionCode>
-                    <TableSectionEntry>{award.name}</TableSectionEntry>
-                    <TableSectionEntry>{award.organisation}</TableSectionEntry>
-                    <TableSectionEntry>
-                      {award.year}
-                      <Image
-                        src="/images/icons/open_in_new.svg"
-                        width="18"
-                        height="18"
-                        alt=""
-                      />
-                    </TableSectionEntry>
-                  </TableRow>
-                </AnimationSpan>
-              </Link>
-            );
-          })}
+          {AWARDS.map((award: Award, index) => (
+            <Link
+              key={award.name}
+              href={award.url}
+              passHref={true}
+              target="_blank"
+            >
+              <AnimationSpan>
+                <TableRow
+                  initial={{ opacity: 0, y: "-100%" }}
+                  animate={{ opacity: 1, y: "0%" }}
+                  transition={{
+                    delay: 2.65 + index * 0.05,
+                    duration: 0.33,
+                    ease: "easeInOut",
+                  }}
+                >
+                  <TableSectionCode>{award.code}</TableSectionCode>
+                  <TableSectionEntry>{award.name}</TableSectionEntry>
+                  <TableSectionEntry>{award.organisation}</TableSectionEntry>
+                  <TableSectionEntry>
+                    {award.year}
+                    <Image
+                      src="/images/icons/open_in_new.svg"
+                      width="18"
+                      height="18"
+                      alt=""
+                    />
+                  </TableSectionEntry>
+                </TableRow>
+              </AnimationSpan>
+            </Link>
+          ))}
         </TableSection>
       </AnimatePresence>
 

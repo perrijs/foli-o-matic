@@ -3,4 +3,6 @@ import { motion } from "framer-motion";
 
 export const VideoPlayer = styled(motion.video)`
   width: 100%;
+
+  object-fit: cover;
 `;

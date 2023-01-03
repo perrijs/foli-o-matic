@@ -127,12 +127,13 @@ const Project = ({ project }: PageProps) => {
                 <ProjectInfo>{project.description}</ProjectInfo>
                 <ProjectRolesContainer>
                   {project.roles.map((role, index) => (
-                    <div key={role}>
+                    <span key={role}>
                       <ProjectRole>{role}</ProjectRole>
+
                       {index < project.roles.length - 1 && (
-                        <ProjectRole>&#8226;</ProjectRole>
+                        <ProjectRole key={`span-${index}`}>&#8226;</ProjectRole>
                       )}
-                    </div>
+                    </span>
                   ))}
                 </ProjectRolesContainer>
               </ProjectInfoContainer>

@@ -41,7 +41,10 @@ export const Title = styled.h1`
   ${type.TYPE_CURSIVE_HEADER_1}
 `;
 
-export const TitleSpan = styled(motion.span)``;
+export const TitleSpan = styled(motion.span)`
+  padding: 0 30px;
+  margin: 0 -30px;
+`;
 
 export const Credit = styled(motion.h2)`
   margin: -${spacing.MARGIN_SMALL} 0 0;

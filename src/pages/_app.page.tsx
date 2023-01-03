@@ -28,6 +28,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <LoadingProvider>
       <Head>
         <link rel="shortcut icon" href="/images/meta/favicon.png" />
+        <link rel="apple-touch-icon" href="/images/meta/favicon.png" />
 
         <meta property="og:url" content="https://perrijs.io" />
         <meta property="og:image" content="/images/meta/share_image.jpg" />

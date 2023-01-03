@@ -109,9 +109,16 @@ export const ProjectLink = styled(motion.div)`
 export const ContentContainer = styled.div`
   display: flex;
   position: relative;
-  max-width: 1100px;
+  max-width: 80vw;
+  max-height: 80vh;
 
   flex-direction: column;
+  align-items: center;
+  aspect-ratio: 4 / 3;
+
+  @media (max-width: ${breakpoint.MOBILE_MAX}) {
+    max-width: 95vw;
+  }
 `;
 
 export const VideoContainer = styled.div`
@@ -177,6 +184,12 @@ export const ProjectRolesContainer = styled.div`
   display: flex;
 
   gap: ${spacing.MARGIN_EXTRA_SMALL};
+
+  span {
+    display: flex;
+
+    gap: ${spacing.MARGIN_EXTRA_SMALL};
+  }
 `;
 
 export const ProjectRole = styled.span`

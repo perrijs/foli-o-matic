@@ -133,16 +133,17 @@ export class VendingMachine {
     if (!this.pointer) return;
 
     this.pointer.x =
-      (event.changedTouches[0].clientX / window.innerWidth) * 2 - 1;
+      (event.changedTouches[0].clientX / this.canvasParent.clientWidth) * 2 - 1;
     this.pointer.y =
-      -(event.changedTouches[0].clientY / window.innerHeight) * 2 + 1;
+      -(event.changedTouches[0].clientY / this.canvasParent.clientHeight) * 2 +
+      1;
   }
 
   handleMouseMove(event: MouseEvent) {
     if (!this.pointer) return;
 
-    this.pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
-    this.pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    this.pointer.x = (event.clientX / this.canvasParent.clientWidth) * 2 - 1;
+    this.pointer.y = -(event.clientY / this.canvasParent.clientHeight) * 2 + 1;
   }
 
   handleResize() {

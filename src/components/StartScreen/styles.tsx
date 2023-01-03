@@ -32,8 +32,9 @@ export const ContentContainer = styled.div`
 export const Title = styled.h1`
   display: flex;
   margin: 0;
-  padding: ${spacing.MARGIN_SMALL};
+  padding: ${spacing.MARGIN_SMALL} ${spacing.MARGIN_LARGE};
 
+  overflow: hidden;
   color: ${color.VERMILLION};
   text-shadow: 2px 2px ${color.COSMIC_LATTE};
 

@@ -152,7 +152,7 @@ export const InfoButtonSpan = styled(motion.span)`
 export const ProjectInfoButton = styled(motion.button)`
   position: absolute;
   display: flex;
-  bottom: ${spacing.MARGIN_MEDIUM};
+  bottom: ${spacing.MARGIN_SMALL};
   right: ${spacing.MARGIN_MEDIUM};
   margin: 0;
   padding: 0;
@@ -169,14 +169,16 @@ export const ProjectInfoButton = styled(motion.button)`
 export const ProjectInfo = styled.p`
   color: ${color.WHITE};
   pointer-events: none;
+  margin: 0;
+  padding: 0;
 
   font-family: "Playfair Display", serif;
-  font-size: 3vw;
+  font-size: 24px;
   font-weight: 400;
   font-style: italic;
 
   @media (max-width: ${breakpoint.MOBILE_MAX}) {
-    font-size: 5vw;
+    font-size: 16px;
   }
 `;
 
@@ -195,13 +197,15 @@ export const ProjectRolesContainer = styled.div`
 export const ProjectRole = styled.span`
   color: ${color.WHITE};
   pointer-events: none;
+  margin: ${spacing.MARGIN_MEDIUM} 0 0;
+  padding: 0;
 
   font-family: "Playfair Display", serif;
-  font-size: 2vw;
+  font-size: 20px;
   font-weight: 400;
 
   @media (max-width: ${breakpoint.MOBILE_MAX}) {
-    font-size: 3vw;
+    font-size: 12px;
   }
 `;
 

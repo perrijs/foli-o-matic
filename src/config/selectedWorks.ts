@@ -8,8 +8,8 @@ export const SELECTED_WORKS = [
     client: "Google Store",
     date: "2022",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
-    roles: ["Lead", "WebGL", "Frontend", "Backend"],
+      "Hopping past the black friday crowds, Shopper Hopper is a digital game with physical print-based components that exhibits the ease of online shopping through a voxel-based 3D infinite runner. Built for Google Store at PHANTOM.",
+    roles: ["WebGL", "Frontend", "Backend"],
     url: "shopperhopper.withgoogle.com",
     video: "/videos/projects/shopper_hopper.mp4",
   },
@@ -21,8 +21,8 @@ export const SELECTED_WORKS = [
     client: "YouTube",
     date: "2022",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
-    roles: ["Lead", "WebGL", "Frontend", "Backend"],
+      "Generating fanfare through competition, YouTube United was a digital game and physical installation that pit expo attendees and their World Cup trivia knowledge against each other. Built for YouTube at PHANTOM.",
+    roles: ["Frontend", "Backend"],
     video: "/videos/projects/youtube_united.mp4",
   },
   {
@@ -33,8 +33,8 @@ export const SELECTED_WORKS = [
     client: "Google Arts & Culture",
     date: "2021",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
-    roles: ["Lead", "WebGL", "Frontend", "Backend"],
+      "Exploring the ancient capital of the Kushite, Pyramids of Meroë is a 3D narrative scrolling experience that navigates various archeological structures at the site. Built for Google Arts & Culture with Google Brand Studio at PHANTOM.",
+    roles: ["Frontend", "Audio"],
     url: "https://artsexperiments.withgoogle.com/meroe/",
     video: "/videos/projects/pyramids_of_meroe.mp4",
   },
@@ -46,8 +46,8 @@ export const SELECTED_WORKS = [
     client: "Financial Times",
     date: "2021",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
-    roles: ["Lead", "WebGL", "Frontend", "Backend"],
+      "Serving bespoke educational articles, Digital Assets Demystified is a questionnaire based article series that guides the user through the content based on their familiarity. Built for Financial Times at PHANTOM.",
+    roles: ["Frontend"],
     url: "https://digitalassetsdemystified.ft.com/",
     video: "/videos/projects/digital_assets_demystified.mp4",
   },
@@ -59,8 +59,8 @@ export const SELECTED_WORKS = [
     client: "Sony Music x Doja Cat",
     date: "2021",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
-    roles: ["Lead", "WebGL", "Frontend", "Backend"],
+      "Prepping Doja Cat fans for launch, Visit Planet Her was a multi-stage Spotify-driven 3D narrative that took users all the way through a gamified flight booking process to their pre-album launch party destination. Built for Sony Musix x Doja Cat at PHANTOM.",
+    roles: ["Frontend", "Backend"],
     video: "/videos/projects/visit_planet_her.mp4",
   },
   {
@@ -71,8 +71,8 @@ export const SELECTED_WORKS = [
     client: "XXIM Records",
     date: "2020",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis libero, ullamcorper non ligula ut, finibus commodo eros. Sed congue, sem sed rutrum aliquam, urna enim pulvinar tortor, tincidunt feugiat lorem orci sed augue.",
-    roles: ["Lead", "WebGL", "Frontend", "Backend"],
+      "Exploring music through motion, XXIM Records launch page was an audio-driven label launch site that highlighted newly signed artists and their new releases. Built for XXIM Records at PHANTOM.",
+    roles: ["Frontend", "Audio"],
     video: "/videos/projects/xxim.mp4",
   },
 ];

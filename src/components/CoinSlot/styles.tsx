@@ -6,8 +6,4 @@ export const CanvasParent = styled.div`
   height: 100%;
 
   z-index: 0;
-
-  &:hover {
-    cursor: pointer;
-  }
 `;

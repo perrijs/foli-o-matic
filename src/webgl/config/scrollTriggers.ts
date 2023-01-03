@@ -1,4 +1,5 @@
-export const SCROLL_HEIGHT = 4000;
+export const SCROLL_HEIGHT = 2000;
+
 export const TRIGGER_ELEMENTS = ["scrollTriggerOne", "scrollTriggerTwo"];
 
 export const CAMERA_POSITION = [

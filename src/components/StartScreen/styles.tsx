@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { motion } from "framer-motion";
 
 import * as color from "@/styles/globals/color";
@@ -34,7 +34,6 @@ export const Title = styled.h1`
   margin: 0;
   padding: ${spacing.MARGIN_SMALL};
 
-  overflow: hidden;
   color: ${color.VERMILLION};
   text-shadow: 2px 2px ${color.COSMIC_LATTE};
 
@@ -55,7 +54,11 @@ export const Credit = styled(motion.h2)`
   ${type.TYPE_SANS_BODY_1}
 `;
 
-export const CoinSlotContainer = styled(motion.div)`
+interface CoinSlotContainerProps {
+  $ready: boolean;
+}
+
+export const CoinSlotContainer = styled(motion.div)<CoinSlotContainerProps>`
   display: flex;
   width: 35vw;
   height: 35vw;
@@ -65,4 +68,12 @@ export const CoinSlotContainer = styled(motion.div)`
     width: 100vw;
     height: 100vw;
   }
+
+  ${(props) =>
+    props.$ready &&
+    css`
+      &:hover {
+        cursor: pointer;
+      }
+    `}
 `;

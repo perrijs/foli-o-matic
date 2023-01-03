@@ -78,15 +78,15 @@ const Collection = ({ projects }: PageProps) => {
   return (
     <CollectionWrapper>
       <Head>
-        <title>foli-o-matic! - Perri Schofield</title>
+        <title>FOLI-O-MATIC!</title>
 
-        <meta property="og:title" content="foli-o-matic! - Perri Schofield" />
+        <meta property="og:title" content="FOLI-O-MATIC!" />
         <meta
           name="description"
           content="Bite sized digital snacks for the busy creative on the go!"
         />
 
-        <meta name="twitter:title" content="foli-o-matic! - Perri Schofield" />
+        <meta name="twitter:title" content="FOLI-O-MATIC!" />
         <meta
           name="twitter:description"
           content="Bite sized digital snacks for the busy creative on the go!"

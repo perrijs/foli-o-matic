@@ -172,7 +172,7 @@ export class Cabinet {
 
     const labels = [-1.6, -0.6, 0.4];
     labels.forEach((x, j) => {
-      this.createLabel(x, y, 2, `${i}${j + 1}`);
+      this.createLabel(x, y, 2.01, `${i}${j + 1}`);
     });
   }
 

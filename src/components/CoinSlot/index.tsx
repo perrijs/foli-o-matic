@@ -14,12 +14,7 @@ const CoinSlot = () => {
     new WorldCoinSlot(canvasParent.current);
   }, []);
 
-  return (
-    <CanvasParent
-      ref={canvasParent}
-      onClick={() => PubSub.publish(GL_INSERT_COIN)}
-    />
-  );
+  return <CanvasParent ref={canvasParent} />;
 };
 
 export default CoinSlot;

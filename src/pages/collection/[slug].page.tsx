@@ -47,14 +47,14 @@ const Project = ({ project }: PageProps) => {
   return (
     <ProjectWrapper>
       <Head>
-        <title>foli-o-matic! - {project.name}</title>
+        <title>FOLI-O-MATIC! | {project.name}</title>
 
-        <meta property="og:title" content={`foli-o-matic! - ${project.name}`} />
+        <meta property="og:title" content={`FOLI-O-MATIC! | ${project.name}`} />
         <meta property="og:description" content={project.description} />
 
         <meta
           name="twitter:title"
-          content={`foli-o-matic! - ${project.name}`}
+          content={`FOLI-O-MATIC! | ${project.name}`}
         />
         <meta name="twitter:description" content={project.description} />
       </Head>

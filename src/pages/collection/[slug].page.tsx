@@ -47,15 +47,12 @@ const Project = ({ project }: PageProps) => {
   return (
     <ProjectWrapper>
       <Head>
-        <title>FOLI-O-MATIC! | {project.name}</title>
+        <title>FOLI-O-MATIC | {project.name}</title>
 
-        <meta property="og:title" content={`FOLI-O-MATIC! | ${project.name}`} />
+        <meta property="og:title" content={`FOLI-O-MATIC | ${project.name}`} />
         <meta property="og:description" content={project.description} />
 
-        <meta
-          name="twitter:title"
-          content={`FOLI-O-MATIC! | ${project.name}`}
-        />
+        <meta name="twitter:title" content={`FOLI-O-MATIC | ${project.name}`} />
         <meta name="twitter:description" content={project.description} />
       </Head>
 
@@ -143,7 +140,7 @@ const Project = ({ project }: PageProps) => {
               key={"infoButton"}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 4, duration: 1, ease: "easeOut" }}
+              transition={{ delay: 3, duration: 1, ease: "easeOut" }}
               onClick={() => setShowInfo(!showInfo)}
             >
               <Image

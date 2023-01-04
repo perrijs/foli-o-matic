@@ -9,7 +9,7 @@ export class Renderer extends WebGLRenderer {
     this.shadowMap.enabled = true;
     this.shadowMap.type = PCFSoftShadowMap;
 
-    this.setPixelRatio(window.devicePixelRatio);
+    this.setPixelRatio(window.devicePixelRatio * 0.66);
   }
 
   setAspectRatio(elementCanvasParent: HTMLDivElement) {

@@ -65,7 +65,7 @@ const Project = ({ project }: PageProps) => {
             <ProjectTitle
               initial={{ opacity: 0, y: "-100%" }}
               animate={{ opacity: 1, y: "0%" }}
-              transition={{ delay: 2.5, duration: 0.33, ease: "easeInOut" }}
+              transition={{ delay: 1.5, duration: 0.33, ease: "easeInOut" }}
             >
               {project.name} /
             </ProjectTitle>
@@ -76,7 +76,7 @@ const Project = ({ project }: PageProps) => {
               <ProjectCredits
                 initial={{ opacity: 0, y: "-100%" }}
                 animate={{ opacity: 1, y: "0%" }}
-                transition={{ delay: 2.55, duration: 0.33, ease: "easeInOut" }}
+                transition={{ delay: 1.55, duration: 0.33, ease: "easeInOut" }}
               >
                 {project.client}, {project.date}
               </ProjectCredits>
@@ -87,7 +87,7 @@ const Project = ({ project }: PageProps) => {
                 <ProjectLink
                   initial={{ opacity: 0, y: "-100%" }}
                   animate={{ opacity: 1, y: "0%" }}
-                  transition={{ delay: 2.6, duration: 0.33, ease: "easeInOut" }}
+                  transition={{ delay: 1.6, duration: 0.33, ease: "easeInOut" }}
                 >
                   <Link
                     key={project.name}
@@ -140,7 +140,7 @@ const Project = ({ project }: PageProps) => {
               key={"infoButton"}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 3, duration: 1, ease: "easeOut" }}
+              transition={{ delay: 2, duration: 1, ease: "easeOut" }}
               onClick={() => setShowInfo(!showInfo)}
             >
               <Image

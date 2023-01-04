@@ -13,7 +13,6 @@ const WipeScreen = () => {
         transform: "translateY(0%)",
       },
       {
-        delay: 1,
         duration: 1,
         ease: "power4.inOut",
         transform: "translateY(-100%)",

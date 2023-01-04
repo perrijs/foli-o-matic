@@ -82,13 +82,15 @@ export const TableRow = styled(motion.div)`
   &:hover {
     cursor: pointer;
 
-    img {
-      transform: translateX(0%);
-      opacity: 1;
-    }
+    @media (min-width: ${breakpoint.MOBILE_MAX}) {
+      span {
+        color: ${color.VERMILLION};
+      }
 
-    span {
-      color: ${color.VERMILLION};
+      img {
+        transform: translateX(0%);
+        opacity: 1;
+      }
     }
   }
 `;

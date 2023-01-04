@@ -10,7 +10,7 @@ export const SELECTED_WORKS = [
     description:
       "Hopping past the black friday crowds, Shopper Hopper is a digital game with physical print-based components that exhibits the ease of online shopping through a voxel-based 3D infinite runner. Built for Google Store at PHANTOM.",
     roles: ["WebGL", "Frontend", "Backend"],
-    url: "shopperhopper.withgoogle.com",
+    url: "https://shopperhopper.withgoogle.com",
     video: "/videos/projects/shopper_hopper.mp4",
   },
   {
@@ -21,7 +21,7 @@ export const SELECTED_WORKS = [
     client: "YouTube",
     date: "2022",
     description:
-      "Generating fanfare through competition, YouTube United was a digital game and physical installation that pit expo attendees and their World Cup trivia knowledge against each other. Built for YouTube at PHANTOM.",
+      "Building fanfare through friendly competition, YouTube United was a digital game and physical installation that pit expo attendees' World Cup trivia knowledge against each others. Built for YouTube at PHANTOM.",
     roles: ["Frontend", "Backend"],
     video: "/videos/projects/youtube_united.mp4",
   },
@@ -71,7 +71,7 @@ export const SELECTED_WORKS = [
     client: "XXIM Records",
     date: "2020",
     description:
-      "Exploring music through motion, XXIM Records launch page was an audio-driven label launch site that highlighted newly signed artists and their new releases. Built for XXIM Records at PHANTOM.",
+      "Exploring music through motion, XXIM Records label launch page was an audio-driven label launch site that highlighted newly signed artists and their new releases. Built for XXIM Records at PHANTOM.",
     roles: ["Frontend", "Audio"],
     video: "/videos/projects/xxim.mp4",
   },

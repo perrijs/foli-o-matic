@@ -37,7 +37,7 @@ export const ITEMS = [
     id: "item_3",
     item_code: "03",
     object: "/models/pyramid.glb",
-    scalar: 0.125,
+    scalar: 0.15,
     position: {
       x: 0.4,
       y: 2.125,
@@ -54,7 +54,7 @@ export const ITEMS = [
     id: "item_4",
     item_code: "11",
     object: "/models/coin.glb",
-    scalar: 0.125,
+    scalar: 0.075,
     position: {
       x: -1.6,
       y: 0.625,
@@ -88,7 +88,7 @@ export const ITEMS = [
     id: "item_6",
     item_code: "13",
     object: "/models/record.glb",
-    scalar: 0.125,
+    scalar: 0.175,
     position: {
       x: 0.4,
       y: 0.625,

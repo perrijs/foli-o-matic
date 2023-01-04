@@ -60,12 +60,8 @@ export class ItemController {
     if (!this.items) return;
 
     const model = this.items[index].model;
-    model.position.x = 0;
-    model.position.y = 0;
-    model.position.z = 0;
-    model.rotation.x = 0;
-    model.rotation.y = 0;
-    model.rotation.z = 0;
+    model.position.set(0, 0, 0);
+    model.rotation.set(0, 0, 0);
   }
 
   handleMove(_topic: string, data: string) {

@@ -4,7 +4,7 @@ import {
   Mesh,
   PlaneGeometry,
   MeshPhysicalMaterial,
-  MeshLambertMaterial,
+  MeshStandardMaterial,
   DoubleSide,
 } from "three";
 
@@ -57,10 +57,12 @@ export class Wrapper {
   async addCard() {
     const textureLoader = new TextureLoader();
 
-    const texture = await textureLoader.load("/textures/wrapper/item_card.png");
+    const texture = await textureLoader.load(
+      "/textures/cards/wrapper_card.png"
+    );
 
     const geometry = new PlaneGeometry(0.55, 0.309, 1);
-    const material = new MeshLambertMaterial({
+    const material = new MeshStandardMaterial({
       map: texture,
       side: DoubleSide,
     });

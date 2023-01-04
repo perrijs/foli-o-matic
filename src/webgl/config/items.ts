@@ -103,6 +103,45 @@ export const ITEMS = [
   },
 ];
 
+export const SOLD_OUTS_CARDS = [
+  {
+    position: {
+      x: -1.6,
+      y: -0.875,
+      z: 1.85,
+    },
+    rotation: {
+      x: -0.25,
+      y: 0,
+      z: 0,
+    },
+  },
+  {
+    position: {
+      x: -0.6,
+      y: -0.875,
+      z: 1.85,
+    },
+    rotation: {
+      x: -0.25,
+      y: 0,
+      z: 0,
+    },
+  },
+  {
+    position: {
+      x: 0.4,
+      y: -0.875,
+      z: 1.85,
+    },
+    rotation: {
+      x: -0.25,
+      y: 0,
+      z: 0,
+    },
+  },
+];
+
 export const WRAPPER = "/models/wrapper.glb";
 
 export const COIL = "/models/coil.glb";

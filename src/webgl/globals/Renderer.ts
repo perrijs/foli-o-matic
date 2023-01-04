@@ -11,9 +11,10 @@ export class Renderer extends WebGLRenderer {
   }
 
   setAspectRatio(elementCanvasParent: HTMLDivElement) {
-    this.setPixelRatio(
-      window.devicePixelRatio * (window.innerWidth < 600 ? 1 : 0.66)
-    );
+    const altPixelRatio = window.devicePixelRatio * 0.66;
+    window.innerWidth < 600
+      ? this.setPixelRatio(window.devicePixelRatio)
+      : this.setPixelRatio(altPixelRatio < 1 ? 1 : altPixelRatio);
 
     this.setSize(
       elementCanvasParent.clientWidth,

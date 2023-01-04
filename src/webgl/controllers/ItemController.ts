@@ -6,8 +6,9 @@ import { Scene } from "@/webgl/globals/Scene";
 import { AssetController } from "@/webgl/controllers/AssetController";
 import { Wrapper } from "@/webgl/entities/Wrapper";
 import { Item } from "@/webgl/entities/Item";
+import { Card } from "@/webgl/entities/Card";
 
-import { ITEMS } from "@/webgl/config/items";
+import { ITEMS, SOLD_OUTS_CARDS } from "@/webgl/config/items";
 import { GL_SELECT_ITEM } from "@/webgl/config/topics";
 
 export class ItemController {
@@ -44,6 +45,10 @@ export class ItemController {
 
       const item = new Item(this.scene, itemData, itemGroup);
       this.items.push(item);
+    });
+
+    SOLD_OUTS_CARDS.forEach((itemData) => {
+      new Card(this.scene, itemData);
     });
   }
 

@@ -32,6 +32,11 @@ export interface ItemData {
   slug: string;
 }
 
+export interface CardData {
+  position: Position;
+  rotation: Rotation;
+}
+
 export interface Textures {
   id: string;
   texture: Texture;

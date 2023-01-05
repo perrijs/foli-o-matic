@@ -1,16 +1,10 @@
 import { useRef, useEffect, useCallback } from "react";
-import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
 
-import HomeButton from "@/components/HomeButton";
 import ItemCanvas from "@/components/ItemCanvas";
-import Footer from "@/components/Footer";
-import WipeScreen from "@/components/WipeScreen";
-import TransitionScreen from "@/components/TransitionScreen";
 
-import { SELECTED_WORKS } from "src/config/selectedWorks";
 import { OTHER_WORKS } from "src/config/otherWorks";
 import { AWARDS } from "src/config/awards";
 import { SelectedWork, OtherWork, Award } from "src/config/types";
@@ -77,24 +71,6 @@ const Collection = ({ projects }: PageProps) => {
 
   return (
     <CollectionWrapper>
-      <Head>
-        <title>FOLI-O-MATIC | Perri Schofield</title>
-
-        <meta property="og:title" content="FOLI-O-MATIC | Perri Schofield" />
-        <meta
-          name="description"
-          content="Bite sized digital snacks for the busy creative on the go!"
-        />
-
-        <meta name="twitter:title" content="FOLI-O-MATIC | Perri Schofield" />
-        <meta
-          name="twitter:description"
-          content="Bite sized digital snacks for the busy creative on the go!"
-        />
-      </Head>
-
-      <HomeButton isAlt />
-
       <AnimatePresence>
         <AnimationSpan>
           <TableHeaders
@@ -263,19 +239,8 @@ const Collection = ({ projects }: PageProps) => {
           <ItemCanvas />
         </CanvasContainer>
       )}
-
-      <WipeScreen />
-      <TransitionScreen />
-
-      <Footer />
     </CollectionWrapper>
   );
 };
 
 export default Collection;
-
-export const getStaticProps = async () => {
-  return {
-    props: { projects: SELECTED_WORKS },
-  };
-};

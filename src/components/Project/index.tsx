@@ -1,16 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import Head from "next/head";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
 
-import HomeButton from "@/components/HomeButton";
-import MenuButton from "@/components/MenuButton";
 import Video from "@/components/Video";
-import WipeScreen from "@/components/WipeScreen";
-import TransitionScreen from "@/components/TransitionScreen";
 
-import { SELECTED_WORKS } from "src/config/selectedWorks";
 import { SelectedWork } from "src/config/types";
 
 import {
@@ -29,7 +23,7 @@ import {
   ProjectRole,
   InfoButtonSpan,
   AnimationSpan,
-} from "./slugStyles";
+} from "./styles";
 
 interface PageProps {
   project: SelectedWork;
@@ -40,25 +34,8 @@ const Project = ({ project }: PageProps) => {
 
   const [showInfo, setShowInfo] = useState<boolean>(false);
 
-  useEffect(() => {
-    document.body.style.overflowY = "hidden";
-  }, []);
-
   return (
     <ProjectWrapper>
-      <Head>
-        <title>FOLI-O-MATIC | {project.name}</title>
-
-        <meta property="og:title" content={`FOLI-O-MATIC | ${project.name}`} />
-        <meta property="og:description" content={project.description} />
-
-        <meta name="twitter:title" content={`FOLI-O-MATIC | ${project.name}`} />
-        <meta name="twitter:description" content={project.description} />
-      </Head>
-
-      <HomeButton />
-      <MenuButton />
-
       <ContentContainer>
         <TitleContainer>
           <AnimationSpan>
@@ -167,36 +144,8 @@ const Project = ({ project }: PageProps) => {
           </AnimatePresence>
         </VideoContainer>
       </ContentContainer>
-
-      <WipeScreen />
-      <TransitionScreen />
     </ProjectWrapper>
   );
 };
 
 export default Project;
-
-export const getStaticPaths = async () => {
-  const paths = SELECTED_WORKS.map((project) => {
-    return {
-      params: { slug: project.slug },
-    };
-  });
-
-  return {
-    paths,
-    fallback: false,
-  };
-};
-
-export const getStaticProps = async (context: { params: { slug: string } }) => {
-  let data;
-
-  SELECTED_WORKS.forEach((element) => {
-    if (element.slug === context.params.slug) data = element;
-  });
-
-  return {
-    props: { project: data },
-  };
-};

@@ -8,6 +8,7 @@ import { Load } from "@/webgl/load";
 import { useLoading } from "@/contexts/loadingContext";
 
 import { GL_INSERT_COIN } from "@/webgl/config/topics";
+import { TITLE_CHARACTERS } from "src/config/titleCharacters";
 
 import {
   StartScreenWrapper,
@@ -17,22 +18,6 @@ import {
   TitleSpan,
   CoinSlotContainer,
 } from "./styles";
-
-const CHARACTERS = [
-  "f",
-  "o",
-  "l",
-  "i",
-  "-",
-  "o",
-  "-",
-  "m",
-  "a",
-  "t",
-  "i",
-  "c",
-  "!",
-];
 
 const StartScreen = () => {
   const { loaded } = useLoading();
@@ -52,7 +37,7 @@ const StartScreen = () => {
         {loaded ? (
           <ContentContainer>
             <Title>
-              {CHARACTERS.map((character, index) => (
+              {TITLE_CHARACTERS.map((character, index) => (
                 <TitleSpan
                   key={index}
                   initial={{ y: "-150%" }}
@@ -63,7 +48,8 @@ const StartScreen = () => {
                     ease: "easeInOut",
                   }}
                   onAnimationComplete={() => {
-                    if (index === CHARACTERS.length - 1) setTitleComplete(true);
+                    if (index === TITLE_CHARACTERS.length - 1)
+                      setTitleComplete(true);
                   }}
                 >
                   {character}

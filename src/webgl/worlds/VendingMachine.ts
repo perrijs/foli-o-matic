@@ -29,7 +29,7 @@ import {
   TRIGGER_ELEMENTS,
   SCROLL_HEIGHT,
 } from "@/webgl/config/scrollTriggers";
-import { Position } from "@/webgl/config/types";
+import { Vec3 } from "@/webgl/config/types";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -88,7 +88,7 @@ export class VendingMachine {
     );
 
     PubSub.subscribe(GL_ZOOM_VENDING_MACHINE, () =>
-      this.setDefaultPosition(2, true)
+      this.setPositionDefault(2, true)
     );
   }
 
@@ -128,6 +128,71 @@ export class VendingMachine {
     this.canvasParent.appendChild(this.renderer.domElement);
   }
 
+  initScroll() {
+    const timeline = gsap.timeline();
+
+    TRIGGER_ELEMENTS.forEach((query, index) => {
+      const triggerElement = document.querySelector(
+        `.${query}`
+      ) as HTMLDivElement;
+
+      this.createPathPoint(
+        timeline,
+        triggerElement,
+        {
+          x: CAMERA_POSITION[index].x,
+          y: CAMERA_POSITION[index].y,
+          z: CAMERA_POSITION[index].z,
+        },
+        SCROLL_HEIGHT * index
+      );
+    });
+  }
+
+  createPathPoint(
+    timeline: GSAPTimeline | null,
+    trigger: HTMLDivElement,
+    position: Vec3,
+    start: number
+  ) {
+    if (timeline)
+      timeline.to(this.camera.position, {
+        x: position.x,
+        y: position.y,
+        z: this.isMobile ? position.z + 2 : position.z,
+        scrollTrigger: {
+          trigger,
+          start,
+          scrub: true,
+          immediateRender: false,
+          onToggle: (self: { isActive: boolean }) => {
+            if (self.isActive) this.handleTooltip();
+          },
+        },
+      });
+
+    PubSub.subscribe(UI_HANDLE_TRANSITION, () => {
+      if (timeline) {
+        timeline.kill();
+        timeline = null;
+      }
+
+      document.body.style.overflowY = "hidden";
+
+      setTimeout(() => {
+        this.removeEventListeners();
+        this.renderer.setAnimationLoop(null);
+      }, 1000);
+    });
+  }
+
+  handleResize() {
+    this.isMobile = this.canvasParent.clientWidth < 600;
+
+    this.renderer.setAspectRatio(this.canvasParent);
+    this.camera.setAspectRatio(this.canvasParent);
+  }
+
   handleTouchStart(event: TouchEvent) {
     if (!this.pointer) return;
 
@@ -143,13 +208,6 @@ export class VendingMachine {
 
     this.pointer.x = (event.clientX / this.canvasParent.clientWidth) * 2 - 1;
     this.pointer.y = -(event.clientY / this.canvasParent.clientHeight) * 2 + 1;
-  }
-
-  handleResize() {
-    this.isMobile = this.canvasParent.clientWidth < 600;
-
-    this.renderer.setAspectRatio(this.canvasParent);
-    this.camera.setAspectRatio(this.canvasParent);
   }
 
   handleClick() {
@@ -201,7 +259,7 @@ export class VendingMachine {
           hasMatched = true;
           document.body.style.overflowY = "hidden";
 
-          this.setDefaultPosition(2);
+          this.setPositionDefault(2);
 
           PubSub.publish(GL_PRESS_KEY, "ENJOY!");
           PubSub.publish(GL_SELECT_ITEM, item.itemData.id);
@@ -220,71 +278,13 @@ export class VendingMachine {
     }
   }
 
-  initScroll() {
-    const timeline = gsap.timeline();
-
-    TRIGGER_ELEMENTS.forEach((query, index) => {
-      const triggerElement = document.querySelector(
-        `.${query}`
-      ) as HTMLDivElement;
-
-      this.createPathPoint(
-        timeline,
-        triggerElement,
-        {
-          x: CAMERA_POSITION[index].x,
-          y: CAMERA_POSITION[index].y,
-          z: CAMERA_POSITION[index].z,
-        },
-        SCROLL_HEIGHT * index
-      );
-    });
-  }
-
-  createPathPoint(
-    timeline: GSAPTimeline | null,
-    trigger: HTMLDivElement,
-    position: Position,
-    start: number
-  ) {
-    if (timeline)
-      timeline.to(this.camera.position, {
-        x: position.x,
-        y: position.y,
-        z: this.isMobile ? position.z + 2 : position.z,
-        scrollTrigger: {
-          trigger,
-          start,
-          scrub: true,
-          immediateRender: false,
-          onToggle: (self: { isActive: boolean }) => {
-            if (self.isActive) this.handleTooltip();
-          },
-        },
-      });
-
-    PubSub.subscribe(UI_HANDLE_TRANSITION, () => {
-      if (timeline) {
-        timeline.kill();
-        timeline = null;
-      }
-
-      document.body.style.overflowY = "hidden";
-
-      setTimeout(() => {
-        this.removeEventListeners();
-        this.renderer.setAnimationLoop(null);
-      }, 1000);
-    });
-  }
-
   handleTooltip() {
     const currentScroll = document.documentElement.scrollTop;
 
     PubSub.publish(UI_TOOLTIP_INTERACT, currentScroll > SCROLL_HEIGHT);
   }
 
-  setDefaultPosition(duration: number, init?: boolean, reset?: boolean) {
+  setPositionDefault(duration: number, init?: boolean, reset?: boolean) {
     if (reset) document.documentElement.scrollTop = 0;
 
     gsap.to(this.camera.position, {

@@ -10,17 +10,17 @@ import {
 } from "three";
 import gsap from "gsap";
 
-import { Renderer } from "../globals/Renderer";
-import { Scene } from "../globals/Scene";
-import { Camera } from "../globals/Camera";
-import { AmbientLight } from "../globals/AmbientLight";
-import { DirectionalLight } from "../globals/DirectionalLight";
+import { Renderer } from "@/webgl/globals/Renderer";
+import { Scene } from "@/webgl/globals/Scene";
+import { Camera } from "@/webgl/globals/Camera";
+import { AmbientLight } from "@/webgl/globals/AmbientLight";
+import { DirectionalLight } from "@/webgl/globals/DirectionalLight";
+import { AssetController } from "@/webgl/controllers/AssetController";
+
 import {
-  LOAD_COMPLETE,
   GL_INSERT_COIN,
   GL_START_VENDING_MACHINE,
-} from "../config/topics";
-import { AssetController } from "../controllers/AssetController";
+} from "@/webgl/config/topics";
 
 export class CoinSlot {
   assetController = AssetController.getInstance();

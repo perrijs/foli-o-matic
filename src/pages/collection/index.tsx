@@ -10,6 +10,7 @@ import { SELECTED_WORKS } from "src/config/selectedWorks";
 import { SelectedWork } from "src/config/types";
 
 import Collection from "@/components/Collection";
+
 interface PageProps {
   projects: SelectedWork[];
 }

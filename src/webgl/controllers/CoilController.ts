@@ -1,5 +1,4 @@
-import { Group, Material, Mesh, MeshMatcapMaterial } from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { Group, Mesh, MeshMatcapMaterial } from "three";
 import PubSub from "pubsub-js";
 
 import { Scene } from "@/webgl/globals/Scene";

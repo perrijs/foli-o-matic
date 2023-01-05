@@ -7,8 +7,8 @@ import ItemCanvas from "@/components/ItemCanvas";
 
 import { OTHER_WORKS } from "src/config/otherWorks";
 import { AWARDS } from "src/config/awards";
-import { SelectedWork, OtherWork, Award } from "src/config/types";
 import { ITEMS } from "@/webgl/config/items";
+import { SelectedWork, OtherWork, Award } from "src/config/types";
 import { GL_SET_MODEL, UI_HANDLE_TRANSITION } from "@/webgl/config/topics";
 
 import { useLoading } from "@/contexts/loadingContext";
@@ -25,21 +25,17 @@ import {
   TableSectionCode,
   CanvasContainer,
 } from "./styles";
+import { Vec2 } from "three";
 
-interface MousePos {
-  x: number;
-  y: number;
-}
-
-interface PageProps {
+interface Props {
   projects: SelectedWork[];
 }
 
-const Collection = ({ projects }: PageProps) => {
+const Collection = ({ projects }: Props) => {
   const { loaded } = useLoading();
 
   const canvasRef = useRef<HTMLDivElement>(null);
-  const mousePos = useRef<MousePos>({ x: 0, y: 0 });
+  const mousePos = useRef<Vec2>({ x: 0, y: 0 });
 
   const handleTransition = (index: number) => {
     PubSub.publish(UI_HANDLE_TRANSITION, ITEMS[index]);

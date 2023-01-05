@@ -25,11 +25,11 @@ import {
   AnimationSpan,
 } from "./styles";
 
-interface PageProps {
+interface Props {
   project: SelectedWork;
 }
 
-const Project = ({ project }: PageProps) => {
+const Project = ({ project }: Props) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const [showInfo, setShowInfo] = useState<boolean>(false);

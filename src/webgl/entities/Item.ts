@@ -3,8 +3,8 @@ import gsap from "gsap";
 
 import { Scene } from "@/webgl/globals/Scene";
 
-import { ItemData } from "@/webgl/config/types";
 import { UI_HANDLE_TRANSITION } from "@/webgl/config/topics";
+import { ItemData } from "@/webgl/config/types";
 
 export class Item {
   scene: Scene;

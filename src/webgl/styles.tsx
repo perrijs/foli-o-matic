@@ -9,9 +9,6 @@ export const CanvasParent = styled.div`
   z-index: 0;
 
   canvas {
-    transform: translate(0) !important;
-    inset: 0 !important;
-
     user-select: none;
   }
 `;

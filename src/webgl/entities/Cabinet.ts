@@ -11,10 +11,13 @@ import {
 } from "three";
 
 import { Scene } from "@/webgl/globals/Scene";
+import { Flap } from "@/webgl/entities/Flap";
 
 import { AssetController } from "@/webgl/controllers/AssetController";
 import { ScreenController } from "@/webgl/controllers/ScreenController";
-import { Flap } from "@/webgl/entities/Flap";
+
+import { CABINET_MESHES, CABINET_TRAYS } from "@/webgl/config/cabinet";
+import { Vec3 } from "@/webgl/config/types";
 
 export class Cabinet {
   assetController = AssetController.getInstance();
@@ -34,6 +37,8 @@ export class Cabinet {
   }
 
   init() {
+    this.screenController.init();
+
     if (this.assetController.matcaps) {
       this.assetController.matcaps.forEach((item) => {
         if (item.name === "matcap_cosmic_latte") this.matcapMain = item.matcap;
@@ -42,118 +47,47 @@ export class Cabinet {
       });
     }
 
-    this.createBackPanel();
-    this.createTopPanel();
-    this.createBottomPanel();
-    this.createBottomFiller();
-    this.createSidePanel(-2.25, 0, 1.5);
-    this.createSidePanel(2.25, 0, 1.5);
-    this.createInsidePanel();
-    this.createFacePanel();
+    CABINET_MESHES.forEach((component) => {
+      this.createMesh(
+        component.id,
+        component.size,
+        component.position,
+        component.rotation,
+        component.castShadow,
+        component.mainMatcap
+      );
+    });
+
+    CABINET_TRAYS.forEach((tray: Vec3, index) => {
+      this.createTray(tray.x, tray.y, tray.z, index);
+    });
+
     this.createWindow();
 
-    this.createTray(-0.5, 1.75, 1, 0);
-    this.createTray(-0.5, 0.25, 1, 1);
-    this.createTray(-0.5, -1.25, 1, 2);
-
-    this.createFoot(-2.25, -3.75, 2.75);
-    this.createFoot(2.25, -3.75, 2.75);
-    this.createFoot(-2.25, -3.75, 0);
-    this.createFoot(2.25, -3.75, 0);
-
-    this.screenController.init();
     new Flap(this.scene);
 
     this.cabinet.castShadow = true;
+
     this.scene.add(this.cabinet);
   }
 
-  createBackPanel() {
-    const geometry = new BoxGeometry(5, 7.5, 0.5);
-    const material = this.matcapMain;
+  createMesh(
+    id: string,
+    size: Vec3,
+    position: Vec3,
+    rotation: Vec3,
+    castShadow: boolean,
+    mainMatcap: boolean
+  ) {
+    const geometry = new BoxGeometry(size.x, size.y, size.z);
+    const material = mainMatcap ? this.matcapMain : this.matcapSub;
     const mesh = new Mesh(geometry, material);
 
-    mesh.name = "matcapMain";
-    mesh.castShadow = true;
+    mesh.position.set(position.x, position.y, position.z);
+    mesh.rotation.set(rotation.x, rotation.y, rotation.z);
 
-    this.cabinet.add(mesh);
-  }
-
-  createSidePanel(x: number, y: number, z: number) {
-    const geometry = new BoxGeometry(3, 7.5, 0.5);
-    const material = this.matcapMain;
-    const mesh = new Mesh(geometry, material);
-
-    mesh.position.set(x, y, z);
-    mesh.rotation.y = Math.PI / 2;
-
-    mesh.name = "matcapMain";
-    mesh.castShadow = true;
-
-    this.cabinet.add(mesh);
-  }
-
-  createTopPanel() {
-    const geometry = new BoxGeometry(5, 3, 0.5);
-    const material = this.matcapMain;
-    const mesh = new Mesh(geometry, material);
-
-    mesh.position.set(0, 3.5, 1.5);
-    mesh.rotation.x = Math.PI / 2;
-
-    mesh.name = "matcapMain";
-    mesh.castShadow = true;
-
-    this.cabinet.add(mesh);
-  }
-
-  createBottomPanel() {
-    const geometry = new BoxGeometry(5, 3, 0.5);
-    const material = this.matcapMain;
-    const mesh = new Mesh(geometry, material);
-
-    mesh.position.set(0, -3.5, 1.5);
-    mesh.rotation.x = Math.PI / 2;
-
-    mesh.name = "matcapMain";
-    mesh.castShadow = true;
-
-    this.cabinet.add(mesh);
-  }
-
-  createBottomFiller() {
-    const geometry = new BoxGeometry(3, 1, 3);
-    const material = this.matcapMain;
-    const mesh = new Mesh(geometry, material);
-
-    mesh.position.set(-0.75, -2.8, 1.5);
-
-    mesh.name = "matcapMain";
-
-    this.cabinet.add(mesh);
-  }
-
-  createInsidePanel() {
-    const geometry = new BoxGeometry(3, 7.5, 0.5);
-    const material = this.matcapMain;
-    const mesh = new Mesh(geometry, material);
-
-    mesh.position.set(1, 0, 1.45);
-    mesh.rotation.y = Math.PI / 2;
-
-    mesh.name = "matcapMain";
-
-    this.cabinet.add(mesh);
-  }
-
-  createFacePanel() {
-    const geometry = new BoxGeometry(1.5, 7.5, 0.5);
-    const material = this.matcapMain;
-    const mesh = new Mesh(geometry, material);
-
-    mesh.position.set(1.5, 0, 2.75);
-
-    mesh.name = "matcapMain";
+    mesh.name = id;
+    if (castShadow) mesh.castShadow = true;
 
     this.cabinet.add(mesh);
   }
@@ -172,11 +106,11 @@ export class Cabinet {
 
     const labels = [-1.6, -0.6, 0.4];
     labels.forEach((x, j) => {
-      this.createLabel(x, y, 2.01, `${i}${j + 1}`);
+      this.createTrayLabel(x, y, 2.01, `${i}${j + 1}`);
     });
   }
 
-  createLabel(x: number, y: number, z: number, label: string) {
+  createTrayLabel(x: number, y: number, z: number, label: string) {
     if (!this.assetController.matcaps) return;
 
     const geometry = new PlaneGeometry(0.2, 0.1, 1);
@@ -201,19 +135,6 @@ export class Cabinet {
 
     const mesh = new Mesh(geometry, material);
 
-    mesh.position.set(x, y, z);
-
-    this.cabinet.add(mesh);
-  }
-
-  createFoot(x: number, y: number, z: number) {
-    if (!this.assetController.matcaps) return;
-
-    const geometry = new BoxGeometry(0.25, 0.5, 0.25);
-    const material = this.matcapSub;
-    const mesh = new Mesh(geometry, material);
-
-    mesh.castShadow = true;
     mesh.position.set(x, y, z);
 
     this.cabinet.add(mesh);

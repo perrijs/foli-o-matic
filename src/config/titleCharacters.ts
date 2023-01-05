@@ -1,0 +1,15 @@
+export const TITLE_CHARACTERS = [
+  "f",
+  "o",
+  "l",
+  "i",
+  "-",
+  "o",
+  "-",
+  "m",
+  "a",
+  "t",
+  "i",
+  "c",
+  "!",
+];

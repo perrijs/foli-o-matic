@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 
 import { CoinSlot as WorldCoinSlot } from "@/webgl/worlds/CoinSlot";
-import { GL_INSERT_COIN } from "@/webgl/config/topics";
 
 import { CanvasParent } from "./styles";
 

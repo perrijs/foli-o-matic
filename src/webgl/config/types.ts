@@ -1,12 +1,6 @@
 import { Texture, MeshMatcapMaterial } from "three";
 
-export interface Position {
-  x: number;
-  y: number;
-  z: number;
-}
-
-export interface Rotation {
+export interface Vec3 {
   x: number;
   y: number;
   z: number;
@@ -14,12 +8,12 @@ export interface Rotation {
 
 export interface CoilData {
   id: string;
-  position: Position;
+  position: Vec3;
 }
 
 export interface ButtonData {
   key_value: string;
-  position: Position;
+  position: Vec3;
 }
 
 export interface ItemData {
@@ -27,14 +21,14 @@ export interface ItemData {
   item_code: string;
   object: string;
   scalar: number;
-  position: Position;
-  rotation: Rotation;
+  position: Vec3;
+  rotation: Vec3;
   slug: string;
 }
 
 export interface CardData {
-  position: Position;
-  rotation: Rotation;
+  position: Vec3;
+  rotation: Vec3;
 }
 
 export interface Textures {

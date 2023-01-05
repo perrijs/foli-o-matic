@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 import * as color from "@/styles/globals/color";
 
-export const TransitionScreenWrapper = styled.div`
+export const TransitionScreenWrapper = styled(motion.div)`
   position: fixed;
   top: 0;
   left: 0;
@@ -10,6 +11,5 @@ export const TransitionScreenWrapper = styled.div`
   height: 100vh;
 
   z-index: 1;
-  transform: translateY(-100%);
   background-color: ${color.COSMIC_AMERICANO};
 `;

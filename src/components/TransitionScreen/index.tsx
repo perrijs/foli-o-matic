@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import PubSub from "pubsub-js";
-import gsap from "gsap";
 
 import {
   GL_ZOOM_VENDING_MACHINE,
@@ -14,44 +13,37 @@ import { TransitionScreenWrapper } from "./styles";
 const TransitionScreen = () => {
   const router = useRouter();
   const transitionScreenRef = useRef<HTMLDivElement>(null);
-
-  const setPath = useCallback(
-    (data: ItemData) => {
-      if (!transitionScreenRef.current) return;
-
-      gsap.fromTo(
-        transitionScreenRef.current,
-        {
-          transform: "translateY(100%)",
-        },
-        {
-          duration: 1,
-          ease: "power4.inOut",
-          transform: "translateY(0%)",
-          onComplete: () => {
-            if (data.slug === "/") {
-              router.push("/");
-
-              setTimeout(() => {
-                PubSub.publish(GL_ZOOM_VENDING_MACHINE);
-              }, 1000);
-            } else if (data.slug === "/collection") {
-              router.push(data.slug);
-            } else {
-              router.push(`/collection/${data.slug}`);
-            }
-          },
-        }
-      );
-    },
-    [router]
-  );
+  const [data, setData] = useState<ItemData>();
 
   useEffect(() => {
-    PubSub.subscribe(UI_HANDLE_TRANSITION, (_topic, data) => setPath(data));
-  }, [setPath]);
+    PubSub.subscribe(UI_HANDLE_TRANSITION, (_topic, data) => setData(data));
+  }, []);
 
-  return <TransitionScreenWrapper ref={transitionScreenRef} />;
+  const setPath = () => {
+    if (!data) return;
+
+    if (data.slug === "/") {
+      router.push("/");
+
+      setTimeout(() => {
+        PubSub.publish(GL_ZOOM_VENDING_MACHINE);
+      }, 1000);
+    } else if (data.slug === "/collection") {
+      router.push(data.slug);
+    } else {
+      router.push(`/collection/${data.slug}`);
+    }
+  };
+
+  return (
+    <TransitionScreenWrapper
+      ref={transitionScreenRef}
+      initial={{ y: "100%" }}
+      animate={{ y: data ? "0%" : "100%" }}
+      transition={{ duration: 0.66, ease: "easeInOut" }}
+      onAnimationComplete={() => setPath()}
+    />
+  );
 };
 
 export default TransitionScreen;

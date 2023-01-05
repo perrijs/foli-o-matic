@@ -22,8 +22,7 @@ import {
   GL_SELECT_ITEM,
   GL_ZOOM_VENDING_MACHINE,
   UI_HANDLE_TRANSITION,
-  UI_TOOLTIP_SCROLL,
-  UI_TOOLTIP_TAP,
+  UI_TOOLTIP_INTERACT,
 } from "@/webgl/config/topics";
 import {
   CAMERA_POSITION,
@@ -206,8 +205,7 @@ export class VendingMachine {
 
           PubSub.publish(GL_PRESS_KEY, "ENJOY!");
           PubSub.publish(GL_SELECT_ITEM, item.itemData.id);
-          PubSub.publish(UI_TOOLTIP_TAP, false);
-          PubSub.publish(UI_TOOLTIP_SCROLL, false);
+          PubSub.publish(UI_TOOLTIP_INTERACT, false);
         }
 
         if (index === this.itemController.items.length - 1 && !hasMatched) {
@@ -283,13 +281,7 @@ export class VendingMachine {
   handleTooltip() {
     const currentScroll = document.documentElement.scrollTop;
 
-    if (currentScroll < SCROLL_HEIGHT) {
-      PubSub.publish(UI_TOOLTIP_SCROLL, true);
-      PubSub.publish(UI_TOOLTIP_TAP, false);
-    } else {
-      PubSub.publish(UI_TOOLTIP_TAP, true);
-      PubSub.publish(UI_TOOLTIP_SCROLL, false);
-    }
+    PubSub.publish(UI_TOOLTIP_INTERACT, currentScroll > SCROLL_HEIGHT);
   }
 
   setDefaultPosition(duration: number, init?: boolean, reset?: boolean) {

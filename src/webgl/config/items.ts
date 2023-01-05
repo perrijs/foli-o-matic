@@ -20,7 +20,7 @@ export const ITEMS = [
     id: "item_2",
     item_code: "02",
     object: "/models/football.glb",
-    scalar: 0.125,
+    scalar: 0.135,
     position: {
       x: -0.6,
       y: 2.125,
@@ -71,7 +71,7 @@ export const ITEMS = [
     id: "item_5",
     item_code: "12",
     object: "/models/peach.glb",
-    scalar: 0.125,
+    scalar: 0.1,
     position: {
       x: -0.6,
       y: 0.625,

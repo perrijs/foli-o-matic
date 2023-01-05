@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 import * as type from "@/styles/globals/type";
 import * as color from "@/styles/globals/color";
@@ -16,7 +17,7 @@ export const TooltipWrapper = styled.div`
   z-index: 1;
 `;
 
-export const TipContainer = styled.div`
+export const TipContainer = styled(motion.div)`
   display: flex;
   position: absolute;
   top: 50%;
@@ -26,7 +27,6 @@ export const TipContainer = styled.div`
   justify-content: center;
   align-items: center;
   transform: translate(-50%, -50%);
-  opacity: 0;
 
   width: 100%;
 

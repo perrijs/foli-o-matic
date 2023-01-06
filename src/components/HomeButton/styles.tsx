@@ -44,8 +44,6 @@ export const HomeButtonWrapper = styled.div<HomeButtonWrapperProps>`
     css`
       @media (max-width: ${breakpoint.MOBILE_MAX}) {
         position: relative;
-        top: 0;
-        left: 0;
         margin-bottom: ${spacing.MARGIN_SMALL};
       }
     `}

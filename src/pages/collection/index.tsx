@@ -28,13 +28,13 @@ const CollectionPage = ({ projects }: PageProps) => {
         <meta property="og:title" content="FOLI-O-MATIC | Perri Schofield" />
         <meta
           name="description"
-          content="Bite sized digital snacks for the busy creative on the go!"
+          content="Bite-sized projects for the busy creative on the go."
         />
 
         <meta name="twitter:title" content="FOLI-O-MATIC | Perri Schofield" />
         <meta
           name="twitter:description"
-          content="Bite sized digital snacks for the busy creative on the go!"
+          content="Bite-sized projects for the busy creative on the go."
         />
       </Head>
 

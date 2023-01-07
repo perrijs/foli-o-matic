@@ -17,4 +17,4 @@ All pull requests are welcome. As this is a portfolio site built with a specific
 
 ## License
 
-MIT [LICENSE.md](https://github.com/perrijs/vending-machine-pt/blob/main/LICENSE.md)
+MIT [LICENSE.md](https://github.com/perrijs/foli-o-matic/blob/main/LICENSE.md)

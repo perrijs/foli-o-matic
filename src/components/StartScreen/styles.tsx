@@ -15,7 +15,7 @@ export const StartScreenWrapper = styled(motion.div)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 1;
+  z-index: 2;
   background-color: ${color.COSMIC_AMERICANO};
 `;
 

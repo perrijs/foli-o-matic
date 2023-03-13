@@ -1,45 +1,70 @@
 import Head from "next/head";
+import { useEffect, useState } from "react";
+import { AnimatePresence } from "framer-motion";
+
+import { useLoading } from "@/contexts/loadingContext";
+
+import WebGL from "@/webgl/index";
 
 import ScrollTrigger from "@/components/ScrollTrigger";
+import StartScreen from "@/components/StartScreen";
 import MenuButton from "@/components/MenuButton";
 import Tooltip from "@/components/Tooltip";
 import TransitionScreen from "@/components/TransitionScreen";
 import WipeScreen from "@/components/WipeScreen";
-import WebGL from "@/webgl/index";
 
+import {
+  GL_START_VENDING_MACHINE,
+  GL_ZOOM_VENDING_MACHINE,
+} from "@/webgl/config/topics";
 import { TRIGGER_ELEMENTS } from "@/webgl/config/scrollTriggers";
 
-const Index = () => (
-  <>
-    <Head>
-      <title>FOLI-O-MATIC | Perri Schofield</title>
+const Index = () => {
+  const { loaded } = useLoading();
+  const [show, setShow] = useState<boolean>(!loaded);
 
-      <meta property="og:title" content="FOLI-O-MATIC | Perri Schofield" />
-      <meta
-        name="description"
-        content="Bite-sized projects for the busy creative on the go."
-      />
+  useEffect(() => {
+    PubSub.subscribe(GL_START_VENDING_MACHINE, () => {
+      setShow(false);
 
-      <meta name="twitter:title" content="FOLI-O-MATIC | Perri Schofield" />
-      <meta
-        name="twitter:description"
-        content="Bite-sized projects for the busy creative on the go."
-      />
-    </Head>
+      PubSub.publish(GL_ZOOM_VENDING_MACHINE);
+    });
+  }, [loaded]);
 
-    {TRIGGER_ELEMENTS.map((name) => (
-      <ScrollTrigger key={name} className={name} />
-    ))}
+  return (
+    <>
+      <Head>
+        <title>FOLI-O-MATIC | Perri Schofield</title>
 
-    <MenuButton />
+        <meta property="og:title" content="FOLI-O-MATIC | Perri Schofield" />
+        <meta
+          name="description"
+          content="Bite-sized projects for the busy creative on the go."
+        />
 
-    <Tooltip />
+        <meta name="twitter:title" content="FOLI-O-MATIC | Perri Schofield" />
+        <meta
+          name="twitter:description"
+          content="Bite-sized projects for the busy creative on the go."
+        />
+      </Head>
 
-    <WebGL />
+      {TRIGGER_ELEMENTS.map((name) => (
+        <ScrollTrigger key={name} className={name} />
+      ))}
 
-    <WipeScreen />
-    <TransitionScreen />
-  </>
-);
+      <AnimatePresence>{show && <StartScreen />}</AnimatePresence>
+
+      <MenuButton />
+
+      <Tooltip />
+
+      <WebGL />
+
+      {loaded && <WipeScreen />}
+      <TransitionScreen />
+    </>
+  );
+};
 
 export default Index;

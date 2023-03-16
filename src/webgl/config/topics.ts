@@ -1,6 +1,5 @@
 export const LOAD_COMPLETE = "loadComplete";
 
-export const GL_INSERT_COIN = "glInsertCoin";
 export const GL_START_VENDING_MACHINE = "glStartVendingMachine";
 export const GL_ZOOM_VENDING_MACHINE = "glZoomVendingMachine";
 export const GL_PRESS_KEY = "glPressKey";

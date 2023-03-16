@@ -1,4 +1,4 @@
-import { PlaneGeometry, MeshBasicMaterial, Mesh, Material } from "three";
+import { PlaneGeometry, MeshBasicMaterial, Mesh } from "three";
 
 import { Scene } from "@/webgl/globals/Scene";
 
@@ -17,7 +17,7 @@ export class Screen {
     const screenMaterial = new MeshBasicMaterial({ color: 0x33312e });
     const screen = new Mesh(screenGeometry, screenMaterial);
 
-    screen.position.set(1.625, 1.6, 3.002);
+    screen.position.set(1.525, 1.6, 3.002);
 
     this.mesh = screen;
     this.scene.add(this.mesh);

@@ -11,6 +11,7 @@ import {
 } from "three";
 
 import { Scene } from "@/webgl/globals/Scene";
+import { CoinSlot } from "@/webgl/entities/CoinSlot";
 import { Flap } from "@/webgl/entities/Flap";
 
 import { AssetController } from "@/webgl/controllers/AssetController";
@@ -64,6 +65,7 @@ export class Cabinet {
 
     this.createWindow();
 
+    new CoinSlot(this.scene);
     new Flap(this.scene);
 
     this.cabinet.castShadow = true;

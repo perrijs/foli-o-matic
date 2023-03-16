@@ -1,15 +1,14 @@
 import { useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 
-import Loader from "@/components/Loader";
-import CoinSlot from "@/components/CoinSlot";
-import { Load } from "@/webgl/load";
-
 import { useLoading } from "@/contexts/loadingContext";
 
-import { GL_INSERT_COIN } from "@/webgl/config/topics";
+import { Load } from "@/webgl/load";
+import Loader from "@/components/Loader";
 
-import { StartScreenWrapper, CoinSlotContainer } from "./styles";
+import { GL_START_VENDING_MACHINE } from "@/webgl/config/topics";
+
+import { StartScreenWrapper } from "./styles";
 
 const StartScreen = () => {
   const { loaded } = useLoading();
@@ -18,6 +17,12 @@ const StartScreen = () => {
     new Load();
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      PubSub.publish(GL_START_VENDING_MACHINE);
+    }, 3000);
+  }, [loaded]);
+
   return (
     <StartScreenWrapper
       initial={{ y: "0%" }}
@@ -25,18 +30,7 @@ const StartScreen = () => {
       transition={{ duration: 1, ease: "easeInOut" }}
     >
       <AnimatePresence>
-        {loaded ? (
-          <CoinSlotContainer
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 4, duration: 1, ease: "easeOut" }}
-            onClick={() => PubSub.publish(GL_INSERT_COIN)}
-          >
-            <CoinSlot />
-          </CoinSlotContainer>
-        ) : (
-          <Loader key="loader" />
-        )}
+        <Loader key="loader" />
       </AnimatePresence>
     </StartScreenWrapper>
   );

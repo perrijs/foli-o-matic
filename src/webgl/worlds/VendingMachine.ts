@@ -10,6 +10,7 @@ import { AmbientLight } from "@/webgl/globals/AmbientLight";
 import { DirectionalLight } from "@/webgl/globals/DirectionalLight";
 
 import { Cabinet } from "@/webgl/entities/Cabinet";
+import { Coin } from "@/webgl/entities/Coin";
 import { Floor } from "@/webgl/entities/Floor";
 
 import { AssetController } from "@/webgl/controllers/AssetController";
@@ -18,9 +19,9 @@ import { ButtonController } from "@/webgl/controllers/ButtonController";
 import { ItemController } from "@/webgl/controllers/ItemController";
 
 import {
+  GL_FLIP_COIN,
   GL_PRESS_KEY,
   GL_SELECT_ITEM,
-  GL_ZOOM_VENDING_MACHINE,
   UI_HANDLE_TRANSITION,
   UI_TOOLTIP_INTERACT,
 } from "@/webgl/config/topics";
@@ -46,6 +47,7 @@ export class VendingMachine {
   buttonController?: ButtonController;
   itemController?: ItemController;
   cabinet?: Cabinet;
+  coin?: Coin;
   floor?: Floor;
 
   controls?: OrbitControls;
@@ -87,9 +89,11 @@ export class VendingMachine {
       this.handleTouchStart(event)
     );
 
-    PubSub.subscribe(GL_ZOOM_VENDING_MACHINE, () =>
-      this.setPositionDefault(2, true)
-    );
+    PubSub.subscribe(GL_FLIP_COIN, () => {
+      if (!this.coin) return;
+
+      this.coin.flip();
+    });
   }
 
   removeEventListeners() {
@@ -121,6 +125,7 @@ export class VendingMachine {
     this.itemController = new ItemController(this.scene);
     this.floor = new Floor(this.scene);
     this.cabinet = new Cabinet(this.scene);
+    this.coin = new Coin(this.scene);
 
     this.initScroll();
 

@@ -2,10 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import PubSub from "pubsub-js";
 
-import {
-  GL_ZOOM_VENDING_MACHINE,
-  UI_HANDLE_TRANSITION,
-} from "@/webgl/config/topics";
+import { GL_FLIP_COIN, UI_HANDLE_TRANSITION } from "@/webgl/config/topics";
 import { ItemData } from "@/webgl/config/types";
 
 import { TransitionScreenWrapper } from "./styles";
@@ -26,7 +23,7 @@ const TransitionScreen = () => {
       router.push("/");
 
       setTimeout(() => {
-        PubSub.publish(GL_ZOOM_VENDING_MACHINE);
+        PubSub.publish(GL_FLIP_COIN);
       }, 1000);
     } else if (data.slug === "/collection") {
       router.push(data.slug);

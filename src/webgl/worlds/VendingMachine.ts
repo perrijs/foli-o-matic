@@ -10,6 +10,7 @@ import { AmbientLight } from "@/webgl/globals/AmbientLight";
 import { DirectionalLight } from "@/webgl/globals/DirectionalLight";
 
 import { Cabinet } from "@/webgl/entities/Cabinet";
+import { Coin } from "@/webgl/entities/Coin";
 import { Floor } from "@/webgl/entities/Floor";
 
 import { AssetController } from "@/webgl/controllers/AssetController";
@@ -18,9 +19,9 @@ import { ButtonController } from "@/webgl/controllers/ButtonController";
 import { ItemController } from "@/webgl/controllers/ItemController";
 
 import {
+  GL_FLIP_COIN,
   GL_PRESS_KEY,
   GL_SELECT_ITEM,
-  GL_ZOOM_VENDING_MACHINE,
   UI_HANDLE_TRANSITION,
   UI_TOOLTIP_INTERACT,
 } from "@/webgl/config/topics";
@@ -46,6 +47,7 @@ export class VendingMachine {
   buttonController?: ButtonController;
   itemController?: ItemController;
   cabinet?: Cabinet;
+  coin?: Coin;
   floor?: Floor;
 
   controls?: OrbitControls;
@@ -87,9 +89,20 @@ export class VendingMachine {
       this.handleTouchStart(event)
     );
 
-    PubSub.subscribe(GL_ZOOM_VENDING_MACHINE, () =>
-      this.setPositionDefault(2, true)
-    );
+    PubSub.subscribe(GL_FLIP_COIN, () => {
+      if (!this.coin) return;
+
+      this.coin.flip();
+    });
+
+    PubSub.subscribe(UI_HANDLE_TRANSITION, () => {
+      document.body.style.overflowY = "hidden";
+
+      setTimeout(() => {
+        this.removeEventListeners();
+        this.renderer.setAnimationLoop(null);
+      }, 1000);
+    });
   }
 
   removeEventListeners() {
@@ -121,6 +134,7 @@ export class VendingMachine {
     this.itemController = new ItemController(this.scene);
     this.floor = new Floor(this.scene);
     this.cabinet = new Cabinet(this.scene);
+    this.coin = new Coin(this.scene);
 
     this.initScroll();
 
@@ -129,60 +143,60 @@ export class VendingMachine {
   }
 
   initScroll() {
+    if (!this.coin || !this.coin.mesh) return;
+
     const timeline = gsap.timeline();
+    const triggerElementOne = document.querySelector(
+      `.${TRIGGER_ELEMENTS[0]}`
+    ) as HTMLDivElement;
 
-    TRIGGER_ELEMENTS.forEach((query, index) => {
-      const triggerElement = document.querySelector(
-        `.${query}`
-      ) as HTMLDivElement;
+    timeline.to(this.coin.mesh.position, {
+      x: 2.31,
+      y: 1.266,
+      z: 3.001,
+      scrollTrigger: {
+        trigger: triggerElementOne,
+        start: 0,
+        end: triggerElementOne.clientHeight * 1.5,
+        scrub: true,
+        immediateRender: false,
+        onUpdate: () => {
+          if (!this.coin || !this.coin.mesh) return;
 
-      this.createPathPoint(
-        timeline,
-        triggerElement,
-        {
-          x: CAMERA_POSITION[index].x,
-          y: CAMERA_POSITION[index].y,
-          z: CAMERA_POSITION[index].z,
+          this.camera.position.z = this.coin.mesh.position.z + 3;
         },
-        SCROLL_HEIGHT * index
-      );
+        onLeave: () => {
+          if (!this.coin) return;
+
+          document.body.style.overflowY = "hidden";
+
+          this.fixCamera();
+          this.coin.insert();
+        },
+      },
+    });
+
+    timeline.to(this.coin.mesh.scale, {
+      x: 0.075,
+      y: 0.075,
+      z: 0.075,
+      scrollTrigger: {
+        trigger: triggerElementOne,
+        start: 0,
+        end: triggerElementOne.clientHeight * 1.5,
+        scrub: true,
+        immediateRender: false,
+      },
     });
   }
 
-  createPathPoint(
-    timeline: GSAPTimeline | null,
-    trigger: HTMLDivElement,
-    position: Vec3,
-    start: number
-  ) {
-    if (timeline)
-      timeline.to(this.camera.position, {
-        x: position.x,
-        y: position.y,
-        z: this.isMobile ? position.z + 2 : position.z,
-        scrollTrigger: {
-          trigger,
-          start,
-          scrub: true,
-          immediateRender: false,
-          onToggle: (self: { isActive: boolean }) => {
-            if (self.isActive) this.handleTooltip();
-          },
-        },
-      });
-
-    PubSub.subscribe(UI_HANDLE_TRANSITION, () => {
-      if (timeline) {
-        timeline.kill();
-        timeline = null;
-      }
-
-      document.body.style.overflowY = "hidden";
-
-      setTimeout(() => {
-        this.removeEventListeners();
-        this.renderer.setAnimationLoop(null);
-      }, 1000);
+  fixCamera() {
+    gsap.to(this.camera.position, {
+      duration: 3,
+      x: 0,
+      y: 0,
+      z: 7.5,
+      ease: "power4.inOut",
     });
   }
 
@@ -312,6 +326,8 @@ export class VendingMachine {
         this.handleCursor();
       }
     }
+
+    if (this.coin && this.coin.rotating) this.coin.inertia();
 
     this.renderer.render(this.scene, this.camera);
   }

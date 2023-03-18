@@ -13,10 +13,7 @@ import Tooltip from "@/components/Tooltip";
 import TransitionScreen from "@/components/TransitionScreen";
 import WipeScreen from "@/components/WipeScreen";
 
-import {
-  GL_START_VENDING_MACHINE,
-  GL_ZOOM_VENDING_MACHINE,
-} from "@/webgl/config/topics";
+import { GL_START_VENDING_MACHINE, GL_FLIP_COIN } from "@/webgl/config/topics";
 import { TRIGGER_ELEMENTS } from "@/webgl/config/scrollTriggers";
 
 const Index = () => {
@@ -27,7 +24,7 @@ const Index = () => {
     PubSub.subscribe(GL_START_VENDING_MACHINE, () => {
       setShow(false);
 
-      PubSub.publish(GL_ZOOM_VENDING_MACHINE);
+      PubSub.publish(GL_FLIP_COIN);
     });
   }, [loaded]);
 

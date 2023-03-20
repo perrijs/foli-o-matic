@@ -25,12 +25,7 @@ import {
   UI_HANDLE_TRANSITION,
   UI_TOOLTIP_INTERACT,
 } from "@/webgl/config/topics";
-import {
-  CAMERA_POSITION,
-  TRIGGER_ELEMENTS,
-  SCROLL_HEIGHT,
-} from "@/webgl/config/scrollTriggers";
-import { Vec3 } from "@/webgl/config/types";
+import { TRIGGER_ELEMENTS, SCROLL_HEIGHT } from "@/webgl/config/scrollTriggers";
 
 gsap.registerPlugin(ScrollTrigger);
 

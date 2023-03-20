@@ -1,4 +1,4 @@
-import { Raycaster, Vector2, Object3D, Intersection } from "three";
+import { Raycaster, Vector2, Object3D, Intersection, MathUtils } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -158,7 +158,10 @@ export class VendingMachine {
         onUpdate: () => {
           if (!this.coin || !this.coin.mesh) return;
 
+          const newY = this.coin.mesh.position.y - 0.6;
+
           this.camera.position.z = this.coin.mesh.position.z + 3;
+          if (!(newY < 0)) this.camera.position.y = newY;
         },
         onLeave: () => {
           if (!this.coin) return;

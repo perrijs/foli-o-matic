@@ -20,10 +20,10 @@ export class Camera extends PerspectiveCamera {
   }
 
   addAmbientPosition(event: MouseEvent) {
-    const mouseX = (event.pageX - window.innerWidth / 2) * 0.00025;
-    const mouseY = (event.pageY - window.innerWidth / 2) * 0.0001;
+    const mouseX = (event.screenX - window.innerWidth / 2) * 0.0001;
+    const mouseY = (event.screenY - window.innerHeight / 2) * 0.0001;
 
-    this.position.x = MathUtils.lerp(this.position.x, mouseX, 0.1);
-    this.position.y = MathUtils.lerp(this.position.y, -mouseY, 0.1);
+    this.rotation.x = MathUtils.lerp(this.rotation.x, -mouseY, 0.1);
+    this.rotation.y = MathUtils.lerp(this.rotation.y, -mouseX, 0.1);
   }
 }

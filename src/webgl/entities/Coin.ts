@@ -42,19 +42,19 @@ export class Coin {
       y: 0,
       ease: "back.out(3)",
       onComplete: () => {
-        setTimeout(() => {
-          document.body.style.overflowY = "scroll";
-
-          this.rotating = true;
-        }, 100);
+        document.body.style.overflowY = "scroll";
       },
     });
 
-    const rotate = gsap.to(this.mesh.rotation, {
+    const timeline = gsap.timeline();
+    timeline.to(this.mesh.rotation, {
       delay: 1,
       duration: 1,
       z: -Math.PI / 2,
       y: -Math.PI * 5,
+      onUpdate: () => {
+        if (timeline.progress() > 0.9) this.rotating = true;
+      },
     });
   }
 

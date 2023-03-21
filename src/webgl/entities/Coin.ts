@@ -5,6 +5,8 @@ import { AssetController } from "@/webgl/controllers/AssetController";
 
 import { Scene } from "@/webgl/globals/Scene";
 
+import { GL_SHOW_CAB } from "@/webgl/config/topics";
+
 export class Coin {
   assetController = AssetController.getInstance();
 
@@ -16,7 +18,7 @@ export class Coin {
   constructor(scene: Scene) {
     this.scene = scene;
 
-    this.rotating = false;
+    this.rotating = true;
 
     this.init();
   }
@@ -25,7 +27,7 @@ export class Coin {
     if (!this.assetController.models) return;
 
     this.mesh = this.assetController.models[3].clone();
-    this.mesh.position.set(0, -4, 50);
+    this.mesh.position.set(0, -20, 47);
     this.mesh.rotation.x = Math.PI / 2;
     this.mesh.scale.setScalar(1);
 
@@ -35,25 +37,29 @@ export class Coin {
   flip() {
     if (!this.mesh) return;
 
-    const lerpUp = gsap.to(this.mesh.position, {
-      delay: 1,
-      duration: 1.5,
-      z: 47,
-      y: 0,
-      ease: "back.out(3)",
-      onComplete: () => {
-        document.body.style.overflowY = "scroll";
-      },
-    });
+    let cabVisible = false;
 
     const timeline = gsap.timeline();
-    timeline.to(this.mesh.rotation, {
+    timeline.to(this.mesh.position, {
       delay: 1,
-      duration: 1,
-      z: -Math.PI / 2,
-      y: -Math.PI * 5,
+      duration: 2.5,
+      y: -1,
+      ease: "back.out(4)",
       onUpdate: () => {
-        if (timeline.progress() > 0.9) this.rotating = true;
+        if (timeline.progress() > 0.55) {
+          if (!this.mesh || cabVisible) return;
+
+          cabVisible = true;
+          PubSub.publish(GL_SHOW_CAB);
+
+          gsap.to(this.mesh.rotation, {
+            duration: 1,
+            z: -Math.PI / 2,
+          });
+        }
+      },
+      onComplete: () => {
+        document.body.style.overflowY = "scroll";
       },
     });
   }
@@ -73,7 +79,7 @@ export class Coin {
   inertia() {
     if (!this.mesh) return;
 
-    this.mesh.rotation.x -= 0.1;
+    this.mesh.rotation.x -= 0.3;
   }
 
   insert() {

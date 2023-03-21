@@ -1,10 +1,13 @@
+import { CanvasTexture, MeshBasicMaterial } from "three";
 import PubSub from "pubsub-js";
 
 import { Scene } from "@/webgl/globals/Scene";
 
-import { GL_PRESS_KEY } from "@/webgl/config/topics";
-import { Screen } from "../entities/Screen";
-import { CanvasTexture, MeshBasicMaterial } from "three";
+import { Screen } from "@/webgl/entities/Screen";
+
+import { setVisibility } from "@/webgl/utils/setVisibility";
+
+import { GL_PRESS_KEY, GL_SHOW_CAB } from "@/webgl/config/topics";
 
 export class ScreenController {
   scene: Scene;
@@ -12,6 +15,16 @@ export class ScreenController {
 
   constructor(scene: Scene) {
     this.scene = scene;
+
+    this.addEventListeners();
+  }
+
+  addEventListeners() {
+    PubSub.subscribe(GL_SHOW_CAB, () => {
+      if (!this.screen || !this.screen.mesh) return;
+
+      setVisibility(this.screen.mesh, true);
+    });
   }
 
   init() {

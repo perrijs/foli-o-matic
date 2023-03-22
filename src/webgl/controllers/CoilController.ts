@@ -2,11 +2,15 @@ import { Group, Mesh, MeshMatcapMaterial } from "three";
 import PubSub from "pubsub-js";
 
 import { Scene } from "@/webgl/globals/Scene";
-import { Coil } from "@/webgl/entities/Coil";
+
 import { AssetController } from "./AssetController";
 
+import { Coil } from "@/webgl/entities/Coil";
+
+import { setVisibility } from "@/webgl/utils/setVisibility";
+
 import { COILS } from "@/webgl/config/coils";
-import { GL_SELECT_ITEM } from "@/webgl/config/topics";
+import { GL_SELECT_ITEM, GL_SHOW_CAB } from "@/webgl/config/topics";
 
 export class CoilController {
   assetController = AssetController.getInstance();
@@ -19,7 +23,20 @@ export class CoilController {
   constructor(scene: Scene) {
     this.scene = scene;
 
+    this.handleSubscriptions();
     this.init();
+  }
+
+  handleSubscriptions() {
+    PubSub.subscribe(GL_SHOW_CAB, () => {
+      if (!this.coils) return;
+
+      this.coils.forEach((coil) => {
+        setVisibility(coil.model, true);
+      });
+    });
+
+    PubSub.subscribe(GL_SELECT_ITEM, this.handleRotate.bind(this));
   }
 
   init() {
@@ -43,12 +60,6 @@ export class CoilController {
       const coil = new Coil(this.scene, coilData, this.model.clone());
       this.coils.push(coil);
     });
-
-    this.handleSubscriptions();
-  }
-
-  handleSubscriptions() {
-    PubSub.subscribe(GL_SELECT_ITEM, this.handleRotate.bind(this));
   }
 
   handleRotate(_topic: string, data: string) {

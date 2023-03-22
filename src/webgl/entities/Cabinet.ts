@@ -10,31 +10,48 @@ import {
   CanvasTexture,
 } from "three";
 
+import { AssetController } from "@/webgl/controllers/AssetController";
+import { ScreenController } from "@/webgl/controllers/ScreenController";
+
 import { Scene } from "@/webgl/globals/Scene";
 import { CoinSlot } from "@/webgl/entities/CoinSlot";
 import { Flap } from "@/webgl/entities/Flap";
 
-import { AssetController } from "@/webgl/controllers/AssetController";
-import { ScreenController } from "@/webgl/controllers/ScreenController";
+import { setVisibility } from "@/webgl/utils/setVisibility";
 
 import { CABINET_MESHES, CABINET_TRAYS } from "@/webgl/config/cabinet";
+import { GL_SHOW_CAB } from "@/webgl/config/topics";
 import { Vec3 } from "@/webgl/config/types";
 
 export class Cabinet {
   assetController = AssetController.getInstance();
 
   scene: Scene;
+
+  screenController: ScreenController;
+
+  cabinet: Group;
   matcapMain?: MeshMatcapMaterial;
   matcapSub?: MeshMatcapMaterial;
-  cabinet: Group;
-  screenController: ScreenController;
+  windowMesh?: Mesh;
+  windowMaterial?: MeshPhysicalMaterial;
 
   constructor(scene: Scene) {
     this.scene = scene;
     this.cabinet = new Group();
     this.screenController = new ScreenController(this.scene);
 
+    this.handleSubscriptions();
     this.init();
+  }
+
+  handleSubscriptions() {
+    PubSub.subscribe(GL_SHOW_CAB, () => {
+      if (!this.windowMesh || !this.windowMaterial) return;
+
+      setVisibility(this.cabinet, true, true);
+      this.windowMaterial.opacity = 0.1;
+    });
   }
 
   init() {
@@ -71,6 +88,8 @@ export class Cabinet {
     this.cabinet.castShadow = true;
 
     this.scene.add(this.cabinet);
+
+    setVisibility(this.cabinet, false);
   }
 
   createMesh(
@@ -149,7 +168,7 @@ export class Cabinet {
     hdr.mapping = EquirectangularReflectionMapping;
 
     const geometry = new BoxGeometry(3.5, 5.25, 0.1);
-    const material = new MeshPhysicalMaterial({
+    this.windowMaterial = new MeshPhysicalMaterial({
       color: 0x666d70,
       emissive: 0x000000,
       transparent: true,
@@ -162,11 +181,11 @@ export class Cabinet {
       envMap: hdr,
       ior: 1.5,
     });
-    const mesh = new Mesh(geometry, material);
+    this.windowMesh = new Mesh(geometry, this.windowMaterial);
 
-    mesh.position.set(-0.5, 1, 2.75);
-    mesh.name = "glass";
+    this.windowMesh.position.set(-0.5, 1, 2.75);
+    this.windowMesh.name = "glass";
 
-    this.cabinet.add(mesh);
+    this.cabinet.add(this.windowMesh);
   }
 }

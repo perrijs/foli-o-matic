@@ -2,6 +2,8 @@ import { PlaneGeometry, MeshBasicMaterial, Mesh } from "three";
 
 import { Scene } from "@/webgl/globals/Scene";
 
+import { setVisibility } from "@/webgl/utils/setVisibility";
+
 export class Screen {
   scene: Scene;
   mesh?: Mesh;
@@ -21,5 +23,7 @@ export class Screen {
 
     this.mesh = screen;
     this.scene.add(this.mesh);
+
+    setVisibility(this.mesh, false);
   }
 }

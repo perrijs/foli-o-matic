@@ -13,7 +13,7 @@ import { applyMatcaps } from "@/webgl/utils/applyMatcaps";
 
 import { MATCAPS } from "@/webgl/config/matcaps";
 import { HDRS } from "@/webgl/config/hdrs";
-import { COIL, ITEMS, WRAPPER } from "@/webgl/config/items";
+import { ITEMS, WRAPPER, COIN, COIL } from "@/webgl/config/items";
 import { Matcap } from "@/webgl/config/types";
 
 export class AssetController {
@@ -26,6 +26,7 @@ export class AssetController {
   matcaps?: Matcap[] = [];
   hdrs?: DataTexture[] = [];
   models?: Group[] = [];
+  coin?: GLTF;
   wrapper?: GLTF;
   coil?: GLTF;
 
@@ -92,6 +93,13 @@ export class AssetController {
 
     const coil = await Promise.resolve(wrapperLoader);
     this.coil = coil;
+  }
+
+  async loadCoin() {
+    const coinLoader = await this.loadModel(COIN);
+
+    const coin = await Promise.resolve(coinLoader);
+    this.coin = coin;
   }
 
   async loadModels() {

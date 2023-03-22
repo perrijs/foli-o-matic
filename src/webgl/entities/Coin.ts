@@ -43,10 +43,10 @@ export class Coin {
     timeline.to(this.mesh.position, {
       delay: 1,
       duration: 2.5,
-      y: -1,
-      ease: "back.out(4)",
+      y: -1.5,
+      ease: "back.out(2.5)",
       onUpdate: () => {
-        if (timeline.progress() > 0.55) {
+        if (timeline.progress() > 0.525) {
           if (!this.mesh || cabVisible) return;
 
           cabVisible = true;

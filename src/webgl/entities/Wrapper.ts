@@ -17,6 +17,8 @@ export class Wrapper {
 
   scene: Scene;
   parent: Group;
+  mesh?: Mesh;
+  cards?: Mesh[] = [];
 
   constructor(scene: Scene, parent: Group) {
     this.scene = scene;
@@ -30,13 +32,13 @@ export class Wrapper {
 
     if (this.assetController.wrapper) {
       const gltf = this.assetController.wrapper.scene.clone();
-      const model = gltf.children[0] as Mesh;
+      this.mesh = gltf.children[0] as Mesh;
 
-      model.rotation.z = Math.PI / 2;
-      model.rotation.y = Math.PI / 2;
-      model.scale.set(0.275, 0.15, 0.275);
+      this.mesh.rotation.z = Math.PI / 2;
+      this.mesh.rotation.y = Math.PI / 2;
+      this.mesh.scale.set(0.275, 0.15, 0.275);
 
-      model.material = new MeshPhysicalMaterial({
+      this.mesh.material = new MeshPhysicalMaterial({
         transparent: true,
         opacity: 0.3,
         color: "#89b1c8",
@@ -48,13 +50,15 @@ export class Wrapper {
         clearcoatRoughness: 0,
       });
 
-      this.parent.add(model);
+      this.parent.add(this.mesh);
     }
 
     this.addCard();
   }
 
   async addCard() {
+    if (!this.cards) return;
+
     const textureLoader = new TextureLoader();
 
     const texture = await textureLoader.load(
@@ -65,17 +69,21 @@ export class Wrapper {
     const material = new MeshStandardMaterial({
       map: texture,
       side: DoubleSide,
+      transparent: true,
+      opacity: 0,
     });
     const frontCardMesh = new Mesh(geometry, material);
     frontCardMesh.position.y = 0.4;
     frontCardMesh.position.z = 0.015;
     frontCardMesh.rotation.x = -0.08;
+    this.cards.push(frontCardMesh);
 
     const backCardMesh = new Mesh(geometry, material);
     backCardMesh.scale.x = -1;
     backCardMesh.position.y = 0.4;
     backCardMesh.position.z = -0.015;
     backCardMesh.rotation.x = 0.08;
+    this.cards.push(backCardMesh);
 
     this.parent.add(frontCardMesh);
     this.parent.add(backCardMesh);

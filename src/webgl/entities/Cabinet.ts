@@ -41,11 +41,11 @@ export class Cabinet {
     this.cabinet = new Group();
     this.screenController = new ScreenController(this.scene);
 
-    this.addEventListeners();
+    this.handleSubscriptions();
     this.init();
   }
 
-  addEventListeners() {
+  handleSubscriptions() {
     PubSub.subscribe(GL_SHOW_CAB, () => {
       if (!this.windowMesh || !this.windowMaterial) return;
 

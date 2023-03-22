@@ -24,9 +24,9 @@ export class Coin {
   }
 
   init() {
-    if (!this.assetController.models) return;
+    if (!this.assetController.coin) return;
 
-    this.mesh = this.assetController.models[3].clone();
+    this.mesh = this.assetController.coin.scene;
     this.mesh.position.set(0, -20, 47);
     this.mesh.rotation.x = Math.PI / 2;
     this.mesh.scale.setScalar(1);

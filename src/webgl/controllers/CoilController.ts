@@ -23,11 +23,11 @@ export class CoilController {
   constructor(scene: Scene) {
     this.scene = scene;
 
-    this.addEventListeners();
+    this.handleSubscriptions();
     this.init();
   }
 
-  addEventListeners() {
+  handleSubscriptions() {
     PubSub.subscribe(GL_SHOW_CAB, () => {
       if (!this.coils) return;
 
@@ -35,6 +35,8 @@ export class CoilController {
         setVisibility(coil.model, true);
       });
     });
+
+    PubSub.subscribe(GL_SELECT_ITEM, this.handleRotate.bind(this));
   }
 
   init() {
@@ -58,12 +60,6 @@ export class CoilController {
       const coil = new Coil(this.scene, coilData, this.model.clone());
       this.coils.push(coil);
     });
-
-    this.handleSubscriptions();
-  }
-
-  handleSubscriptions() {
-    PubSub.subscribe(GL_SELECT_ITEM, this.handleRotate.bind(this));
   }
 
   handleRotate(_topic: string, data: string) {

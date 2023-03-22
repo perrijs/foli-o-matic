@@ -17,11 +17,11 @@ export class ButtonController {
   constructor(scene: Scene) {
     this.scene = scene;
 
-    this.addEventListeners();
+    this.handleSubscriptions();
     this.init();
   }
 
-  addEventListeners() {
+  handleSubscriptions() {
     PubSub.subscribe(GL_SHOW_CAB, () => {
       if (!this.buttons) return;
 

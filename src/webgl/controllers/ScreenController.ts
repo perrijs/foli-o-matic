@@ -16,10 +16,12 @@ export class ScreenController {
   constructor(scene: Scene) {
     this.scene = scene;
 
-    this.addEventListeners();
+    this.handleSubscriptions();
   }
 
-  addEventListeners() {
+  handleSubscriptions() {
+    PubSub.subscribe(GL_PRESS_KEY, this.createCanvasTexture.bind(this));
+
     PubSub.subscribe(GL_SHOW_CAB, () => {
       if (!this.screen || !this.screen.mesh) return;
 
@@ -57,9 +59,5 @@ export class ScreenController {
     setTimeout(() => {
       if (data === "INVALID") this.createCanvasTexture("", "");
     }, 500);
-  }
-
-  handleSubscriptions() {
-    PubSub.subscribe(GL_PRESS_KEY, this.createCanvasTexture.bind(this));
   }
 }

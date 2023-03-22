@@ -9,10 +9,13 @@ import {
 import { Scene } from "@/webgl/globals/Scene";
 
 import { CardData } from "@/webgl/config/types";
+import { setVisibility } from "../utils/setVisibility";
 
 export class Card {
   scene: Scene;
+
   cardData: CardData;
+  mesh?: Mesh;
 
   constructor(scene: Scene, cardData: CardData) {
     this.scene = scene;
@@ -33,19 +36,21 @@ export class Card {
       map: texture,
       side: DoubleSide,
     });
-    const mesh = new Mesh(geometry, material);
+    this.mesh = new Mesh(geometry, material);
 
-    mesh.position.set(
+    this.mesh.position.set(
       this.cardData.position.x,
       this.cardData.position.y,
       this.cardData.position.z
     );
-    mesh.rotation.set(
+    this.mesh.rotation.set(
       this.cardData.rotation.x,
       this.cardData.rotation.y,
       this.cardData.rotation.z
     );
 
-    this.scene.add(mesh);
+    this.scene.add(this.mesh);
+
+    setVisibility(this.mesh, false);
   }
 }

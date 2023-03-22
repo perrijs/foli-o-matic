@@ -36,12 +36,19 @@ export class SingleItem {
     this.canvasParent = canvasParent;
 
     this.addEventListeners();
+    this.handleSubscriptions();
     this.init();
   }
 
   addEventListeners() {
     window.addEventListener("resize", () => this.handleResize());
+  }
 
+  removeEventListeners() {
+    window.removeEventListener("resize", () => this.handleResize());
+  }
+
+  handleSubscriptions() {
     PubSub.subscribe(GL_SET_MODEL, (_topic, data) => this.setModel(data));
     PubSub.subscribe(UI_HANDLE_TRANSITION, () =>
       setTimeout(() => {
@@ -49,10 +56,6 @@ export class SingleItem {
         this.renderer.setAnimationLoop(null);
       }, 1000)
     );
-  }
-
-  removeEventListeners() {
-    window.removeEventListener("resize", () => this.handleResize());
   }
 
   init() {

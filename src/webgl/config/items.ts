@@ -142,6 +142,8 @@ export const SOLD_OUTS_CARDS = [
   },
 ];
 
+export const COIN = "/models/coin.glb";
+
 export const WRAPPER = "/models/wrapper.glb";
 
 export const COIL = "/models/coil.glb";

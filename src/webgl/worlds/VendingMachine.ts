@@ -71,6 +71,7 @@ export class VendingMachine {
     this.isMobile = canvasParent.clientWidth < 600;
 
     this.addEventListeners();
+    this.handleSubscriptions();
     this.init();
   }
 
@@ -83,7 +84,22 @@ export class VendingMachine {
     window.addEventListener("touchstart", (event) =>
       this.handleTouchStart(event)
     );
+  }
 
+  removeEventListeners() {
+    window.removeEventListener("resize", () => this.handleResize());
+    window.removeEventListener("mousemove", (event) =>
+      this.handleMouseMove(event)
+    );
+    window.removeEventListener("click", () => {
+      this.handleClick();
+    });
+    window.removeEventListener("touchstart", (event) =>
+      this.handleTouchStart(event)
+    );
+  }
+
+  handleSubscriptions() {
     PubSub.subscribe(GL_FLIP_COIN, () => {
       if (!this.coin) return;
 
@@ -98,19 +114,6 @@ export class VendingMachine {
         this.renderer.setAnimationLoop(null);
       }, 1000);
     });
-  }
-
-  removeEventListeners() {
-    window.removeEventListener("resize", () => this.handleResize());
-    window.removeEventListener("mousemove", (event) =>
-      this.handleMouseMove(event)
-    );
-    window.removeEventListener("click", () => {
-      this.handleClick();
-    });
-    window.removeEventListener("touchstart", (event) =>
-      this.handleTouchStart(event)
-    );
   }
 
   init() {

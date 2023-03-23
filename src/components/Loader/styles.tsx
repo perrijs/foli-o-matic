@@ -17,12 +17,13 @@ export const LoaderWrapper = styled(motion.div)`
   justify-content: space-between;
   gap: ${spacing.MARGIN_EXTRA_SMALL};
   transform: translate(-50%, -40%);
-  border: 2px solid ${color.COSMIC_LATTE};
-  box-shadow: 1px 1px ${color.COSMIC_LATTE};
+  border: 1px solid ${color.VERMILLION};
+  box-shadow: 1px 1px ${color.VERMILLION};
+  z-index: 10;
 
   .active {
-    color: ${color.COSMIC_AMERICANO};
-    background-color: ${color.COSMIC_LATTE};
+    color: ${color.COSMIC_LATTE};
+    background-color: ${color.VERMILLION};
   }
 `;
 
@@ -32,8 +33,8 @@ export const MachineScreen = styled.div`
   height: 20px;
 
   align-items: center;
-  color: ${color.COSMIC_LATTE};
-  border: 2px solid ${color.COSMIC_LATTE};
+  color: ${color.VERMILLION};
+  border: 1px solid ${color.VERMILLION};
 
   ${type.TYPE_SANS_BODY_2}
 
@@ -49,8 +50,8 @@ export const Button = styled.div`
 
   align-items: center;
   justify-content: center;
-  color: ${color.COSMIC_LATTE};
-  border: 2px solid ${color.COSMIC_LATTE};
+  color: ${color.VERMILLION};
+  border: 1px solid ${color.VERMILLION};
 
   ${type.TYPE_SANS_BODY_2}
 `;

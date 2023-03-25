@@ -1,4 +1,4 @@
-import { Group, Mesh, MeshMatcapMaterial } from "three";
+import { Group, Material, Mesh, MeshMatcapMaterial } from "three";
 import PubSub from "pubsub-js";
 
 import { Scene } from "@/webgl/globals/Scene";

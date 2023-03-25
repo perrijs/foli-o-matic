@@ -19,7 +19,7 @@ export const LoaderWrapper = styled(motion.div)`
   transform: translate(-50%, -40%);
   border: 1px solid ${color.VERMILLION};
   box-shadow: 1px 1px ${color.VERMILLION};
-  z-index: 10;
+  z-index: 1;
 
   .active {
     color: ${color.COSMIC_LATTE};

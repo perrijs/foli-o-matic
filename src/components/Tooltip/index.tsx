@@ -29,7 +29,7 @@ const Tooltip = () => {
         {canInteract ? (
           <TipContainer
             ref={zoomRef}
-            key={"browtf"}
+            key={"interactTip"}
             initial={{ opacity: 0 }}
             animate={{
               opacity: 1,
@@ -46,7 +46,7 @@ const Tooltip = () => {
         ) : (
           <TipContainer
             ref={scrollRef}
-            key={"workcunt"}
+            key={"scrollTip"}
             initial={{ opacity: 0 }}
             animate={{
               opacity: 1,

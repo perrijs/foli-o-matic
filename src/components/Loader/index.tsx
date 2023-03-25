@@ -57,11 +57,11 @@ const Loader = () => {
       }}
       animate={{
         opacity: 1,
-        transition: { duration: 0.35, ease: "easeIn" },
+        transition: { duration: 0.25, ease: "linear" },
       }}
       exit={{
         opacity: 0,
-        transition: { delay: 2, duration: 0.5, ease: "easeOut" },
+        transition: { delay: 3, duration: 0.5, ease: "linear" },
       }}
     >
       <MachineScreen>

@@ -44,7 +44,7 @@ export class Coin {
       delay: 1,
       duration: 2.5,
       y: -1.5,
-      ease: "back.out(2.5)",
+      ease: "back.out(3)",
       onUpdate: () => {
         if (timeline.progress() > 0.525) {
           if (!this.mesh || cabVisible) return;
@@ -76,10 +76,10 @@ export class Coin {
     });
   }
 
-  inertia() {
+  inertia(delta: number) {
     if (!this.mesh) return;
 
-    this.mesh.rotation.x -= 0.3;
+    this.mesh.rotation.x += -15 * delta;
   }
 
   insert() {

@@ -1,4 +1,11 @@
-import { Raycaster, Vector2, Object3D, Intersection, MathUtils } from "three";
+import {
+  Raycaster,
+  Vector2,
+  Object3D,
+  Intersection,
+  MathUtils,
+  Clock,
+} from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -37,6 +44,7 @@ export class VendingMachine {
   scene: Scene;
   ambientLight: AmbientLight;
   directionalLight: DirectionalLight;
+  clock = new Clock();
 
   coilController?: CoilController;
   buttonController?: ButtonController;
@@ -319,6 +327,8 @@ export class VendingMachine {
   }
 
   render() {
+    const delta = this.clock.getDelta();
+
     if (this.raycaster && this.pointer) {
       this.raycaster.setFromCamera(this.pointer, this.camera);
 
@@ -328,7 +338,7 @@ export class VendingMachine {
       }
     }
 
-    if (this.coin && this.coin.rotating) this.coin.inertia();
+    if (this.coin && this.coin.rotating) this.coin.inertia(delta);
 
     this.renderer.render(this.scene, this.camera);
   }

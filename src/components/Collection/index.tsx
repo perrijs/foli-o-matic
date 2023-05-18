@@ -31,6 +31,7 @@ interface Props {
   projects: SelectedWork[];
 }
 
+//TODO(pschofield): Refactor to be an animated overlay.
 const Collection = ({ projects }: Props) => {
   const { loaded } = useLoading();
 

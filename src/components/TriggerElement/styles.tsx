@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ScrollTriggerWrapper = styled.div`
+export const TriggerElementWrapper = styled.div`
   width: 100%;
   height: 2500px;
 `;

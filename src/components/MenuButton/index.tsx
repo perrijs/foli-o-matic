@@ -15,10 +15,7 @@ const MenuButton = () => {
   }, []);
 
   const openMenu = () => {
-    PubSub.publish(UI_HANDLE_TRANSITION, {
-      slug: "/collection",
-      color: "#f5a3a3",
-    });
+    //TODO(pschofield): Open Collection component overlay.
   };
 
   const highlightButtons = () => {

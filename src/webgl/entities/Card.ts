@@ -8,8 +8,10 @@ import {
 
 import { Scene } from "@/webgl/globals/Scene";
 
+import { setVisibility } from "@/webgl/utils/setVisibility";
+
 import { CardData } from "@/webgl/config/types";
-import { setVisibility } from "../utils/setVisibility";
+import { GL_SHOW_CAB } from "@/webgl/config/topics";
 
 export class Card {
   scene: Scene;
@@ -21,7 +23,16 @@ export class Card {
     this.scene = scene;
     this.cardData = cardData;
 
+    this.handleSubscriptions();
     this.init();
+  }
+
+  handleSubscriptions() {
+    PubSub.subscribe(GL_SHOW_CAB, () => {
+      if (!this.mesh) return;
+
+      setVisibility(this.mesh, true);
+    });
   }
 
   async init() {

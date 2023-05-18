@@ -1,20 +1,19 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import { AnimatePresence } from "framer-motion";
 
 import { useLoading } from "@/contexts/loadingContext";
 
 import { Load } from "@/webgl/load";
 import WebGL from "@/webgl/index";
 
-import ScrollTrigger from "@/components/ScrollTrigger";
+import TriggerElement from "@/components/TriggerElement";
 import MenuButton from "@/components/MenuButton";
-import Tooltip from "@/components/Tooltip";
 import TransitionScreen from "@/components/TransitionScreen";
+import Loader from "@/components/Loader";
 
 import { GL_FLIP_COIN } from "@/webgl/config/topics";
 import { TRIGGER_ELEMENTS } from "@/webgl/config/scrollTriggers";
-import Loader from "@/components/Loader";
-import { AnimatePresence } from "framer-motion";
 
 const Index = () => {
   const { loaded } = useLoading();
@@ -53,12 +52,10 @@ const Index = () => {
       </Head>
 
       {TRIGGER_ELEMENTS.map((name) => (
-        <ScrollTrigger key={name} className={name} />
+        <TriggerElement key={name} className={name} />
       ))}
 
       <MenuButton />
-
-      <Tooltip />
 
       <AnimatePresence>{!start && <Loader />}</AnimatePresence>
 

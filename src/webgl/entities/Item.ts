@@ -3,8 +3,6 @@ import gsap from "gsap";
 
 import { Scene } from "@/webgl/globals/Scene";
 
-import { setVisibility } from "@/webgl/utils/setVisibility";
-
 import { UI_HANDLE_TRANSITION } from "@/webgl/config/topics";
 import { ItemData } from "@/webgl/config/types";
 
@@ -26,8 +24,6 @@ export class Item {
 
     this.model.position.set(position.x, position.y, position.z);
     this.scene.add(this.model);
-
-    setVisibility(this.model, false);
   }
 
   move() {

@@ -37,8 +37,6 @@ export class Coin {
   flip() {
     if (!this.mesh) return;
 
-    let cabVisible = false;
-
     const timeline = gsap.timeline();
     timeline.to(this.mesh.position, {
       delay: 1,
@@ -46,11 +44,8 @@ export class Coin {
       y: -1.5,
       ease: "back.out(3)",
       onUpdate: () => {
-        if (timeline.progress() > 0.525) {
-          if (!this.mesh || cabVisible) return;
-
-          cabVisible = true;
-          PubSub.publish(GL_SHOW_CAB);
+        if (timeline.progress() > 0.5) {
+          if (!this.mesh) return;
 
           gsap.to(this.mesh.rotation, {
             duration: 1,

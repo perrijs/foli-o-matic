@@ -1,4 +1,10 @@
-import { DoubleSide, Mesh, PlaneGeometry, ShadowMaterial } from "three";
+import {
+  DoubleSide,
+  Mesh,
+  MeshPhongMaterial,
+  PlaneGeometry,
+  ShadowMaterial,
+} from "three";
 
 import { Scene } from "@/webgl/globals/Scene";
 
@@ -12,10 +18,13 @@ export class Floor {
   }
 
   init() {
-    const geometry = new PlaneGeometry(100, 100, 1);
-    const material = new ShadowMaterial({ side: DoubleSide });
+    const geometry = new PlaneGeometry(1000, 1000);
+    /* TODO(pschofield): Transition from color black to pink when coin is inserted. */
+    const material = new MeshPhongMaterial({
+      color: "#080808",
+      side: DoubleSide,
+    });
     const mesh = new Mesh(geometry, material);
-    material.opacity = 0.6;
 
     mesh.position.set(0, -4, 0);
     mesh.rotation.x = Math.PI / 2;

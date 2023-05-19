@@ -5,7 +5,9 @@ body {
   margin: 0;
   padding: 0;
 
-  background-color: #fff8e7;
+  /* TODO(pschofield): Transition from black to pink when coin is inserted. */
+  background-color: #000000;
+  /* background-color: #ffbfc3; */
 }
 
 body {

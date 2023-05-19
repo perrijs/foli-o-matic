@@ -34,7 +34,7 @@ export class CoinSlot {
     this.group.add(slot);
 
     const labelGeometry = new PlaneGeometry(0.125, 0.05, 1);
-    const labelMaterial = new MeshBasicMaterial({ transparent: true });
+    const labelMaterial = new MeshBasicMaterial();
     this.label = new Mesh(labelGeometry, labelMaterial);
     this.label.position.set(0, 0.12, 0);
     this.group.add(this.label);
@@ -67,7 +67,6 @@ export class CoinSlot {
     const texture = new CanvasTexture(ctx.canvas);
     this.label.material = new MeshBasicMaterial({
       map: texture,
-      transparent: true,
     });
   }
 }

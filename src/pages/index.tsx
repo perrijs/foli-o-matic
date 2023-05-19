@@ -9,7 +9,6 @@ import WebGL from "@/webgl/index";
 
 import TriggerElement from "@/components/TriggerElement";
 import MenuButton from "@/components/MenuButton";
-import TransitionScreen from "@/components/TransitionScreen";
 import Loader from "@/components/Loader";
 
 import { GL_FLIP_COIN } from "@/webgl/config/topics";
@@ -60,8 +59,6 @@ const Index = () => {
       <AnimatePresence>{!start && <Loader />}</AnimatePresence>
 
       <WebGL />
-
-      <TransitionScreen />
     </>
   );
 };

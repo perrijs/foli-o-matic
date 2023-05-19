@@ -1,11 +1,4 @@
-import {
-  Raycaster,
-  Vector2,
-  Object3D,
-  Intersection,
-  MathUtils,
-  Clock,
-} from "three";
+import { Raycaster, Vector2, Object3D, Intersection, Clock } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -15,8 +8,10 @@ import { Scene } from "@/webgl/globals/Scene";
 import { Camera } from "@/webgl/globals/Camera";
 import { AmbientLight } from "@/webgl/globals/AmbientLight";
 import { DirectionalLight } from "@/webgl/globals/DirectionalLight";
+import { SpotLight } from "@/webgl/globals/SpotLight";
 
 import { Cabinet } from "@/webgl/entities/Cabinet";
+import { LightCone } from "@/webgl/entities/LightCone";
 import { Coin } from "@/webgl/entities/Coin";
 import { Floor } from "@/webgl/entities/Floor";
 
@@ -44,11 +39,13 @@ export class VendingMachine {
   scene: Scene;
   ambientLight: AmbientLight;
   directionalLight: DirectionalLight;
+  spotLight: SpotLight;
   clock = new Clock();
 
   coilController?: CoilController;
   buttonController?: ButtonController;
   itemController?: ItemController;
+  lightCone?: LightCone;
   cabinet?: Cabinet;
   coin?: Coin;
   floor?: Floor;
@@ -69,6 +66,7 @@ export class VendingMachine {
     this.scene = new Scene();
     this.ambientLight = new AmbientLight();
     this.directionalLight = new DirectionalLight();
+    this.spotLight = new SpotLight();
 
     this.raycaster = new Raycaster();
     this.pointer = new Vector2();
@@ -134,11 +132,13 @@ export class VendingMachine {
 
     this.scene.add(this.ambientLight);
     this.scene.add(this.directionalLight);
+    this.scene.add(this.spotLight);
 
     this.coilController = new CoilController(this.scene);
     this.buttonController = new ButtonController(this.scene);
     this.itemController = new ItemController(this.scene);
     this.floor = new Floor(this.scene);
+    this.lightCone = new LightCone(this.scene);
     this.cabinet = new Cabinet(this.scene);
     this.coin = new Coin(this.scene);
 
@@ -149,23 +149,27 @@ export class VendingMachine {
   }
 
   initScroll() {
-    if (!this.coin || !this.coin.mesh) return;
+    if (!this.coin || !this.coin.mesh || !this.lightCone) return;
 
     const timeline = gsap.timeline();
     const triggerElementOne = document.querySelector(
       `.${TRIGGER_ELEMENTS[0]}`
     ) as HTMLDivElement;
 
+    const scrollTrigger = {
+      trigger: triggerElementOne,
+      start: 0,
+      end: triggerElementOne.clientHeight * 1.5,
+      scrub: true,
+      immediateRender: false,
+    };
+
     timeline.to(this.coin.mesh.position, {
       x: 2.31,
       y: 1.266,
       z: 3.001,
       scrollTrigger: {
-        trigger: triggerElementOne,
-        start: 0,
-        end: triggerElementOne.clientHeight * 1.5,
-        scrub: true,
-        immediateRender: false,
+        ...scrollTrigger,
         onUpdate: () => {
           if (!this.coin || !this.coin.mesh) return;
 
@@ -189,13 +193,23 @@ export class VendingMachine {
       x: 0.075,
       y: 0.075,
       z: 0.075,
-      scrollTrigger: {
-        trigger: triggerElementOne,
-        start: 0,
-        end: triggerElementOne.clientHeight * 1.5,
-        scrub: true,
-        immediateRender: false,
-      },
+      scrollTrigger,
+    });
+
+    if (this.lightCone.mesh)
+      timeline.to(this.lightCone.mesh.material, {
+        opacity: 0,
+        scrollTrigger,
+      });
+
+    timeline.to(this.spotLight, {
+      intensity: 0,
+      scrollTrigger,
+    });
+
+    timeline.to(this.directionalLight, {
+      intensity: 1,
+      scrollTrigger,
     });
   }
 

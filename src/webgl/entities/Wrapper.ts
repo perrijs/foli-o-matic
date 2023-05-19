@@ -69,8 +69,6 @@ export class Wrapper {
     const material = new MeshStandardMaterial({
       map: texture,
       side: DoubleSide,
-      transparent: true,
-      opacity: 0,
     });
     const frontCardMesh = new Mesh(geometry, material);
     frontCardMesh.position.y = 0.4;

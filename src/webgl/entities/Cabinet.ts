@@ -19,7 +19,6 @@ import { CoinSlot } from "@/webgl/entities/CoinSlot";
 import { Flap } from "@/webgl/entities/Flap";
 
 import { CABINET_MESHES, CABINET_TRAYS } from "@/webgl/config/cabinet";
-import { GL_SHOW_CAB } from "@/webgl/config/topics";
 import { Vec3 } from "@/webgl/config/types";
 
 export class Cabinet {

@@ -9,7 +9,7 @@ import { Item } from "@/webgl/entities/Item";
 import { Card } from "@/webgl/entities/Card";
 
 import { ITEMS, SOLD_OUTS_CARDS } from "@/webgl/config/items";
-import { GL_SELECT_ITEM, GL_SHOW_CAB } from "@/webgl/config/topics";
+import { GL_SELECT_ITEM } from "@/webgl/config/topics";
 
 export class ItemController {
   assetController = AssetController.getInstance();
@@ -57,16 +57,6 @@ export class ItemController {
 
   handleSubscriptions() {
     PubSub.subscribe(GL_SELECT_ITEM, this.handleMove.bind(this));
-
-    PubSub.subscribe(GL_SHOW_CAB, () => {
-      if (this.wrappers)
-        this.wrappers.forEach((wrapper) => {
-          if (!wrapper.mesh || !wrapper.cards) return;
-
-          const material = wrapper.mesh.material as Material;
-          material.opacity = 0.3;
-        }, []);
-    });
   }
 
   getItem(index: number) {

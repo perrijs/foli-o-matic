@@ -5,8 +5,6 @@ import { AssetController } from "@/webgl/controllers/AssetController";
 
 import { Scene } from "@/webgl/globals/Scene";
 
-import { GL_SHOW_CAB } from "@/webgl/config/topics";
-
 export class Coin {
   assetController = AssetController.getInstance();
 

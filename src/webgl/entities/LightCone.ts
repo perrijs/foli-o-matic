@@ -32,7 +32,7 @@ export class LightCone {
     const material = new MeshBasicMaterial({
       color: 0xffffff,
       transparent: true,
-      opacity: 0.1,
+      opacity: 0,
       depthWrite: false,
     });
     const cone = new Mesh(geometry, material);

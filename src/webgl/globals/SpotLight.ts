@@ -2,7 +2,7 @@ import { SpotLight as ThreeSpotLight } from "three";
 
 export class SpotLight extends ThreeSpotLight {
   constructor() {
-    super("#f5f5f5", 2);
+    super("#f5f5f5", 0);
 
     this.position.set(0, 50, 0);
     this.penumbra = 0;

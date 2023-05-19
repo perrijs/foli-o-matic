@@ -1,4 +1,11 @@
-import { Raycaster, Vector2, Object3D, Intersection, Clock } from "three";
+import {
+  Raycaster,
+  Vector2,
+  Object3D,
+  Intersection,
+  Clock,
+  Material,
+} from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -21,7 +28,7 @@ import { ButtonController } from "@/webgl/controllers/ButtonController";
 import { ItemController } from "@/webgl/controllers/ItemController";
 
 import {
-  GL_FLIP_COIN,
+  GL_ACTIVATE_SCENE,
   GL_PRESS_KEY,
   GL_SELECT_ITEM,
   UI_HANDLE_TRANSITION,
@@ -106,10 +113,20 @@ export class VendingMachine {
   }
 
   handleSubscriptions() {
-    PubSub.subscribe(GL_FLIP_COIN, () => {
-      if (!this.coin) return;
+    PubSub.subscribe(GL_ACTIVATE_SCENE, () => {
+      if (!this.lightCone || !this.lightCone.mesh) return;
 
-      this.coin.flip();
+      const material = this.lightCone.mesh.material as Material;
+
+      this.spotLight.intensity = 2;
+      this.directionalLight.intensity = 0.25;
+      material.opacity = 0.1;
+
+      setTimeout(() => {
+        if (!this.coin) return;
+
+        this.coin.flip();
+      }, 2000);
     });
 
     PubSub.subscribe(UI_HANDLE_TRANSITION, () => {

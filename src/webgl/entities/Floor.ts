@@ -1,12 +1,16 @@
 import {
+  Color,
   DoubleSide,
+  Material,
   Mesh,
+  MeshBasicMaterial,
   MeshPhongMaterial,
   PlaneGeometry,
   ShadowMaterial,
 } from "three";
 
 import { Scene } from "@/webgl/globals/Scene";
+import { GL_ACTIVATE_LIGHTS } from "../config/topics";
 
 export class Floor {
   scene: Scene;
@@ -14,12 +18,17 @@ export class Floor {
 
   constructor(scene: Scene) {
     this.scene = scene;
+
+    this.handleSubscriptions();
     this.init();
+  }
+
+  handleSubscriptions() {
+    PubSub.subscribe(GL_ACTIVATE_LIGHTS, () => this.switchMaterial());
   }
 
   init() {
     const geometry = new PlaneGeometry(1000, 1000);
-    /* TODO(pschofield): Transition from color black to pink when coin is inserted. */
     const material = new MeshPhongMaterial({
       color: "#080808",
       side: DoubleSide,
@@ -32,5 +41,14 @@ export class Floor {
 
     this.mesh = mesh;
     this.scene.add(this.mesh);
+  }
+
+  switchMaterial() {
+    if (!this.mesh) return;
+
+    this.mesh.material = new ShadowMaterial({
+      opacity: 0.5,
+      side: DoubleSide,
+    });
   }
 }

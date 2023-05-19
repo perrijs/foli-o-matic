@@ -28,10 +28,10 @@ import { ButtonController } from "@/webgl/controllers/ButtonController";
 import { ItemController } from "@/webgl/controllers/ItemController";
 
 import {
+  GL_ACTIVATE_LIGHTS,
   GL_ACTIVATE_SCENE,
   GL_PRESS_KEY,
   GL_SELECT_ITEM,
-  UI_HANDLE_TRANSITION,
   UI_TOOLTIP_INTERACT,
 } from "@/webgl/config/topics";
 import { TRIGGER_ELEMENTS, SCROLL_HEIGHT } from "@/webgl/config/scrollTriggers";
@@ -113,30 +113,8 @@ export class VendingMachine {
   }
 
   handleSubscriptions() {
-    PubSub.subscribe(GL_ACTIVATE_SCENE, () => {
-      if (!this.lightCone || !this.lightCone.mesh) return;
-
-      const material = this.lightCone.mesh.material as Material;
-
-      this.spotLight.intensity = 2;
-      this.directionalLight.intensity = 0.25;
-      material.opacity = 0.1;
-
-      setTimeout(() => {
-        if (!this.coin) return;
-
-        this.coin.flip();
-      }, 2000);
-    });
-
-    PubSub.subscribe(UI_HANDLE_TRANSITION, () => {
-      document.body.style.overflowY = "hidden";
-
-      setTimeout(() => {
-        this.removeEventListeners();
-        this.renderer.setAnimationLoop(null);
-      }, 1000);
-    });
+    PubSub.subscribe(GL_ACTIVATE_SCENE, () => this.activateScene());
+    PubSub.subscribe(GL_ACTIVATE_LIGHTS, () => this.activateLights());
   }
 
   init() {
@@ -227,16 +205,6 @@ export class VendingMachine {
     timeline.to(this.directionalLight, {
       intensity: 1,
       scrollTrigger,
-    });
-  }
-
-  fixCamera() {
-    gsap.to(this.camera.position, {
-      duration: 3,
-      x: 0,
-      y: 0,
-      z: 7.5,
-      ease: "power4.inOut",
     });
   }
 
@@ -338,6 +306,16 @@ export class VendingMachine {
     PubSub.publish(UI_TOOLTIP_INTERACT, currentScroll > SCROLL_HEIGHT);
   }
 
+  fixCamera() {
+    gsap.to(this.camera.position, {
+      duration: 3,
+      x: 0,
+      y: 0,
+      z: 10,
+      ease: "power4.inOut",
+    });
+  }
+
   setPositionDefault(duration: number, init?: boolean, reset?: boolean) {
     if (reset) document.documentElement.scrollTop = 0;
 
@@ -355,6 +333,29 @@ export class VendingMachine {
         }
       },
     });
+  }
+
+  activateScene() {
+    if (!this.lightCone || !this.lightCone.mesh) return;
+
+    const material = this.lightCone.mesh.material as Material;
+    material.opacity = 0.1;
+
+    this.spotLight.intensity = 2;
+    this.directionalLight.intensity = 0.25;
+
+    setTimeout(() => {
+      if (!this.coin) return;
+
+      this.coin.flip();
+    }, 1000);
+  }
+
+  activateLights() {
+    this.spotLight.intensity = 0;
+    this.directionalLight.intensity = 1;
+
+    document.body.style.backgroundColor = "#ffbfc3";
   }
 
   render() {

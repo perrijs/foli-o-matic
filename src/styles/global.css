@@ -4,13 +4,11 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-
-  /* TODO(pschofield): Transition from black to pink when coin is inserted. */
-  background-color: #000000;
-  /* background-color: #ffbfc3; */
 }
 
 body {
   overflow-x: hidden;
   overflow-y: hidden;
+
+  background-color: #000000;
 }

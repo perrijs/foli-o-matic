@@ -29,7 +29,7 @@ const Index = () => {
     setTimeout(() => {
       PubSub.publish(GL_ACTIVATE_SCENE);
       setIsMenuVisible(true);
-    }, 5000);
+    }, 7000);
   }, [loaded]);
 
   return (

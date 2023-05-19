@@ -5,21 +5,31 @@ import * as color from "@/styles/globals/color";
 import * as spacing from "@/styles/globals/spacing";
 import * as type from "@/styles/globals/type";
 
-export const LoaderWrapper = styled(motion.div)`
+export const Container = styled(motion.div)`
   display: flex;
+  width: 100vw;
+  height: 100vh;
   position: absolute;
-  top: 40%;
-  left: 50%;
+  top: 0;
+  left: 0;
+
+  justify-content: center;
+  align-items: center;
+
+  background-color: #000000;
+  z-index: 1;
+`;
+
+export const LoaderBase = styled.div`
+  display: flex;
   width: 100px;
   padding: ${spacing.MARGIN_EXTRA_SMALL};
 
   flex-wrap: wrap;
   justify-content: space-between;
   gap: ${spacing.MARGIN_EXTRA_SMALL};
-  transform: translate(-50%, -40%);
   border: 1px solid ${color.VERMILLION};
   box-shadow: 1px 1px ${color.VERMILLION};
-  z-index: 1;
 
   .active {
     color: ${color.COSMIC_LATTE};

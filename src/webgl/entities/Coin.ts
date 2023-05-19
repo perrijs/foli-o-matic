@@ -1,9 +1,11 @@
 import { Group } from "three";
 import gsap from "gsap";
 
+import { Scene } from "@/webgl/globals/Scene";
+
 import { AssetController } from "@/webgl/controllers/AssetController";
 
-import { Scene } from "@/webgl/globals/Scene";
+import { GL_ACTIVATE_LIGHTS } from "@/webgl/config/topics";
 
 export class Coin {
   assetController = AssetController.getInstance();
@@ -89,6 +91,9 @@ export class Coin {
           duration: 1,
           z: this.mesh.position.z - 2,
           ease: "power4.inOut",
+          onComplete: () => {
+            PubSub.publish(GL_ACTIVATE_LIGHTS);
+          },
         });
       },
     });

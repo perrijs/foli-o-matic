@@ -1,19 +1,8 @@
-import {
-  Mesh,
-  BoxGeometry,
-  MeshMatcapMaterial,
-  Material,
-  MeshBasicMaterial,
-  ConeGeometry,
-} from "three";
-import PubSub from "pubsub-js";
-import gsap from "gsap";
+import { Mesh, MeshBasicMaterial, ConeGeometry } from "three";
 
 import { Scene } from "@/webgl/globals/Scene";
 
 import { AssetController } from "@/webgl/controllers/AssetController";
-
-import { GL_SELECT_ITEM } from "@/webgl/config/topics";
 
 export class LightCone {
   assetController = AssetController.getInstance();

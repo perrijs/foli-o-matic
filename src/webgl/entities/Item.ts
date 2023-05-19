@@ -3,7 +3,6 @@ import gsap from "gsap";
 
 import { Scene } from "@/webgl/globals/Scene";
 
-import { UI_HANDLE_TRANSITION } from "@/webgl/config/topics";
 import { ItemData } from "@/webgl/config/types";
 
 export class Item {
@@ -53,7 +52,7 @@ export class Item {
         ease: "power4.in",
         y: -2,
         onComplete: () => {
-          PubSub.publish(UI_HANDLE_TRANSITION, this.itemData);
+          //TODO(pschofield): Add trigger for new item overlay here.
         },
       }
     );

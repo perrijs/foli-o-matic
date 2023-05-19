@@ -1,4 +1,3 @@
-import { UI_HANDLE_TRANSITION } from "@/webgl/config/topics";
 import { useEffect, useRef, useState } from "react";
 
 import { BUTTONS } from "src/config/buttons";

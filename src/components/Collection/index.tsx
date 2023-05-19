@@ -103,7 +103,6 @@ const Collection = ({ projects }: Props) => {
                     duration: 0.33,
                     ease: "easeInOut",
                   }}
-                  onClick={() => handleTransition(project.id)}
                   onMouseMove={() => {
                     if (!canvasRef.current) return;
 

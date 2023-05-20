@@ -4,6 +4,7 @@ import type { AppProps } from "next/app";
 import { LoadingProvider } from "src/contexts/loadingContext";
 
 import "@/styles/global.css";
+import { AudioProvider } from "@/contexts/audioContext";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -20,7 +21,9 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
 
       <LoadingProvider>
-        <Component {...pageProps} />
+        <AudioProvider>
+          <Component {...pageProps} />
+        </AudioProvider>
       </LoadingProvider>
     </>
   );

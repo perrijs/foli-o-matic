@@ -8,10 +8,8 @@ import { Wrapper } from "@/webgl/entities/Wrapper";
 import { Item } from "@/webgl/entities/Item";
 import { Card } from "@/webgl/entities/Card";
 
-import { setVisibility } from "@/webgl/utils/setVisibility";
-
 import { ITEMS, SOLD_OUTS_CARDS } from "@/webgl/config/items";
-import { GL_SELECT_ITEM, GL_SHOW_CAB } from "@/webgl/config/topics";
+import { GL_SELECT_ITEM } from "@/webgl/config/topics";
 
 export class ItemController {
   assetController = AssetController.getInstance();
@@ -59,32 +57,6 @@ export class ItemController {
 
   handleSubscriptions() {
     PubSub.subscribe(GL_SELECT_ITEM, this.handleMove.bind(this));
-
-    PubSub.subscribe(GL_SHOW_CAB, () => {
-      if (this.items)
-        this.items.forEach((item) => {
-          setVisibility(item.model, true);
-        }, []);
-
-      if (this.wrappers)
-        this.wrappers.forEach((wrapper) => {
-          if (!wrapper.mesh || !wrapper.cards) return;
-
-          const material = wrapper.mesh.material as Material;
-          material.opacity = 0.3;
-
-          wrapper.cards.forEach((card) => {
-            setVisibility(card, true);
-          });
-        }, []);
-
-      if (this.cards)
-        this.cards.forEach((card) => {
-          if (!card.mesh) return;
-
-          setVisibility(card.mesh, true);
-        });
-    });
   }
 
   getItem(index: number) {

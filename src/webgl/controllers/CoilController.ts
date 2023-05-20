@@ -7,10 +7,8 @@ import { AssetController } from "./AssetController";
 
 import { Coil } from "@/webgl/entities/Coil";
 
-import { setVisibility } from "@/webgl/utils/setVisibility";
-
 import { COILS } from "@/webgl/config/coils";
-import { GL_SELECT_ITEM, GL_SHOW_CAB } from "@/webgl/config/topics";
+import { GL_SELECT_ITEM } from "@/webgl/config/topics";
 
 export class CoilController {
   assetController = AssetController.getInstance();
@@ -28,14 +26,6 @@ export class CoilController {
   }
 
   handleSubscriptions() {
-    PubSub.subscribe(GL_SHOW_CAB, () => {
-      if (!this.coils) return;
-
-      this.coils.forEach((coil) => {
-        setVisibility(coil.model, true);
-      });
-    });
-
     PubSub.subscribe(GL_SELECT_ITEM, this.handleRotate.bind(this));
   }
 

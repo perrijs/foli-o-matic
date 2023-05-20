@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import { BUTTONS } from "src/config/buttons";
 
-import { Button, LoaderWrapper, MachineScreen } from "./styles";
+import { Container, LoaderBase, MachineScreen, Button } from "./styles";
 
 const Loader = () => {
   const { loaded } = useLoading();
@@ -51,7 +51,7 @@ const Loader = () => {
   };
 
   return (
-    <LoaderWrapper
+    <Container
       initial={{
         opacity: 0,
       }}
@@ -64,16 +64,18 @@ const Loader = () => {
         transition: { delay: 3, duration: 0.5, ease: "linear" },
       }}
     >
-      <MachineScreen>
-        {loadBuffer ? <span>ENTER!</span> : <span>LOADING...</span>}
-      </MachineScreen>
+      <LoaderBase>
+        <MachineScreen>
+          {loadBuffer ? <span>ENTER!</span> : <span>LOADING...</span>}
+        </MachineScreen>
 
-      {BUTTONS.map((button) => (
-        <Button key={button} className="loaderButton">
-          {button}
-        </Button>
-      ))}
-    </LoaderWrapper>
+        {BUTTONS.map((button) => (
+          <Button key={button} className="loaderButton">
+            {button}
+          </Button>
+        ))}
+      </LoaderBase>
+    </Container>
   );
 };
 

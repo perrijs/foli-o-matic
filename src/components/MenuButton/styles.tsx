@@ -1,11 +1,12 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 import * as color from "@/styles/globals/color";
 import * as spacing from "@/styles/globals/spacing";
 import * as type from "@/styles/globals/type";
 import * as breakpoint from "@/styles/globals/breakpoints";
 
-export const MenuWrapper = styled.div`
+export const MenuWrapper = styled(motion.div)`
   display: flex;
   position: fixed;
   top: ${spacing.MARGIN_LARGE};

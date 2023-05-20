@@ -1,4 +1,3 @@
-import { UI_HANDLE_TRANSITION } from "@/webgl/config/topics";
 import { useEffect, useRef, useState } from "react";
 
 import { BUTTONS } from "src/config/buttons";
@@ -33,6 +32,17 @@ const MenuButton = () => {
 
   return (
     <MenuWrapper
+      initial={{
+        opacity: 0,
+      }}
+      animate={{
+        opacity: 1,
+        transition: { duration: 1, ease: "linear" },
+      }}
+      exit={{
+        opacity: 0,
+        transition: { duration: 1, ease: "linear" },
+      }}
       onClick={openMenu}
       onMouseEnter={() => {
         setButtonInterval(

@@ -3,8 +3,6 @@ import gsap from "gsap";
 
 import { Scene } from "@/webgl/globals/Scene";
 
-import { setVisibility } from "@/webgl/utils/setVisibility";
-
 import { CoilData } from "@/webgl/config/types";
 
 export class Coil {
@@ -25,8 +23,6 @@ export class Coil {
 
     this.model.position.set(position.x, position.y, position.z);
     this.scene.add(this.model);
-
-    setVisibility(this.model, false);
   }
 
   rotate() {

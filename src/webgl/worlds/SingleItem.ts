@@ -8,7 +8,7 @@ import { DirectionalLight } from "@/webgl/globals/DirectionalLight";
 
 import { AssetController } from "@/webgl/controllers/AssetController";
 import { ItemController } from "@/webgl/controllers/ItemController";
-import { GL_SET_MODEL, UI_HANDLE_TRANSITION } from "@/webgl/config/topics";
+import { GL_SET_MODEL } from "@/webgl/config/topics";
 
 export class SingleItem {
   assetController = AssetController.getInstance();
@@ -50,12 +50,6 @@ export class SingleItem {
 
   handleSubscriptions() {
     PubSub.subscribe(GL_SET_MODEL, (_topic, data) => this.setModel(data));
-    PubSub.subscribe(UI_HANDLE_TRANSITION, () =>
-      setTimeout(() => {
-        this.removeEventListeners();
-        this.renderer.setAnimationLoop(null);
-      }, 1000)
-    );
   }
 
   init() {

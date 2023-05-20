@@ -5,9 +5,7 @@ import { Scene } from "@/webgl/globals/Scene";
 
 import { Screen } from "@/webgl/entities/Screen";
 
-import { setVisibility } from "@/webgl/utils/setVisibility";
-
-import { GL_PRESS_KEY, GL_SHOW_CAB } from "@/webgl/config/topics";
+import { GL_PRESS_KEY } from "@/webgl/config/topics";
 
 export class ScreenController {
   scene: Scene;
@@ -21,12 +19,6 @@ export class ScreenController {
 
   handleSubscriptions() {
     PubSub.subscribe(GL_PRESS_KEY, this.createCanvasTexture.bind(this));
-
-    PubSub.subscribe(GL_SHOW_CAB, () => {
-      if (!this.screen || !this.screen.mesh) return;
-
-      setVisibility(this.screen.mesh, true);
-    });
   }
 
   init() {

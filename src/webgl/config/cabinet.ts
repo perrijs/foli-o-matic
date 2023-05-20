@@ -17,7 +17,7 @@ export const CABINET_MESHES = [
       z: 0,
     },
     castShadow: true,
-    mainMatcap: true,
+    color: "#fff8e7",
   },
   {
     id: "top_panel",
@@ -37,7 +37,7 @@ export const CABINET_MESHES = [
       z: 0,
     },
     castShadow: true,
-    mainMatcap: true,
+    color: "#fff8e7",
   },
   {
     id: "bottom_panel",
@@ -57,7 +57,7 @@ export const CABINET_MESHES = [
       z: 0,
     },
     castShadow: true,
-    mainMatcap: true,
+    color: "#fff8e7",
   },
   {
     id: "bottom_filler",
@@ -69,7 +69,7 @@ export const CABINET_MESHES = [
     position: {
       x: -0.75,
       y: -2.8,
-      z: 1.5,
+      z: 1.49,
     },
     rotation: {
       x: 0,
@@ -77,7 +77,7 @@ export const CABINET_MESHES = [
       z: 0,
     },
     castShadow: false,
-    mainMatcap: true,
+    color: "#33312e",
   },
   {
     id: "side_panel_left",
@@ -97,7 +97,7 @@ export const CABINET_MESHES = [
       z: 0,
     },
     castShadow: false,
-    mainMatcap: true,
+    color: "#fff8e7",
   },
   {
     id: "side_panel_right",
@@ -117,7 +117,7 @@ export const CABINET_MESHES = [
       z: 0,
     },
     castShadow: false,
-    mainMatcap: true,
+    color: "#fff8e7",
   },
   {
     id: "inside_panel",
@@ -137,7 +137,7 @@ export const CABINET_MESHES = [
       z: 0,
     },
     castShadow: false,
-    mainMatcap: true,
+    color: "#fff8e7",
   },
   {
     id: "face_panel",
@@ -157,7 +157,7 @@ export const CABINET_MESHES = [
       z: 0,
     },
     castShadow: false,
-    mainMatcap: true,
+    color: "#fff8e7",
   },
   {
     id: "foot_1",
@@ -177,7 +177,7 @@ export const CABINET_MESHES = [
       z: 0,
     },
     castShadow: true,
-    mainMatcap: false,
+    color: "#33312e",
   },
   {
     id: "foot_2",
@@ -197,7 +197,7 @@ export const CABINET_MESHES = [
       z: 0,
     },
     castShadow: true,
-    mainMatcap: false,
+    color: "#33312e",
   },
   {
     id: "foot_3",
@@ -217,7 +217,7 @@ export const CABINET_MESHES = [
       z: 0,
     },
     castShadow: true,
-    mainMatcap: false,
+    color: "#33312e",
   },
   {
     id: "foot_4",
@@ -237,7 +237,7 @@ export const CABINET_MESHES = [
       z: 0,
     },
     castShadow: true,
-    mainMatcap: false,
+    color: "#33312e",
   },
 ];
 

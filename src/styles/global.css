@@ -4,11 +4,11 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-
-  background-color: #fff8e7;
 }
 
 body {
   overflow-x: hidden;
   overflow-y: hidden;
+
+  background-color: #000000;
 }

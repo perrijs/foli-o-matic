@@ -8,6 +8,7 @@ import {
   PlaneGeometry,
   MeshBasicMaterial,
   CanvasTexture,
+  MeshPhongMaterial,
 } from "three";
 
 import { AssetController } from "@/webgl/controllers/AssetController";
@@ -17,10 +18,7 @@ import { Scene } from "@/webgl/globals/Scene";
 import { CoinSlot } from "@/webgl/entities/CoinSlot";
 import { Flap } from "@/webgl/entities/Flap";
 
-import { setVisibility } from "@/webgl/utils/setVisibility";
-
 import { CABINET_MESHES, CABINET_TRAYS } from "@/webgl/config/cabinet";
-import { GL_SHOW_CAB } from "@/webgl/config/topics";
 import { Vec3 } from "@/webgl/config/types";
 
 export class Cabinet {
@@ -41,29 +39,11 @@ export class Cabinet {
     this.cabinet = new Group();
     this.screenController = new ScreenController(this.scene);
 
-    this.handleSubscriptions();
     this.init();
-  }
-
-  handleSubscriptions() {
-    PubSub.subscribe(GL_SHOW_CAB, () => {
-      if (!this.windowMesh || !this.windowMaterial) return;
-
-      setVisibility(this.cabinet, true, true);
-      this.windowMaterial.opacity = 0.1;
-    });
   }
 
   init() {
     this.screenController.init();
-
-    if (this.assetController.matcaps) {
-      this.assetController.matcaps.forEach((item) => {
-        if (item.name === "matcap_cosmic_latte") this.matcapMain = item.matcap;
-        if (item.name === "matcap_cosmic_americano")
-          this.matcapSub = item.matcap;
-      });
-    }
 
     CABINET_MESHES.forEach((component) => {
       this.createMesh(
@@ -72,7 +52,7 @@ export class Cabinet {
         component.position,
         component.rotation,
         component.castShadow,
-        component.mainMatcap
+        component.color
       );
     });
 
@@ -88,8 +68,6 @@ export class Cabinet {
     this.cabinet.castShadow = true;
 
     this.scene.add(this.cabinet);
-
-    setVisibility(this.cabinet, false);
   }
 
   createMesh(
@@ -98,10 +76,10 @@ export class Cabinet {
     position: Vec3,
     rotation: Vec3,
     castShadow: boolean,
-    mainMatcap: boolean
+    color: string
   ) {
     const geometry = new BoxGeometry(size.x, size.y, size.z);
-    const material = mainMatcap ? this.matcapMain : this.matcapSub;
+    const material = new MeshPhongMaterial({ color: color });
     const mesh = new Mesh(geometry, material);
 
     mesh.position.set(position.x, position.y, position.z);
@@ -117,7 +95,7 @@ export class Cabinet {
     if (!this.assetController.matcaps) return;
 
     const geometry = new BoxGeometry(3.5, 2, 0.1);
-    const material = this.matcapSub;
+    const material = new MeshPhongMaterial({ color: "#33312e" });
     const mesh = new Mesh(geometry, material);
 
     mesh.position.set(x, y, z);

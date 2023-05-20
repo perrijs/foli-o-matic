@@ -7,9 +7,8 @@ import ItemCanvas from "@/components/ItemCanvas";
 
 import { OTHER_WORKS } from "src/config/otherWorks";
 import { AWARDS } from "src/config/awards";
-import { ITEMS } from "@/webgl/config/items";
 import { SelectedWork, OtherWork, Award } from "src/config/types";
-import { GL_SET_MODEL, UI_HANDLE_TRANSITION } from "@/webgl/config/topics";
+import { GL_SET_MODEL } from "@/webgl/config/topics";
 
 import { useLoading } from "@/contexts/loadingContext";
 
@@ -37,10 +36,6 @@ const Collection = ({ projects }: Props) => {
 
   const canvasRef = useRef<HTMLDivElement>(null);
   const mousePos = useRef<Vec2>({ x: 0, y: 0 });
-
-  const handleTransition = (index: number) => {
-    PubSub.publish(UI_HANDLE_TRANSITION, ITEMS[index]);
-  };
 
   const setImagePosition = useCallback(() => {
     if (!canvasRef.current) return;
@@ -108,7 +103,6 @@ const Collection = ({ projects }: Props) => {
                     duration: 0.33,
                     ease: "easeInOut",
                   }}
-                  onClick={() => handleTransition(project.id)}
                   onMouseMove={() => {
                     if (!canvasRef.current) return;
 

@@ -3,8 +3,6 @@ import gsap from "gsap";
 
 import { Scene } from "@/webgl/globals/Scene";
 
-import { setVisibility } from "@/webgl/utils/setVisibility";
-
 import { ButtonData } from "@/webgl/config/types";
 
 export class Button {
@@ -62,8 +60,6 @@ export class Button {
 
       this.mesh = mesh;
       this.scene.add(this.mesh);
-
-      setVisibility(this.mesh, false);
     });
   }
 

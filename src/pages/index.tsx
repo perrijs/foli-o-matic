@@ -9,29 +9,28 @@ import WebGL from "@/webgl/index";
 
 import TriggerElement from "@/components/TriggerElement";
 import MenuButton from "@/components/MenuButton";
-import TransitionScreen from "@/components/TransitionScreen";
 import Loader from "@/components/Loader";
 
-import { GL_FLIP_COIN } from "@/webgl/config/topics";
+import { GL_ACTIVATE_SCENE } from "@/webgl/config/topics";
 import { TRIGGER_ELEMENTS } from "@/webgl/config/scrollTriggers";
 
 const Index = () => {
   const { loaded } = useLoading();
-  const [start, setStart] = useState<boolean>(false);
+
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
 
   useEffect(() => {
     if (!loaded) {
       new Load();
-    } else {
-      setStart(true);
     }
   }, [loaded]);
 
   useEffect(() => {
     setTimeout(() => {
-      PubSub.publish(GL_FLIP_COIN);
-    }, 4000);
-  }, [start]);
+      PubSub.publish(GL_ACTIVATE_SCENE);
+      setIsMenuVisible(true);
+    }, 7000);
+  }, [loaded]);
 
   return (
     <>
@@ -55,13 +54,11 @@ const Index = () => {
         <TriggerElement key={name} className={name} />
       ))}
 
-      <MenuButton />
+      {isMenuVisible && <MenuButton />}
 
-      <AnimatePresence>{!start && <Loader />}</AnimatePresence>
+      <AnimatePresence>{!loaded && <Loader />}</AnimatePresence>
 
       <WebGL />
-
-      <TransitionScreen />
     </>
   );
 };

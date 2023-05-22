@@ -6,15 +6,11 @@ import * as spacing from "@/styles/globals/spacing";
 import * as type from "@/styles/globals/type";
 
 export const Container = styled(motion.div)`
-  display: flex;
+  position: absolute;
   width: 100vw;
   height: 100vh;
-  position: absolute;
   top: 0;
   left: 0;
-
-  justify-content: center;
-  align-items: center;
 
   background-color: #000000;
   z-index: 1;

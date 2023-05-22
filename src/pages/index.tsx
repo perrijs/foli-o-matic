@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 
 import { useLoading } from "@/contexts/loadingContext";
@@ -11,7 +11,7 @@ import TriggerElement from "@/components/TriggerElement";
 import MenuButton from "@/components/MenuButton";
 import StartScreen from "@/components/StartScreen";
 
-import { AUDIO_PLAY_TRACK, GL_ACTIVATE_SCENE } from "@/webgl/config/topics";
+import { GL_ACTIVATE_SCENE } from "@/webgl/config/topics";
 import { TRIGGER_ELEMENTS } from "@/webgl/config/scrollTriggers";
 
 const Index = () => {
@@ -19,20 +19,17 @@ const Index = () => {
 
   const [started, setStarted] = useState(false);
 
+  const handleSubscriptions = useCallback(() => {
+    PubSub.subscribe(GL_ACTIVATE_SCENE, () => setStarted(true));
+  }, []);
+
   useEffect(() => {
     if (!loaded) {
       new Load();
 
       handleSubscriptions();
     }
-  }, [loaded]);
-
-  const handleSubscriptions = () => {
-    PubSub.subscribe(GL_ACTIVATE_SCENE, () => {
-      setStarted(true);
-      PubSub.publish(AUDIO_PLAY_TRACK, "/audio/elevator_music.mp3");
-    });
-  };
+  }, [loaded, handleSubscriptions]);
 
   return (
     <>

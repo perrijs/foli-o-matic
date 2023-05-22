@@ -7,5 +7,6 @@ export const GL_SELECT_ITEM = "glRotateCoil";
 export const GL_SET_MODEL = "glSetModel";
 
 export const AUDIO_PLAY_TRACK = "audioPlayTrack";
+export const AUDIO_PLAY_EFFECT = "audioPlayEffect";
 
 export const UI_TOOLTIP_INTERACT = "uiTooltipInteract";

@@ -5,7 +5,11 @@ import { Scene } from "@/webgl/globals/Scene";
 
 import { AssetController } from "@/webgl/controllers/AssetController";
 
-import { GL_ACTIVATE_LIGHTS } from "@/webgl/config/topics";
+import {
+  AUDIO_PLAY_EFFECT,
+  AUDIO_PLAY_TRACK,
+  GL_ACTIVATE_LIGHTS,
+} from "@/webgl/config/topics";
 
 export class Coin {
   assetController = AssetController.getInstance();
@@ -37,15 +41,26 @@ export class Coin {
   flip() {
     if (!this.mesh) return;
 
+    let hasSetRotate = false;
+    let playedEffect = false;
+
     const timeline = gsap.timeline();
     timeline.to(this.mesh.position, {
       delay: 1,
-      duration: 2.5,
+      duration: 2,
       y: -1.5,
-      ease: "back.out(3)",
+      ease: "back.out(2.5)",
       onUpdate: () => {
-        if (timeline.progress() > 0.5) {
+        if (timeline.progress() > 0.5 && !playedEffect) {
+          playedEffect = true;
+
+          PubSub.publish(AUDIO_PLAY_EFFECT, "/audio/coin_flip.mp3");
+        }
+
+        if (timeline.progress() > 0.75 && !hasSetRotate) {
           if (!this.mesh) return;
+
+          hasSetRotate = true;
 
           gsap.to(this.mesh.rotation, {
             duration: 1,
@@ -80,19 +95,33 @@ export class Coin {
   insert() {
     if (!this.mesh) return;
 
-    gsap.to(this.mesh.position, {
+    let playedEffect = false;
+
+    const timeline = gsap.timeline();
+    timeline.to(this.mesh.position, {
       duration: 1,
       z: this.mesh.position.z + 0.5,
       ease: "power4.inOut",
       onComplete: () => {
         if (!this.mesh) return;
 
-        gsap.to(this.mesh.position, {
+        timeline.to(this.mesh.position, {
           duration: 1,
           z: this.mesh.position.z - 2,
           ease: "power4.inOut",
+          onUpdate: () => {
+            if (timeline.progress() > 0.8 && !playedEffect) {
+              playedEffect = true;
+
+              PubSub.publish(AUDIO_PLAY_EFFECT, "/audio/coin_slot.mp3");
+            }
+          },
           onComplete: () => {
-            PubSub.publish(GL_ACTIVATE_LIGHTS);
+            setTimeout(() => {
+              PubSub.publish(GL_ACTIVATE_LIGHTS);
+
+              PubSub.publish(AUDIO_PLAY_TRACK, "/audio/elevator_music.mp3");
+            }, 1000);
           },
         });
       },

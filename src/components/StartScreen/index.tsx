@@ -4,7 +4,11 @@ import { AnimatePresence } from "framer-motion";
 import { useLoading } from "@/contexts/loadingContext";
 
 import { BUTTONS } from "src/config/buttons";
-import { GL_ACTIVATE_SCENE } from "@/webgl/config/topics";
+import {
+  AUDIO_PLAY_EFFECT,
+  AUDIO_PLAY_TRACK,
+  GL_ACTIVATE_SCENE,
+} from "@/webgl/config/topics";
 
 import {
   Container,
@@ -110,7 +114,14 @@ const StartScreen = () => {
               opacity: 1,
               transition: { delay: 3, duration: 1, ease: "linear" },
             }}
-            onClick={() => PubSub.publish(GL_ACTIVATE_SCENE)}
+            onClick={() => {
+              PubSub.publish(AUDIO_PLAY_TRACK, "audio/hum.mp3");
+
+              setTimeout(() => {
+                PubSub.publish(GL_ACTIVATE_SCENE);
+                PubSub.publish(AUDIO_PLAY_EFFECT, "audio/circuit_breaker.mp3");
+              }, 2000);
+            }}
           >
             DIG FOR COINS
           </StartButton>

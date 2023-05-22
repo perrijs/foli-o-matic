@@ -3,6 +3,7 @@ import gsap from "gsap";
 
 import { Scene } from "@/webgl/globals/Scene";
 
+import { AUDIO_PLAY_EFFECT } from "@/webgl/config/topics";
 import { CoilData } from "@/webgl/config/types";
 
 export class Coil {
@@ -34,6 +35,9 @@ export class Coil {
       {
         duration: 3,
         z: Math.PI * 2,
+        onStart: () => {
+          PubSub.publish(AUDIO_PLAY_EFFECT, "/audio/whirr.mp3");
+        },
       }
     );
   }

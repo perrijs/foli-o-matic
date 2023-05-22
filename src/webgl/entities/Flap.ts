@@ -46,7 +46,7 @@ export class Flap {
         x: 0,
       },
       {
-        delay: 3.25,
+        delay: 2.5,
         duration: 0.1,
         repeat: 1,
         yoyo: true,

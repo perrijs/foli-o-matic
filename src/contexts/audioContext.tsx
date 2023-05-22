@@ -6,7 +6,7 @@ import {
   useRef,
 } from "react";
 
-import { AUDIO_PLAY_TRACK } from "@/webgl/config/topics";
+import { AUDIO_PLAY_EFFECT, AUDIO_PLAY_TRACK } from "@/webgl/config/topics";
 
 interface ContextProps {
   playTrack: (path: string) => void;
@@ -18,37 +18,59 @@ interface ProviderProps {
 
 const WebAudioContext = createContext<ContextProps>({} as ContextProps);
 
-//TODO(pschofield): Add music player and SFX player - add gain nodes for each, and a master gain for mute/unmute.
+//TODO(pschofield): SOUNDS: BEEPS x 3, SUCCESS, FAILURE. SAMPLE NOSTROMO SOUNDS FOR THIS?
+//TODO(pschofield): Add gain nodes for both players, a master gain for mute/unmute.
+//TODO(pschofield): Add initial audio start gain node fade in.
+//TODO(pschofield): Add enum for sound files
 const AudioProvider = ({ children }: ProviderProps) => {
   const audioContext = useRef<AudioContext | null>(null);
-  const audioPlayerRef = useRef<HTMLAudioElement | null>(null);
+  const audioPlayerMainRef = useRef<HTMLAudioElement | null>(null);
+  const audioPlayerSubRef = useRef<HTMLAudioElement | null>(null);
 
   const handleSubscriptions = useCallback(() => {
     PubSub.subscribe(AUDIO_PLAY_TRACK, (_message, data) => playTrack(data));
+    PubSub.subscribe(AUDIO_PLAY_EFFECT, (_message, data) => playEffect(data));
   }, []);
 
   useEffect(() => {
-    handleSubscriptions();
     audioContext.current = new AudioContext();
-    audioPlayerRef.current = new Audio();
+    audioPlayerMainRef.current = new Audio();
+    audioPlayerSubRef.current = new Audio();
 
-    const audioPlayer = audioContext.current.createMediaElementSource(
-      audioPlayerRef.current
+    const audioSourceMain = audioContext.current.createMediaElementSource(
+      audioPlayerMainRef.current
     );
-    audioPlayer.connect(audioContext.current.destination);
+    audioSourceMain.connect(audioContext.current.destination);
+
+    const audioSourceSub = audioContext.current.createMediaElementSource(
+      audioPlayerSubRef.current
+    );
+    audioSourceSub.connect(audioContext.current.destination);
 
     handleSubscriptions();
   }, [handleSubscriptions]);
 
   const playTrack = (file: string) => {
-    if (!audioContext.current || !audioPlayerRef.current) return;
+    if (!audioContext.current || !audioPlayerMainRef.current) return;
 
     if (audioContext.current.state === "suspended")
       audioContext.current.resume();
 
-    audioPlayerRef.current.src = file;
+    audioPlayerMainRef.current.src = file;
+    audioPlayerMainRef.current.loop = true;
 
-    audioPlayerRef.current.play();
+    audioPlayerMainRef.current.play();
+  };
+
+  const playEffect = (file: string) => {
+    if (!audioContext.current || !audioPlayerSubRef.current) return;
+
+    if (audioContext.current.state === "suspended")
+      audioContext.current.resume();
+
+    audioPlayerSubRef.current.src = file;
+
+    audioPlayerSubRef.current.play();
   };
 
   return (

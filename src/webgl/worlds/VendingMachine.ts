@@ -79,7 +79,7 @@ export class VendingMachine {
     this.pointer = new Vector2();
 
     this.keycode = "";
-    this.canSelect = true;
+    this.canSelect = false;
     this.canvasParent = canvasParent;
     this.isMobile = canvasParent.clientWidth < 600;
 
@@ -281,8 +281,6 @@ export class VendingMachine {
           hasMatched = true;
           document.body.style.overflowY = "hidden";
 
-          this.setPositionDefault(2);
-
           PubSub.publish(GL_PRESS_KEY, "ENJOY!");
           PubSub.publish(GL_SELECT_ITEM, item.itemData.id);
           PubSub.publish(UI_TOOLTIP_INTERACT, false);
@@ -311,26 +309,10 @@ export class VendingMachine {
       duration: 3,
       x: 0,
       y: 0,
-      z: 10,
+      z: 8,
       ease: "power4.inOut",
-    });
-  }
-
-  setPositionDefault(duration: number, init?: boolean, reset?: boolean) {
-    if (reset) document.documentElement.scrollTop = 0;
-
-    gsap.to(this.camera.position, {
-      duration: duration,
-      ease: "power4.inOut",
-      x: 0,
-      y: 0,
-      z: this.isMobile ? 12 : 10,
       onComplete: () => {
-        if (init) {
-          document.body.style.overflowY = "scroll";
-
-          this.handleTooltip();
-        }
+        this.canSelect = true;
       },
     });
   }

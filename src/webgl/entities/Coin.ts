@@ -120,7 +120,7 @@ export class Coin {
             setTimeout(() => {
               PubSub.publish(GL_ACTIVATE_LIGHTS);
 
-              PubSub.publish(AUDIO_PLAY_TRACK, "/audio/elevator_music.mp3");
+              // PubSub.publish(AUDIO_PLAY_TRACK, "/audio/elevator_music.mp3");
             }, 1000);
           },
         });

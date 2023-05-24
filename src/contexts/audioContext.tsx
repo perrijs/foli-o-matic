@@ -18,9 +18,10 @@ interface ProviderProps {
 
 const WebAudioContext = createContext<ContextProps>({} as ContextProps);
 
-//TODO(pschofield): SOUNDS: BEEPS x 3, SUCCESS, FAILURE. SAMPLE NOSTROMO SOUNDS FOR THIS?
-//TODO(pschofield): Add gain nodes for both players, a master gain for mute/unmute.
-//TODO(pschofield): Add initial audio start gain node fade in.
+//TODO(pschofield): Add initial master gain fade in.
+//TODO(pschofield): Add mute/unmute logic.
+//TODO(pschofield): Add button click logic.
+//TODO(pschofield): Add audio file preloading.
 //TODO(pschofield): Add enum for sound files
 const AudioProvider = ({ children }: ProviderProps) => {
   const audioContext = useRef<AudioContext | null>(null);
@@ -40,12 +41,30 @@ const AudioProvider = ({ children }: ProviderProps) => {
     const audioSourceMain = audioContext.current.createMediaElementSource(
       audioPlayerMainRef.current
     );
-    audioSourceMain.connect(audioContext.current.destination);
 
     const audioSourceSub = audioContext.current.createMediaElementSource(
       audioPlayerSubRef.current
     );
-    audioSourceSub.connect(audioContext.current.destination);
+
+    //Master gain
+    const gainNodeMaster = audioContext.current.createGain();
+    gainNodeMaster.gain.value = 1;
+
+    //Track gain
+    const gainNodeMain = audioContext.current.createGain();
+    gainNodeMain.gain.value = 1;
+    audioSourceMain
+      .connect(gainNodeMain)
+      .connect(gainNodeMaster)
+      .connect(audioContext.current.destination);
+
+    //Effects gain
+    const gainNodeSub = audioContext.current.createGain();
+    gainNodeSub.gain.value = 1;
+    audioSourceSub
+      .connect(gainNodeSub)
+      .connect(gainNodeMaster)
+      .connect(audioContext.current.destination);
 
     handleSubscriptions();
   }, [handleSubscriptions]);

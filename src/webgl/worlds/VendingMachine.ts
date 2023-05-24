@@ -28,6 +28,7 @@ import { ButtonController } from "@/webgl/controllers/ButtonController";
 import { ItemController } from "@/webgl/controllers/ItemController";
 
 import {
+  AUDIO_PLAY_EFFECT,
   GL_ACTIVATE_LIGHTS,
   GL_ACTIVATE_SCENE,
   GL_PRESS_KEY,
@@ -281,15 +282,17 @@ export class VendingMachine {
           hasMatched = true;
           document.body.style.overflowY = "hidden";
 
-          PubSub.publish(GL_PRESS_KEY, "ENJOY!");
+          PubSub.publish(GL_PRESS_KEY, "SUCCESS");
           PubSub.publish(GL_SELECT_ITEM, item.itemData.id);
+          PubSub.publish(AUDIO_PLAY_EFFECT, "/audio/success.mp3");
           PubSub.publish(UI_TOOLTIP_INTERACT, false);
         }
 
         if (index === this.itemController.items.length - 1 && !hasMatched) {
           this.keycode = "";
 
-          PubSub.publish(GL_PRESS_KEY, "INVALID");
+          PubSub.publish(GL_PRESS_KEY, "DENIED");
+          PubSub.publish(AUDIO_PLAY_EFFECT, "/audio/denied.mp3");
         }
       });
     } else {

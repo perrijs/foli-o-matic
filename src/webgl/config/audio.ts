@@ -1,0 +1,15 @@
+export const AUDIO_FILES = [
+  { url: "button_1.mp3", type: "effect" },
+  { url: "button_2.mp3", type: "effect" },
+  { url: "button_3.mp3", type: "effect" },
+  { url: "button_4.mp3", type: "effect" },
+  { url: "circuit_breaker.mp3", type: "effect" },
+  { url: "coin_flip.mp3", type: "effect" },
+  { url: "coin_slot.mp3", type: "effect" },
+  { url: "denied.mp3", type: "effect" },
+  { url: "elevator_music.mp3", type: "track" },
+  { url: "hum.mp3", type: "track" },
+  { url: "success.mp3", type: "effect" },
+  { url: "thud.mp3", type: "effect" },
+  { url: "whirr.mp3", type: "effect" },
+];

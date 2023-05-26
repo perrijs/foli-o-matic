@@ -11,6 +11,7 @@ import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
 
 import { applyMatcaps } from "@/webgl/utils/applyMatcaps";
 
+import { AUDIO_FILES } from "@/webgl/config/audio";
 import { MATCAPS } from "@/webgl/config/matcaps";
 import { HDRS } from "@/webgl/config/hdrs";
 import { ITEMS, WRAPPER, COIN, COIL } from "@/webgl/config/items";
@@ -23,12 +24,15 @@ export class AssetController {
   textureLoader = new TextureLoader();
   hdrLoader = new RGBELoader();
 
+  audioBufferSources?: any[] = [];
   matcaps?: Matcap[] = [];
   hdrs?: DataTexture[] = [];
   models?: Group[] = [];
   coin?: GLTF;
   wrapper?: GLTF;
   coil?: GLTF;
+
+  audioContext = new AudioContext();
 
   constructor() {}
 
@@ -55,6 +59,28 @@ export class AssetController {
     return new Promise<DataTexture>((resolve) => {
       this.hdrLoader.load(url, resolve);
     });
+  }
+
+  async loadAudio() {
+    const audioBuffers = AUDIO_FILES.map(async (file) => {
+      let audioBuffer;
+
+      await fetch(`audio/${file.url}`)
+        .then((response) => response.arrayBuffer())
+        .then((buffer) => this.audioContext.decodeAudioData(buffer))
+        .then((buffer) => {
+          audioBuffer = {
+            source: this.audioContext.createBufferSource(),
+            type: file.type,
+          };
+          audioBuffer.source.buffer = buffer;
+        });
+
+      return audioBuffer;
+    });
+
+    const audioBufferSources = await Promise.all(audioBuffers);
+    this.audioBufferSources = audioBufferSources;
   }
 
   async loadMatcaps() {

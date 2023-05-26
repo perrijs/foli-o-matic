@@ -17,9 +17,11 @@ import {
   LoaderButton,
   StartButton,
 } from "./styles";
+import { useAudio } from "@/contexts/audioContext";
 
 const StartScreen = () => {
   const { loaded } = useLoading();
+  const { initiateAudio } = useAudio();
 
   const screenRef = useRef<HTMLSpanElement | null>(null);
   const [loadBuffer, setLoadBuffer] = useState<boolean>(false);
@@ -115,6 +117,8 @@ const StartScreen = () => {
               transition: { delay: 3, duration: 1, ease: "linear" },
             }}
             onClick={() => {
+              initiateAudio();
+
               PubSub.publish(AUDIO_PLAY_TRACK, "audio/hum.mp3");
 
               setTimeout(() => {

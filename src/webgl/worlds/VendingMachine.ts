@@ -10,6 +10,8 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
+import { AudioEffects } from "@/contexts/audioContext";
+
 import { Renderer } from "@/webgl/globals/Renderer";
 import { Scene } from "@/webgl/globals/Scene";
 import { Camera } from "@/webgl/globals/Camera";
@@ -28,6 +30,7 @@ import { ButtonController } from "@/webgl/controllers/ButtonController";
 import { ItemController } from "@/webgl/controllers/ItemController";
 
 import {
+  AUDIO_PLAY_EFFECT,
   GL_ACTIVATE_LIGHTS,
   GL_ACTIVATE_SCENE,
   GL_PRESS_KEY,
@@ -79,7 +82,7 @@ export class VendingMachine {
     this.pointer = new Vector2();
 
     this.keycode = "";
-    this.canSelect = true;
+    this.canSelect = false;
     this.canvasParent = canvasParent;
     this.isMobile = canvasParent.clientWidth < 600;
 
@@ -281,17 +284,17 @@ export class VendingMachine {
           hasMatched = true;
           document.body.style.overflowY = "hidden";
 
-          this.setPositionDefault(2);
-
-          PubSub.publish(GL_PRESS_KEY, "ENJOY!");
+          PubSub.publish(GL_PRESS_KEY, "SUCCESS");
           PubSub.publish(GL_SELECT_ITEM, item.itemData.id);
+          PubSub.publish(AUDIO_PLAY_EFFECT, AudioEffects.SUCCESS);
           PubSub.publish(UI_TOOLTIP_INTERACT, false);
         }
 
         if (index === this.itemController.items.length - 1 && !hasMatched) {
           this.keycode = "";
 
-          PubSub.publish(GL_PRESS_KEY, "INVALID");
+          PubSub.publish(GL_PRESS_KEY, "DENIED");
+          PubSub.publish(AUDIO_PLAY_EFFECT, AudioEffects.DENIED);
         }
       });
     } else {
@@ -311,26 +314,10 @@ export class VendingMachine {
       duration: 3,
       x: 0,
       y: 0,
-      z: 10,
+      z: 8,
       ease: "power4.inOut",
-    });
-  }
-
-  setPositionDefault(duration: number, init?: boolean, reset?: boolean) {
-    if (reset) document.documentElement.scrollTop = 0;
-
-    gsap.to(this.camera.position, {
-      duration: duration,
-      ease: "power4.inOut",
-      x: 0,
-      y: 0,
-      z: this.isMobile ? 12 : 10,
       onComplete: () => {
-        if (init) {
-          document.body.style.overflowY = "scroll";
-
-          this.handleTooltip();
-        }
+        this.canSelect = true;
       },
     });
   }

@@ -49,7 +49,7 @@ export class ScreenController {
     });
 
     setTimeout(() => {
-      if (data === "INVALID") this.createCanvasTexture("", "");
+      if (data === "DENIED") this.createCanvasTexture("", "");
     }, 500);
   }
 }

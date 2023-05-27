@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 
 import { useLoading } from "@/contexts/loadingContext";
@@ -9,7 +9,7 @@ import WebGL from "@/webgl/index";
 
 import TriggerElement from "@/components/TriggerElement";
 import MenuButton from "@/components/MenuButton";
-import Loader from "@/components/Loader";
+import StartScreen from "@/components/StartScreen";
 
 import { GL_ACTIVATE_SCENE } from "@/webgl/config/topics";
 import { TRIGGER_ELEMENTS } from "@/webgl/config/scrollTriggers";
@@ -17,20 +17,19 @@ import { TRIGGER_ELEMENTS } from "@/webgl/config/scrollTriggers";
 const Index = () => {
   const { loaded } = useLoading();
 
-  const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const [started, setStarted] = useState(false);
+
+  const handleSubscriptions = useCallback(() => {
+    PubSub.subscribe(GL_ACTIVATE_SCENE, () => setStarted(true));
+  }, []);
 
   useEffect(() => {
     if (!loaded) {
       new Load();
-    }
-  }, [loaded]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      PubSub.publish(GL_ACTIVATE_SCENE);
-      setIsMenuVisible(true);
-    }, 7000);
-  }, [loaded]);
+      handleSubscriptions();
+    }
+  }, [loaded, handleSubscriptions]);
 
   return (
     <>
@@ -54,9 +53,9 @@ const Index = () => {
         <TriggerElement key={name} className={name} />
       ))}
 
-      {isMenuVisible && <MenuButton />}
+      {started && <MenuButton />}
 
-      <AnimatePresence>{!loaded && <Loader />}</AnimatePresence>
+      <AnimatePresence>{!started && <StartScreen />}</AnimatePresence>
 
       <WebGL />
     </>

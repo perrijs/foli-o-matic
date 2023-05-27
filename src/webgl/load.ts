@@ -10,6 +10,7 @@ export class Load {
   }
 
   async load() {
+    await this.assetController.loadAudio();
     await this.assetController.loadMatcaps();
     await this.assetController.loadHDRS();
     await this.assetController.loadCoin();

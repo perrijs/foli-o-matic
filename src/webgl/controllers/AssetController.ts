@@ -17,6 +17,11 @@ import { HDRS } from "@/webgl/config/hdrs";
 import { ITEMS, WRAPPER, COIN, COIL } from "@/webgl/config/items";
 import { Matcap } from "@/webgl/config/types";
 
+interface AudioBufferObjects {
+  buffer: AudioBuffer;
+  type: String;
+}
+
 export class AssetController {
   static instance: AssetController;
 
@@ -24,7 +29,7 @@ export class AssetController {
   textureLoader = new TextureLoader();
   hdrLoader = new RGBELoader();
 
-  audioBufferSources?: any[] = [];
+  audioBuffers?: AudioBufferObjects[] = [];
   matcaps?: Matcap[] = [];
   hdrs?: DataTexture[] = [];
   models?: Group[] = [];
@@ -69,18 +74,16 @@ export class AssetController {
         .then((response) => response.arrayBuffer())
         .then((buffer) => this.audioContext.decodeAudioData(buffer))
         .then((buffer) => {
-          audioBuffer = {
-            source: this.audioContext.createBufferSource(),
-            type: file.type,
-          };
-          audioBuffer.source.buffer = buffer;
+          audioBuffer = { buffer: buffer, type: file.type };
         });
 
       return audioBuffer;
     });
 
-    const audioBufferSources = await Promise.all(audioBuffers);
-    this.audioBufferSources = audioBufferSources;
+    const audioBufferSources = (await Promise.all(
+      audioBuffers
+    )) as unknown as AudioBufferObjects[];
+    this.audioBuffers = audioBufferSources;
   }
 
   async loadMatcaps() {

@@ -21,19 +21,33 @@ interface ProviderProps {
 
 const WebAudioContext = createContext<ContextProps>({} as ContextProps);
 
-export enum AudioEffects {}
-//TODO(pschofield): ADD FILE VALUES HERE AND REPLACE SITEWIDE FILE REFS WITH NUMBERS
+export enum AudioEffects {
+  BUTTON_1,
+  BUTTON_2,
+  BUTTON_3,
+  BUTTON_4,
+  CIRCUIT_BREAKER,
+  COIN_FLIP,
+  COIN_SLOT,
+  DENIED,
+  SUCCESS,
+  THUD,
+  WHIRR,
+}
 
-//TODO(pschofield): Remove "any" types across bufferSource implementation.
+export enum AudioTracks {
+  ELEVATOR_MUSIC,
+  HUM,
+}
+
 //TODO(pschofield): Add button click logic.
-//TODO(pschofield): Add enum for sound files
 const AudioProvider = ({ children }: ProviderProps) => {
   const audioContext = useRef<AudioContext>();
-  const audioPlayerMainRef = useRef<HTMLAudioElement | null>(null);
-  const audioPlayerSubRef = useRef<HTMLAudioElement | null>(null);
   const gainNodeMaster = useRef<GainNode | null>(null);
-  const trackBufferSources = useRef<any[]>([]);
-  const effectBufferSources = useRef<any[]>([]);
+  const gainNodeTrack = useRef<GainNode | null>(null);
+  const gainNodeEffect = useRef<GainNode | null>(null);
+  const trackBuffers = useRef<AudioBuffer[]>([]);
+  const effectBuffers = useRef<AudioBuffer[]>([]);
 
   const [isMuted, setIsMuted] = useState(false);
 
@@ -48,59 +62,30 @@ const AudioProvider = ({ children }: ProviderProps) => {
     const assetController = AssetController.getInstance();
 
     audioContext.current = assetController.audioContext;
-    // audioPlayerMainRef.current = new Audio();
-    // audioPlayerSubRef.current = new Audio();
 
-    // const audioSourceMain = audioContext.current.createMediaElementSource(
-    //   audioPlayerMainRef.current
-    // );
-
-    // const audioSourceSub = audioContext.current.createMediaElementSource(
-    //   audioPlayerSubRef.current
-    // );
-
-    //Master gain
     gainNodeMaster.current = audioContext.current.createGain();
     gainNodeMaster.current.gain.value = 0;
 
-    const audioBufferSources = assetController.audioBufferSources;
-    if (audioBufferSources) {
-      audioBufferSources.forEach((audioBufferSource) => {
+    gainNodeTrack.current = audioContext.current.createGain();
+    gainNodeTrack.current.gain.value = 0.25;
+
+    gainNodeEffect.current = audioContext.current.createGain();
+    gainNodeEffect.current.gain.value = 1;
+
+    const audioBuffers = assetController.audioBuffers;
+    if (audioBuffers) {
+      audioBuffers.forEach((audioBuffer) => {
         if (!audioContext.current) return;
 
-        const { source, type } = audioBufferSource;
-
-        source
-          .connect(gainNodeMaster.current)
-          .connect(audioContext.current.destination);
+        const { buffer, type } = audioBuffer;
 
         if (type === "track") {
-          if (trackBufferSources.current)
-            trackBufferSources.current.push(source);
+          trackBuffers.current.push(buffer);
         } else {
-          if (effectBufferSources.current)
-            effectBufferSources.current.push(source);
+          effectBuffers.current.push(buffer);
         }
       });
-
-      console.log(trackBufferSources.current);
     }
-
-    //Track gain
-    // const gainNodeMain = audioContext.current.createGain();
-    // gainNodeMain.gain.value = 0.25;
-    // audioSourceMain
-    //   .connect(gainNodeMain)
-    //   .connect(gainNodeMaster.current)
-    //   .connect(audioContext.current.destination);
-
-    // //Effects gain
-    // const gainNodeSub = audioContext.current.createGain();
-    // gainNodeSub.gain.value = 1;
-    // audioSourceSub
-    //   .connect(gainNodeSub)
-    //   .connect(gainNodeMaster.current)
-    //   .connect(audioContext.current.destination);
 
     gsap.to(gainNodeMaster.current.gain, {
       value: 1,
@@ -108,23 +93,37 @@ const AudioProvider = ({ children }: ProviderProps) => {
     });
   };
 
-  const playTrack = (file: number) => {
-    if (!audioContext.current || !trackBufferSources.current) return;
+  const playTrack = (index: number) => {
+    if (!audioContext.current || !trackBuffers.current) return;
 
-    if (audioContext.current.state === "suspended")
-      audioContext.current.resume();
+    const bufferSource = audioContext.current.createBufferSource();
+    bufferSource.buffer = trackBuffers.current[index];
 
-    trackBufferSources.current[file].start(0);
-    trackBufferSources.current[file].loop = true;
+    if (gainNodeMaster.current && gainNodeTrack.current) {
+      bufferSource
+        .connect(gainNodeTrack.current)
+        .connect(gainNodeMaster.current)
+        .connect(audioContext.current.destination);
+
+      bufferSource.start(0);
+      bufferSource.loop = true;
+    }
   };
 
-  const playEffect = (file: number) => {
-    if (!audioContext.current || !effectBufferSources.current) return;
+  const playEffect = (index: number) => {
+    if (!audioContext.current || !effectBuffers.current) return;
 
-    if (audioContext.current.state === "suspended")
-      audioContext.current.resume();
+    const bufferSource = audioContext.current.createBufferSource();
+    bufferSource.buffer = effectBuffers.current[index];
 
-    effectBufferSources.current[file].start(0);
+    if (gainNodeMaster.current && gainNodeEffect.current) {
+      bufferSource
+        .connect(gainNodeEffect.current)
+        .connect(gainNodeMaster.current)
+        .connect(audioContext.current.destination);
+
+      bufferSource.start(0);
+    }
   };
 
   const handleMute = () => {

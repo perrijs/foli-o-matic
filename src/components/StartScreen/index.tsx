@@ -17,7 +17,7 @@ import {
   LoaderButton,
   StartButton,
 } from "./styles";
-import { useAudio } from "@/contexts/audioContext";
+import { AudioEffects, AudioTracks, useAudio } from "@/contexts/audioContext";
 
 const StartScreen = () => {
   const { loaded } = useLoading();
@@ -119,11 +119,11 @@ const StartScreen = () => {
             onClick={() => {
               initiateAudio();
 
-              PubSub.publish(AUDIO_PLAY_TRACK, "audio/hum.mp3");
+              PubSub.publish(AUDIO_PLAY_TRACK, AudioTracks.HUM);
 
               setTimeout(() => {
                 PubSub.publish(GL_ACTIVATE_SCENE);
-                PubSub.publish(AUDIO_PLAY_EFFECT, "audio/circuit_breaker.mp3");
+                PubSub.publish(AUDIO_PLAY_EFFECT, AudioEffects.CIRCUIT_BREAKER);
               }, 2000);
             }}
           >

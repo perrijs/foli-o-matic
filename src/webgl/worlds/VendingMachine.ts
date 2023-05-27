@@ -36,6 +36,7 @@ import {
   UI_TOOLTIP_INTERACT,
 } from "@/webgl/config/topics";
 import { TRIGGER_ELEMENTS, SCROLL_HEIGHT } from "@/webgl/config/scrollTriggers";
+import { AudioEffects } from "@/contexts/audioContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -284,7 +285,7 @@ export class VendingMachine {
 
           PubSub.publish(GL_PRESS_KEY, "SUCCESS");
           PubSub.publish(GL_SELECT_ITEM, item.itemData.id);
-          PubSub.publish(AUDIO_PLAY_EFFECT, "/audio/success.mp3");
+          PubSub.publish(AUDIO_PLAY_EFFECT, AudioEffects.SUCCESS);
           PubSub.publish(UI_TOOLTIP_INTERACT, false);
         }
 
@@ -292,7 +293,7 @@ export class VendingMachine {
           this.keycode = "";
 
           PubSub.publish(GL_PRESS_KEY, "DENIED");
-          PubSub.publish(AUDIO_PLAY_EFFECT, "/audio/denied.mp3");
+          PubSub.publish(AUDIO_PLAY_EFFECT, AudioEffects.DENIED);
         }
       });
     } else {

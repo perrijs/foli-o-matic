@@ -10,6 +10,7 @@ import {
   AUDIO_PLAY_TRACK,
   GL_ACTIVATE_LIGHTS,
 } from "@/webgl/config/topics";
+import { AudioEffects, AudioTracks } from "@/contexts/audioContext";
 
 export class Coin {
   assetController = AssetController.getInstance();
@@ -54,7 +55,7 @@ export class Coin {
         if (timeline.progress() > 0.5 && !playedEffect) {
           playedEffect = true;
 
-          PubSub.publish(AUDIO_PLAY_EFFECT, "/audio/coin_flip.mp3");
+          PubSub.publish(AUDIO_PLAY_EFFECT, AudioEffects.COIN_FLIP);
         }
 
         if (timeline.progress() > 0.75 && !hasSetRotate) {
@@ -113,14 +114,14 @@ export class Coin {
             if (timeline.progress() > 0.8 && !playedEffect) {
               playedEffect = true;
 
-              PubSub.publish(AUDIO_PLAY_EFFECT, "/audio/coin_slot.mp3");
+              PubSub.publish(AUDIO_PLAY_EFFECT, AudioEffects.COIN_SLOT);
             }
           },
           onComplete: () => {
             setTimeout(() => {
               PubSub.publish(GL_ACTIVATE_LIGHTS);
 
-              PubSub.publish(AUDIO_PLAY_TRACK, "/audio/elevator_music.mp3");
+              PubSub.publish(AUDIO_PLAY_TRACK, AudioTracks.ELEVATOR_MUSIC);
             }, 1000);
           },
         });

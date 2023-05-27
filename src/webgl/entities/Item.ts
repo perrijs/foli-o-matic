@@ -5,6 +5,7 @@ import { Scene } from "@/webgl/globals/Scene";
 
 import { AUDIO_PLAY_EFFECT } from "@/webgl/config/topics";
 import { ItemData } from "@/webgl/config/types";
+import { AudioEffects } from "@/contexts/audioContext";
 
 export class Item {
   scene: Scene;
@@ -59,7 +60,7 @@ export class Item {
           if (timeline.progress() > 0.8 && !playedEffect) {
             playedEffect = true;
 
-            PubSub.publish(AUDIO_PLAY_EFFECT, "/audio/thud.mp3");
+            PubSub.publish(AUDIO_PLAY_EFFECT, AudioEffects.THUD);
           }
         },
         onComplete: () => {

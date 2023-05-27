@@ -10,6 +10,8 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
+import { AudioEffects } from "@/contexts/audioContext";
+
 import { Renderer } from "@/webgl/globals/Renderer";
 import { Scene } from "@/webgl/globals/Scene";
 import { Camera } from "@/webgl/globals/Camera";
@@ -36,7 +38,6 @@ import {
   UI_TOOLTIP_INTERACT,
 } from "@/webgl/config/topics";
 import { TRIGGER_ELEMENTS, SCROLL_HEIGHT } from "@/webgl/config/scrollTriggers";
-import { AudioEffects } from "@/contexts/audioContext";
 
 gsap.registerPlugin(ScrollTrigger);
 

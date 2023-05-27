@@ -1,11 +1,12 @@
 import { Group } from "three";
 import gsap from "gsap";
 
+import { AudioEffects } from "@/contexts/audioContext";
+
 import { Scene } from "@/webgl/globals/Scene";
 
 import { AUDIO_PLAY_EFFECT } from "@/webgl/config/topics";
 import { CoilData } from "@/webgl/config/types";
-import { AudioEffects } from "@/contexts/audioContext";
 
 export class Coil {
   scene: Scene;

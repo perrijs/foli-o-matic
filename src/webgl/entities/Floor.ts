@@ -1,16 +1,14 @@
 import {
-  Color,
   DoubleSide,
-  Material,
   Mesh,
-  MeshBasicMaterial,
   MeshPhongMaterial,
   PlaneGeometry,
   ShadowMaterial,
 } from "three";
 
 import { Scene } from "@/webgl/globals/Scene";
-import { GL_ACTIVATE_LIGHTS } from "../config/topics";
+
+import { GL_ACTIVATE_LIGHTS } from "@/webgl/config/topics";
 
 export class Floor {
   scene: Scene;

@@ -30,9 +30,5 @@ export class LightCone {
 
     this.mesh = cone;
     this.scene.add(this.mesh);
-
-    this.handleSubscriptions();
   }
-
-  handleSubscriptions() {}
 }

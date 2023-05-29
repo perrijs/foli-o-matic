@@ -15,6 +15,7 @@ export class ScreenController {
     this.scene = scene;
 
     this.handleSubscriptions();
+    this.init();
   }
 
   handleSubscriptions() {
@@ -23,8 +24,6 @@ export class ScreenController {
 
   init() {
     this.screen = new Screen(this.scene);
-
-    this.handleSubscriptions();
   }
 
   createCanvasTexture(_topic: string, data: string) {

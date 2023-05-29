@@ -1,14 +1,15 @@
 import {
   Group,
   BoxGeometry,
-  Mesh,
-  MeshPhysicalMaterial,
-  EquirectangularReflectionMapping,
-  MeshMatcapMaterial,
   PlaneGeometry,
+  Mesh,
+  MeshPhongMaterial,
+  MeshPhysicalMaterial,
+  MeshMatcapMaterial,
   MeshBasicMaterial,
   CanvasTexture,
-  MeshPhongMaterial,
+  EquirectangularReflectionMapping,
+  Material,
 } from "three";
 
 import { AssetController } from "@/webgl/controllers/AssetController";
@@ -20,6 +21,7 @@ import { Flap } from "@/webgl/entities/Flap";
 
 import { CABINET_MESHES, CABINET_TRAYS } from "@/webgl/config/cabinet";
 import { Vec3 } from "@/webgl/config/types";
+import { GL_ACTIVATE_LIGHTS } from "../config/topics";
 
 export class Cabinet {
   assetController = AssetController.getInstance();
@@ -39,11 +41,24 @@ export class Cabinet {
     this.cabinet = new Group();
     this.screenController = new ScreenController(this.scene);
 
+    this.handleSubscriptions();
     this.init();
+  }
+
+  handleSubscriptions() {
+    PubSub.subscribe(GL_ACTIVATE_LIGHTS, () => this.switchMaterials());
   }
 
   init() {
     this.screenController.init();
+
+    if (this.assetController.matcaps) {
+      this.assetController.matcaps.forEach((item) => {
+        if (item.name === "matcap_cosmic_latte") this.matcapMain = item.matcap;
+        if (item.name === "matcap_cosmic_americano")
+          this.matcapSub = item.matcap;
+      });
+    }
 
     CABINET_MESHES.forEach((component) => {
       this.createMesh(
@@ -56,8 +71,8 @@ export class Cabinet {
       );
     });
 
-    CABINET_TRAYS.forEach((tray: Vec3, index) => {
-      this.createTray(tray.x, tray.y, tray.z, index);
+    CABINET_TRAYS.forEach((tray, index) => {
+      this.createTray(tray.x, tray.y, tray.z, tray.color, index);
     });
 
     this.createWindow();
@@ -79,7 +94,7 @@ export class Cabinet {
     color: string
   ) {
     const geometry = new BoxGeometry(size.x, size.y, size.z);
-    const material = new MeshPhongMaterial({ color: color });
+    const material = new MeshPhongMaterial({ color, name: color });
     const mesh = new Mesh(geometry, material);
 
     mesh.position.set(position.x, position.y, position.z);
@@ -91,11 +106,14 @@ export class Cabinet {
     this.cabinet.add(mesh);
   }
 
-  createTray(x: number, y: number, z: number, i: number) {
+  createTray(x: number, y: number, z: number, color: string, i: number) {
     if (!this.assetController.matcaps) return;
 
     const geometry = new BoxGeometry(3.5, 2, 0.1);
-    const material = new MeshPhongMaterial({ color: "#33312e" });
+    const material = new MeshPhongMaterial({
+      color,
+      name: color,
+    });
     const mesh = new Mesh(geometry, material);
 
     mesh.position.set(x, y, z);
@@ -165,5 +183,19 @@ export class Cabinet {
     this.windowMesh.name = "glass";
 
     this.cabinet.add(this.windowMesh);
+  }
+
+  switchMaterials() {
+    this.cabinet.traverse((node) => {
+      if (!this.matcapMain || !this.matcapSub) return;
+
+      const mesh = node as Mesh;
+      const material = mesh.material as Material;
+
+      if (material && material.type === "MeshPhongMaterial") {
+        mesh.material =
+          material.name === "#fff8e7" ? this.matcapMain : this.matcapSub;
+      }
+    });
   }
 }

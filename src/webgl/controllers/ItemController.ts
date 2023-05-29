@@ -23,8 +23,12 @@ export class ItemController {
   constructor(scene: Scene) {
     this.scene = scene;
 
-    this.init();
     this.handleSubscriptions();
+    this.init();
+  }
+
+  handleSubscriptions() {
+    PubSub.subscribe(GL_SELECT_ITEM, this.handleMove.bind(this));
   }
 
   init() {
@@ -53,10 +57,6 @@ export class ItemController {
     SOLD_OUTS_CARDS.forEach((itemData) => {
       new Card(this.scene, itemData);
     });
-  }
-
-  handleSubscriptions() {
-    PubSub.subscribe(GL_SELECT_ITEM, this.handleMove.bind(this));
   }
 
   getItem(index: number) {

@@ -246,15 +246,18 @@ export const CABINET_TRAYS = [
     x: -0.5,
     y: 1.75,
     z: 1,
+    color: "#33312e",
   },
   {
     x: -0.5,
     y: 0.25,
     z: 1,
+    color: "#33312e",
   },
   {
     x: -0.5,
     y: -1.25,
     z: 1,
+    color: "#33312e",
   },
 ];

@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 
 import { useLoading } from "@/contexts/loadingContext";
@@ -11,25 +11,16 @@ import TriggerElement from "@/components/TriggerElement";
 import MenuButton from "@/components/MenuButton";
 import StartScreen from "@/components/StartScreen";
 
-import { GL_ACTIVATE_SCENE } from "@/webgl/config/topics";
 import { TRIGGER_ELEMENTS } from "@/webgl/config/scrollTriggers";
 
 const Index = () => {
   const { loaded } = useLoading();
 
-  const [started, setStarted] = useState(false);
-
-  const handleSubscriptions = useCallback(() => {
-    PubSub.subscribe(GL_ACTIVATE_SCENE, () => setStarted(true));
-  }, []);
+  const [isStarted, setIsStarted] = useState(false);
 
   useEffect(() => {
-    if (!loaded) {
-      new Load();
-
-      handleSubscriptions();
-    }
-  }, [loaded, handleSubscriptions]);
+    if (!loaded) new Load();
+  }, [loaded]);
 
   return (
     <>
@@ -53,9 +44,11 @@ const Index = () => {
         <TriggerElement key={name} className={name} />
       ))}
 
-      {started && <MenuButton />}
+      {isStarted && <MenuButton />}
 
-      <AnimatePresence>{!started && <StartScreen />}</AnimatePresence>
+      <AnimatePresence>
+        {!isStarted && <StartScreen handleSetIsStarted={setIsStarted} />}
+      </AnimatePresence>
 
       <WebGL />
     </>

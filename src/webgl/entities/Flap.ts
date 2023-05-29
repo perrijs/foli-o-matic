@@ -6,7 +6,7 @@ import { Scene } from "@/webgl/globals/Scene";
 
 import { AssetController } from "@/webgl/controllers/AssetController";
 
-import { GL_SELECT_ITEM } from "@/webgl/config/topics";
+import { GL_ACTIVATE_LIGHTS, GL_SELECT_ITEM } from "@/webgl/config/topics";
 
 export class Flap {
   assetController = AssetController.getInstance();
@@ -17,7 +17,13 @@ export class Flap {
   constructor(scene: Scene) {
     this.scene = scene;
 
+    this.handleSubscriptions();
     this.init();
+  }
+
+  handleSubscriptions() {
+    PubSub.subscribe(GL_SELECT_ITEM, this.rotate.bind(this));
+    PubSub.subscribe(GL_ACTIVATE_LIGHTS, () => this.switchMaterial());
   }
 
   init() {
@@ -29,12 +35,6 @@ export class Flap {
 
     this.mesh = flap;
     this.scene.add(this.mesh);
-
-    this.handleSubscriptions();
-  }
-
-  handleSubscriptions() {
-    PubSub.subscribe(GL_SELECT_ITEM, this.rotate.bind(this));
   }
 
   rotate() {
@@ -53,5 +53,16 @@ export class Flap {
         x: -0.5,
       }
     );
+  }
+
+  switchMaterial() {
+    if (!this.assetController.matcaps) return;
+
+    this.assetController.matcaps.forEach((item) => {
+      if (!this.mesh) return;
+
+      if (item.name === "matcap_cosmic_americano")
+        this.mesh.material = item.matcap;
+    });
   }
 }

@@ -19,7 +19,11 @@ import {
 } from "./styles";
 import { AudioEffects, AudioTracks, useAudio } from "@/contexts/audioContext";
 
-const StartScreen = () => {
+interface Props {
+  handleSetIsStarted: (isStarted: boolean) => void;
+}
+
+const StartScreen = ({ handleSetIsStarted }: Props) => {
   const { loaded } = useLoading();
   const { initiateAudio } = useAudio();
 
@@ -118,13 +122,14 @@ const StartScreen = () => {
             }}
             onClick={() => {
               initiateAudio();
+              handleSetIsStarted(true);
 
               PubSub.publish(AUDIO_PLAY_TRACK, AudioTracks.HUM);
 
               setTimeout(() => {
                 PubSub.publish(GL_ACTIVATE_SCENE);
                 PubSub.publish(AUDIO_PLAY_EFFECT, AudioEffects.CIRCUIT_BREAKER);
-              }, 2000);
+              }, 5000);
             }}
           >
             DIG FOR COINS

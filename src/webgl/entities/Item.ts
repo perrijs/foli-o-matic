@@ -5,7 +5,7 @@ import { AudioEffects } from "@/contexts/audioContext";
 
 import { Scene } from "@/webgl/globals/Scene";
 
-import { AUDIO_PLAY_EFFECT } from "@/webgl/config/topics";
+import { AUDIO_PLAY_EFFECT, GL_ACTIVATE_FOCUS } from "@/webgl/config/topics";
 import { ItemData } from "@/webgl/config/types";
 
 export class Item {
@@ -57,6 +57,9 @@ export class Item {
         duration: 0.5,
         ease: "power4.in",
         y: -2,
+        onStart: () => {
+          PubSub.publish(GL_ACTIVATE_FOCUS);
+        },
         onUpdate: () => {
           if (timeline.progress() > 0.8 && !playedEffect) {
             playedEffect = true;
@@ -65,7 +68,7 @@ export class Item {
           }
         },
         onComplete: () => {
-          //TODO(pschofield): Add trigger for new item overlay here.
+          this.focus();
         },
       }
     );
@@ -85,5 +88,23 @@ export class Item {
         z: 0.5,
       }
     );
+  }
+
+  focus() {
+    gsap.to(this.model.rotation, {
+      duration: 3,
+      ease: "power4.inOut",
+      x: 0,
+      y: 0,
+      z: 0,
+    });
+
+    gsap.to(this.model.position, {
+      x: 0,
+      y: 0,
+      z: 9,
+      duration: 3,
+      ease: "power4.inOut",
+    });
   }
 }

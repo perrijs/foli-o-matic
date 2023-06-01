@@ -40,7 +40,6 @@ export enum AudioTracks {
   HUM,
 }
 
-//TODO(pschofield): Add button click logic.
 const AudioProvider = ({ children }: ProviderProps) => {
   const audioContext = useRef<AudioContext>();
   const gainNodeMaster = useRef<GainNode | null>(null);

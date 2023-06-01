@@ -1,6 +1,6 @@
 import {
-  Raycaster,
   Vector2,
+  Raycaster,
   Object3D,
   Intersection,
   Clock,
@@ -23,6 +23,7 @@ import { Cabinet } from "@/webgl/entities/Cabinet";
 import { LightCone } from "@/webgl/entities/LightCone";
 import { Coin } from "@/webgl/entities/Coin";
 import { Floor } from "@/webgl/entities/Floor";
+import { Background } from "@/webgl/entities/Background";
 
 import { AssetController } from "@/webgl/controllers/AssetController";
 import { CoilController } from "@/webgl/controllers/CoilController";
@@ -31,6 +32,7 @@ import { ItemController } from "@/webgl/controllers/ItemController";
 
 import {
   AUDIO_PLAY_EFFECT,
+  GL_ACTIVATE_FOCUS,
   GL_ACTIVATE_LIGHTS,
   GL_ACTIVATE_SCENE,
   GL_PRESS_KEY,
@@ -41,6 +43,9 @@ import { TRIGGER_ELEMENTS, SCROLL_HEIGHT } from "@/webgl/config/scrollTriggers";
 
 gsap.registerPlugin(ScrollTrigger);
 
+//TODO(pschofield): Polish all animation timings.
+//TODO(pschofield): Tidy entire Class. A lot of this logic could be abstracted out into controllers.
+//TODO(pschofield): Tidy all entity/controller classes, file by file.
 export class VendingMachine {
   assetController = AssetController.getInstance();
 
@@ -59,6 +64,7 @@ export class VendingMachine {
   cabinet?: Cabinet;
   coin?: Coin;
   floor?: Floor;
+  background?: Background;
 
   controls?: OrbitControls;
   raycaster?: Raycaster;
@@ -118,6 +124,7 @@ export class VendingMachine {
   handleSubscriptions() {
     PubSub.subscribe(GL_ACTIVATE_SCENE, () => this.activateScene());
     PubSub.subscribe(GL_ACTIVATE_LIGHTS, () => this.activateLights());
+    PubSub.subscribe(GL_ACTIVATE_FOCUS, () => this.fixCamera(10));
   }
 
   init() {
@@ -135,10 +142,11 @@ export class VendingMachine {
     this.coilController = new CoilController(this.scene);
     this.buttonController = new ButtonController(this.scene);
     this.itemController = new ItemController(this.scene);
-    this.floor = new Floor(this.scene);
     this.lightCone = new LightCone(this.scene);
     this.cabinet = new Cabinet(this.scene);
     this.coin = new Coin(this.scene);
+    this.floor = new Floor(this.scene);
+    this.background = new Background(this.scene);
 
     this.initScroll();
 
@@ -181,7 +189,7 @@ export class VendingMachine {
 
           document.body.style.overflowY = "hidden";
 
-          this.fixCamera();
+          this.fixCamera(8);
           this.coin.insert();
         },
       },
@@ -309,12 +317,12 @@ export class VendingMachine {
     PubSub.publish(UI_TOOLTIP_INTERACT, currentScroll > SCROLL_HEIGHT);
   }
 
-  fixCamera() {
+  fixCamera(z: number) {
     gsap.to(this.camera.position, {
       duration: 3,
       x: 0,
       y: 0,
-      z: 8,
+      z,
       ease: "power4.inOut",
       onComplete: () => {
         this.canSelect = true;

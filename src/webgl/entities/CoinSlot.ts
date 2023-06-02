@@ -12,15 +12,12 @@ import { Scene } from "@/webgl/globals/Scene";
 
 export class CoinSlot {
   assetController = AssetController.getInstance();
-
-  scene: Scene;
+  scene = Scene.getInstance();
 
   group?: Group;
   label?: Mesh;
 
-  constructor(scene: Scene) {
-    this.scene = scene;
-
+  constructor() {
     this.init();
   }
 

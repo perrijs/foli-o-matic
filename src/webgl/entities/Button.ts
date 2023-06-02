@@ -16,13 +16,13 @@ const BUTTON_CLICKS = [
 ];
 
 export class Button {
-  scene: Scene;
+  scene = Scene.getInstance();
+
   buttonData: ButtonData;
   mesh?: Mesh;
   index?: number;
 
-  constructor(scene: Scene, buttonData: ButtonData, index: number) {
-    this.scene = scene;
+  constructor(buttonData: ButtonData, index: number) {
     this.buttonData = buttonData;
     this.index = index;
 

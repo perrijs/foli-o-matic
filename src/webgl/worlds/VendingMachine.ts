@@ -48,13 +48,14 @@ gsap.registerPlugin(ScrollTrigger);
 //TODO(pschofield): Tidy entire Class. A lot of this logic could be abstracted out into controllers.
 //TODO(pschofield): Tidy all entity/controller classes, file by file.
 //TODO(pschofield): Rename all functions to follow handle/on.
-//TODO(pschofield): Refactor all React Component to be cleaner.
+//TODO(pschofield): Extract all timeout values to config file.
+//TODO(pschofield): Refactor all React Components to be cleaner.
 export class VendingMachine {
   assetController = AssetController.getInstance();
+  scene = Scene.getInstance();
 
   renderer: Renderer;
   camera: Camera;
-  scene: Scene;
   ambientLight: AmbientLight;
   directionalLight: DirectionalLight;
   spotLight: SpotLight;
@@ -83,7 +84,6 @@ export class VendingMachine {
   constructor(canvasParent: HTMLDivElement) {
     this.renderer = new Renderer();
     this.camera = new Camera();
-    this.scene = new Scene();
     this.ambientLight = new AmbientLight();
     this.directionalLight = new DirectionalLight();
     this.spotLight = new SpotLight();
@@ -135,6 +135,8 @@ export class VendingMachine {
     this.renderer.setAspectRatio(this.canvasParent);
     this.camera.setAspectRatio(this.canvasParent);
 
+    console.log(this.scene);
+
     this.scene.add(this.camera);
     this.camera.position.set(0, 0, 50);
     this.camera.lookAt(0, 0, 0);
@@ -143,15 +145,15 @@ export class VendingMachine {
     this.scene.add(this.directionalLight);
     this.scene.add(this.spotLight);
 
-    this.coilController = new CoilController(this.scene);
-    this.buttonController = new ButtonController(this.scene);
-    this.itemController = new ItemController(this.scene);
-    this.cloneController = new CloneController(this.scene);
-    this.lightCone = new LightCone(this.scene);
-    this.cabinet = new Cabinet(this.scene);
-    this.coin = new Coin(this.scene);
-    this.floor = new Floor(this.scene);
-    this.background = new Background(this.scene);
+    this.coilController = new CoilController();
+    this.buttonController = new ButtonController();
+    this.itemController = new ItemController();
+    this.cloneController = new CloneController();
+    this.lightCone = new LightCone();
+    this.cabinet = new Cabinet();
+    this.coin = new Coin();
+    this.floor = new Floor();
+    this.background = new Background();
 
     this.initScroll();
 

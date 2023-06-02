@@ -25,8 +25,7 @@ import { GL_ACTIVATE_LIGHTS } from "../config/topics";
 
 export class Cabinet {
   assetController = AssetController.getInstance();
-
-  scene: Scene;
+  scene = Scene.getInstance();
 
   screenController: ScreenController;
 
@@ -36,10 +35,9 @@ export class Cabinet {
   windowMesh?: Mesh;
   windowMaterial?: MeshPhysicalMaterial;
 
-  constructor(scene: Scene) {
-    this.scene = scene;
+  constructor() {
     this.cabinet = new Group();
-    this.screenController = new ScreenController(this.scene);
+    this.screenController = new ScreenController();
 
     this.handleSubscriptions();
     this.init();
@@ -77,8 +75,8 @@ export class Cabinet {
 
     this.createWindow();
 
-    new CoinSlot(this.scene);
-    new Flap(this.scene);
+    new CoinSlot();
+    new Flap();
 
     this.cabinet.castShadow = true;
 

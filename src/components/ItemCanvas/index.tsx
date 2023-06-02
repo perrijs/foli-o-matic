@@ -1,7 +1,5 @@
 import { useEffect, useRef } from "react";
 
-import { SingleItem } from "@/webgl/worlds/SingleItem";
-
 import { CanvasParent } from "./styles";
 
 const ItemCanvas = () => {
@@ -10,7 +8,7 @@ const ItemCanvas = () => {
   useEffect(() => {
     if (!canvasParent.current) return;
 
-    new SingleItem(canvasParent.current);
+    //TODO: Implement FloatingItem here.
   }, []);
 
   return <CanvasParent ref={canvasParent} className={"canvasParent"} />;

@@ -8,12 +8,11 @@ import { Screen } from "@/webgl/entities/Screen";
 import { GL_PRESS_KEY } from "@/webgl/config/topics";
 
 export class ScreenController {
-  scene: Scene;
+  scene = Scene.getInstance();
+
   screen?: Screen;
 
-  constructor(scene: Scene) {
-    this.scene = scene;
-
+  constructor() {
     this.handleSubscriptions();
     this.init();
   }
@@ -25,7 +24,7 @@ export class ScreenController {
   }
 
   init() {
-    this.screen = new Screen(this.scene);
+    this.screen = new Screen();
   }
 
   createCanvasTexture(_topic: string, data: string) {

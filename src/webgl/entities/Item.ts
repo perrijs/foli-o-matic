@@ -9,12 +9,12 @@ import { AUDIO_PLAY_EFFECT, GL_ACTIVATE_FOCUS } from "@/webgl/config/topics";
 import { ItemData } from "@/webgl/config/types";
 
 export class Item {
-  scene: Scene;
+  scene = Scene.getInstance();
+
   itemData: ItemData;
   model: Group;
 
-  constructor(scene: Scene, itemData: ItemData, model: Group) {
-    this.scene = scene;
+  constructor(itemData: ItemData, model: Group) {
     this.itemData = itemData;
     this.model = model;
 

@@ -6,12 +6,11 @@ import { Scene } from "@/webgl/globals/Scene";
 import { GL_ACTIVATE_FOCUS } from "@/webgl/config/topics";
 
 export class Background {
-  scene: Scene;
+  scene = Scene.getInstance();
+
   mesh?: Mesh;
 
-  constructor(scene: Scene) {
-    this.scene = scene;
-
+  constructor() {
     this.handleSubscriptions();
     this.init();
   }

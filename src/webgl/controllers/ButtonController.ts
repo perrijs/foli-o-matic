@@ -7,13 +7,11 @@ import { BUTTONS } from "@/webgl/config/buttons";
 
 export class ButtonController {
   assetController = AssetController.getInstance();
+  scene = Scene.getInstance();
 
-  scene: Scene;
   buttons?: Button[] = [];
 
-  constructor(scene: Scene) {
-    this.scene = scene;
-
+  constructor() {
     this.init();
   }
 
@@ -21,7 +19,7 @@ export class ButtonController {
     BUTTONS.forEach((buttonData, index) => {
       if (!this.buttons) return;
 
-      const button = new Button(this.scene, buttonData, index);
+      const button = new Button(buttonData, index);
       this.buttons.push(button);
     });
   }

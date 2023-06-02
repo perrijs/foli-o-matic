@@ -7,15 +7,23 @@ import { AssetController } from "@/webgl/controllers/AssetController";
 import { UI_NEXT_ITEM, UI_PREV_ITEM } from "../config/topics";
 
 export class CloneController {
+  static instance: CloneController;
+
+  scene = Scene.getInstance();
   assetController = AssetController.getInstance();
 
-  scene: Scene;
-  items?: Group[] = [];
+  items: Group[] = [];
+  activeIndex: number = 0;
 
-  constructor(scene: Scene) {
-    this.scene = scene;
-
+  constructor() {
     this.handleSubscriptions();
+  }
+
+  static getInstance() {
+    if (!CloneController.instance)
+      CloneController.instance = new CloneController();
+
+    return CloneController.instance;
   }
 
   handleSubscriptions() {
@@ -27,17 +35,25 @@ export class CloneController {
     this.assetController.models?.forEach((model: Group) => {
       const clone = model.clone();
 
-      this.items?.push(clone);
+      this.items.push(clone);
       this.scene.add(clone);
       clone.position.set(-3, 0, 9);
     });
   }
 
   nextItem() {
-    console.log("got here next");
+    console.log("initial index", this.activeIndex);
+
+    this.activeIndex += 1;
+
+    console.log("new index:", this.activeIndex);
   }
 
   prevItem() {
-    console.log("got here prev");
+    console.log("initial index", this.activeIndex);
+
+    this.activeIndex -= 1;
+
+    console.log("new index:", this.activeIndex);
   }
 }

@@ -10,13 +10,11 @@ import { GL_ACTIVATE_LIGHTS, GL_SELECT_ITEM } from "@/webgl/config/topics";
 
 export class Flap {
   assetController = AssetController.getInstance();
+  scene = Scene.getInstance();
 
-  scene: Scene;
   mesh?: Mesh;
 
-  constructor(scene: Scene) {
-    this.scene = scene;
-
+  constructor() {
     this.handleSubscriptions();
     this.init();
   }

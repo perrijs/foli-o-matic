@@ -11,13 +11,12 @@ import { Scene } from "@/webgl/globals/Scene";
 import { CardData } from "@/webgl/config/types";
 
 export class Card {
-  scene: Scene;
+  scene = Scene.getInstance();
 
   cardData: CardData;
   mesh?: Mesh;
 
-  constructor(scene: Scene, cardData: CardData) {
-    this.scene = scene;
+  constructor(cardData: CardData) {
     this.cardData = cardData;
 
     this.init();

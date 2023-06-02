@@ -9,12 +9,12 @@ import { AUDIO_PLAY_EFFECT } from "@/webgl/config/topics";
 import { CoilData } from "@/webgl/config/types";
 
 export class Coil {
-  scene: Scene;
+  scene = Scene.getInstance();
+
   coilData: CoilData;
   model: Group;
 
-  constructor(scene: Scene, coilData: CoilData, model: Group) {
-    this.scene = scene;
+  constructor(coilData: CoilData, model: Group) {
     this.coilData = coilData;
     this.model = model;
 

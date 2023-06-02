@@ -14,14 +14,13 @@ import { AssetController } from "@/webgl/controllers/AssetController";
 
 export class Wrapper {
   assetController = AssetController.getInstance();
+  scene = Scene.getInstance();
 
-  scene: Scene;
   parent: Group;
   mesh?: Mesh;
   cards?: Mesh[] = [];
 
-  constructor(scene: Scene, parent: Group) {
-    this.scene = scene;
+  constructor(parent: Group) {
     this.parent = parent;
 
     this.init();

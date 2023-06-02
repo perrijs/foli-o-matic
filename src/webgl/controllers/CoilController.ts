@@ -26,7 +26,9 @@ export class CoilController {
   }
 
   handleSubscriptions() {
-    PubSub.subscribe(GL_SELECT_ITEM, this.handleRotate.bind(this));
+    PubSub.subscribe(GL_SELECT_ITEM, (_topic, data) =>
+      this.handleRotate(_topic, data)
+    );
   }
 
   init() {

@@ -29,6 +29,7 @@ import { AssetController } from "@/webgl/controllers/AssetController";
 import { CoilController } from "@/webgl/controllers/CoilController";
 import { ButtonController } from "@/webgl/controllers/ButtonController";
 import { ItemController } from "@/webgl/controllers/ItemController";
+import { CloneController } from "@/webgl/controllers/CloneController";
 
 import {
   AUDIO_PLAY_EFFECT,
@@ -46,6 +47,8 @@ gsap.registerPlugin(ScrollTrigger);
 //TODO(pschofield): Polish all animation timings.
 //TODO(pschofield): Tidy entire Class. A lot of this logic could be abstracted out into controllers.
 //TODO(pschofield): Tidy all entity/controller classes, file by file.
+//TODO(pschofield): Rename all functions to follow handle/on.
+//TODO(pschofield): Refactor all React Component to be cleaner.
 export class VendingMachine {
   assetController = AssetController.getInstance();
 
@@ -60,6 +63,7 @@ export class VendingMachine {
   coilController?: CoilController;
   buttonController?: ButtonController;
   itemController?: ItemController;
+  cloneController?: CloneController;
   lightCone?: LightCone;
   cabinet?: Cabinet;
   coin?: Coin;
@@ -124,7 +128,7 @@ export class VendingMachine {
   handleSubscriptions() {
     PubSub.subscribe(GL_ACTIVATE_SCENE, () => this.activateScene());
     PubSub.subscribe(GL_ACTIVATE_LIGHTS, () => this.activateLights());
-    PubSub.subscribe(GL_ACTIVATE_FOCUS, () => this.fixCamera(10));
+    PubSub.subscribe(GL_ACTIVATE_FOCUS, () => this.initFocus());
   }
 
   init() {
@@ -142,6 +146,7 @@ export class VendingMachine {
     this.coilController = new CoilController(this.scene);
     this.buttonController = new ButtonController(this.scene);
     this.itemController = new ItemController(this.scene);
+    this.cloneController = new CloneController(this.scene);
     this.lightCone = new LightCone(this.scene);
     this.cabinet = new Cabinet(this.scene);
     this.coin = new Coin(this.scene);
@@ -217,6 +222,12 @@ export class VendingMachine {
       intensity: 1,
       scrollTrigger,
     });
+  }
+
+  initFocus() {
+    this.fixCamera(10);
+
+    this.cloneController?.init();
   }
 
   handleResize() {

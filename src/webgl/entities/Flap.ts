@@ -22,7 +22,7 @@ export class Flap {
   }
 
   handleSubscriptions() {
-    PubSub.subscribe(GL_SELECT_ITEM, this.rotate.bind(this));
+    PubSub.subscribe(GL_SELECT_ITEM, () => this.rotate());
     PubSub.subscribe(GL_ACTIVATE_LIGHTS, () => this.switchMaterial());
   }
 

@@ -12,14 +12,28 @@ import MenuButton from "@/components/MenuButton";
 import StartScreen from "@/components/StartScreen";
 
 import { TRIGGER_ELEMENTS } from "@/webgl/config/scrollTriggers";
+import FocusButton from "@/components/FocusButton";
+import {
+  GL_ACTIVATE_FOCUS,
+  UI_NEXT_ITEM,
+  UI_PREV_ITEM,
+} from "@/webgl/config/topics";
 
 const Index = () => {
   const { loaded } = useLoading();
 
   const [isStarted, setIsStarted] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleSubscriptions = () => {
+    PubSub.subscribe(GL_ACTIVATE_FOCUS, () => setIsFocused(true));
+  };
 
   useEffect(() => {
-    if (!loaded) new Load();
+    if (loaded) return;
+
+    handleSubscriptions();
+    new Load();
   }, [loaded]);
 
   return (
@@ -48,6 +62,22 @@ const Index = () => {
 
       <AnimatePresence>
         {!isStarted && <StartScreen handleSetIsStarted={setIsStarted} />}
+
+        {isFocused && (
+          <>
+            <FocusButton
+              key="focus-button-left"
+              event={UI_PREV_ITEM}
+              position="left"
+            />
+
+            <FocusButton
+              key="focus-button-right"
+              event={UI_NEXT_ITEM}
+              position="right"
+            />
+          </>
+        )}
       </AnimatePresence>
 
       <WebGL />

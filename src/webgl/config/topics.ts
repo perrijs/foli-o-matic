@@ -11,3 +11,5 @@ export const AUDIO_PLAY_TRACK = "audioPlayTrack";
 export const AUDIO_PLAY_EFFECT = "audioPlayEffect";
 
 export const UI_TOOLTIP_INTERACT = "uiTooltipInteract";
+export const UI_NEXT_ITEM = "uiNextItem";
+export const UI_PREV_ITEM = "uiPrevItem";

@@ -19,7 +19,9 @@ export class ScreenController {
   }
 
   handleSubscriptions() {
-    PubSub.subscribe(GL_PRESS_KEY, this.createCanvasTexture.bind(this));
+    PubSub.subscribe(GL_PRESS_KEY, (_topic, data) =>
+      this.createCanvasTexture(_topic, data)
+    );
   }
 
   init() {

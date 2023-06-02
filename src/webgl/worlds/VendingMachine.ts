@@ -52,6 +52,7 @@ gsap.registerPlugin(ScrollTrigger);
 //TODO(pschofield): Refactor all React Components to be cleaner.
 export class VendingMachine {
   assetController = AssetController.getInstance();
+  cloneController = CloneController.getInstance();
   scene = Scene.getInstance();
 
   renderer: Renderer;
@@ -64,7 +65,6 @@ export class VendingMachine {
   coilController?: CoilController;
   buttonController?: ButtonController;
   itemController?: ItemController;
-  cloneController?: CloneController;
   lightCone?: LightCone;
   cabinet?: Cabinet;
   coin?: Coin;
@@ -135,8 +135,6 @@ export class VendingMachine {
     this.renderer.setAspectRatio(this.canvasParent);
     this.camera.setAspectRatio(this.canvasParent);
 
-    console.log(this.scene);
-
     this.scene.add(this.camera);
     this.camera.position.set(0, 0, 50);
     this.camera.lookAt(0, 0, 0);
@@ -148,7 +146,6 @@ export class VendingMachine {
     this.coilController = new CoilController();
     this.buttonController = new ButtonController();
     this.itemController = new ItemController();
-    this.cloneController = new CloneController();
     this.lightCone = new LightCone();
     this.cabinet = new Cabinet();
     this.coin = new Coin();

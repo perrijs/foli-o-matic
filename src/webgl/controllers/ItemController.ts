@@ -30,7 +30,7 @@ export class ItemController {
 
   handleSubscriptions() {
     PubSub.subscribe(GL_SELECT_ITEM, (_topic, data) => {
-      this.cloneController.activeIndex = data;
+      this.cloneController.currentIndex = data;
 
       this.handleMove(_topic, data);
     });

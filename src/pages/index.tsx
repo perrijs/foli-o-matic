@@ -20,6 +20,7 @@ import {
   GL_PREV_ITEM,
 } from "@/webgl/config/topics";
 import CloseButton from "@/components/CloseButton";
+import Menu from "@/components/Menu";
 
 //TODO(pschofield): Move isFocus buttons to wrapper component.
 const Index = () => {
@@ -27,6 +28,7 @@ const Index = () => {
 
   const [isStarted, setIsStarted] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleSubscriptions = () => {
     PubSub.subscribe(GL_ACTIVATE_FOCUS, () => setIsFocused(true));
@@ -62,10 +64,16 @@ const Index = () => {
         <TriggerElement key={name} className={name} />
       ))}
 
-      {isStarted && <MenuButton />}
-
       <AnimatePresence>
-        {!isStarted && <StartScreen handleSetIsStarted={setIsStarted} />}
+        {!isStarted && (
+          <StartScreen key="start-screen" handleSetIsStarted={setIsStarted} />
+        )}
+
+        {isMenuOpen && <Menu key="menu" onClose={() => setIsMenuOpen(false)} />}
+
+        {isStarted && (
+          <MenuButton key="menu-button" onClick={() => setIsMenuOpen(true)} />
+        )}
 
         {isFocused && <CloseButton key="close-button" />}
 

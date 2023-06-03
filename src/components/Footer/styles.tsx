@@ -24,7 +24,7 @@ export const FooterLinksContainer = styled.div`
     ${type.TYPE_SERIF_BODY_2}
 
     &:hover {
-      color: ${color.VERMILLION};
+      color: ${color.RED};
     }
 
     @media (max-width: ${breakpoint.MOBILE_MAX}) {

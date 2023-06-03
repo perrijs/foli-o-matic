@@ -49,7 +49,9 @@ gsap.registerPlugin(ScrollTrigger);
 //TODO(pschofield): Tidy all entity/controller classes, file by file.
 //TODO(pschofield): Rename all functions to follow handle/on.
 //TODO(pschofield): Extract all timeout values to config file.
+//TODO(pschofield): Extract all z-indexes to globals file.
 //TODO(pschofield): Refactor all React Components to be cleaner.
+//TODO(pschofield): Refactor all breakpoint styling to follow mobile down.
 export class VendingMachine {
   assetController = AssetController.getInstance();
   cloneController = CloneController.getInstance();
@@ -362,7 +364,7 @@ export class VendingMachine {
     this.spotLight.intensity = 0;
     this.directionalLight.intensity = 1;
 
-    document.body.style.backgroundColor = "#ffbfc3";
+    document.body.style.backgroundColor = "#ffbdd8";
   }
 
   render() {

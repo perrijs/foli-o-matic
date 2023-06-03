@@ -28,12 +28,12 @@ export const Loader = styled(motion.div)`
   justify-content: space-between;
   transform: translate(-50%, -50%);
   gap: ${spacing.MARGIN_EXTRA_SMALL};
-  border: 1px solid ${color.VERMILLION};
-  box-shadow: 1px 1px ${color.VERMILLION};
+  border: 1px solid ${color.WHITE};
+  box-shadow: 1px 1px ${color.WHITE};
 
   .active {
-    color: ${color.COSMIC_LATTE};
-    background-color: ${color.VERMILLION};
+    color: ${color.BLACK};
+    background-color: ${color.WHITE};
   }
 `;
 
@@ -44,8 +44,8 @@ export const LoaderScreen = styled.span`
   padding-left: 4px;
 
   align-items: center;
-  color: ${color.VERMILLION};
-  border: 1px solid ${color.VERMILLION};
+  color: ${color.WHITE};
+  border: 1px solid ${color.WHITE};
 
   ${type.TYPE_SANS_BODY_2}
 `;
@@ -57,8 +57,8 @@ export const LoaderButton = styled.div`
 
   align-items: center;
   justify-content: center;
-  color: ${color.VERMILLION};
-  border: 1px solid ${color.VERMILLION};
+  color: ${color.WHITE};
+  border: 1px solid ${color.WHITE};
 
   ${type.TYPE_SANS_BODY_2}
 `;

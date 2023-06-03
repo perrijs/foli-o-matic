@@ -1,4 +1,4 @@
-import { Group, Material, Mesh, MeshMatcapMaterial } from "three";
+import { Group, Mesh, MeshMatcapMaterial } from "three";
 import PubSub from "pubsub-js";
 
 import { Scene } from "@/webgl/globals/Scene";
@@ -13,20 +13,20 @@ import { GL_SELECT_ITEM } from "@/webgl/config/topics";
 export class CoilController {
   assetController = AssetController.getInstance();
 
-  scene: Scene;
+  scene = Scene.getInstance();
   model?: Group;
   matcap?: MeshMatcapMaterial;
   coils?: Coil[] = [];
 
-  constructor(scene: Scene) {
-    this.scene = scene;
-
+  constructor() {
     this.handleSubscriptions();
     this.init();
   }
 
   handleSubscriptions() {
-    PubSub.subscribe(GL_SELECT_ITEM, this.handleRotate.bind(this));
+    PubSub.subscribe(GL_SELECT_ITEM, (_topic, data) =>
+      this.handleRotate(_topic, data)
+    );
   }
 
   init() {
@@ -47,12 +47,12 @@ export class CoilController {
     COILS.forEach((coilData) => {
       if (!this.model || !this.coils) return;
 
-      const coil = new Coil(this.scene, coilData, this.model.clone());
+      const coil = new Coil(coilData, this.model.clone());
       this.coils.push(coil);
     });
   }
 
-  handleRotate(_topic: string, data: string) {
+  handleRotate(_topic: string, data: number) {
     if (!this.coils) return;
 
     this.coils.forEach((coil) => {

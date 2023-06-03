@@ -10,28 +10,26 @@ import { GL_ACTIVATE_LIGHTS, GL_SELECT_ITEM } from "@/webgl/config/topics";
 
 export class Flap {
   assetController = AssetController.getInstance();
+  scene = Scene.getInstance();
 
-  scene: Scene;
   mesh?: Mesh;
 
-  constructor(scene: Scene) {
-    this.scene = scene;
-
+  constructor() {
     this.handleSubscriptions();
     this.init();
   }
 
   handleSubscriptions() {
-    PubSub.subscribe(GL_SELECT_ITEM, this.rotate.bind(this));
+    PubSub.subscribe(GL_SELECT_ITEM, () => this.rotate());
     PubSub.subscribe(GL_ACTIVATE_LIGHTS, () => this.switchMaterial());
   }
 
   init() {
-    const geometry = new BoxGeometry(3, 0.75, 0.1);
+    const geometry = new BoxGeometry(2.7, 0.75, 0.1);
     const material = new MeshPhongMaterial({ color: "#33312e" });
     const flap = new Mesh(geometry, material);
 
-    flap.position.set(-0.75, -2, 2.75);
+    flap.position.set(-0.65, -2, 2.75);
 
     this.mesh = flap;
     this.scene.add(this.mesh);
@@ -40,19 +38,18 @@ export class Flap {
   rotate() {
     if (!this.mesh) return;
 
-    gsap.fromTo(
-      this.mesh.rotation,
-      {
-        x: 0,
-      },
-      {
-        delay: 2.5,
-        duration: 0.1,
-        repeat: 1,
-        yoyo: true,
-        x: -0.5,
-      }
-    );
+    gsap.to(this.mesh.rotation, {
+      delay: 2.5,
+      duration: 0.5,
+      x: 1.5,
+    });
+
+    gsap.to(this.mesh.position, {
+      delay: 2.5,
+      duration: 0.5,
+      y: -1.665,
+      z: 2.25,
+    });
   }
 
   switchMaterial() {

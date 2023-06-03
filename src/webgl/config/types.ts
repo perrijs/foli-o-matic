@@ -7,7 +7,7 @@ export interface Vec3 {
 }
 
 export interface CoilData {
-  id: string;
+  id: number;
   position: Vec3;
 }
 
@@ -17,7 +17,7 @@ export interface ButtonData {
 }
 
 export interface ItemData {
-  id: string;
+  id: number;
   item_code: string;
   object: string;
   scalar: number;

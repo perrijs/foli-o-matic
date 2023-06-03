@@ -6,13 +6,11 @@ import { AssetController } from "@/webgl/controllers/AssetController";
 
 export class LightCone {
   assetController = AssetController.getInstance();
+  scene = Scene.getInstance();
 
-  scene: Scene;
   mesh?: Mesh;
 
-  constructor(scene: Scene) {
-    this.scene = scene;
-
+  constructor() {
     this.init();
   }
 

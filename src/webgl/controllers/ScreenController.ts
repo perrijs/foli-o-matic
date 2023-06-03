@@ -8,22 +8,23 @@ import { Screen } from "@/webgl/entities/Screen";
 import { GL_PRESS_KEY } from "@/webgl/config/topics";
 
 export class ScreenController {
-  scene: Scene;
+  scene = Scene.getInstance();
+
   screen?: Screen;
 
-  constructor(scene: Scene) {
-    this.scene = scene;
-
+  constructor() {
     this.handleSubscriptions();
     this.init();
   }
 
   handleSubscriptions() {
-    PubSub.subscribe(GL_PRESS_KEY, this.createCanvasTexture.bind(this));
+    PubSub.subscribe(GL_PRESS_KEY, (_topic, data) =>
+      this.createCanvasTexture(_topic, data)
+    );
   }
 
   init() {
-    this.screen = new Screen(this.scene);
+    this.screen = new Screen();
   }
 
   createCanvasTexture(_topic: string, data: string) {
@@ -46,9 +47,5 @@ export class ScreenController {
     this.screen.mesh.material = new MeshBasicMaterial({
       map: texture,
     });
-
-    setTimeout(() => {
-      if (data === "DENIED") this.createCanvasTexture("", "");
-    }, 500);
   }
 }

@@ -1,6 +1,6 @@
 import {
-  Raycaster,
   Vector2,
+  Raycaster,
   Object3D,
   Intersection,
   Clock,
@@ -23,30 +23,40 @@ import { Cabinet } from "@/webgl/entities/Cabinet";
 import { LightCone } from "@/webgl/entities/LightCone";
 import { Coin } from "@/webgl/entities/Coin";
 import { Floor } from "@/webgl/entities/Floor";
+import { Background } from "@/webgl/entities/Background";
 
 import { AssetController } from "@/webgl/controllers/AssetController";
 import { CoilController } from "@/webgl/controllers/CoilController";
 import { ButtonController } from "@/webgl/controllers/ButtonController";
 import { ItemController } from "@/webgl/controllers/ItemController";
+import { CloneController } from "@/webgl/controllers/CloneController";
 
 import {
   AUDIO_PLAY_EFFECT,
+  GL_ACTIVATE_FOCUS,
   GL_ACTIVATE_LIGHTS,
   GL_ACTIVATE_SCENE,
+  GL_DEACTIVATE_FOCUS,
   GL_PRESS_KEY,
   GL_SELECT_ITEM,
-  UI_TOOLTIP_INTERACT,
 } from "@/webgl/config/topics";
 import { TRIGGER_ELEMENTS, SCROLL_HEIGHT } from "@/webgl/config/scrollTriggers";
 
 gsap.registerPlugin(ScrollTrigger);
 
+//TODO(pschofield): Polish all animation timings.
+//TODO(pschofield): Tidy entire Class. A lot of this logic could be abstracted out into controllers.
+//TODO(pschofield): Tidy all entity/controller classes, file by file.
+//TODO(pschofield): Rename all functions to follow handle/on.
+//TODO(pschofield): Extract all timeout values to config file.
+//TODO(pschofield): Refactor all React Components to be cleaner.
 export class VendingMachine {
   assetController = AssetController.getInstance();
+  cloneController = CloneController.getInstance();
+  scene = Scene.getInstance();
 
   renderer: Renderer;
   camera: Camera;
-  scene: Scene;
   ambientLight: AmbientLight;
   directionalLight: DirectionalLight;
   spotLight: SpotLight;
@@ -59,6 +69,7 @@ export class VendingMachine {
   cabinet?: Cabinet;
   coin?: Coin;
   floor?: Floor;
+  background?: Background;
 
   controls?: OrbitControls;
   raycaster?: Raycaster;
@@ -67,13 +78,13 @@ export class VendingMachine {
 
   keycode?: string;
   canSelect?: boolean;
+  selectedItems: number[] = [];
   canvasParent: HTMLDivElement;
   isMobile: boolean;
 
   constructor(canvasParent: HTMLDivElement) {
     this.renderer = new Renderer();
     this.camera = new Camera();
-    this.scene = new Scene();
     this.ambientLight = new AmbientLight();
     this.directionalLight = new DirectionalLight();
     this.spotLight = new SpotLight();
@@ -118,6 +129,9 @@ export class VendingMachine {
   handleSubscriptions() {
     PubSub.subscribe(GL_ACTIVATE_SCENE, () => this.activateScene());
     PubSub.subscribe(GL_ACTIVATE_LIGHTS, () => this.activateLights());
+
+    PubSub.subscribe(GL_ACTIVATE_FOCUS, () => this.setFocus(true));
+    PubSub.subscribe(GL_DEACTIVATE_FOCUS, () => this.setFocus(false));
   }
 
   init() {
@@ -132,13 +146,14 @@ export class VendingMachine {
     this.scene.add(this.directionalLight);
     this.scene.add(this.spotLight);
 
-    this.coilController = new CoilController(this.scene);
-    this.buttonController = new ButtonController(this.scene);
-    this.itemController = new ItemController(this.scene);
-    this.floor = new Floor(this.scene);
-    this.lightCone = new LightCone(this.scene);
-    this.cabinet = new Cabinet(this.scene);
-    this.coin = new Coin(this.scene);
+    this.coilController = new CoilController();
+    this.buttonController = new ButtonController();
+    this.itemController = new ItemController();
+    this.lightCone = new LightCone();
+    this.cabinet = new Cabinet();
+    this.coin = new Coin();
+    this.floor = new Floor();
+    this.background = new Background();
 
     this.initScroll();
 
@@ -181,7 +196,7 @@ export class VendingMachine {
 
           document.body.style.overflowY = "hidden";
 
-          this.fixCamera();
+          this.fixCamera(8);
           this.coin.insert();
         },
       },
@@ -209,6 +224,12 @@ export class VendingMachine {
       intensity: 1,
       scrollTrigger,
     });
+  }
+
+  setFocus(isFocused: boolean) {
+    this.fixCamera(isFocused ? 10 : 8);
+
+    if (isFocused) this.cloneController?.init();
   }
 
   handleResize() {
@@ -275,46 +296,45 @@ export class VendingMachine {
       this.keycode = "";
       PubSub.publish(GL_PRESS_KEY, this.keycode);
     } else if (key === "E") {
-      let hasMatched = false;
+      const selectedItem = this.itemController.items.find(
+        (item) => item.itemData.item_code === this.keycode
+      );
+      const alreadySelected =
+        selectedItem && this.selectedItems.includes(selectedItem.itemData.id);
 
-      this.itemController.items.forEach((item, index) => {
-        if (!this.itemController || !this.itemController.items) return;
+      this.keycode = "";
+      if (selectedItem && !alreadySelected) {
+        this.selectedItems.push(selectedItem.itemData.id);
 
-        if (item.itemData.item_code === this.keycode) {
-          hasMatched = true;
-          document.body.style.overflowY = "hidden";
+        PubSub.publish(GL_PRESS_KEY, "SUCCESS");
+        PubSub.publish(GL_SELECT_ITEM, selectedItem.itemData.id);
+        PubSub.publish(AUDIO_PLAY_EFFECT, AudioEffects.SUCCESS);
 
-          PubSub.publish(GL_PRESS_KEY, "SUCCESS");
-          PubSub.publish(GL_SELECT_ITEM, item.itemData.id);
-          PubSub.publish(AUDIO_PLAY_EFFECT, AudioEffects.SUCCESS);
-          PubSub.publish(UI_TOOLTIP_INTERACT, false);
-        }
-
-        if (index === this.itemController.items.length - 1 && !hasMatched) {
+        setTimeout(() => {
           this.keycode = "";
+          PubSub.publish(GL_PRESS_KEY, this.keycode);
+        }, 1000);
+      } else {
+        PubSub.publish(GL_PRESS_KEY, "DENIED");
+        PubSub.publish(AUDIO_PLAY_EFFECT, AudioEffects.DENIED);
 
-          PubSub.publish(GL_PRESS_KEY, "DENIED");
-          PubSub.publish(AUDIO_PLAY_EFFECT, AudioEffects.DENIED);
-        }
-      });
+        setTimeout(() => {
+          this.keycode = "";
+          PubSub.publish(GL_PRESS_KEY, this.keycode);
+        }, 500);
+      }
     } else {
       this.keycode = `${this.keycode}${key}`;
       PubSub.publish(GL_PRESS_KEY, this.keycode);
     }
   }
 
-  handleTooltip() {
-    const currentScroll = document.documentElement.scrollTop;
-
-    PubSub.publish(UI_TOOLTIP_INTERACT, currentScroll > SCROLL_HEIGHT);
-  }
-
-  fixCamera() {
+  fixCamera(z: number) {
     gsap.to(this.camera.position, {
       duration: 3,
       x: 0,
       y: 0,
-      z: 8,
+      z,
       ease: "power4.inOut",
       onComplete: () => {
         this.canSelect = true;

@@ -14,15 +14,12 @@ import { AudioEffects, AudioTracks } from "@/contexts/audioContext";
 
 export class Coin {
   assetController = AssetController.getInstance();
-
-  scene: Scene;
+  scene = Scene.getInstance();
 
   mesh?: Group;
   rotating?: boolean;
 
-  constructor(scene: Scene) {
-    this.scene = scene;
-
+  constructor() {
     this.rotating = true;
 
     this.init();

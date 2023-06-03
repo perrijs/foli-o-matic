@@ -1,6 +1,6 @@
 export const ITEMS = [
   {
-    id: "item_1",
+    id: 0,
     item_code: "01",
     object: "/models/joystick.glb",
     scalar: 0.07,
@@ -17,7 +17,7 @@ export const ITEMS = [
     slug: "shopper-hopper",
   },
   {
-    id: "item_2",
+    id: 1,
     item_code: "02",
     object: "/models/football.glb",
     scalar: 0.135,
@@ -34,7 +34,7 @@ export const ITEMS = [
     slug: "youtube-united",
   },
   {
-    id: "item_3",
+    id: 2,
     item_code: "03",
     object: "/models/pyramid.glb",
     scalar: 0.15,
@@ -51,7 +51,7 @@ export const ITEMS = [
     slug: "pyramids-of-meroe",
   },
   {
-    id: "item_4",
+    id: 3,
     item_code: "11",
     object: "/models/coin.glb",
     scalar: 0.075,
@@ -68,7 +68,7 @@ export const ITEMS = [
     slug: "digital-assets-demystified",
   },
   {
-    id: "item_5",
+    id: 4,
     item_code: "12",
     object: "/models/peach.glb",
     scalar: 0.1,
@@ -85,7 +85,7 @@ export const ITEMS = [
     slug: "visit-planet-her",
   },
   {
-    id: "item_6",
+    id: 5,
     item_code: "13",
     object: "/models/record.glb",
     scalar: 0.175,

@@ -11,12 +11,11 @@ import { Scene } from "@/webgl/globals/Scene";
 import { GL_ACTIVATE_LIGHTS } from "@/webgl/config/topics";
 
 export class Floor {
-  scene: Scene;
+  scene = Scene.getInstance();
+
   mesh?: Mesh;
 
-  constructor(scene: Scene) {
-    this.scene = scene;
-
+  constructor() {
     this.handleSubscriptions();
     this.init();
   }

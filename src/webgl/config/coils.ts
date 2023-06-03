@@ -1,6 +1,6 @@
 export const COILS = [
   {
-    id: "item_1",
+    id: 0,
     position: {
       x: -1.6,
       y: 1.91,
@@ -8,7 +8,7 @@ export const COILS = [
     },
   },
   {
-    id: "item_2",
+    id: 1,
     position: {
       x: -0.6,
       y: 1.91,
@@ -16,7 +16,7 @@ export const COILS = [
     },
   },
   {
-    id: "item_3",
+    id: 2,
     position: {
       x: 0.4,
       y: 1.91,
@@ -24,7 +24,7 @@ export const COILS = [
     },
   },
   {
-    id: "item_4",
+    id: 3,
     position: {
       x: -1.6,
       y: 0.41,
@@ -32,7 +32,7 @@ export const COILS = [
     },
   },
   {
-    id: "item_5",
+    id: 4,
     position: {
       x: -0.6,
       y: 0.41,
@@ -40,7 +40,7 @@ export const COILS = [
     },
   },
   {
-    id: "item_6",
+    id: 5,
     position: {
       x: 0.4,
       y: 0.41,
@@ -48,7 +48,7 @@ export const COILS = [
     },
   },
   {
-    id: "item_7",
+    id: 6,
     position: {
       x: -1.6,
       y: -0.95,
@@ -56,7 +56,7 @@ export const COILS = [
     },
   },
   {
-    id: "item_8",
+    id: 7,
     position: {
       x: -0.6,
       y: -0.95,
@@ -64,7 +64,7 @@ export const COILS = [
     },
   },
   {
-    id: "item_9",
+    id: 8,
     position: {
       x: 0.4,
       y: -0.95,

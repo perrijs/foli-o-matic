@@ -15,10 +15,13 @@ import { TRIGGER_ELEMENTS } from "@/webgl/config/scrollTriggers";
 import FocusButton from "@/components/FocusButton";
 import {
   GL_ACTIVATE_FOCUS,
-  UI_NEXT_ITEM,
-  UI_PREV_ITEM,
+  GL_DEACTIVATE_FOCUS,
+  GL_NEXT_ITEM,
+  GL_PREV_ITEM,
 } from "@/webgl/config/topics";
+import CloseButton from "@/components/CloseButton";
 
+//TODO(pschofield): Move isFocus buttons to wrapper component.
 const Index = () => {
   const { loaded } = useLoading();
 
@@ -27,6 +30,7 @@ const Index = () => {
 
   const handleSubscriptions = () => {
     PubSub.subscribe(GL_ACTIVATE_FOCUS, () => setIsFocused(true));
+    PubSub.subscribe(GL_DEACTIVATE_FOCUS, () => setIsFocused(false));
   };
 
   useEffect(() => {
@@ -63,20 +67,22 @@ const Index = () => {
       <AnimatePresence>
         {!isStarted && <StartScreen handleSetIsStarted={setIsStarted} />}
 
-        {isFocused && (
-          <>
-            <FocusButton
-              key="focus-button-left"
-              event={UI_PREV_ITEM}
-              position="left"
-            />
+        {isFocused && <CloseButton key="close-button" />}
 
-            <FocusButton
-              key="focus-button-right"
-              event={UI_NEXT_ITEM}
-              position="right"
-            />
-          </>
+        {isFocused && (
+          <FocusButton
+            key="focus-button-left"
+            event={GL_PREV_ITEM}
+            position="left"
+          />
+        )}
+
+        {isFocused && (
+          <FocusButton
+            key="focus-button-right"
+            event={GL_NEXT_ITEM}
+            position="right"
+          />
         )}
       </AnimatePresence>
 

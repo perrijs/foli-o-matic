@@ -5,7 +5,11 @@ import PubSub from "pubsub-js";
 import { Scene } from "@/webgl/globals/Scene";
 
 import { AssetController } from "@/webgl/controllers/AssetController";
-import { UI_NEXT_ITEM, UI_PREV_ITEM } from "../config/topics";
+import {
+  GL_DEACTIVATE_FOCUS,
+  GL_NEXT_ITEM,
+  GL_PREV_ITEM,
+} from "@/webgl/config/topics";
 
 export class CloneController {
   static instance: CloneController;
@@ -29,8 +33,9 @@ export class CloneController {
   }
 
   handleSubscriptions() {
-    PubSub.subscribe(UI_NEXT_ITEM, () => this.newItem(true));
-    PubSub.subscribe(UI_PREV_ITEM, () => this.newItem(false));
+    PubSub.subscribe(GL_NEXT_ITEM, () => this.newItem(true));
+    PubSub.subscribe(GL_PREV_ITEM, () => this.newItem(false));
+    PubSub.subscribe(GL_DEACTIVATE_FOCUS, () => this.cleanup());
   }
 
   init() {
@@ -70,14 +75,14 @@ export class CloneController {
         x: 0,
       },
       {
-        x: isNext ? 3 : -3,
+        x: isNext ? -3 : 3,
       }
     );
 
     gsap.fromTo(
       newModel.position,
       {
-        x: isNext ? -3 : 3,
+        x: isNext ? 3 : -3,
       },
       {
         x: 0,
@@ -90,5 +95,13 @@ export class CloneController {
         },
       }
     );
+  }
+
+  cleanup() {
+    this.items.forEach((item) => {
+      this.scene.remove(item);
+    });
+
+    this.items = [];
   }
 }

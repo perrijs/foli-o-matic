@@ -3,7 +3,7 @@ import gsap from "gsap";
 
 import { Scene } from "@/webgl/globals/Scene";
 
-import { GL_ACTIVATE_FOCUS } from "@/webgl/config/topics";
+import { GL_ACTIVATE_FOCUS, GL_DEACTIVATE_FOCUS } from "@/webgl/config/topics";
 
 export class Background {
   scene = Scene.getInstance();
@@ -16,7 +16,8 @@ export class Background {
   }
 
   handleSubscriptions() {
-    PubSub.subscribe(GL_ACTIVATE_FOCUS, () => this.show());
+    PubSub.subscribe(GL_ACTIVATE_FOCUS, () => this.display(true));
+    PubSub.subscribe(GL_DEACTIVATE_FOCUS, () => this.display(false));
   }
 
   init() {
@@ -35,18 +36,18 @@ export class Background {
     this.scene.add(this.mesh);
   }
 
-  show() {
+  display(isVisible: boolean) {
     if (!this.mesh) return;
 
     gsap.to(this.mesh.position, {
-      z: 6,
+      z: isVisible ? 6 : -1,
       delay: 2.5,
       duration: 0,
     });
 
     gsap.to(this.mesh.material, {
-      opacity: 0.66,
-      delay: 2.5,
+      opacity: isVisible ? 0.66 : 0,
+      delay: isVisible ? 2.5 : 0,
       duration: 1,
     });
   }

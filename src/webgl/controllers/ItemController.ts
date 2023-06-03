@@ -1,4 +1,4 @@
-import { Group, Mesh } from "three";
+import { Mesh } from "three";
 import PubSub from "pubsub-js";
 
 import { AssetController } from "@/webgl/controllers/AssetController";
@@ -6,7 +6,6 @@ import { CloneController } from "@/webgl/controllers/CloneController";
 
 import { Scene } from "@/webgl/globals/Scene";
 
-import { Wrapper } from "@/webgl/entities/Wrapper";
 import { Item } from "@/webgl/entities/Item";
 import { Card } from "@/webgl/entities/Card";
 
@@ -20,7 +19,6 @@ export class ItemController {
 
   model?: Mesh;
   items?: Item[] = [];
-  wrappers?: Wrapper[] = [];
   cards?: Card[] = [];
 
   constructor() {
@@ -43,19 +41,13 @@ export class ItemController {
     ITEMS.forEach((itemData, index) => {
       if (!this.assetController.models) return;
 
-      const itemGroup = new Group();
-      const wrapper = new Wrapper(itemGroup);
-      if (this.wrappers) this.wrappers.push(wrapper);
-
       const model = this.assetController.models[index];
       model.rotation.x = itemData.rotation.x;
       model.rotation.y = itemData.rotation.y;
       model.rotation.z = itemData.rotation.z;
       model.scale.setScalar(itemData.scalar);
 
-      itemGroup.add(model);
-
-      const item = new Item(itemData, itemGroup);
+      const item = new Item(itemData, model);
       if (this.items) this.items.push(item);
     });
 

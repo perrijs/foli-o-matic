@@ -8,7 +8,6 @@ import ItemCanvas from "@/components/ItemCanvas";
 import { OTHER_WORKS } from "src/config/otherWorks";
 import { AWARDS } from "src/config/awards";
 import { SelectedWork, OtherWork, Award } from "src/config/types";
-import { GL_SET_MODEL } from "@/webgl/config/topics";
 
 import { useLoading } from "@/contexts/loadingContext";
 
@@ -55,8 +54,6 @@ const Collection = ({ projects }: Props) => {
   );
 
   useEffect(() => {
-    PubSub.publish(GL_SET_MODEL, 0);
-
     document.body.style.overflowY = "scroll";
     document.addEventListener("mousemove", (event) => handleMouseMove(event));
   }, [handleMouseMove]);
@@ -70,7 +67,6 @@ const Collection = ({ projects }: Props) => {
             initial={{ y: "-100%" }}
             animate={{ y: "0%" }}
             transition={{ delay: 1, duration: 0.33, ease: "easeInOut" }}
-            onMouseEnter={() => PubSub.publish(GL_SET_MODEL, 99)}
           >
             <TableHeader>TYPE</TableHeader>
             <TableHeader>TITLE</TableHeader>
@@ -79,14 +75,13 @@ const Collection = ({ projects }: Props) => {
           </TableHeaders>
         </AnimationSpan>
 
-        <TableSection onMouseLeave={() => PubSub.publish(GL_SET_MODEL, 99)}>
+        <TableSection>
           <AnimationSpan>
             <TableSectionType
               key="selectedWorksType"
               initial={{ y: "-100%" }}
               animate={{ y: "0%" }}
               transition={{ delay: 1.05, duration: 0.33, ease: "easeInOut" }}
-              onMouseEnter={() => PubSub.publish(GL_SET_MODEL, 99)}
             >
               SELECTED WORKS /
             </TableSectionType>
@@ -107,7 +102,6 @@ const Collection = ({ projects }: Props) => {
                     if (!canvasRef.current) return;
 
                     canvasRef.current.style.opacity = "1";
-                    PubSub.publish(GL_SET_MODEL, index);
                   }}
                 >
                   <TableSectionCode>{project.code}</TableSectionCode>
@@ -135,7 +129,6 @@ const Collection = ({ projects }: Props) => {
               initial={{ y: "-100%" }}
               animate={{ y: "0%" }}
               transition={{ delay: 1.4, duration: 0.33, ease: "easeInOut" }}
-              onMouseEnter={() => PubSub.publish(GL_SET_MODEL, 99)}
             >
               OTHER WORKS /
             </TableSectionType>
@@ -183,7 +176,6 @@ const Collection = ({ projects }: Props) => {
               initial={{ y: "-100%" }}
               animate={{ y: "0%" }}
               transition={{ delay: 1.65, duration: 0.33, ease: "easeInOut" }}
-              onMouseEnter={() => PubSub.publish(GL_SET_MODEL, 99)}
             >
               AWARDS /
             </TableSectionType>

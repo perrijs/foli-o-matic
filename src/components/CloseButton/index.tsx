@@ -1,14 +1,9 @@
+import { GL_DEACTIVATE_FOCUS } from "@/webgl/config/topics";
 import { Wrapper } from "./styles";
 
-interface Props {
-  event: string;
-  position: string;
-}
-
-const FocusButton = ({ event, position }: Props) => (
+const CloseButton = () => (
   <Wrapper
-    onClick={() => PubSub.publish(event)}
-    $position={position}
+    onClick={() => PubSub.publish(GL_DEACTIVATE_FOCUS)}
     initial={{
       opacity: 0,
     }}
@@ -23,4 +18,4 @@ const FocusButton = ({ event, position }: Props) => (
   />
 );
 
-export default FocusButton;
+export default CloseButton;

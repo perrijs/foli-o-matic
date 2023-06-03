@@ -47,9 +47,5 @@ export class ScreenController {
     this.screen.mesh.material = new MeshBasicMaterial({
       map: texture,
     });
-
-    setTimeout(() => {
-      if (data === "DENIED") this.createCanvasTexture("", "");
-    }, 500);
   }
 }

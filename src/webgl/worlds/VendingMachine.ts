@@ -36,9 +36,9 @@ import {
   GL_ACTIVATE_FOCUS,
   GL_ACTIVATE_LIGHTS,
   GL_ACTIVATE_SCENE,
+  GL_DEACTIVATE_FOCUS,
   GL_PRESS_KEY,
   GL_SELECT_ITEM,
-  UI_TOOLTIP_INTERACT,
 } from "@/webgl/config/topics";
 import { TRIGGER_ELEMENTS, SCROLL_HEIGHT } from "@/webgl/config/scrollTriggers";
 
@@ -78,6 +78,7 @@ export class VendingMachine {
 
   keycode?: string;
   canSelect?: boolean;
+  selectedItems: number[] = [];
   canvasParent: HTMLDivElement;
   isMobile: boolean;
 
@@ -128,7 +129,9 @@ export class VendingMachine {
   handleSubscriptions() {
     PubSub.subscribe(GL_ACTIVATE_SCENE, () => this.activateScene());
     PubSub.subscribe(GL_ACTIVATE_LIGHTS, () => this.activateLights());
-    PubSub.subscribe(GL_ACTIVATE_FOCUS, () => this.initFocus());
+
+    PubSub.subscribe(GL_ACTIVATE_FOCUS, () => this.setFocus(true));
+    PubSub.subscribe(GL_DEACTIVATE_FOCUS, () => this.setFocus(false));
   }
 
   init() {
@@ -223,10 +226,10 @@ export class VendingMachine {
     });
   }
 
-  initFocus() {
-    this.fixCamera(10);
+  setFocus(isFocused: boolean) {
+    this.fixCamera(isFocused ? 10 : 8);
 
-    this.cloneController?.init();
+    if (isFocused) this.cloneController?.init();
   }
 
   handleResize() {
@@ -293,38 +296,37 @@ export class VendingMachine {
       this.keycode = "";
       PubSub.publish(GL_PRESS_KEY, this.keycode);
     } else if (key === "E") {
-      let hasMatched = false;
+      const selectedItem = this.itemController.items.find(
+        (item) => item.itemData.item_code === this.keycode
+      );
+      const alreadySelected =
+        selectedItem && this.selectedItems.includes(selectedItem.itemData.id);
 
-      this.itemController.items.forEach((item, index) => {
-        if (!this.itemController || !this.itemController.items) return;
+      this.keycode = "";
+      if (selectedItem && !alreadySelected) {
+        this.selectedItems.push(selectedItem.itemData.id);
 
-        if (item.itemData.item_code === this.keycode) {
-          hasMatched = true;
-          document.body.style.overflowY = "hidden";
+        PubSub.publish(GL_PRESS_KEY, "SUCCESS");
+        PubSub.publish(GL_SELECT_ITEM, selectedItem.itemData.id);
+        PubSub.publish(AUDIO_PLAY_EFFECT, AudioEffects.SUCCESS);
 
-          PubSub.publish(GL_PRESS_KEY, "SUCCESS");
-          PubSub.publish(GL_SELECT_ITEM, item.itemData.id);
-          PubSub.publish(AUDIO_PLAY_EFFECT, AudioEffects.SUCCESS);
-          PubSub.publish(UI_TOOLTIP_INTERACT, false);
-        }
-
-        if (index === this.itemController.items.length - 1 && !hasMatched) {
+        setTimeout(() => {
           this.keycode = "";
+          PubSub.publish(GL_PRESS_KEY, this.keycode);
+        }, 1000);
+      } else {
+        PubSub.publish(GL_PRESS_KEY, "DENIED");
+        PubSub.publish(AUDIO_PLAY_EFFECT, AudioEffects.DENIED);
 
-          PubSub.publish(GL_PRESS_KEY, "DENIED");
-          PubSub.publish(AUDIO_PLAY_EFFECT, AudioEffects.DENIED);
-        }
-      });
+        setTimeout(() => {
+          this.keycode = "";
+          PubSub.publish(GL_PRESS_KEY, this.keycode);
+        }, 500);
+      }
     } else {
       this.keycode = `${this.keycode}${key}`;
       PubSub.publish(GL_PRESS_KEY, this.keycode);
     }
-  }
-
-  handleTooltip() {
-    const currentScroll = document.documentElement.scrollTop;
-
-    PubSub.publish(UI_TOOLTIP_INTERACT, currentScroll > SCROLL_HEIGHT);
   }
 
   fixCamera(z: number) {

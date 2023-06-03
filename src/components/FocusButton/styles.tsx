@@ -12,7 +12,7 @@ export const Wrapper = styled(motion.button)<WrapperProps>`
   height: 50px;
 
   transform: translate(-25%, -50%);
-  z-index: 10;
+  z-index: 1;
 
   ${(props) => (props.$position === "left" ? `left: 25%` : "right: 25%")};
 `;

@@ -22,10 +22,7 @@ interface ProviderProps {
 const WebAudioContext = createContext<ContextProps>({} as ContextProps);
 
 export enum AudioEffects {
-  BUTTON_1,
-  BUTTON_2,
-  BUTTON_3,
-  BUTTON_4,
+  BEEP,
   CIRCUIT_BREAKER,
   COIN_FLIP,
   COIN_SLOT,

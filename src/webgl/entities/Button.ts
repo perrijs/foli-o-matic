@@ -8,13 +8,6 @@ import { Scene } from "@/webgl/globals/Scene";
 import { ButtonData } from "@/webgl/config/types";
 import { AUDIO_PLAY_EFFECT } from "@/webgl/config/topics";
 
-const BUTTON_CLICKS = [
-  AudioEffects.BUTTON_1,
-  AudioEffects.BUTTON_2,
-  AudioEffects.BUTTON_3,
-  AudioEffects.BUTTON_4,
-];
-
 export class Button {
   scene = Scene.getInstance();
 
@@ -76,9 +69,7 @@ export class Button {
   press() {
     if (!this.mesh) return;
 
-    const buttonIndex =
-      BUTTON_CLICKS[Math.floor(Math.random() * BUTTON_CLICKS.length)];
-    PubSub.publish(AUDIO_PLAY_EFFECT, buttonIndex);
+    PubSub.publish(AUDIO_PLAY_EFFECT, AudioEffects.BEEP);
 
     gsap.fromTo(
       this.mesh.position,

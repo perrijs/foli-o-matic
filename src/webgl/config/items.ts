@@ -6,7 +6,7 @@ export const ITEMS = [
     scalar: 0.55,
     position: {
       x: -1.6,
-      y: 2.033,
+      y: 2.04,
       z: 1.8,
     },
     rotation: {
@@ -23,7 +23,7 @@ export const ITEMS = [
     scalar: 0.55,
     position: {
       x: -0.6,
-      y: 2.033,
+      y: 2.04,
       z: 1.8,
     },
     rotation: {
@@ -40,7 +40,7 @@ export const ITEMS = [
     scalar: 0.55,
     position: {
       x: 0.35,
-      y: 2.033,
+      y: 2.04,
       z: 1.8,
     },
     rotation: {
@@ -57,7 +57,7 @@ export const ITEMS = [
     scalar: 0.55,
     position: {
       x: -1.6,
-      y: 0.57,
+      y: 0.54,
       z: 1.8,
     },
     rotation: {
@@ -74,7 +74,7 @@ export const ITEMS = [
     scalar: 0.55,
     position: {
       x: -0.6,
-      y: 0.57,
+      y: 0.54,
       z: 1.8,
     },
     rotation: {
@@ -91,7 +91,7 @@ export const ITEMS = [
     scalar: 0.55,
     position: {
       x: 0.35,
-      y: 0.57,
+      y: 0.54,
       z: 1.8,
     },
     rotation: {
@@ -108,7 +108,7 @@ export const ITEMS = [
     scalar: 0.55,
     position: {
       x: -1.6,
-      y: -0.95,
+      y: -0.925,
       z: 1.8,
     },
     rotation: {
@@ -125,7 +125,7 @@ export const ITEMS = [
     scalar: 0.55,
     position: {
       x: -0.6,
-      y: -0.95,
+      y: -0.925,
       z: 1.8,
     },
     rotation: {
@@ -142,7 +142,7 @@ export const ITEMS = [
     scalar: 0.55,
     position: {
       x: 0.35,
-      y: -0.95,
+      y: -0.925,
       z: 1.8,
     },
     rotation: {

@@ -59,7 +59,7 @@ export class Item {
       },
       {
         duration: 2,
-        z: 2.066,
+        z: 2.01,
         onComplete: () => {
           this.drop();
         },
@@ -91,7 +91,13 @@ export class Item {
         onComplete: () => {
           if (typeof window !== 'undefined') {
             setTimeout(() => {
-              window.open(this.itemData.slug, '_blank');
+              const a = document.createElement('a');
+              a.href = this.itemData.slug;
+              a.target = '_blank';
+              a.rel = 'noopener noreferrer';
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
             }, 333);
           }
         },

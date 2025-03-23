@@ -4,7 +4,7 @@ export const COILS = [
     position: {
       x: -1.6,
       y: 1.91,
-      z: 1,
+      z: 0.9,
     },
   },
   {
@@ -12,7 +12,7 @@ export const COILS = [
     position: {
       x: -0.6,
       y: 1.91,
-      z: 1,
+      z: 0.9,
     },
   },
   {
@@ -20,7 +20,7 @@ export const COILS = [
     position: {
       x: 0.4,
       y: 1.91,
-      z: 1,
+      z: 0.9,
     },
   },
   {
@@ -28,7 +28,7 @@ export const COILS = [
     position: {
       x: -1.6,
       y: 0.41,
-      z: 1,
+      z: 0.9,
     },
   },
   {
@@ -36,7 +36,7 @@ export const COILS = [
     position: {
       x: -0.6,
       y: 0.41,
-      z: 1,
+      z: 0.9,
     },
   },
   {
@@ -44,7 +44,7 @@ export const COILS = [
     position: {
       x: 0.4,
       y: 0.41,
-      z: 1,
+      z: 0.9,
     },
   },
   {
@@ -52,7 +52,7 @@ export const COILS = [
     position: {
       x: -1.6,
       y: -1.075,
-      z: 1,
+      z: 0.9,
     },
   },
   {
@@ -60,7 +60,7 @@ export const COILS = [
     position: {
       x: -0.6,
       y: -1.075,
-      z: 1,
+      z: 0.9,
     },
   },
   {
@@ -68,7 +68,7 @@ export const COILS = [
     position: {
       x: 0.4,
       y: -1.075,
-      z: 1,
+      z: 0.9,
     },
   },
 ];

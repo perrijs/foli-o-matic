@@ -7,40 +7,28 @@ import * as spacing from "@/styles/globals/spacing";
 import * as breakpoint from "@/styles/globals/breakpoints";
 
 export const Wrapper = styled(motion.div)`
+  display: flex;
   position: fixed;
   top: 0;
   left: 0;
-  padding: ${spacing.MARGIN_LARGE} ${spacing.MARGIN_LARGEST};
-
   background-color: ${color.PINK};
-
   z-index: 2;
-  width: calc(100% - ${spacing.MARGIN_LARGEST} * 2);
+  width: 100%;
   max-width: 100vw;
   height: 100vh;
   overflow-y: scroll;
   filter: drop-shadow(1px 1px 5px ${color.BLACK});
-
-  @media (max-width: ${breakpoint.MOBILE_MAX}) {
-    padding: ${spacing.MARGIN_SMALL};
-    width: calc(100% - ${spacing.MARGIN_SMALL} * 2);
-  }
 `;
 
-export const CloseButton = styled.button`
-  position: absolute;
-  top: ${spacing.MARGIN_LARGE};
-  right: ${spacing.MARGIN_LARGE};
-  width: 50px;
-  height: 50px;
-
-  z-index: 10;
+export const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+  padding: ${spacing.MARGIN_LARGE} 64px ${spacing.MARGIN_LARGE} ${spacing.MARGIN_LARGE};
 
   @media (max-width: ${breakpoint.MOBILE_MAX}) {
-    position: relative;
-    top: unset;
-    right: unset;
-    margin: 0 0 ${spacing.MARGIN_LARGE} calc(100% - 50px);
+    padding: ${spacing.MARGIN_LARGE} 32px ${spacing.MARGIN_LARGE} ${spacing.MARGIN_LARGE};
   }
 `;
 

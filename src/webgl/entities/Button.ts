@@ -83,13 +83,13 @@ export class Button {
     gsap.fromTo(
       this.mesh.position,
       {
-        z: 2.85,
+        z: 2.866,
       },
       {
         duration: 0.1,
         yoyo: true,
         repeat: 1,
-        z: 2.825,
+        z: 2.833,
       }
     );
   }

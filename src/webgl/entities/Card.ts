@@ -5,6 +5,7 @@ import {
   DoubleSide,
   MeshStandardMaterial,
 } from "three";
+import gsap from "gsap";
 
 import { Scene } from "@/webgl/globals/Scene";
 
@@ -48,5 +49,20 @@ export class Card {
     );
 
     this.scene.add(this.mesh);
+  }
+
+  move() {
+    if(!this.mesh) return;
+
+    gsap.fromTo(
+      this.mesh.position,
+      {
+        z: this.cardData.position.z,
+      },
+      {
+        duration: 2,
+        z: 1.95,
+      }
+    );
   }
 }

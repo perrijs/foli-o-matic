@@ -19,7 +19,7 @@ export interface ButtonData {
 export interface ItemData {
   id: number;
   item_code: string;
-  object: string;
+  src: string;
   scalar: number;
   position: Vec3;
   rotation: Vec3;
@@ -27,6 +27,8 @@ export interface ItemData {
 }
 
 export interface CardData {
+  id: number;
+  item_code: string;
   position: Vec3;
   rotation: Vec3;
 }

@@ -40,15 +40,10 @@ export class Flap {
 
     gsap.to(this.mesh.rotation, {
       delay: 2.5,
-      duration: 0.5,
-      x: 1.5,
-    });
-
-    gsap.to(this.mesh.position, {
-      delay: 2.5,
-      duration: 0.5,
-      y: -1.665,
-      z: 2.25,
+      duration: 0.1,
+      yoyo: true,
+      repeat: 1,
+      x: -0.2,
     });
   }
 

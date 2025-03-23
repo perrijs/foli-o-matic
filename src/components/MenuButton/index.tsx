@@ -10,23 +10,26 @@ interface Props {
 
 const MenuButton = ({ onClick }: Props) => {
   const buttons = useRef<NodeListOf<Element>>();
-  const [buttonInterval, setButtonInterval] =
-    useState<ReturnType<typeof setInterval>>();
+
+  const buttonIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   useEffect(() => {
     buttons.current = document.querySelectorAll(".menu-button");
   }, []);
 
   const handleOnFocus = () => {
-    setButtonInterval(
-      setInterval(() => {
-        highlightButtons();
-      }, 333)
-    );
+    if(buttonIntervalRef.current) return;
+
+    buttonIntervalRef.current = setInterval(() => {
+      highlightButtons();
+    }, 333)
   };
 
   const handleOnBlur = () => {
-    clearInterval(buttonInterval);
+    if(!buttonIntervalRef.current) return;
+    
+    clearInterval(buttonIntervalRef.current);
+    buttonIntervalRef.current = null;
 
     buttons.current?.forEach((button) => {
       button.classList.remove("active");

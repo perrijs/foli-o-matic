@@ -69,7 +69,7 @@ export const CABINET_MESHES = [
     position: {
       x: -0.75,
       y: -2.8,
-      z: 1.49,
+      z: 1.5,
     },
     rotation: {
       x: 0,
@@ -77,7 +77,7 @@ export const CABINET_MESHES = [
       z: 0,
     },
     castShadow: false,
-    color: "#33312e",
+    color: "#fff8e7",
   },
   {
     id: "side_panel_left",

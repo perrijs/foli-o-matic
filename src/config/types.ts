@@ -1,14 +1,10 @@
 export interface SelectedWork {
   id: number;
-  slug: string;
+  href: string;
   code: string;
   name: string;
-  description: string;
   client: string;
   date: string;
-  roles: string[];
-  url?: string;
-  video: string;
 }
 
 export interface OtherWork {

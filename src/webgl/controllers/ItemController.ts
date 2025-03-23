@@ -2,7 +2,6 @@ import { Mesh } from "three";
 import PubSub from "pubsub-js";
 
 import { AssetController } from "@/webgl/controllers/AssetController";
-import { CloneController } from "@/webgl/controllers/CloneController";
 
 import { Scene } from "@/webgl/globals/Scene";
 
@@ -14,7 +13,6 @@ import { GL_SELECT_ITEM } from "@/webgl/config/topics";
 
 export class ItemController {
   assetController = AssetController.getInstance();
-  cloneController = CloneController.getInstance();
   scene = Scene.getInstance();
 
   model?: Mesh;
@@ -28,8 +26,6 @@ export class ItemController {
 
   handleSubscriptions() {
     PubSub.subscribe(GL_SELECT_ITEM, (_topic, data) => {
-      this.cloneController.currentIndex = data;
-
       this.handleMove(_topic, data);
     });
   }

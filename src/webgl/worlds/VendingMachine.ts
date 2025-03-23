@@ -29,7 +29,6 @@ import { AssetController } from "@/webgl/controllers/AssetController";
 import { CoilController } from "@/webgl/controllers/CoilController";
 import { ButtonController } from "@/webgl/controllers/ButtonController";
 import { ItemController } from "@/webgl/controllers/ItemController";
-import { CloneController } from "@/webgl/controllers/CloneController";
 
 import {
   AUDIO_PLAY_EFFECT,
@@ -44,7 +43,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export class VendingMachine {
   assetController = AssetController.getInstance();
-  cloneController = CloneController.getInstance();
   scene = Scene.getInstance();
 
   renderer: Renderer;

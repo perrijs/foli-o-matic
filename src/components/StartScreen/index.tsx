@@ -16,8 +16,12 @@ import {
   LoaderScreen,
   LoaderButton,
   StartButton,
+  HandWrapper,
+  Pocket,
+  CoinWrapper,
 } from "./styles";
 import { AudioEffects, AudioTracks, useAudio } from "@/contexts/audioContext";
+import Image from "next/image";
 
 interface Props {
   handleSetIsStarted: (isStarted: boolean) => void;
@@ -30,9 +34,11 @@ const StartScreen = ({ handleSetIsStarted }: Props) => {
   const screenRef = useRef<HTMLSpanElement | null>(null);
   const [loadBuffer, setLoadBuffer] = useState<boolean>(false);
   const [timer, setTimer] = useState<ReturnType<typeof setInterval>>();
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [isClicked, setIsClicked] = useState<boolean>(false);
 
   useEffect(() => {
-    setTimer(setInterval(() => highlightRandom(), 1000));
+    setTimer(setInterval(() => highlightRandom(), 333));
   }, []);
 
   useEffect(() => {
@@ -120,19 +126,55 @@ const StartScreen = ({ handleSetIsStarted }: Props) => {
               opacity: 1,
               transition: { delay: 3, duration: 1, ease: "linear" },
             }}
+            onMouseEnter={() => {
+              setIsHovered(true);
+            }}
+            onMouseLeave={() => {
+              setIsHovered(false);
+            }}
             onClick={() => {
-              initiateAudio();
-              handleSetIsStarted(true);
-
-              PubSub.publish(AUDIO_PLAY_TRACK, AudioTracks.HUM);
+              setIsClicked(true);
 
               setTimeout(() => {
-                PubSub.publish(GL_ACTIVATE_SCENE);
-                PubSub.publish(AUDIO_PLAY_EFFECT, AudioEffects.CIRCUIT_BREAKER);
-              }, 5000);
+                initiateAudio();
+                handleSetIsStarted(true);
+
+                PubSub.publish(AUDIO_PLAY_TRACK, AudioTracks.HUM);
+
+                setTimeout(() => {
+                  PubSub.publish(GL_ACTIVATE_SCENE);
+                  PubSub.publish(AUDIO_PLAY_EFFECT, AudioEffects.CIRCUIT_BREAKER);
+                }, 3000);
+              }, 1000)
             }}
           >
-            DIG FOR COINS
+            <HandWrapper
+              initial={{
+                rotate: "180deg",
+              }}
+              animate={{
+                y: isClicked ? 0 : isHovered ? 40 : 0,
+                transition: { duration: 0.5, ease: "easeInOut" },
+              }}
+            >
+              <Image
+                src="/images/icons/hand.svg"
+                width="128"
+                height="128"
+                alt=""
+              />
+            </HandWrapper>
+
+            <CoinWrapper
+              animate={{
+                y: isClicked ? 5 : 40,
+                transition: { duration: 0.5, ease: "easeInOut" },
+              }}
+            >
+              $
+            </CoinWrapper>
+
+            <Pocket />
           </StartButton>
         )}
       </AnimatePresence>

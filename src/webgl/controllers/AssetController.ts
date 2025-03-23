@@ -2,19 +2,15 @@ import {
   Texture,
   DataTexture,
   TextureLoader,
-  Group,
   MeshMatcapMaterial,
-  Mesh,
 } from "three";
 import { GLTFLoader, GLTF } from "three/examples/jsm/loaders/GLTFLoader";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
 
-import { applyMatcaps } from "@/webgl/utils/applyMatcaps";
-
 import { AUDIO_FILES } from "@/webgl/config/audio";
 import { MATCAPS } from "@/webgl/config/matcaps";
 import { HDRS } from "@/webgl/config/hdrs";
-import { ITEMS, WRAPPER, COIN, COIL } from "@/webgl/config/items";
+import { WRAPPER, COIN, COIL } from "@/webgl/config/items";
 import { Matcap } from "@/webgl/config/types";
 
 interface AudioBufferObjects {
@@ -32,7 +28,6 @@ export class AssetController {
   audioBuffers?: AudioBufferObjects[] = [];
   matcaps?: Matcap[] = [];
   hdrs?: DataTexture[] = [];
-  models?: Group[] = [];
   coin?: GLTF;
   wrapper?: GLTF;
   coil?: GLTF;
@@ -129,24 +124,5 @@ export class AssetController {
 
     const coin = await Promise.resolve(coinLoader);
     this.coin = coin;
-  }
-
-  async loadModels() {
-    const modelsMap = ITEMS.map(async (item) => {
-      const gltf = await this.loadModel(item.object);
-
-      gltf.scene.traverse((child) => {
-        const mesh = child as Mesh;
-
-        if (this.matcaps) {
-          applyMatcaps(this.matcaps, mesh);
-        }
-      });
-
-      return gltf.scene;
-    });
-
-    const models = await Promise.all(modelsMap);
-    this.models = models;
   }
 }

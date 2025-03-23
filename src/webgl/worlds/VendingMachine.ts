@@ -29,30 +29,20 @@ import { AssetController } from "@/webgl/controllers/AssetController";
 import { CoilController } from "@/webgl/controllers/CoilController";
 import { ButtonController } from "@/webgl/controllers/ButtonController";
 import { ItemController } from "@/webgl/controllers/ItemController";
-import { CloneController } from "@/webgl/controllers/CloneController";
 
 import {
   AUDIO_PLAY_EFFECT,
-  GL_ACTIVATE_FOCUS,
   GL_ACTIVATE_LIGHTS,
   GL_ACTIVATE_SCENE,
-  GL_DEACTIVATE_FOCUS,
   GL_PRESS_KEY,
   GL_SELECT_ITEM,
 } from "@/webgl/config/topics";
-import { TRIGGER_ELEMENTS, SCROLL_HEIGHT } from "@/webgl/config/scrollTriggers";
+import { TRIGGER_ELEMENTS } from "@/webgl/config/scrollTriggers";
 
 gsap.registerPlugin(ScrollTrigger);
 
-//TODO(pschofield): Polish all animation timings.
-//TODO(pschofield): Tidy entire Class. A lot of this logic could be abstracted out into controllers.
-//TODO(pschofield): Tidy all entity/controller classes, file by file.
-//TODO(pschofield): Rename all functions to follow handle/on.
-//TODO(pschofield): Extract all timeout values to config file.
-//TODO(pschofield): Refactor all React Components to be cleaner.
 export class VendingMachine {
   assetController = AssetController.getInstance();
-  cloneController = CloneController.getInstance();
   scene = Scene.getInstance();
 
   renderer: Renderer;
@@ -95,7 +85,7 @@ export class VendingMachine {
     this.keycode = "";
     this.canSelect = false;
     this.canvasParent = canvasParent;
-    this.isMobile = canvasParent.clientWidth < 600;
+    this.isMobile = canvasParent.clientWidth < 768;
 
     this.addEventListeners();
     this.handleSubscriptions();
@@ -129,9 +119,6 @@ export class VendingMachine {
   handleSubscriptions() {
     PubSub.subscribe(GL_ACTIVATE_SCENE, () => this.activateScene());
     PubSub.subscribe(GL_ACTIVATE_LIGHTS, () => this.activateLights());
-
-    PubSub.subscribe(GL_ACTIVATE_FOCUS, () => this.setFocus(true));
-    PubSub.subscribe(GL_DEACTIVATE_FOCUS, () => this.setFocus(false));
   }
 
   init() {
@@ -139,7 +126,7 @@ export class VendingMachine {
     this.camera.setAspectRatio(this.canvasParent);
 
     this.scene.add(this.camera);
-    this.camera.position.set(0, 0, 50);
+    this.camera.position.set(0, 0, this.isMobile ? 55 : 50);
     this.camera.lookAt(0, 0, 0);
 
     this.scene.add(this.ambientLight);
@@ -188,7 +175,7 @@ export class VendingMachine {
 
           const newY = this.coin.mesh.position.y - 0.6;
 
-          this.camera.position.z = this.coin.mesh.position.z + 3;
+          this.camera.position.z = this.isMobile ? this.coin.mesh.position.z + 8 : this.coin.mesh.position.z + 3;
           if (!(newY < 0)) this.camera.position.y = newY;
         },
         onLeave: () => {
@@ -196,7 +183,7 @@ export class VendingMachine {
 
           document.body.style.overflowY = "hidden";
 
-          this.fixCamera(8);
+          this.fixCamera(this.isMobile ? 9.5 : 8.5);
           this.coin.insert();
         },
       },
@@ -226,14 +213,8 @@ export class VendingMachine {
     });
   }
 
-  setFocus(isFocused: boolean) {
-    this.fixCamera(isFocused ? 10 : 8);
-
-    if (isFocused) this.cloneController?.init();
-  }
-
   handleResize() {
-    this.isMobile = this.canvasParent.clientWidth < 600;
+    this.isMobile = this.canvasParent.clientWidth < 768;
 
     this.renderer.setAspectRatio(this.canvasParent);
     this.camera.setAspectRatio(this.canvasParent);
@@ -290,14 +271,18 @@ export class VendingMachine {
   }
 
   handleKeyCode(key: string) {
-    if (!this.itemController || !this.itemController.items) return;
+    if (!this.itemController || !this.itemController.items || !this.itemController.cards) return;
 
     if (key === "C") {
       this.keycode = "";
+
       PubSub.publish(GL_PRESS_KEY, this.keycode);
     } else if (key === "E") {
       const selectedItem = this.itemController.items.find(
         (item) => item.itemData.item_code === this.keycode
+      );
+      const selectedItemCard = this.itemController.cards.find(
+        (item) => item.cardData.item_code === this.keycode
       );
       const alreadySelected =
         selectedItem && this.selectedItems.includes(selectedItem.itemData.id);
@@ -362,7 +347,7 @@ export class VendingMachine {
     this.spotLight.intensity = 0;
     this.directionalLight.intensity = 1;
 
-    document.body.style.backgroundColor = "#ffbfc3";
+    document.body.style.backgroundColor = "#ffbdd8";
   }
 
   render() {

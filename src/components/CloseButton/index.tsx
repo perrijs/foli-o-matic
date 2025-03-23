@@ -1,21 +1,15 @@
-import { GL_DEACTIVATE_FOCUS } from "@/webgl/config/topics";
-import { Wrapper } from "./styles";
+import { CoinSlot, VendingLabel, VendingWrapper } from "./styles";
 
-const CloseButton = () => (
-  <Wrapper
-    onClick={() => PubSub.publish(GL_DEACTIVATE_FOCUS)}
-    initial={{
-      opacity: 0,
-    }}
-    animate={{
-      opacity: 1,
-      transition: { duration: 1 },
-    }}
-    exit={{
-      opacity: 0,
-      transition: { duration: 1 },
-    }}
-  />
+type CloseButtonProps = {
+  onClick: () => void;
+};
+
+const CloseButton = ({onClick}: CloseButtonProps) => (
+  <VendingWrapper onClick={onClick}>
+    <VendingLabel>INSERT COIN</VendingLabel>
+
+    <CoinSlot />
+  </VendingWrapper>
 );
 
 export default CloseButton;

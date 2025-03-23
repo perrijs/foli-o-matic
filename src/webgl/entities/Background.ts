@@ -3,22 +3,15 @@ import gsap from "gsap";
 
 import { Scene } from "@/webgl/globals/Scene";
 
-import { GL_ACTIVATE_FOCUS, GL_DEACTIVATE_FOCUS } from "@/webgl/config/topics";
-
 export class Background {
   scene = Scene.getInstance();
 
   mesh?: Mesh;
 
   constructor() {
-    this.handleSubscriptions();
     this.init();
   }
 
-  handleSubscriptions() {
-    PubSub.subscribe(GL_ACTIVATE_FOCUS, () => this.display(true));
-    PubSub.subscribe(GL_DEACTIVATE_FOCUS, () => this.display(false));
-  }
 
   init() {
     const geometry = new PlaneGeometry(1000, 1000);

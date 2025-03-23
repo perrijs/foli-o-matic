@@ -51,7 +51,7 @@ export const COILS = [
     id: 6,
     position: {
       x: -1.6,
-      y: -0.95,
+      y: -1.075,
       z: 1,
     },
   },
@@ -59,7 +59,7 @@ export const COILS = [
     id: 7,
     position: {
       x: -0.6,
-      y: -0.95,
+      y: -1.075,
       z: 1,
     },
   },
@@ -67,7 +67,7 @@ export const COILS = [
     id: 8,
     position: {
       x: 0.4,
-      y: -0.95,
+      y: -1.075,
       z: 1,
     },
   },

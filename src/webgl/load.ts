@@ -16,7 +16,6 @@ export class Load {
     await this.assetController.loadCoin();
     await this.assetController.loadWrapper();
     await this.assetController.loadCoil();
-    await this.assetController.loadModels();
 
     PubSub.publish(LOAD_COMPLETE);
   }

@@ -2,19 +2,38 @@ import { useEffect, useRef, useState } from "react";
 
 import { BUTTONS } from "src/config/buttons";
 
-import { Button, MenuWrapper, MachineScreen } from "./styles";
+import { Wrapper, MachineScreen, MachineButton } from "./styles";
 
-const MenuButton = () => {
+interface Props {
+  onClick: () => void;
+}
+
+const MenuButton = ({ onClick }: Props) => {
   const buttons = useRef<NodeListOf<Element>>();
-  const [buttonInterval, setButtonInterval] =
-    useState<ReturnType<typeof setInterval>>();
+
+  const buttonIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   useEffect(() => {
-    buttons.current = document.querySelectorAll(".menuButton");
+    buttons.current = document.querySelectorAll(".menu-button");
   }, []);
 
-  const openMenu = () => {
-    //TODO(pschofield): Open Collection component overlay.
+  const handleOnFocus = () => {
+    if(buttonIntervalRef.current) return;
+
+    buttonIntervalRef.current = setInterval(() => {
+      highlightButtons();
+    }, 333)
+  };
+
+  const handleOnBlur = () => {
+    if(!buttonIntervalRef.current) return;
+    
+    clearInterval(buttonIntervalRef.current);
+    buttonIntervalRef.current = null;
+
+    buttons.current?.forEach((button) => {
+      button.classList.remove("active");
+    });
   };
 
   const highlightButtons = () => {
@@ -31,7 +50,8 @@ const MenuButton = () => {
   };
 
   return (
-    <MenuWrapper
+    <Wrapper
+      key="menu-button"
       initial={{
         opacity: 0,
       }}
@@ -43,33 +63,22 @@ const MenuButton = () => {
         opacity: 0,
         transition: { duration: 1, ease: "linear" },
       }}
-      onClick={openMenu}
-      onMouseEnter={() => {
-        setButtonInterval(
-          setInterval(() => {
-            highlightButtons();
-          }, 333)
-        );
-      }}
-      onMouseLeave={() => {
-        clearInterval(buttonInterval);
-
-        const buttons = document.querySelectorAll(".menuButton");
-        buttons.forEach((button) => {
-          button.classList.remove("active");
-        });
-      }}
+      onClick={onClick}
+      onMouseEnter={() => handleOnFocus()}
+      onFocus={() => handleOnFocus()}
+      onBlur={() => handleOnBlur()}
+      onMouseLeave={() => handleOnBlur()}
     >
       <MachineScreen>
         <span>BROWSE...</span>
       </MachineScreen>
 
       {BUTTONS.map((button) => (
-        <Button key={button} className="menuButton">
+        <MachineButton key={button} className={"menu-button"}>
           {button}
-        </Button>
+        </MachineButton>
       ))}
-    </MenuWrapper>
+    </Wrapper>
   );
 };
 

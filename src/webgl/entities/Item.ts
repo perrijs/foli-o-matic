@@ -5,7 +5,7 @@ import { AudioEffects } from "@/contexts/audioContext";
 
 import { Scene } from "@/webgl/globals/Scene";
 
-import { AUDIO_PLAY_EFFECT } from "@/webgl/config/topics";
+import { AUDIO_PLAY_EFFECT, UI_SET_ITEM } from "@/webgl/config/topics";
 import { ItemData } from "@/webgl/config/types";
 
 export class Item {
@@ -59,7 +59,7 @@ export class Item {
       },
       {
         duration: 2,
-        z: 2.01,
+        z: 2.02,
         onComplete: () => {
           this.drop();
         },
@@ -89,17 +89,7 @@ export class Item {
           }
         },
         onComplete: () => {
-          if (typeof window !== 'undefined') {
-            setTimeout(() => {
-              const a = document.createElement('a');
-              a.href = this.itemData.slug;
-              a.target = '_blank';
-              a.rel = 'noopener noreferrer';
-              document.body.appendChild(a);
-              a.click();
-              document.body.removeChild(a);
-            }, 333);
-          }
+          PubSub.publish(UI_SET_ITEM, this.itemData.id);
         },
       }
     );
